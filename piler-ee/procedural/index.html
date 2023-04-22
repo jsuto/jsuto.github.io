@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    <link rel="canonical" href="https://jsuto.github.io/piler-ee/procedural/">
+    <link rel="shortcut icon" href="../img/favicon.ico">
+
+    
+    <title>Procedural documentation of piler enterprise edition - piler enterprise documentation</title>
+    
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/v4-shims.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.min.css">
+    <link href='//rsms.me/inter/inter.css' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
+    <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
+    <link href="../css/base.min.css" rel="stylesheet">
+    <link href="../css/cinder.min.css" rel="stylesheet">
+
+    
+        
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/styles/github.min.css">
+        
+    
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+            <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+        <![endif]-->
+
+    
+
+     
+</head>
+
+<body>
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+
+            <!-- Main title -->
+
+            
+              <a class="navbar-brand" href="..">piler enterprise documentation</a>
+            
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+
+            <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                            <i class="fas fa-search"></i> Search
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+    <div class="container">
+        
+        
+        <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="first-level active"><a href="#procedural-documentation-of-piler-enterprise-edition">Procedural documentation of piler enterprise edition</a></li>
+            <li class="second-level"><a href="#whats-piler-enterprise">What’s piler enterprise?</a></li>
+                
+            <li class="second-level"><a href="#receiving-emails">Receiving emails</a></li>
+                
+            <li class="second-level"><a href="#processing-emails">Processing emails</a></li>
+                
+                <li class="third-level"><a href="#parsing-the-email">Parsing the email</a></li>
+                <li class="third-level"><a href="#single-instance-copy">Single instance copy</a></li>
+                <li class="third-level"><a href="#storing-emails-and-attachments">Storing emails and attachments</a></li>
+            <li class="second-level"><a href="#indexing-emails">Indexing emails</a></li>
+                
+            <li class="second-level"><a href="#rules">Rules</a></li>
+                
+                <li class="third-level"><a href="#exclusion-rules-formely-archiving-rules">Exclusion rules (formely archiving rules)</a></li>
+                <li class="third-level"><a href="#retention-rules">Retention rules</a></li>
+            <li class="second-level"><a href="#data-integrity">Data integrity</a></li>
+                
+            <li class="second-level"><a href="#purging-emails">Purging emails</a></li>
+                
+            <li class="second-level"><a href="#authentication">Authentication</a></li>
+                
+            <li class="second-level"><a href="#accessing-the-emails">Accessing the emails</a></li>
+                
+            <li class="second-level"><a href="#additional-notes-on-the-gui">Additional notes on the GUI</a></li>
+                
+            <li class="second-level"><a href="#auditing">Auditing</a></li>
+                
+            <li class="second-level"><a href="#gdpr-related-notes">GDPR related notes</a></li>
+                
+            <li class="second-level"><a href="#disaster-recovery">Disaster recovery</a></li>
+                
+            <li class="second-level"><a href="#the-legal-framework">The legal framework</a></li>
+                
+    </ul>
+</div></div>
+        <div class="col-md-9" role="main">
+
+<h1 id="procedural-documentation-of-piler-enterprise-edition">Procedural documentation of piler enterprise edition<a class="headerlink" href="#procedural-documentation-of-piler-enterprise-edition" title="Permanent link">#</a></h1>
+<p>This documentation applies to Piler enterprise edition 1.7.2</p>
+<p>Revision #2</p>
+<p>Publication date: Apr 22, 2023</p>
+<h2 id="whats-piler-enterprise">What’s piler enterprise?<a class="headerlink" href="#whats-piler-enterprise" title="Permanent link">#</a></h2>
+<p><a href="https://mailpiler.com">Piler enterprise</a> is an email archiving product.
+This document also applies to the <a href="http://www.mailpiler.org">open source edition</a>.</p>
+<h2 id="receiving-emails">Receiving emails<a class="headerlink" href="#receiving-emails" title="Permanent link">#</a></h2>
+<p>Piler receives emails via the smtp protocol. The piler-smtp daemon listens on port 25 by default
+(it’s a configurable value) and accepts all emails from any remote smtp client that is able to reach port 25.</p>
+<p>You may use the smtp acl feature or appropriate firewall rules to ensure no malicious host can send emails to the archive.</p>
+<p>Note that even though the piler-smtp daemon accepts all connections on its own, it’s not an open relay.
+It only receives emails, but doesn’t send any.</p>
+<p>Piler-smtp syslogs a variable amount of data of the smtp transaction, eg. remote host IP address, date and time,
+envelope sender, message size and a unique ID assigned to the smtp transaction.</p>
+<p>Some typical syslog entries for an smtp transaction (the open source edition doesn’t have the customer label):</p>
+<pre><code>Apr 18 07:45:08 myarchive piler-smtp[481]: connected from 172.21.0.8:40910 on fd=7 (active connections: 2)
+Apr 18 07:45:08 myarchive piler-smtp[481]: received: 06L4YG5CJVVYXVK0, customer=aaa, from=sender@aaa.fu, size=29083, client=172.21.0.8, fd=7
+Apr 18 07:45:08 myarchive piler-smtp[481]: disconnected from 172.21.0.8 on fd=7, reason=finished (3 active connections)
+</code></pre>
+<p>Note that a more verbose logging is possible by increasing the verbosity value in piler.conf</p>
+<p>During the smtp transaction the piler-smtp daemon writes the email to a temporary file in /var/piler/tmp directory.
+The file name is the same as the internal id (<code>06L4YG5CJVVYXVK0</code> in the above example). Both the directory and
+the file permissions allow only the user piler to have access to this file. (Note that the root user explicitly has
+access to the whole system).</p>
+<p>After safely writing the email to the disk the piler-smtp daemon sends back the internal ID to the smtp client with
+the 250 OK reply, eg. <code>250 OK &lt;06L4YG5CJVVYXVK0&gt;</code>.</p>
+<p>If there’s an error during the smtp transaction, then the piler-smtp daemon returns an appropriate error code to the
+smtp client and syslogs the issue thus making sure no email is lost.</p>
+<p>The piler-smtp daemon supports the STARTTLS SMTP extension to encrypt emails while transmitted over the network.</p>
+<h2 id="processing-emails">Processing emails<a class="headerlink" href="#processing-emails" title="Permanent link">#</a></h2>
+<p>The piler-smtp daemon drops new emails inside the piler tmp folder (/var/piler/tmp). The piler daemon reads this
+directory for new emails, and processes them as soon as possible. After processing a new email, its temporary file
+is removed from disk.</p>
+<h3 id="parsing-the-email">Parsing the email<a class="headerlink" href="#parsing-the-email" title="Permanent link">#</a></h3>
+<p>Piler parses the email, and extracts its metadata, eg. sender, recipients, date, size, message id, etc. as well as
+the attachment metadata (eg. filename, size, etc). All metadata is written to the piler mysql database.</p>
+<h3 id="single-instance-copy">Single instance copy<a class="headerlink" href="#single-instance-copy" title="Permanent link">#</a></h3>
+<p>Piler stores an email in a single copy only, even if it’s sent to the archive several times. According to RFC 2822
+“every message SHOULD have a "Message-ID:" field.”. The Message-ID header is important for piler. Because it’s a
+unique value for every sent email, piler uses this information to determine if the message is duplicate, ie. whether
+it’s already stored in the archive. If that’s the case, then piler discards the duplicated email and syslogs that
+it’s a duplicate.</p>
+<p>Piler also deduplicates the attachments. To do so it extracts the attachment from the email body,  and stores it
+separately. The email is reassembled transparently before presenting it to the user. Eg. if the employees of a
+company send the company logo in their signatures, then the company logo is stored only in one copy in the archive.</p>
+<h3 id="storing-emails-and-attachments">Storing emails and attachments<a class="headerlink" href="#storing-emails-and-attachments" title="Permanent link">#</a></h3>
+<p>To save even more disk space, piler compresses each stored file (both emails and attachments) using zlib.
+After compressing the files they are also encrypted using the AES-256 algorithm. The encryption key is
+accessible only by user piler. Without the encryption key even a privileged user is not able to retrieve
+the contents of the emails.</p>
+<p>Note that piler can put emails and attachments to an S3 compatible object store. When doing so only the
+encrypted data is sent to the S3 object store.</p>
+<p>Other than the compression and encryption no format transformation is applied, eg. a Word document is not
+converted to a text or PDF file. Attachments are stored in their original format. Also there’s no encoding
+transformation, eg. a base64 encoded attachment is stored as base64 encoded.</p>
+<p>After storing the email and its attachments any temporary files are removed. In case of any internal error
+the temporary file piler-smtp created is saved to the error directory (/var/piler/error) for later inspection.
+The GUI displays the number of error emails for administrators.</p>
+<p>Piler also syslogs the result of its action. The status can be ‘stored’, ‘discarded’, ‘duplicate’ or ‘error’.
+The log entry for a successfully stored message:</p>
+<pre><code>Apr 13 18:11:36 a455f3977b50 piler[836]: 1/aaa-ABFPBO56SDC73TB6: 400000005e9ab00e034d67d400832338dd28, size=29080/12352, attachments=2, reference=, message-id=&lt;6YLOQLOLF7R07WVJE1FS64QTW1U7FF5OMM0Y67XE@myhost.aaa.fu&gt;, retention=2557, delay=0.04, delays=0.01/0.01/0.00/0.00/0.02/0.00, status=stored
+</code></pre>
+<h2 id="indexing-emails">Indexing emails<a class="headerlink" href="#indexing-emails" title="Permanent link">#</a></h2>
+<p>Piler relies on a 3rd party software (<a href="https://manticoresearch.com/">manticore</a> or <a href="https://sphinxsearch.com/">sphinx search</a>)
+to provide a searchable archive. The parser extracts the textual information of the email including the
+attachments, and some information from the email headers, eg. subject, sender, recipients, date and the
+message id. The textual data to be indexed are written to a mysql table (sph_index).</p>
+<p>The sphinx indexer is called periodically to read the sph_index table, and updates the sphinx index files.
+After processing the sph_index table the indexer removes all processed rows from the table. The cleartext
+data stays in the sph_index table for up to 30 minutes.</p>
+<p>The index data directories have 0700 permissions to make sure only the piler user can access the index data.
+Note that the data in the mysql tables and in the sphinx database are not encrypted.</p>
+<p>Starting from version 1.7.2, piler supports manticore realtime (rt) indexes as well. In that case the index
+data is written to the manticore daemon directly.</p>
+<h2 id="rules">Rules<a class="headerlink" href="#rules" title="Permanent link">#</a></h2>
+<h3 id="exclusion-rules-formely-archiving-rules">Exclusion rules (formely archiving rules)<a class="headerlink" href="#exclusion-rules-formely-archiving-rules" title="Permanent link">#</a></h3>
+<p>Administrators may set up rules to discard specific emails based on subject, size, sender, recipient, etc.
+After parsing the email, piler iterates over the exclusion rules, and checks if the given message matches
+any of them. If so, then piler discards the email, and syslogs the event as well as the matching policy rule, eg.</p>
+<pre><code>Apr 18 07:43:41 myarchive piler[836]: 1/aaa-S22SZU3URP71GW9T: discarding: archiving policy: *customer=fictive,domain=,from=newsletters@aaa.fu,to=,subject=,body=,size0,att.name=,att.type=,att.size0,spam=-1,days=0*
+Apr 18 07:43:41 myarchive piler[836]: 1/aaa-S22SZU3URP71GW9T: 400000005e9aafb70dd6464400fe5a46aa1d, size=110529/0, attachments=1, reference=, message-id=&lt;20151120041635.1D16E68BB67DD947@aaa.fu&gt;, retention=0, delay=0.00, delays=0.00/0.00/0.00/0.00/0.00/0.00, status=discarded
+</code></pre>
+<h3 id="retention-rules">Retention rules<a class="headerlink" href="#retention-rules" title="Permanent link">#</a></h3>
+<p>Piler assigns a retention value to each archived message when the message is being stored. The retention timestamp
+is stored in the metadata table. The default value is set in the default_retention_days parameter in piler.conf.
+However this value can be overridden by using the retention rules.</p>
+<p>It’s important to know that if you changed the retention value either in the piler config file or in the retention
+rules it wouldn’t affect the retention values of the already stored messages. The new retention values would apply
+to new messages only.</p>
+<p>The calculated retention value (in days) is also syslogged.</p>
+<p>Administrators should follow both company and industry standards when setting the retention policy for the archive.</p>
+<h2 id="data-integrity">Data integrity<a class="headerlink" href="#data-integrity" title="Permanent link">#</a></h2>
+<p>Besides the AES-256 encryption the file and directory permissions ensure that only the user piler can access the
+stored emails and attachments.</p>
+<p>Also while storing the emails and files an SHA256 hash value is computed and stored for the given message and its
+attachments. When the email is retrieved from the archive its SHA256 hash value is computed then compared against
+the stored hash value in the mysql database. If they don’t match, then the fact that the retrieved message is not
+the same that was stored is displayed to the end user.</p>
+<p>Piler stores various timestamps in the metadata table, eg. when the message was sent, when it arrived and was
+archived, as well as the retention time.</p>
+<p>Note that piler enterprise doesn’t allow any user including the administrators to alter any archived message.</p>
+<h2 id="purging-emails">Purging emails<a class="headerlink" href="#purging-emails" title="Permanent link">#</a></h2>
+<p>Piler retains messages until their retention value expires. Piler runs a daily task to get rid of aged or otherwise
+unwanted emails (see the GDPR related notes below).</p>
+<p>The purge tool queries the metadata table to find out what emails to remove from the archive based on their retention
+timestamp. Then it physically removes them from the system, and updates the ‘deleted’ column in the metadata. The
+‘deleted’ column instructs sphinx search to exclude the deleted emails from any search results. When using realtime
+index, then the email is deleted from manticore's own database.</p>
+<p>Note that if the attachment in the email to be removed is present in other emails, too, then the given attachment is
+not removed to ensure the integrity of the remaining emails.</p>
+<p>Also there might be cases when you want to preserve someone’s all emails even if some of their emails’ retention is
+expired. To do so administrators may add those email addresses to the legal hold table on the GUI, and the purging
+tool will exclude such emails no matter if the user’s emails are expired or not.</p>
+<h2 id="authentication">Authentication<a class="headerlink" href="#authentication" title="Permanent link">#</a></h2>
+<p>The gui allows access to emails only after authentication. The archive administrator may set up several authentication
+methods, eg. local database, LDAP, Active Directory, Azure AD, Single Sign-On (SSO), etc. Two factor authentication is
+also supported to enhance security. In that case the recovery codes are stored in the piler mysql database.</p>
+<p>All login attempts are syslogged. Bellow is a successful login against an LDAP database:</p>
+<pre><code>Apr 18 10:31:50 myarchive piler-webui[432]: ldap query: base dn='ou=usersF,dc=nodomain', filter='(&amp;(objectClass=inetOrgPerson)(mail=jim@fictive.com))', attr='', 1 hits
+Apr 18 10:31:50 myarchive piler-webui[432]: ldap auth against 'ldap.fictive.com', dn: 'cn=Jim Jones,ou=usersF,dc=nodomain', result: 1
+Apr 18 10:31:50 myarchive piler-webui[432]: ldap query: base dn='ou=usersF,dc=nodomain', filter='(|(&amp;(objectClass=inetOrgPerson)(mail=jim@fictive.com))(&amp;(objectClass=posixGroup)(memberuid=jim@fictive.com))(&amp;(objectClass=posixGroup)(memberuid=cn=Jim Jones,ou=usersF,dc=nodomain)))', attr='', 2 hits
+Apr 18 10:31:50 myarchive piler-webui[432]: ldap auth result against ldap.fictive.com / generic_ldap: 1
+Apr 18 10:31:50 myarchive piler-webui[432]: username=jim@fictive.com, customer=fictive, event='logged in', ip=172.20.0.1
+</code></pre>
+<p>This is a failed login attempt:</p>
+<pre><code>Apr 18 10:38:07 myarchive piler-webui[431]: ldap query: base dn='ou=usersF,dc=nodomain', filter='(&amp;(objectClass=inetOrgPerson)(mail=jim@fictive.com))', attr='', 1 hits
+Apr 18 10:38:07 myarchive piler-webui[431]: ldap auth against 'ldap.fictive.com', dn: 'cn=Jim Jones,ou=usersF,dc=nodomain', result: 0
+Apr 18 10:38:07 myarchive piler-webui[431]: ldap auth result against ldap.fictive.com / generic_ldap: 0
+Apr 18 10:38:09 myarchive piler-webui[431]: username=jim@fictive.com, customer=fictive, event='login failed', ip=172.20.0.1
+</code></pre>
+<p>The GUI supports CAPTCHA to slow down a brute force login attack. Also single sign-on (SSO) is supported for passwordless access.</p>
+<h2 id="accessing-the-emails">Accessing the emails<a class="headerlink" href="#accessing-the-emails" title="Permanent link">#</a></h2>
+<p>Piler provides a web based GUI to users accessing their emails. The sphinx search engine provides the search results in seconds,
+provided it’s allocated enough resources to serve requests.</p>
+<p>To ensure maximum security administrators should set up TLS for the virtual host serving the archive. They may also apply other
+restrictions to the GUI, eg. limit the access to a range of IP-addresses only.</p>
+<p>The GUI has a built-in access control to prevent a regular user from accessing others' messages. Auditors can see every archived
+email within the same organization. If such a user is not needed, then remove this user. From version 1.4.9 there’s no default
+auditor user that was created at the installation of the archive.</p>
+<p>Note that administrators may create groups in the piler GUI. The groups can be used to grant access to emails belonging to other
+email addresses. A typical usage of groups is to provide access to emails sent to a mailing list or distribution list address.</p>
+<p>Users may perform arbitrary search queries, however a filter is applied to the search query automatically by the GUI to limit
+access to their own emails only. This filter is compiled from the given user’s email addresses. All search queries are logged
+to syslog, eg.</p>
+<pre><code>Apr 18 10:51:42 myarchive piler-webui[433]: sphinx query: 'SELECT id FROM fictive_main1,fictive_dailydelta1,fictive_delta1 WHERE MATCH(' (@from jimXfictiveXcom | @to jimXfictiveXcom) ') ORDER BY `sent` DESC LIMIT 0,20 OPTION max_matches=1000' in 0.00 s, 15 hits, 15 total found
+</code></pre>
+<h2 id="additional-notes-on-the-gui">Additional notes on the GUI<a class="headerlink" href="#additional-notes-on-the-gui" title="Permanent link">#</a></h2>
+<p>A user may assign tags and notes to their own emails. These metadata are stored in the mysql database, and also indexed
+and then can be searched. Each user can search and see his own tags and notes only.</p>
+<p>Users can save search queries. The saved queries are stored in mysql database and in memcached if memcached support is enabled.</p>
+<p>The administrator account (eg. admin@local) is used only to administer piler. It's not a super powerful account to see
+anyone's emails that's why an admin user can't see the search menu at all.</p>
+<p>The administrator role may see system statistics, accounting summary, edit user / group settings, policies, see audit logs, etc.</p>
+<p>Users are able to restore their own emails to their own mailboxes. To do so the GUI restores the selected emails by sending
+them to the smarthost. Currently this traffic is not encrypted, however administrators may deploy a local smtp relay on the
+localhost, then use 127.0.0.1 as the smarthost, so the restored email won’t leave the archive host in cleartext, provided
+that the smarthost is configured to send using encryption.</p>
+<p>Users may download their emails in a zip or eml file. These files are created in /var/piler/www/tmp directory during the
+process, and removed immediately after sent to the user for download. These zip and eml files are not encrypted.</p>
+<h2 id="auditing">Auditing<a class="headerlink" href="#auditing" title="Permanent link">#</a></h2>
+<p>The GUI keeps track of what users do and when they do. Every user's action involves an audit record that the gui stores
+in the audit mysql table creating an audit trail of every user activity, eg. searching for some messages, viewing a message,
+downloading another one, etc. Also the GUI logs when a user logs in or logs out.</p>
+<p>The following information is logged:</p>
+<ul>
+<li>timestamp</li>
+<li>username (email)</li>
+<li>action (eg. view, search, download)</li>
+<li>IP-address</li>
+<li>message serial number – if there’s any</li>
+<li>optional description</li>
+</ul>
+<p>Administrators and auditors are able to search within the audit logs, and even export the audit trail as a CSV file.</p>
+<p>Auditing is enabled by default, however administrators may turn it off if it’s not necessary.</p>
+<h2 id="gdpr-related-notes">GDPR related notes<a class="headerlink" href="#gdpr-related-notes" title="Permanent link">#</a></h2>
+<p>Piler can be configured by setting ENABLE_DELETE flag in the config-site.php file to allow auditors to remove certain
+emails from the archive, eg. when a user receives an email with sensitive personal data.</p>
+<p>If the Data Officer feature is also enabled, then auditors may only mark messages for removal, and the data officer
+must either to accept the removal request, and delete the given message or to reject the removal request.</p>
+<p>An auditor must provide a short explanation, a reason why he wants the given message to be removed. Also the data
+officer must provide the rejection reason if he rejects the removal. Both actions are logged to the mysql database
+table called “deleted”. Note that the data officer has permissions to see any email marked for removal before he
+removes the message to ensure it’s a valid request.</p>
+<p>If the message is removed in the GUI, then it gets grayed out and visually displays the fact. However, the message
+is still in the archive. Only the purge utility removes the stored message and its attachments physically from the
+disk. See the notes for purging emails above for more.</p>
+<h2 id="disaster-recovery">Disaster recovery<a class="headerlink" href="#disaster-recovery" title="Permanent link">#</a></h2>
+<p>It’s the archive administrators liability to perform regular backups of the archived data in a safe manner following
+the regulations of both the company and the relevant industry.</p>
+<h2 id="the-legal-framework">The legal framework<a class="headerlink" href="#the-legal-framework" title="Permanent link">#</a></h2>
+<p>The legal basis for mail archiving varies from country to country and from industry to industry. Please consult with
+your attorney if you are subject to a mandatory email archiving.</p>
+<p>You may find some laws, acts and regulations below demanding for an audit-proof email archive.</p>
+<ul>
+<li>Commercial Code (HGB) §§238, 239, 257</li>
+<li>Tax Code (AO) §147</li>
+<li>Principles for data access and the verifiability of digital documents (GDPdU)</li>
+<li>Principles of proper DV-based memory accounting (GoBS)</li>
+<li>Sales tax law (UStG)</li>
+<li>Federal and state data protection laws (BDSG, LDSG)</li>
+<li>Signature Act §15</li>
+<li>Law on control and transparency in the company (KonTraG)</li>
+<li>Sarbanes-Oxley Act (SOX)</li>
+<li>Federal Rules of Civil Procedure (FRCP)</li>
+<li>Basel II directive</li>
+</ul></div>
+        
+        
+    </div>
+
+    
+      <footer class="col-md-12 text-center">
+          
+          
+            <hr>
+            <p>
+            <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</small>
+            </p>
+          
+
+          
+          
+      </footer>
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="../js/bootstrap-3.0.3.min.js"></script>
+
+    
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/highlight.min.js"></script>
+        
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+
+    <script>var base_url = ".."</script>
+    
+    <script src="../js/base.js"></script>
+    <script src="../search/main.js"></script>
+
+    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+    </body>
+
+</html>
