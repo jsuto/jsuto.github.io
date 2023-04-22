@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    <link rel="canonical" href="https://jsuto.github.io/piler-ee/installation/">
+    <link rel="shortcut icon" href="../img/favicon.ico">
+
+    
+    <title>Installing piler enterprise edition - piler enterprise documentation</title>
+    
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/v4-shims.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.min.css">
+    <link href='//rsms.me/inter/inter.css' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
+    <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
+    <link href="../css/base.min.css" rel="stylesheet">
+    <link href="../css/cinder.min.css" rel="stylesheet">
+
+    
+        
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/styles/github.min.css">
+        
+    
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+            <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+        <![endif]-->
+
+    
+
+     
+</head>
+
+<body>
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+
+            <!-- Main title -->
+
+            
+              <a class="navbar-brand" href="..">piler enterprise documentation</a>
+            
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+
+            <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                            <i class="fas fa-search"></i> Search
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+    <div class="container">
+        
+        
+        <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="first-level active"><a href="#installing-piler-enterprise-edition">Installing piler enterprise edition</a></li>
+            <li class="second-level"><a href="#piler-architecture-overview">Piler architecture overview</a></li>
+                
+                <li class="third-level"><a href="#single-node-layout">Single node layout</a></li>
+                <li class="third-level"><a href="#multiple-nodes-layout">Multiple nodes layout</a></li>
+                <li class="third-level"><a href="#platform-requirements">Platform requirements</a></li>
+                <li class="third-level"><a href="#hardware-requirements">Hardware requirements</a></li>
+                <li class="third-level"><a href="#disk-sizing-guide">Disk sizing guide</a></li>
+            <li class="second-level"><a href="#installing-piler-single-node-layout">Installing Piler (single node layout)</a></li>
+                
+                <li class="third-level"><a href="#prerequisites">Prerequisites</a></li>
+                <li class="third-level"><a href="#installing-piler">Installing piler</a></li>
+            <li class="second-level"><a href="#installing-piler-multiple-nodes-layout">Installing Piler (multiple nodes layout)</a></li>
+                
+                <li class="third-level"><a href="#prerequisites_1">Prerequisites</a></li>
+                <li class="third-level"><a href="#installing-the-worker-nodes">Installing the worker nodes</a></li>
+                <li class="third-level"><a href="#installing-the-gui-node">Installing the GUI node</a></li>
+                <li class="third-level"><a href="#centos-9-specific-notes">Centos 9 specific notes</a></li>
+                <li class="third-level"><a href="#self-signed-certificate">Self signed certificate</a></li>
+            <li class="second-level"><a href="#configuring-the-smtp-gateway">Configuring the SMTP gateway</a></li>
+                
+                <li class="third-level"><a href="#setting-up-the-outer-instance">Setting up the outer instance</a></li>
+                <li class="third-level"><a href="#setting-up-the-internal-instance">Setting up the internal instance</a></li>
+            <li class="second-level"><a href="#s3-object-store">S3 object store</a></li>
+                
+            <li class="second-level"><a href="#mysql-settings">MySQL settings</a></li>
+                
+            <li class="second-level"><a href="#security-considerations">Security considerations</a></li>
+                
+                <li class="third-level"><a href="#multiple-nodes-layout_1">Multiple nodes layout</a></li>
+                <li class="third-level"><a href="#single-node-layout_1">Single node layout</a></li>
+                <li class="third-level"><a href="#starttls-support">STARTTLS support</a></li>
+                <li class="third-level"><a href="#smtp-acl-lists">SMTP ACL lists</a></li>
+                <li class="third-level"><a href="#antivirus-and-antispam-support">Antivirus and antispam support</a></li>
+    </ul>
+</div></div>
+        <div class="col-md-9" role="main">
+
+<h1 id="installing-piler-enterprise-edition">Installing piler enterprise edition<a class="headerlink" href="#installing-piler-enterprise-edition" title="Permanent link">#</a></h1>
+<p>This documentation applies to Piler enterprise edition 1.7.2</p>
+<p>Revision #1</p>
+<p>Publication date: Apr 20, 2023</p>
+<h2 id="piler-architecture-overview">Piler architecture overview<a class="headerlink" href="#piler-architecture-overview" title="Permanent link">#</a></h2>
+<p>Piler is flexible enough to support several configurations and layouts. Use one of the following layouts matching your environment.</p>
+<h3 id="single-node-layout">Single node layout<a class="headerlink" href="#single-node-layout" title="Permanent link">#</a></h3>
+<p><img alt="" src="../images/single-node.png" /></p>
+<p>Figure 1. Single node installation</p>
+<p>This is the simplest layout, when you have a single node running piler enterprise. It allows you to start small, and expand later as you grow.</p>
+<p>Piler receives the emails directly, and archives them. The Piler node also runs the GUI.
+To restore the emails it uses the smtp smarthost (smtp.aaa.fu) to deliver emails to the users’ mailboxes.</p>
+<p>The layout doesn’t include any firewalls, however you are encouraged to use a firewall, etc. to secure the Piler network.</p>
+<h3 id="multiple-nodes-layout">Multiple nodes layout<a class="headerlink" href="#multiple-nodes-layout" title="Permanent link">#</a></h3>
+<p><img alt="" src="../images/multiple-nodes.png" /></p>
+<p>Figure 2. Multiple nodes layout</p>
+<p>A typical installation may consist of two (or more) piler nodes (worker0 and worker1 in the example), an SMTP gateway, and a GUI node.</p>
+<p><strong>SMTP gateway</strong>: receives emails from customer SMTP servers, and acts as a smarthost forwarding the restored emails to the customer SMTP servers.</p>
+<p><strong>Worker nodes</strong>: runs the Piler daemon, archiving incoming emails. Requires a valid license.</p>
+<p><strong>GUI node</strong>: runs the Piler gui allowing the customers to view their emails. You may have more GUI nodes for larger installations, however in this case make sure that all GUI nodes use the same MySQL server. Doesn't require a license.</p>
+<p>The emails from customer SMTP servers are received by the SMTP gateway which relays them to one of the worker nodes based on your preferences. The GUI node runs the piler gui allowing the customers to view their emails. The SMTP gateway should act as a smarthost and forward the restored emails to the customer SMTP servers.</p>
+<p>The layout doesn’t include any firewalls, however you are encouraged to use a firewall, etc. to secure the piler network.</p>
+<h3 id="platform-requirements">Platform requirements<a class="headerlink" href="#platform-requirements" title="Permanent link">#</a></h3>
+<p>Piler enterprise supports Ubuntu 22.04 LTS (Jammy) x64 and Centos 9 x64</p>
+<h3 id="hardware-requirements">Hardware requirements<a class="headerlink" href="#hardware-requirements" title="Permanent link">#</a></h3>
+<p>Piler can be installed on physical hardware, virtual machine (VMware, etc), in the cloud (AWS, etc) or in a Docker container. Piler requires:</p>
+<ul>
+<li>2+ GB memory</li>
+<li>2+ (v)CPU</li>
+<li>200+ GB disk space</li>
+</ul>
+<p>Note that piler stores its data in /var/piler directory, mysql keeps the piler database in /var/lib/mysql by default.
+Make sure you have enough disk space under these directories. See the disk sizing guide below.
+The used filesystem is not a concern, however note that piler stores emails as encrypted and compressed files in the filesystem,
+so <strong>prepare for having millions of files in the directories under /var/piler/store and /var/piler/astore</strong>.</p>
+<p>Piler also supports S3 compatible object stores, see section S3 object store for more details.</p>
+<h3 id="disk-sizing-guide">Disk sizing guide<a class="headerlink" href="#disk-sizing-guide" title="Permanent link">#</a></h3>
+<p>The disk size required for piler enterprise varies greatly on the usage patterns of your organization or customers. Here are a few numbers to give you a hint.</p>
+<table>
+<thead>
+<tr>
+<th>Site</th>
+<th>Messages</th>
+<th>Manticore/sphinx</th>
+<th>MySQL</th>
+<th>Emails</th>
+<th>Attachments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Demo site</td>
+<td>~500,000</td>
+<td>0.93 GB</td>
+<td>1.4 GB</td>
+<td>2.4 GB</td>
+<td>0.21 GB</td>
+</tr>
+<tr>
+<td>Personal archive</td>
+<td>76,000</td>
+<td>0.2 GB</td>
+<td>0.67 GB</td>
+<td>0.64 GB</td>
+<td>1.7 GB</td>
+</tr>
+<tr>
+<td>Another organization</td>
+<td>~9,000,000</td>
+<td>25 GB</td>
+<td>23 GB</td>
+<td>200 GB</td>
+<td>N/A</td>
+</tr>
+</tbody>
+</table>
+<p>The demo site has emails from mailing lists mostly and some spam, so it stores small emails, and few attachments only. If you expect such email patterns, then it’s worth formatting the partition with a smaller block size in mind.</p>
+<p>The mentioned personal archive contains various size emails, more attachments.</p>
+<p>The last organization has almost 9 million messages stored 200 GB on disk (=emails + deduplicated attachments)</p>
+<h2 id="installing-piler-single-node-layout">Installing Piler (single node layout)<a class="headerlink" href="#installing-piler-single-node-layout" title="Permanent link">#</a></h2>
+<p>The hardware and platform requirements are the same as the multiple nodes layout.</p>
+<h3 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">#</a></h3>
+<p>You have a working DNS entry for each node. We use the aaa.fu domain in the example (be sure to use your own real domain names!):</p>
+<pre><code>smtp.aaa.fu         IN A 1.2.3.4
+*.aaa.fu            IN A 1.2.3.5
+</code></pre>
+<p>You may also have a wildcard certificate for your domain, eg. <code>*.aaa.fu.</code></p>
+<h3 id="installing-piler">Installing piler<a class="headerlink" href="#installing-piler" title="Permanent link">#</a></h3>
+<pre><code>curl -o jammy.sh https://download.mailpiler.com/jammy.sh
+chmod +x jammy.sh
+</code></pre>
+<p>Before running the installer (=jammy.sh or centos9.sh for Redhat 9/Centos 9/Oracle Linux 9), be sure to revise the parameters, and fix them (especially MYSQL_ROOT_PASSWORD and MYSQL_PILER_PASSWORD) if necessary.</p>
+<p>By default the installer sets up encryption at rest for mysql data.</p>
+<p>For multitenant deployments be sure to set MULTITENANCY=1</p>
+<p>Run the following command on your host:</p>
+<pre><code>PILER_HOSTNAME=archive.aaa.fu ./jammy.sh
+</code></pre>
+<p>After the installation copy the licence for each worker node accordingly:</p>
+<pre><code>cp piler.lic /etc/piler/piler.lic
+</code></pre>
+<p>Make sure all the required services are running:</p>
+<p>The installer creates systemd services for piler, piler-smtp, pilersearch and tika.</p>
+<p>Add the worker node list to the site config:</p>
+<pre><code>echo '$config1[&quot;WORKER&quot;] = array(&quot;archive.aaa.fu&quot;);' &gt;&gt; /etc/piler/config-site.php
+</code></pre>
+<p>Configuring the SMTP gateway is similar to the multiple node layout except you don’t have an internal network.</p>
+<h2 id="installing-piler-multiple-nodes-layout">Installing Piler (multiple nodes layout)<a class="headerlink" href="#installing-piler-multiple-nodes-layout" title="Permanent link">#</a></h2>
+<h3 id="prerequisites_1">Prerequisites<a class="headerlink" href="#prerequisites_1" title="Permanent link">#</a></h3>
+<p>You have a working DNS entry for each node. We use the aaa.fu domain in the example (be sure to use your own domain names!):</p>
+<pre><code>smtp.aaa.fu         IN A 1.2.3.4
+smtp-int.aaa.fu     IN A 10.1.1.10
+gui-int.aaa.fu      IN A 10.1.1.11
+*.aaa.fu            IN A 1.2.3.5
+worker0.aaa.fu      IN A 10.1.1.100
+worker1.aaa.fu      IN A 10.1.1.101
+worker.aaa.fu       IN MX 10 worker0.aaa.fu.
+                    IN MX 10 worker1.aaa.fu.
+</code></pre>
+<p>You may also have a wildcard certificate for your domain, eg. *.aaa.fu, see the explanation below.</p>
+<p>Be sure to have the curl package installed.</p>
+<h3 id="installing-the-worker-nodes">Installing the worker nodes<a class="headerlink" href="#installing-the-worker-nodes" title="Permanent link">#</a></h3>
+<pre><code>curl -o jammy.sh https://download.mailpiler.com/jammy.sh
+chmod +x jammy.sh
+</code></pre>
+<p>Centos 9 users should get and use the centos9.sh script, and be sure to check out the Centos 9 specific notes section below.</p>
+<pre><code>curl -o centos9.sh https://download.mailpiler.com/centos9.sh
+chmod +x centos9.sh
+</code></pre>
+<p>Before running the installer (jammy.sh or centos9.sh), be sure to revise the parameters, and fix them (especially MYSQL_ROOT_PASSWORD, MYSQL_PILER_PASSWORD and AUTH_CODE) if necessary.</p>
+<p>For multitenant deployments be sure to set MULTITENANCY=1</p>
+<p>AUTH_CODE must be the same on all nodes, it acts as a password. Also MYSQL_PILER_PASSWORD should be the same on all Piler nodes.</p>
+<p>By default the installer sets up encryption at rest for mysql data.</p>
+<p>Run the following on worker0.aaa.fu:</p>
+<pre><code>PILER_HOSTNAME=worker0.aaa.fu MULTINODES=1 MASTER_NODE=gui-int.aaa.fu ./jammy.sh
+</code></pre>
+<p>Run the following on worker1.aaa.fu:</p>
+<pre><code>PILER_HOSTNAME=worker1.aaa.fu MULTINODES=1 MASTER_NODE=gui-int.aaa.fu ./jammy.sh
+</code></pre>
+<p>Notice that the PILER_HOSTNAME parameter is unique for each worker node.</p>
+<p>After the installation copy the license for each worker node accordingly:</p>
+<pre><code>cp piler.lic /etc/piler/piler.lic
+</code></pre>
+<p>If you want the reach the GUI node via https, then fix /etc/piler/config-site.php on the worker, and set:</p>
+<pre><code>$config['API_PROTO'] = 'https://';
+</code></pre>
+<p>The installer adds systemd services for piler, piler-smtp, pilersearch and tika.</p>
+<p>Note that each worker node requires a dedicated mysql server, so the installer script installs mysql daemon on each worker node.</p>
+<h3 id="installing-the-gui-node">Installing the GUI node<a class="headerlink" href="#installing-the-gui-node" title="Permanent link">#</a></h3>
+<pre><code>curl -o jammy.sh download.mailpiler.com/jammy.sh
+chmod +x jammy.sh
+</code></pre>
+<p>Before running the installer (=jammy.sh), be sure to revise the parameters, and fix them (especially MYSQL_ROOT_PASSWORD, MYSQL_PILER_PASSWORD and AUTH_CODE) if necessary. AUTH_CODE must be the same as on the worker nodes.</p>
+<p>If you plan to install the smtp gateway, then set USE_SMTP_GATEWAY=1 in the installer script (by default it’s not set).</p>
+<p>For multitenant deployments be sure to set MULTITENANCY=1</p>
+<p>Run the following command:</p>
+<pre><code>PILER_HOSTNAME=gui-int.aaa.fu MULTINODES=1 PRIMARY_MASTER=1 NODE_TYPE=MASTER ./jammy.sh
+</code></pre>
+<p>Add the worker node list to the site config:</p>
+<pre><code>echo '$config1[&quot;WORKER&quot;] = array(&quot;worker0.aaa.fu&quot;, &quot;worker1.aaa.fu&quot;);' &gt;&gt; /etc/piler/config-site.php
+</code></pre>
+<p>If you want the reach the worker node via https, then fix /etc/piler/config-site.php on the GUI node, and set:</p>
+<pre><code>$config['API_PROTO'] = 'https://';
+</code></pre>
+<p>Note that the GUI node does NOT need a license file.</p>
+<p>Make sure that the worker nodes are able to access mysql server running on the GUI node!</p>
+<h3 id="centos-9-specific-notes">Centos 9 specific notes<a class="headerlink" href="#centos-9-specific-notes" title="Permanent link">#</a></h3>
+<p>On Centos 9 SELinux is enabled by default. This may interfere with the proper work of the GUI, so you need to either disable SELinux or configure it properly.</p>
+<p>Centos 9 usually installs postfix, and makes it listen on the localhost. The piler-smtp daemon listens on all interfaces by default. Be sure to edit /etc/piler/piler.conf and fix listen_addr parameter to listen on the public address of the worker node.</p>
+<h3 id="self-signed-certificate">Self signed certificate<a class="headerlink" href="#self-signed-certificate" title="Permanent link">#</a></h3>
+<p>When using a self signed certificate, be sure to add the following to /etc/piler/config-site.php:</p>
+<pre><code>$config[‘ENABLE_SSL_VERIFY’] = 0;
+</code></pre>
+<h2 id="configuring-the-smtp-gateway">Configuring the SMTP gateway<a class="headerlink" href="#configuring-the-smtp-gateway" title="Permanent link">#</a></h2>
+<p>The SMTP gateway should have two instances of postfix (you may choose another MTA of your choice).
+Instance #1 (the outer instance) runs on the outer interface (smtp.aaa.fu), and instance #2
+(the inner instance) runs on the internal interface (smtp-int.aaa.fu).</p>
+<h3 id="setting-up-the-outer-instance">Setting up the outer instance<a class="headerlink" href="#setting-up-the-outer-instance" title="Permanent link">#</a></h3>
+<p>Postfix should accept only recipients for <customerid>@smtp.aaa.fu only, and reject everything else.
+All customer id (see section “Adding customers” for more on the customer id) must be present in the
+postfix database (/etc/postfix/customers). Make sure that smtp.aaa.fu (in this example) is not set
+to myhostname as well!</p>
+<pre><code>myhostname = smtp-gw.aaa.fu
+smtpd_recipient_restrictions = check_recipient_access proxy:mysql:/etc/postfix/customers.cf, reject
+virtual_mailbox_domains = smtp.aaa.fu
+virtual_alias_maps = proxy:mysql:/etc/postfix/virtual.cf
+</code></pre>
+<p>/etc/postfix/customers.cf:</p>
+<pre><code>hosts = gui-int.aaa.fu
+user = piler
+password = piler123
+dbname = piler
+query = SELECT 'OK' FROM customer_settings WHERE customer_address='%s' AND enabled=1;
+</code></pre>
+<p>/etc/postfix/virtual.cf:</p>
+<pre><code>hosts = gui-int.aaa.fu
+user = piler
+password = piler123
+dbname = piler
+query = SELECT CONCAT(customer_id, '@', worker) FROM customer_settings WHERE customer_address='%s' AND enabled=1;
+</code></pre>
+<p>The above config pulls the customers data from MySQL database. To make this work, be sure to fix the mysql configuration
+on the GUI node to allow access from the smtp gateway. Note that the query in virtual.cf rewrites the email address to
+point to the worker node you selected when creating the given customer. It also means that a received email goes to one
+specific worker node only.</p>
+<h3 id="setting-up-the-internal-instance">Setting up the internal instance<a class="headerlink" href="#setting-up-the-internal-instance" title="Permanent link">#</a></h3>
+<p>Postfix should simply relay emails from the GUI node to the customer SMTP server. No special configuration is needed to
+achieve this other than adding the GUI node address to the mynetwork section in main.cf.</p>
+<h2 id="s3-object-store">S3 object store<a class="headerlink" href="#s3-object-store" title="Permanent link">#</a></h2>
+<p>By default the piler worker node stores email files on the local filesystem under /var/piler/store, thus requiring lots of disk space.</p>
+<p>Piler is able to store files on S3 compatible object stores, eg. Amazon S3, Wasabi, Exoscale, etc. Or you can even set up your own S3 object store with 3rd party software like Minio.</p>
+<p>To enable using an S3 store, set the following in piler.conf:</p>
+<pre><code>s3_hostname=your-s3-host.domain.com:9000
+s3_region=us-east-1
+s3_access_key=youraccesskey
+s3_secret_key=yoursecretkey
+s3_bucket_prefix=
+s3_use_subdirs=1
+s3_spread_in_buckets=0
+s3_secure=1
+</code></pre>
+<p>s3_hostname should be the S3 hostname and port. Eg. Minio uses port 9000. For Wasabi, it might be s3.us-west-1.wasabisys.com.</p>
+<p>Set s3_secure=0 if your S3 host does NOT support TLS.</p>
+<p>Note that you should decide where to store the email files before starting archiving. Piler doesn’t support a mixed mode where some emails are stored locally, and some emails on an S3 object store.</p>
+<p>When using S3 storage the piler daemon writes all files to /var/piler/store/00 directory. There’s a tool to process these files, and upload them to the S3 store.</p>
+<p>Piler will upload all files for a given customer to a single bucket only. However, it’s possible to spread the files among 255 subdirectories. To enable this feature, set s3_use_subdirs=1. The names of the created subdirectories will be two hexadecimal characters, eg. “00”, “01”, … “ff”.</p>
+<p>By default s3_bucket_prefix is empty. If you need to specify one, then make sure it conforms to domain names. Notes: you must NOT use the dash (-) character, however you may use a trailing dot, eg.</p>
+<p>s3_bucket_prefix=someprefix.</p>
+<p>Before starting the S3 upload tool, make sure to you have the minio pip package:</p>
+<pre><code>root@archivehost:/# pip list
+Package     Version
+----------- -----------
+certifi     2022.6.15.1
+IMAPClient  2.2.0
+minio       7.1.5
+mysqlclient 1.4.6
+pip         22.0.2
+setuptools  59.6.0
+six         1.16.0
+urllib3     1.26.12
+wheel       0.37.1
+</code></pre>
+<p>Finally enable the piler-s3 service:</p>
+<pre><code>cd /etc/systemd/system
+ln -sf /usr/libexec/piler/piler-s3.service .
+systemctl daemon-reload
+systemctl enable piler-s3
+systemctl start piler-s3
+</code></pre>
+<h2 id="mysql-settings">MySQL settings<a class="headerlink" href="#mysql-settings" title="Permanent link">#</a></h2>
+<p>The MySQL database stores essential data, eg. metadata and other settings, so it’s very important that the MySQL server operates properly on both the worker and gui nodes. Therefore you must give MySQL proper resources.</p>
+<p>A small personal archive may be fine with the following settings:</p>
+<pre><code>innodb_buffer_pool_size=256M
+innodb_flush_log_at_trx_commit=1
+innodb_log_buffer_size=64M
+innodb_log_file_size=64M
+innodb_read_io_threads=4
+innodb_write_io_threads=4
+innodb_log_files_in_group=2
+innodb_file_per_table
+</code></pre>
+<p>Your mileage may vary, the more data is stored in SQL, the more resources the mysql server requires. Be sure to check out the mysql documentation, too.</p>
+<p>You may use <a href="https://github.com/major/MySQLTuner-perl">https://github.com/major/MySQLTuner-perl</a> to fine tune the database settings for improved performance.</p>
+<h2 id="security-considerations">Security considerations<a class="headerlink" href="#security-considerations" title="Permanent link">#</a></h2>
+<h3 id="multiple-nodes-layout_1">Multiple nodes layout<a class="headerlink" href="#multiple-nodes-layout_1" title="Permanent link">#</a></h3>
+<p>As it’s seen in Figure 1, there are two networks used. An internal network using a private address space (eg. 10.x.x.x/24) for communication between the gui node, smtp gateway and the worker nodes.</p>
+<p>The worker nodes listen on port 25, 80 (or 443) and 9312. The smtp gateway should access only port 25, while the gui node needs access to all these ports.</p>
+<p>The gui node listens on port 80 (or 443) and 3306 on the internal network. All worker node must be able to access the gui node on these ports on the internal network. The smtp gateway should access the gui node on port 3306 on the internal network.</p>
+<p>The gui node should be accessed from the Internet only on port 443. Port 80 is also possible, however it’s best to offer TLS security for users.</p>
+<p>The smtp node is accessed on port 25 both on the internal and the outer network.</p>
+<h3 id="single-node-layout_1">Single node layout<a class="headerlink" href="#single-node-layout_1" title="Permanent link">#</a></h3>
+<p>As it’s seen in Figure 2, there’s only a single network used.</p>
+<p>The piler node should be accessed on port 80 (or 443) from the Internet (https:// protocol is preferred just as with the multiple nodes layout). Port 25 and 3306 should be accessed by the smtp gateway only.</p>
+<p>The smtp gateway is accessed on port 25 only.</p>
+<h3 id="starttls-support">STARTTLS support<a class="headerlink" href="#starttls-support" title="Permanent link">#</a></h3>
+<p>By default the installer creates a key and a self-signed certificate (/etc/piler/piler.pem) to support STARTTLS providing encrypted message transfer between the smtp client and the Piler smtp server. You are free to fix piler.pem to use your signed CA.</p>
+<h3 id="smtp-acl-lists">SMTP ACL lists<a class="headerlink" href="#smtp-acl-lists" title="Permanent link">#</a></h3>
+<p>Piler supports an smtp acl list similar to postscreen. See <a href="https://mailpiler.com/smtp-acl-list/">https://mailpiler.com/smtp-acl-list/</a> for more.</p>
+<h3 id="antivirus-and-antispam-support">Antivirus and antispam support<a class="headerlink" href="#antivirus-and-antispam-support" title="Permanent link">#</a></h3>
+<p>Piler expects clean emails only. Spam and other malware occupy valuable disk space and other resources on the piler host, not to mention that it might pose other problems. So you should do the heavy lifting of scanning and filtering of any spam and malware on your MX servers.</p>
+<p>However, Piler is able to use the result of any antispam application, provided that it sets a specific email header to mark spam emails. If you used SpamAssassin, then you may use the following setting in /etc/piler/piler.conf, then piler can recognize when it receives a spam:</p>
+<pre><code>spam_header_line=X-Spam-Flag: YES
+</code></pre>
+<p>If piler recognizes a spam, then you may set a policy to discard it (preventing from getting to the archive) or archive it for a shorter time, eg. 30 days or so.</p>
+<p>Note that piler supports a single spam header line, ie. you cannot specify the anti-spam headers of several anti-spam products. However, by using an SMTP it’s possible to rewrite several kind of antispam headers to a unified value. See <a href="https://mailpiler.com/consolidating-several-anti-spam-message-headers-on-the-smtp-gateway/">https://mailpiler.com/consolidating-several-anti-spam-message-headers-on-the-smtp-gateway/</a> for more.</p></div>
+        
+        
+    </div>
+
+    
+      <footer class="col-md-12 text-center">
+          
+          
+            <hr>
+            <p>
+            <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</small>
+            </p>
+          
+
+          
+          
+      </footer>
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="../js/bootstrap-3.0.3.min.js"></script>
+
+    
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/highlight.min.js"></script>
+        
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+
+    <script>var base_url = ".."</script>
+    
+    <script src="../js/base.js"></script>
+    <script src="../search/main.js"></script>
+
+    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+    </body>
+
+</html>

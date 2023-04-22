@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    <link rel="canonical" href="https://jsuto.github.io/piler-ee/configuring-the-mailserver/">
+    <link rel="shortcut icon" href="../img/favicon.ico">
+
+    
+    <title>Configuring the mail server for email archiving with piler enterprise edition - piler enterprise documentation</title>
+    
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/v4-shims.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.min.css">
+    <link href='//rsms.me/inter/inter.css' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
+    <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
+    <link href="../css/base.min.css" rel="stylesheet">
+    <link href="../css/cinder.min.css" rel="stylesheet">
+
+    
+        
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/styles/github.min.css">
+        
+    
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+            <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+        <![endif]-->
+
+    
+
+     
+</head>
+
+<body>
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+
+            <!-- Main title -->
+
+            
+              <a class="navbar-brand" href="..">piler enterprise documentation</a>
+            
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+
+            <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                            <i class="fas fa-search"></i> Search
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+    <div class="container">
+        
+        
+        <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="first-level active"><a href="#configuring-the-mail-server-for-email-archiving-with-piler-enterprise-edition">Configuring the mail server for email archiving with piler enterprise edition</a></li>
+            <li class="second-level"><a href="#configure-the-mail-server">Configure the mail server</a></li>
+                
+                <li class="third-level"><a href="#postfix">Postfix</a></li>
+                <li class="third-level"><a href="#axigen">Axigen</a></li>
+                <li class="third-level"><a href="#office-365">Office 365</a></li>
+                <li class="third-level"><a href="#microsoft-exchange-in-general">Microsoft Exchange in general</a></li>
+                <li class="third-level"><a href="#exchange-2003">Exchange 2003</a></li>
+                <li class="third-level"><a href="#exchange-2007">Exchange 2007</a></li>
+                <li class="third-level"><a href="#exchange-2010">Exchange 2010</a></li>
+                <li class="third-level"><a href="#exchange-2013">Exchange 2013</a></li>
+                <li class="third-level"><a href="#kerio-connect">Kerio Connect</a></li>
+                <li class="third-level"><a href="#zimbra">Zimbra</a></li>
+                <li class="third-level"><a href="#exim">Exim</a></li>
+            <li class="second-level"><a href="#notes-for-mail-service-providers">Notes for mail service providers</a></li>
+                
+                <li class="third-level"><a href="#the-problem">The problem</a></li>
+                <li class="third-level"><a href="#the-solution">The solution</a></li>
+    </ul>
+</div></div>
+        <div class="col-md-9" role="main">
+
+<h1 id="configuring-the-mail-server-for-email-archiving-with-piler-enterprise-edition">Configuring the mail server for email archiving with piler enterprise edition<a class="headerlink" href="#configuring-the-mail-server-for-email-archiving-with-piler-enterprise-edition" title="Permanent link">#</a></h1>
+<p>Revision #1</p>
+<p>Publication date: Apr 20, 2023</p>
+<h2 id="configure-the-mail-server">Configure the mail server<a class="headerlink" href="#configure-the-mail-server" title="Permanent link">#</a></h2>
+<p>To start archiving emails you have to configure your mail servers to copy each and every single email they receive to piler via SMTP.</p>
+<p>The configuration process depends on the used mail server. We’ll use archive@archive.yourdomain.com address as an example
+where to send the emails. Be sure to use your own archive’s domain name!</p>
+<p>For multi-tenant installations the local part must match the customer (=tenant) ID, eg. if the customer id is “customer1”,
+then the address to forward emails is  customer1@archive.yourdomain.com.</p>
+<h3 id="postfix">Postfix<a class="headerlink" href="#postfix" title="Permanent link">#</a></h3>
+<p>Add the following to main.cf then issue the postfix reload command:</p>
+<pre><code>always_bcc = archive@archive.yourdomain.com
+</code></pre>
+<h3 id="axigen">Axigen<a class="headerlink" href="#axigen" title="Permanent link">#</a></h3>
+<p>Open the Axigen web admin interface. Go to “SECURITY &amp; FILTERING”, then click on “Acceptance &amp; Routing”, finally click on “ADVANCED SETTINGS”.</p>
+<p>Click on “ADD ACCEPTANCE / ROUTING RULE”, and fill the rule name, the conditions and the actions fields, see the example below. Then click on the “SAVE CONFIGURATION” button.</p>
+<h3 id="office-365">Office 365<a class="headerlink" href="#office-365" title="Permanent link">#</a></h3>
+<p>Configure networking, and make sure that Office 365 can reach archive.yourdomain.com on port 25. This may require setting some firewall rules, etc.</p>
+<h4 id="create-a-mailbox-for-ndr-reports">Create a mailbox for NDR reports<a class="headerlink" href="#create-a-mailbox-for-ndr-reports" title="Permanent link">#</a></h4>
+<p>Login at <a href="https://portal.office.com/">office 365 admin portal</a>, then go to “Users” → “Active users” menu, and create a user for receiving
+undeliverable journal reports, eg. ndr-reports@yourdomain.com.</p>
+<h4 id="create-a-journaling-rule">Create a journaling rule<a class="headerlink" href="#create-a-journaling-rule" title="Permanent link">#</a></h4>
+<p>Go to Exchange admin center, then “compliance management”, and select “journal rules”.
+Click right next to “Send undeliverable journal reports to:”, and specify the address you just created (ie. ndr-reports@yourdomain.com).</p>
+<ul>
+<li>Enter “archive@archive.yourdomain.com” to “Send journal reports to”</li>
+<li>Type “archiving” to “Name”</li>
+<li>Select “[Apply to all messages]” at “If the message is sent to or received from…”</li>
+<li>Select “All messages” at “Journal the following messages…”</li>
+<li>Finally click on “save”</li>
+</ul>
+<h3 id="microsoft-exchange-in-general">Microsoft Exchange in general<a class="headerlink" href="#microsoft-exchange-in-general" title="Permanent link">#</a></h3>
+<p>Basically you have to create SMTP journaling in Exchange, find the details on the different Exchange versions below.</p>
+<p>Note that you may have to force the GUI to rewrite the Message-id header field preventing Exchange to discard the
+restored message as a duplicate. Edit config-site.php, and set the following:</p>
+<pre><code>$config['REWRITE_MESSAGE_ID'] = 1;
+</code></pre>
+<h3 id="exchange-2003">Exchange 2003<a class="headerlink" href="#exchange-2003" title="Permanent link">#</a></h3>
+<ul>
+<li>Create an SMTP Contact</li>
+<li>Set Use MAPI rich text format to Never</li>
+<li>Enable Automatic Forwarding to allow automatic forwarding</li>
+<li>Set Exchange rich-text format to Never use</li>
+<li>Open Exchange System Manager (ESM)</li>
+<li>Expand Administrative Groups, First Administrative Group (or appropriate group), Servers</li>
+<li>Expand your server name</li>
+<li>Expand First Storage Group (or relevant group)</li>
+<li>Right click on the target mailbox store, select Properties</li>
+<li>Check the option Archive all messages sent or received by mailboxes on this store</li>
+<li>Click Browse</li>
+<li>Select the name of the user account/mailbox that has been created as the journal mailbox</li>
+<li>Click OK to finish</li>
+<li>Restart the SMTP service</li>
+</ul>
+<h3 id="exchange-2007">Exchange 2007<a class="headerlink" href="#exchange-2007" title="Permanent link">#</a></h3>
+<h4 id="create-smtp-contact">Create SMTP contact<a class="headerlink" href="#create-smtp-contact" title="Permanent link">#</a></h4>
+<ul>
+<li>Open Active Directory Users and Computers.</li>
+<li>Right-click the organizational unit in which you want to create the contact, point to New, and then click Contact.</li>
+<li>Enter the following: First Name: Journal1, Last Name: Archive, Display Name: Journal1 Archive.</li>
+<li>Click OK.</li>
+<li>Open the Exchange Management Console on the Mailbox server.</li>
+<li>Expand Recipient Configuration, right-click Mail Contact, and then click New Mail Contact.</li>
+<li>Click Existing Contact, browse to and select the Journal1 Archive contact you just created, then click OK.</li>
+<li>Click Next.</li>
+<li>For the External Email Address field, click Edit, enter the archive email address, eg.    archive@archive.yourdomain.com, then click OK.</li>
+<li>Click Next, then click New.</li>
+</ul>
+<h4 id="configure-message-format-settings">Configure Message Format Settings<a class="headerlink" href="#configure-message-format-settings" title="Permanent link">#</a></h4>
+<ul>
+<li>Open your Exchange Management Console.</li>
+<li>Expand Recipient Configuration, then select Mail Contact.</li>
+<li>In the result pane, select the SMTP contact.</li>
+<li>In the action pane, under the SMTP contact, click Properties.</li>
+<li>On the General tab, from the Use MAPI rich text format list, select Never.</li>
+</ul>
+<p>With this setting, journal reports are sent in MIME rather than S/TNEF.</p>
+<h4 id="enable-standard-journaling">Enable Standard Journaling<a class="headerlink" href="#enable-standard-journaling" title="Permanent link">#</a></h4>
+<ul>
+<li>Open the Exchange Management Console on the Mailbox server on which you want to enable journaling.</li>
+<li>Expand Server Configuration, then click Mailbox.</li>
+<li>In the result pane, select the server for the mailbox database for which you want to enable journaling.</li>
+<li>In the work pane, right-click the mailbox database, then click Properties.</li>
+<li>On the General tab, select Journal Recipient.</li>
+<li>For Journal Recipient, click Browse, select the Journal1 Archive recipient, then click OK.</li>
+<li>Click OK</li>
+</ul>
+<h3 id="exchange-2010">Exchange 2010<a class="headerlink" href="#exchange-2010" title="Permanent link">#</a></h3>
+<h4 id="create-smtp-contact_1">Create SMTP Contact<a class="headerlink" href="#create-smtp-contact_1" title="Permanent link">#</a></h4>
+<ul>
+<li>Click Start &gt; All Programs &gt; Microsoft Exchange Server 2010 &gt; Exchange Management Console</li>
+<li>Select the Microsoft Exchange On-Premises instance</li>
+<li>Select Recipient Configuration</li>
+<li>Below the Recipient Configuration, select Mail Contact</li>
+<li>In the Action pane to the right, select New Mail Contact</li>
+<li>In the create mail contact dialog that appears, select New Contact</li>
+<li>Enter "journal" for the new contact name and fill out the rest of the required information.</li>
+<li>Select Edit aside the new contact's external email address</li>
+<li>A dialog appears prompting for an external email address. Enter the address "archive@archive.yourdomain.com”</li>
+<li>After entering the address, click OK. After returning back to the new contact dialog, select Next</li>
+<li>Select new to create the New Mail Contact</li>
+<li>After clicking New, the New Mail Contact will be created.</li>
+<li>Click Finish to return to the Exchange Management Console.</li>
+</ul>
+<h4 id="enable-standard-journaling_1">Enable Standard Journaling<a class="headerlink" href="#enable-standard-journaling_1" title="Permanent link">#</a></h4>
+<ul>
+<li>Click Organization Configuration, thereafter Mailbox</li>
+<li>In the Database Management tab to the right, select the database for which journaling must be enabled.</li>
+<li>Right click on the database and select properties</li>
+<li>A new window appears. Select the maintenance tab and then select Browse</li>
+<li>Click the Journal Recipient and then browse to the New Mail Contact created previously</li>
+<li>Click OK</li>
+</ul>
+<h4 id="create-a-send-connector">Create a Send Connector<a class="headerlink" href="#create-a-send-connector" title="Permanent link">#</a></h4>
+<ul>
+<li>Open the Send Connector tab under Server Management-&gt;Hub Transport option</li>
+<li>Right-click in the empty space and select new Send Connector</li>
+<li>Ensure the intended use field is set to custom. Enter “Journal1” in the name field then click “Next."</li>
+<li>Click “Add” in the Address Space Window.</li>
+<li>In the address field, enter the FQDN of smtp gateway, eg. archive.yourdomain.com</li>
+<li>Keep the default setting to use DNS to route email to the address space and click “Next.”</li>
+<li>Depending on your specific case, you may select “Add” to select another Hub Transport Server</li>
+<li>Click “Next” once the Hub Transport Server has been added</li>
+<li>Verify that all of the settings are correct. Click “New” then “Finish” once it is complete.</li>
+<li>The Send Connector should now be listed.</li>
+</ul>
+<h3 id="exchange-2013">Exchange 2013<a class="headerlink" href="#exchange-2013" title="Permanent link">#</a></h3>
+<h4 id="setup-journaling">Setup Journaling<a class="headerlink" href="#setup-journaling" title="Permanent link">#</a></h4>
+<ul>
+<li>Login to the Exchange Control Panel by opening the browser at https://exchange.yourdomain.com/ecp (where exchange.yourdomain.com is the FQDN of your Exchange server)</li>
+<li>From the Exchange Admin Center</li>
+<li>Click compliance management in left menu</li>
+<li>Click journal rules in top right menu</li>
+<li>Click the + icon</li>
+<li>Enter journal in the name field</li>
+<li>In the field that says "journal the following messages..", select "All messages"</li>
+<li>In Send journal reports to field, enter archive@archive.yourdomain.com</li>
+<li>Click Save to change changes</li>
+<li>Accept "Do you want this rule to apply to all future messages"</li>
+</ul>
+<h4 id="create-a-send-connector_1">Create a Send Connector<a class="headerlink" href="#create-a-send-connector_1" title="Permanent link">#</a></h4>
+<ul>
+<li>Select mail flow and then send connectors</li>
+<li>Click + to add a new send connector</li>
+<li>Enter 'Piler Connector' in the Name field.</li>
+<li>Select Custom for the Type option</li>
+<li>Click Next</li>
+<li>Under Network settings, select Route mail to smart host</li>
+<li>Click + to add a new smart host</li>
+<li>Enter the FQDN of the archive host (e.g. archive.yourdomain.com)</li>
+<li>Click Save</li>
+<li>The new host should be listed under Smart Host in the New Send Connector Window</li>
+<li>Click Next</li>
+<li>Select None for the Smart host authentication option</li>
+<li>Click Next</li>
+<li>Click + to add a new address space</li>
+<li>Enter archive.yourdomain.com</li>
+<li>Click Save.</li>
+<li>The FQDN should be listed under Address in the New Send Connector Window (e.g. archive.yourdomain.com)</li>
+<li>Click Next</li>
+<li>Click + to add mail server(s)</li>
+<li>Select the mail server from the list and then click add. Repeat this step for any additional servers</li>
+<li>Click ok. The mail servers should be listed under Source in the New Send Connector Window.</li>
+<li>Click finish</li>
+</ul>
+<h4 id="adjust-maximum-message-size">Adjust Maximum Message Size<a class="headerlink" href="#adjust-maximum-message-size" title="Permanent link">#</a></h4>
+<p>By default, the maximum send message size for the Connector is set to 10 MB. To change this:</p>
+<ul>
+<li>Open the Exchange Management Shell</li>
+<li>Enter the following command to the set maximum send message size: <code>Set-SendConnector "Piler Connector" -MaxMessageSize "100 MB"</code></li>
+<li>Enter the following command to verify the maximum send message size is 100 MB: <code>Get-SendConnector "Piler Connector" fl MaxMessageSize</code></li>
+</ul>
+<h4 id="disable-non-delivery-reports-optional">Disable Non Delivery Reports (optional)<a class="headerlink" href="#disable-non-delivery-reports-optional" title="Permanent link">#</a></h4>
+<ul>
+<li>Open the Exchange Management Shell.</li>
+<li>Enter the following command to disable NDRs:</li>
+<li>Set-RemoteDomain archive.yourdomain.com -NDREnabled $false</li>
+</ul>
+<h3 id="kerio-connect">Kerio Connect<a class="headerlink" href="#kerio-connect" title="Permanent link">#</a></h3>
+<p>See the detailed instructions at <a href="https://manuals.gfi.com/en/kerio/connect/content/server-configuration/archiving-and-backup/archiving-in-kerio-connect-1164.html">https://manuals.gfi.com/en/kerio/connect/content/server-configuration/archiving-and-backup/archiving-in-kerio-connect-1164.html</a>
+for notenant piler installations (“Archiving the whole server”) as well as multi-tenant piler installations (“Archiving individual domains”).</p>
+<h3 id="zimbra">Zimbra<a class="headerlink" href="#zimbra" title="Permanent link">#</a></h3>
+<p>Zimbra uses postfix internally, so you may use the postfix approach: find the zimbra version of main.cf, and apply the same as for postfix.</p>
+<h3 id="exim">Exim<a class="headerlink" href="#exim" title="Permanent link">#</a></h3>
+<p>For no-tenant deployments, create a system wide filter, eg. /etc/exim.filter with the following content:</p>
+<pre><code>unseen deliver archive@archive.yourdomain.com
+</code></pre>
+<p>Then specify the filter in your exim config file (on Ubuntu create /etc/exim4/conf.d/main/30_exim4-config_system_filter), and restart exim:</p>
+<pre><code>system_filter = /etc/exim.filter
+</code></pre>
+<p>Also check out <a href="http://www.exim.org/exim-html-current/doc/html/spec_html/ch-some_common_configuration_settings.html">http://www.exim.org/exim-html-current/doc/html/spec_html/ch-some_common_configuration_settings.html</a></p>
+<h2 id="notes-for-mail-service-providers">Notes for mail service providers<a class="headerlink" href="#notes-for-mail-service-providers" title="Permanent link">#</a></h2>
+<p>This chapter applies to mail service providers, how to configure postfix to send copies of emails to the archive properly.</p>
+<h3 id="the-problem">The problem<a class="headerlink" href="#the-problem" title="Permanent link">#</a></h3>
+<p>if you set <code>always_bcc = some@address</code>, then postfix sends a copy of messages to some@address. Let’s say you host
+mailboxes for both customer1.com and customer2.com. Now if customer1 sends an email to customer2, then postfix will
+send a single copy only to customer2@<archive.domain>, so the email is archived for customer2 only, but customer1
+won’t see this email in their archive.</p>
+<h3 id="the-solution">The solution<a class="headerlink" href="#the-solution" title="Permanent link">#</a></h3>
+<p>Configure postfix in the following way. The below config also enables you to selectively archive emails for specific domains or mailboxes only.</p>
+<p>/etc/postfix/main.cf:</p>
+<pre><code>recipient_bcc_maps = pcre:/etc/postfix/bcc_map
+sender_bcc_maps = pcre:/etc/postfix/bcc_map
+smtp_destination_recipient_limit = 1
+</code></pre>
+<p>/etc/posfix/bcc_map:</p>
+<pre><code>/(.+)@customer1\.com/ customer1@archive.yourdomain.com
+/(.+)@customer2\.com/ customer2@archive.yourdomain.com
+/(.+)@customer3\.com/ customer3@archive.yourdomain.com
+</code></pre>
+<p>Alternate solution if postfix and piler smtp are on the same host:</p>
+<p>Let postfix listen on the public interface, and piler-smtp on the localhost, and apply the following setup:</p>
+<pre><code>myhostname = smtp-gw.aaa.fu
+virtual_mailbox_domains = archive.yourdomain.com
+virtual_alias_maps = pcre:/etc/postfix/bcc_map
+smtp_destination_recipient_limit = 1
+content_filter = smtp:[127.0.0.1]:25
+</code></pre></div>
+        
+        
+    </div>
+
+    
+      <footer class="col-md-12 text-center">
+          
+          
+            <hr>
+            <p>
+            <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</small>
+            </p>
+          
+
+          
+          
+      </footer>
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="../js/bootstrap-3.0.3.min.js"></script>
+
+    
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/highlight.min.js"></script>
+        
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+
+    <script>var base_url = ".."</script>
+    
+    <script src="../js/base.js"></script>
+    <script src="../search/main.js"></script>
+
+    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+    </body>
+
+</html>

@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    <link rel="canonical" href="https://jsuto.github.io/piler-ee/administering/">
+    <link rel="shortcut icon" href="../img/favicon.ico">
+
+    
+    <title>Administering piler enterprise edition - piler enterprise documentation</title>
+    
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/v4-shims.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.min.css">
+    <link href='//rsms.me/inter/inter.css' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
+    <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
+    <link href="../css/base.min.css" rel="stylesheet">
+    <link href="../css/cinder.min.css" rel="stylesheet">
+
+    
+        
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/styles/github.min.css">
+        
+    
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+            <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+        <![endif]-->
+
+    
+
+     
+</head>
+
+<body>
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+
+            <!-- Main title -->
+
+            
+              <a class="navbar-brand" href="..">piler enterprise documentation</a>
+            
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+
+            <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                            <i class="fas fa-search"></i> Search
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+    <div class="container">
+        
+        
+        <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="first-level active"><a href="#administering-piler-enterprise-edition">Administering piler enterprise edition</a></li>
+            <li class="second-level"><a href="#prerequisites">Prerequisites</a></li>
+                
+            <li class="second-level"><a href="#using-the-gui-at-the-first-time">Using the GUI at the first time</a></li>
+                
+            <li class="second-level"><a href="#adding-customers">Adding customers</a></li>
+                
+                <li class="third-level"><a href="#create-domains-for-the-customer">Create domains for the customer</a></li>
+                <li class="third-level"><a href="#creating-the-customer">Creating the customer</a></li>
+                <li class="third-level"><a href="#how-to-script-adding-customers">How to script adding customers</a></li>
+                <li class="third-level"><a href="#quotas">Quotas</a></li>
+            <li class="second-level"><a href="#configuring-the-gui">Configuring the GUI</a></li>
+                
+            <li class="second-level"><a href="#user-authentication-methods">User authentication methods</a></li>
+                
+                <li class="third-level"><a href="#authenticating-against-the-local-piler-database">Authenticating against the local piler database</a></li>
+                <li class="third-level"><a href="#authenticating-against-an-ldap-server">Authenticating against an LDAP server</a></li>
+                <li class="third-level"><a href="#active-directory">Active Directory</a></li>
+                <li class="third-level"><a href="#iredmail">iredmail</a></li>
+                <li class="third-level"><a href="#lotus-domino">Lotus Domino</a></li>
+                <li class="third-level"><a href="#zimbra">Zimbra</a></li>
+                <li class="third-level"><a href="#authenticating-against-an-imap-server">Authenticating against an IMAP server</a></li>
+                <li class="third-level"><a href="#authenticating-against-google-workspace-formerly-gsuite">Authenticating against Google Workspace (formerly GSuite)</a></li>
+                <li class="third-level"><a href="#use-azure-ad-for-single-sign-on-sso">Use Azure AD for single sign-on (SSO)</a></li>
+                <li class="third-level"><a href="#use-aws-cognito-for-single-sign-on-sso">Use AWS Cognito for single sign-on (SSO)</a></li>
+            <li class="second-level"><a href="#customizing-the-gui">Customizing the GUI</a></li>
+                
+            <li class="second-level"><a href="#administrator-tasks">Administrator tasks</a></li>
+                
+                <li class="third-level"><a href="#users-groups-and-rights">Users, groups, and rights</a></li>
+                <li class="third-level"><a href="#administrator-permissions">Administrator permissions</a></li>
+                <li class="third-level"><a href="#accounting">Accounting</a></li>
+                <li class="third-level"><a href="#audit-logs">Audit logs</a></li>
+            <li class="second-level"><a href="#securing-the-archive">Securing the archive</a></li>
+                
+                <li class="third-level"><a href="#securing-the-gui">Securing the GUI</a></li>
+                <li class="third-level"><a href="#securing-the-piler-smtp-daemon">Securing the piler-smtp daemon</a></li>
+            <li class="second-level"><a href="#rules-and-policies">Rules and policies</a></li>
+                
+                <li class="third-level"><a href="#exclusion-rules">Exclusion rules</a></li>
+            <li class="second-level"><a href="#retention-rules">Retention rules</a></li>
+                
+            <li class="second-level"><a href="#what-to-do-with-spam">What to do with spam</a></li>
+                
+            <li class="second-level"><a href="#backup-and-restore">Backup and restore</a></li>
+                
+            <li class="second-level"><a href="#remove-a-customers-data">Remove a customer’s data</a></li>
+                
+            <li class="second-level"><a href="#setup-a-secondary-piler-site">Setup a secondary piler site</a></li>
+                
+            <li class="second-level"><a href="#best-practices">Best practices</a></li>
+                
+    </ul>
+</div></div>
+        <div class="col-md-9" role="main">
+
+<h1 id="administering-piler-enterprise-edition">Administering piler enterprise edition<a class="headerlink" href="#administering-piler-enterprise-edition" title="Permanent link">#</a></h1>
+<p>This documentation applies to Piler enterprise edition 1.7.2</p>
+<p>Revision #1</p>
+<p>Publication date: Apr 20, 2023</p>
+<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">#</a></h2>
+<p>You have installed Piler enterprise using either the multiple nodes layout or the single node layout. The Piler GUI uses the http hostname to determine whether it’s the main admin site for the provider, or the customer site for customer admin and customer end users.</p>
+<p>This document applies to the main admin site for the provider. In the following examples gui-int.aaa.fu is used as the main admin site URL.</p>
+<p>You are free to configure nginx on the GUI node to use the internal network, though it’s up to you, if you want access to the main admin site from the Internet. It’s also best to set up https for security reasons.</p>
+<h2 id="using-the-gui-at-the-first-time">Using the GUI at the first time<a class="headerlink" href="#using-the-gui-at-the-first-time" title="Permanent link">#</a></h2>
+<p>Piler features a web based GUI that can be accessible with a browser. Mobile devices are not supported officially at the moment.</p>
+<p>Log in as administrator using the following account:</p>
+<pre><code>admin@local:pilerrocks
+</code></pre>
+<p>Then go to the user menu at administration / users menu, and change the admin password immediately. It’s also recommended to remove the auditor user, since it’s not used in the main admin site.</p>
+<p>If you want to use https on the GUI, then edit config-site.php, and make sure you set https in the SITE_URL variable:</p>
+<pre><code>$config['SITE_URL'] = 'https://piler.yourdomain.com/';
+</code></pre>
+<h2 id="adding-customers">Adding customers<a class="headerlink" href="#adding-customers" title="Permanent link">#</a></h2>
+<p>Providers have several domains and mailboxes. Piler uses the concept of customer to distinguish between organizations. For Piler a customer is an organization with 1 or more domains, and several mailboxes. Piler separates customers on the disk level and on the database level. Each customer has its own store directory, sphinx database and mysql database.</p>
+<p>Let’s say you want to archive emails for Fictive Company Co. Before doing so you have to create this company in piler, ie. you have to create a customer.</p>
+<h3 id="create-domains-for-the-customer">Create domains for the customer<a class="headerlink" href="#create-domains-for-the-customer" title="Permanent link">#</a></h3>
+<p>Before creating the customer itself, you have to create the domains for this company. Let’s say Fictive Company Co. has three domains:</p>
+<ul>
+<li>fictive.com (let’s assume this is the primary domain)</li>
+<li>fictive.org</li>
+<li>fictive.net</li>
+</ul>
+<p>So go to the <strong>administration / domains</strong> page in the GUI, and set these three domains one per line in the Domains field,
+and set fictive.com to the mapped domain as well. The mapped domain identifies the primary domain for the company.</p>
+<p>Then click on Add, and verify that these domains are added.</p>
+<p>Hint: if you need support for domain names having characters other than the English alphabet, you have to set the appropriate
+$config['DOMAIN_REGEX'] value in config-site.php. See the default value in config.php.</p>
+<h3 id="creating-the-customer">Creating the customer<a class="headerlink" href="#creating-the-customer" title="Permanent link">#</a></h3>
+<p>After creating domains for the customer, go to <strong>administration / customer</strong> page, then select the primary domain for the customer,
+add a customer ID, eg. fictiveco for the customer, fill the GUI URL field as well, then click Add, and verify that the customer is created.</p>
+<p>The GUI checks the hostname part of the URL (HTTP_HOST) to figure out which customer site the user visits.
+So each customer must have their own dedicated URL. The GUI URL field must be only the hostname (eg. fictiveco.myarchive.domain),
+no http:// prefix, etc.</p>
+<p>If you set $config[‘USE_SMTP_GATEWAY’] = 1; in config-site.php, then the customer creating form supplies you with an uuid-like address
+for the ‘Archiving address’ field, eg. 5cc03cf3-2a32-0d7e-02b8-7b29882e15dc@smtp.aaa.fu. You may accept it or you may change it, either
+way make sure that to rewrite 5cc03cf3-2a32-0d7e-02b8-7b29882e15dc@smtp.aaa.fu to <customer id>@workernodename.aaa.fu on the smtp gateway,
+because the piler-smtp daemon only accepts the customer id as the local part of the rcpt to address.</p>
+<p>When the page refreshes you’ll notice that the customer is in PENDING state, because it takes time to create a tenant for the new customer.
+The Piler cron jobs create store directories, a mysql database, and a sphinx database for this customer on the GUI node and on the worker nodes.</p>
+<p>The latter has a challenge: we have to restart the sphinx daemon, and the daemon needs a certain time while it reads and caches indices, so the
+restart happens at 00 minute, once in every hour.</p>
+<p>So please wait sending emails for the new customer until the customer status is OK.</p>
+<p><strong>Warning! If the status is OK on the GUI, it still takes up to an additional hour until the customer is created on the worker nodes as well.</strong></p>
+<p>You may send all emails for fictiveco to fictiveco@smtp.aaa.fu address. The piler smtp daemon checks the local part of the address to determine
+that the email belongs to which customer. If it’s unknown then the message is rejected.</p>
+<h3 id="how-to-script-adding-customers">How to script adding customers<a class="headerlink" href="#how-to-script-adding-customers" title="Permanent link">#</a></h3>
+<p>Check out the <a href="../restapi/">REST API docs</a>.</p>
+<h3 id="quotas">Quotas<a class="headerlink" href="#quotas" title="Permanent link">#</a></h3>
+<p>Piler is not able to handle any customer quota. Whatever email it receives, it also archives it - provided that it’s for a valid customer.
+The recommended method is to regularly check the customer_settings table in the piler database, and set alerts in case any of your customer’s
+used column becomes greater than the quota value.</p>
+<p>Note that you are free to fix the SQL query in the customer.cf file on the smtp gateway to include a check for the quota column as well, eg.</p>
+<pre><code>query = SELECT 'OK' FROM customer_settings WHERE customer_address='%s' AND enabled=1 AND (quota=0 OR quota &gt; used)
+</code></pre>
+<p>However, if a customer has reached their quota, then the smtp gateway will encounter an internal error as well as drop all of their incoming
+emails which may not be a good idea. So be sure to carefully decide if you really want this behaviour enabled.</p>
+<p>You may check the current usage of all customers on the <strong>Administration / customer</strong> page. Note that the raw email size is used for the
+calculations, not the actual stored sizes. The values are in GBs.</p>
+<p>Note that per domain or per user quotas are not supported.</p>
+<p>After the customer is created, you should configure the GUI for the customer, see the next chapter in the manual.</p>
+<h2 id="configuring-the-gui">Configuring the GUI<a class="headerlink" href="#configuring-the-gui" title="Permanent link">#</a></h2>
+<p>The GUI ships a default config file /var/piler/www/config.php. You should NOT modify this file! You should put all the site related
+customized settings to /etc/piler/config-site.php.</p>
+<p>It’s also possible to create customer specific settings (eg. authentication details) for the GUI. To do this, cd /etc/piler/sites
+and create config-site-<customerid>.php, eg. config-site-fictiveco.php. When customer fictiveco visits the GUI, then the settings
+in config-site-fictiveco.php override existing values.</p>
+<p>Customers should visit the GUI URL you configure when creating a new customer. It can be a subdomain in your domain
+(eg. https://fictive.aaa.fu/ ), or can be a subdomain in the customer’s domain. eg. https://archive.fictive.com/
+to access their own archive.</p>
+<p>In the customer specific config you may set several settings for the customer, eg. how to authenticate the customer’s users.
+See the User authentication methods in the documentation.</p>
+<h2 id="user-authentication-methods">User authentication methods<a class="headerlink" href="#user-authentication-methods" title="Permanent link">#</a></h2>
+<p>The piler GUI supports several methods for authenticating users.</p>
+<h3 id="authenticating-against-the-local-piler-database">Authenticating against the local piler database<a class="headerlink" href="#authenticating-against-the-local-piler-database" title="Permanent link">#</a></h3>
+<p>Normally only special users exist in the local piler database, eg. admin@local, auditor@local, etc. and the regular users are
+queried from an external database, eg. LDAP, AD, IMAP, etc.</p>
+<p>It's possible to add the regular users manually, however it’s recommended as the last resort when a central user database is not available.</p>
+<p>Note that these settings should usually go to the customer specific config file, eg. config-site-fictiveco.php.</p>
+<h3 id="authenticating-against-an-ldap-server">Authenticating against an LDAP server<a class="headerlink" href="#authenticating-against-an-ldap-server" title="Permanent link">#</a></h3>
+<p>This is the preferred way to authenticate regular users. The details depend on what mail system and the LDAP server the customer has.
+In general you have to enable the LDAP authentication (see the following paragraph), then create a helper account that can query the LDAP directory.</p>
+<p>To enable LDAP authentication, set the following in the customer’s site config, eg. config-site-fictiveco.php (for notenant installations write
+it to /etc/piler/config-site.php):</p>
+<pre><code>$config['ENABLE_LDAP_AUTH'] = 1;
+</code></pre>
+<p>Then go to the main admin site to <strong>administration / ldap</strong> menu, and create an ldap entry for the used LDAP server. You have to set the ldap hostname,
+ldap base DN where to limit the scope of the ldap query, also the ldap helper account parameters. When you are done, you may click on the test button,
+and the gui tries to login to the ldap host using the helper account.</p>
+<p>Before finishing you have to set a few ldap parameters, and specify the ldap attribute storing the email addresses, name of the user object class,
+name of the distribution list object class and its attribute name.</p>
+<h3 id="active-directory">Active Directory<a class="headerlink" href="#active-directory" title="Permanent link">#</a></h3>
+<pre><code>LDAP_ACCOUNT_OBJECTCLASS = 'user';
+LDAP_DISTRIBUTIONLIST_OBJECTCLASS = 'group';
+LDAP_DISTRIBUTIONLIST_ATTR = 'member';
+</code></pre>
+<h3 id="iredmail">iredmail<a class="headerlink" href="#iredmail" title="Permanent link">#</a></h3>
+<pre><code>LDAP_HELPER_DN = 'cn=vmailadmin,dc=yourdomain,dc=com';
+LDAP_BASE_DN = 'o=domains,dc=yourdomain,dc=com';
+LDAP_ACCOUNT_OBJECTCLASS = 'mailUser';
+LDAP_DISTRIBUTIONLIST_OBJECTCLASS = 'mailList';
+LDAP_DISTRIBUTIONLIST_ATTR = 'memberOfGroup';
+</code></pre>
+<h3 id="lotus-domino">Lotus Domino<a class="headerlink" href="#lotus-domino" title="Permanent link">#</a></h3>
+<pre><code>LDAP_ACCOUNT_OBJECTCLASS = 'dominoPerson';
+LDAP_DISTRIBUTIONLIST_OBJECTCLASS = 'dominoGroup';
+LDAP_DISTRIBUTIONLIST_ATTR = 'mail';
+</code></pre>
+<h3 id="zimbra">Zimbra<a class="headerlink" href="#zimbra" title="Permanent link">#</a></h3>
+<pre><code>LDAP_ACCOUNT_OBJECTCLASS = 'zimbraAccount';
+LDAP_DISTRIBUTIONLIST_OBJECTCLASS = 'zimbraDistributionList';
+LDAP_DISTRIBUTIONLIST_ATTR = 'zimbraMailForwardingAddress';
+LDAP_HELPER_DN = 'uid=zimbra,cn=admins,cn=zimbra';
+</code></pre>
+<p>Note that the GUI grants regular user permissions for everyone authenticated successfully against LDAP.
+If certain users need auditor rights, then create a group in LDAP, and put the auditors to this group.
+Then set this value to LDAP_AUDITOR_MEMBER_DN in the customer’s site config:</p>
+<pre><code>// the value is case sensitive!
+$config['LDAP_AUDITOR_MEMBER_DN'] = 'CN=PilerAuditors,CN=Users,DC=your,DC=domain,DC=com';
+</code></pre>
+<p>After setting the ldap parameters, you have to go to the <strong>administration / domain</strong> menu on the main
+admin site, and select the appropriate ldap server for the given domain. If you created a domain before
+the ldap entry, then simply remove the domain, and recreate it.</p>
+<p>A successful login should look like the following in /var/log/mail.log:</p>
+<pre><code>Aug  4 06:15:12 676134c1075b piler-webui[425]: ldap query: base dn='ou=users,dc=nodomain', filter='(&amp;(objectClass=inetOrgPerson)(mail=sanyi@aaa.fu))', attr='', 1 hits
+Aug  4 06:15:12 676134c1075b piler-webui[425]: ldap auth against '127.0.0.1', dn: 'cn=Sanyi Vagyok,ou=users,dc=nodomain', result: 1
+Aug  4 06:15:12 676134c1075b slapd[1357]: &lt;= mdb_equality_candidates: (mail) not indexed
+Aug  4 06:15:12 676134c1075b piler-webui[425]: ldap query: base dn='ou=users,dc=nodomain', filter='(|(&amp;(objectClass=inetOrgPerson)(mail=sanyi@aaa.fu))(&amp;(objectClass=zzz)(xxx=sanyi@aaa.fu))(&amp;(objectClass=zzz)(xxx=cn=Sanyi Vagyok,ou=users,dc=nodomain)))', attr='', 1 hits
+Aug  4 06:15:12 676134c1075b piler-webui[425]: ldap auth result against 127.0.0.1 / generic_ldap: 1
+Aug  4 06:15:12 676134c1075b piler-webui[425]: username=sanyi@aaa.fu, customer=piler, event='logged in', ip=1.2.3.4
+</code></pre>
+<p>A failed login may look like this:</p>
+<pre><code>Aug  4 06:30:53 676134c1075b piler-webui[425]: ldap query: base dn='ou=users,dc=nodomain', filter='(&amp;(objectClass=inetOrgPerson)(mail=someuser@aaa.fu))', attr='', 0 hits
+Aug  4 06:30:53 676134c1075b piler-webui[425]: ldap auth result against 127.0.0.1 / generic_ldap: 0
+Aug  4 06:30:53 676134c1075b piler-webui[425]: username=joska@aaa.fu, customer=piler, event='login failed', ip=1.2.3.4
+</code></pre>
+<h3 id="authenticating-against-an-imap-server">Authenticating against an IMAP server<a class="headerlink" href="#authenticating-against-an-imap-server" title="Permanent link">#</a></h3>
+<p>It's also possible to authenticate users against your IMAP server. Set the following in config-site.php:</p>
+<pre><code>$config['ENABLE_IMAP_AUTH'] = 1;
+$config['IMAP_HOST'] = 'imap.yourdomain.com';
+$config['IMAP_PORT'] = 993;
+$config['IMAP_SSL'] = true;
+</code></pre>
+<h3 id="authenticating-against-google-workspace-formerly-gsuite">Authenticating against Google Workspace (formerly GSuite)<a class="headerlink" href="#authenticating-against-google-workspace-formerly-gsuite" title="Permanent link">#</a></h3>
+<p><a href="https://mailpiler.com/authenticate-against-google-workspace-formerly-gsuite/">https://mailpiler.com/authenticate-against-google-workspace-formerly-gsuite/</a></p>
+<h3 id="use-azure-ad-for-single-sign-on-sso">Use Azure AD for single sign-on (SSO)<a class="headerlink" href="#use-azure-ad-for-single-sign-on-sso" title="Permanent link">#</a></h3>
+<p><a href="https://mailpiler.com/using-azure-ad-single-sign-on-sso/">https://mailpiler.com/using-azure-ad-single-sign-on-sso/</a></p>
+<h3 id="use-aws-cognito-for-single-sign-on-sso">Use AWS Cognito for single sign-on (SSO)<a class="headerlink" href="#use-aws-cognito-for-single-sign-on-sso" title="Permanent link">#</a></h3>
+<p><a href="https://mailpiler.com/using-aws-cognito-single-sign-on-sso/">https://mailpiler.com/using-aws-cognito-single-sign-on-sso/</a></p>
+<h2 id="customizing-the-gui">Customizing the GUI<a class="headerlink" href="#customizing-the-gui" title="Permanent link">#</a></h2>
+<p>Using the administration / customers menu the GUI allows you to override some logos, branding URL, and optionally the text and background colours in the menu bar.</p>
+<p>To override the logo on the login screen for a given customer, set the following in /etc/piler/sites/config-site-customerid.php eg.:</p>
+<p>/etc/piler/sites/config-site-fictiveco.php:</p>
+<pre><code>$config['SITE_LOGO_LG'] = '/path/to/fictiveco.jpg';
+</code></pre>
+<p>To override the logo in the menu bar, create a transparent image with up to 125px wide and up to 25px tall, then click on select in the customer settings menu. You may also define the branding URL assigned to the logo, and override the background and text colour in the menu bar.</p>
+<p>The default values can be found in /var/piler/www/config.php:</p>
+<pre><code>$config['BRANDING_TEXT_COLOUR'] = '#FFFFFF';
+$config['BRANDING_BACKGROUND_COLOUR'] = '#2B5CBE';
+$config['BRANDING_LOGO'] = '/view/theme/default/assets/images/archive-logo-sm.png';
+$config['BRANDING_FAVICON'] = '/view/theme/default/assets/ico/favicon.png';
+$config['BRANDING_URL'] = ''; // the URL when hovering over the logo
+$config['SUPPORT_LINK'] = ''; // an additional link in the user menu
+</code></pre>
+<p>You may override any of these default values by putting the appropriate definitions to /etc/piler/config-site.php, eg:</p>
+<pre><code>$config['BRANDING_BACKGROUND_COLOUR'] = '#B8377C';
+$config['BRANDING_URL'] = 'http://www.mycompany.com/';
+$config['SUPPORT_LINK'] = 'http://support.mycompany.com/';
+</code></pre>
+<p>Note that it’s possible to specify a custom css for the given customer by adding the following to override any default css property:</p>
+<pre><code>$config[‘CUSTOM_CSS’] = ‘/path/to/fictiveco.css’;
+</code></pre>
+<p>How to increase the number of search hits:</p>
+<pre><code>$config[‘MAX_SEARCH_HITS’] = 20000;
+</code></pre>
+<p>Increase the number of hits per page:</p>
+<pre><code>$paging = [10,20,30,50,100];
+$config['PAGE_LEN'] = 100; // the default for users
+</code></pre>
+<p>Then let the users override the hits per page (=page length) value in the user settings menu.</p>
+<h2 id="administrator-tasks">Administrator tasks<a class="headerlink" href="#administrator-tasks" title="Permanent link">#</a></h2>
+<h3 id="users-groups-and-rights">Users, groups, and rights<a class="headerlink" href="#users-groups-and-rights" title="Permanent link">#</a></h3>
+<p>Piler allows you to access only your emails you either sent or received. It's often required to grant permission
+to read emails of other users. Let's say Alice wants to see Bob's and Jim's emails.</p>
+<p>To do so create a group, type its name, eg. group1, then enter Alice's email address to the <code>"Email addresses**"</code>
+textarea. Finally type Bob's and Jim's email addresses to the <code>"Assigned email addresses**"</code>, and click on Add
+or Modify.</p>
+<p>Thus when Alice logs in both Bob's and Jim's email addresses are added to her allowed to see email addresses, so
+Alice can read Bob's emails, and Jim's emails, and of course her own emails as well.</p>
+<h3 id="administrator-permissions">Administrator permissions<a class="headerlink" href="#administrator-permissions" title="Permanent link">#</a></h3>
+<p>The administrator account (eg. admin@local) is used to administer piler only. It's not a super powerful account to
+see anyone's emails that's why it can't see the Search menu at all.</p>
+<p>If you need a user who can access anyone's emails then grant him AUDITOR privileges on the user settings page.
+Note that by default there's no such an account, you need to create it.</p>
+<p>The administrator role may see system statistics, accounting summary, edit user / group settings, policies,
+see audit logs, etc.</p>
+<h3 id="accounting">Accounting<a class="headerlink" href="#accounting" title="Permanent link">#</a></h3>
+<p>Piler keeps track of how many emails it has archived so far, and it’s able to show this information grouped
+by email addresses or domains. Note that Piler creates accounting data only for the domains configured in the
+<strong>administration / domain</strong> menu. The accounting runs once a day.</p>
+<h3 id="audit-logs">Audit logs<a class="headerlink" href="#audit-logs" title="Permanent link">#</a></h3>
+<p>The GUI keeps track of what users do and when they do. Every user's action involves an audit record that the
+gui stores into the audit SQL table. Thus there's an audit trail of every user activity, eg. searching for
+some messages, viewing a message, downloading another one, etc. Also the gui logs when a user logs in or logs out.</p>
+<p>The following information is logged:</p>
+<ul>
+<li>timestamp</li>
+<li>username (email)</li>
+<li>action (eg. view, search, download)</li>
+<li>IP-address</li>
+<li>message serial number – if any</li>
+<li>optional description</li>
+</ul>
+<p>Administrators and auditors are able to search within the audit logs, and even export the audit trail as a CSV file.</p>
+<p>The search field is very similar to the quick search for emails, and the parser tries to figure out what you look for.
+If it has a format of a date (eg. YYYY.MM.DD or YYYY-MM-DD) then it's a date, if it has an @ symbol then it's an email,
+dotted quads are IP-addresses, and search|view|download|... are actions.</p>
+<p>You may use wildcards by using the asterisk (<code>*</code>) character. Eg. <code>2018.08.*</code> searches for the whole August of 2018.
+<code>jack@yourdom*</code> Searches for user jack in domains starting with “yourdom”. If you want to specify only the user part,
+then you still must include the @-symbol otherwise the parser won't recognize it as an email address: <code>jack*@</code>.
+IP-addresses can be “wildcarded” right after a dot, eg. <code>1.2.3.*</code> or <code>1.2.*.*</code>. Note that <code>123.123.12*.*</code> is not
+a valid expression.</p>
+<p>A slightly complex audit search to find the login, view and download attempts for the local auditor in this month from
+31.0.0.0/8 address space:</p>
+<p><code>audit*@ 2018.08.* login view download 31.*</code></p>
+<p>If you don't want or need auditing, then have the provider to turn it off for you:</p>
+<pre><code>$config['ENABLE_AUDIT'] = 0;
+</code></pre>
+<h2 id="securing-the-archive">Securing the archive<a class="headerlink" href="#securing-the-archive" title="Permanent link">#</a></h2>
+<h3 id="securing-the-gui">Securing the GUI<a class="headerlink" href="#securing-the-gui" title="Permanent link">#</a></h3>
+<ul>
+<li>Use https. See the blog post about getting a Let’s Encrypt certificate</li>
+<li>Use single sign-on only</li>
+<li>Restrict the IP-range of the clients in nginx config</li>
+<li>Enable 2 factor authentication: <code>$config['ENABLE_GOOGLE_AUTHENTICATOR'] = 1;</code></li>
+<li>Enable CAPTCHA after 3 unsuccessful login attempt: <code>$config['CAPTCHA_FAILED_LOGIN_COUNT'] = 3;</code></li>
+</ul>
+<h3 id="securing-the-piler-smtp-daemon">Securing the piler-smtp daemon<a class="headerlink" href="#securing-the-piler-smtp-daemon" title="Permanent link">#</a></h3>
+<ul>
+<li>Use SMTP ACL list to restrict access to port 25</li>
+<li>Use STARTTLS</li>
+</ul>
+<h2 id="rules-and-policies">Rules and policies<a class="headerlink" href="#rules-and-policies" title="Permanent link">#</a></h2>
+<p>Piler supports two kinds of policies or rulesets. The exclusion rules specify <strong>what NOT to archive</strong>.
+The retention rules specify how long to keep messages in the archive.</p>
+<p>Customer specific rules are stored in the customer’s database in some mysql tables on the GUI node.
+The worker nodes synchronize these tables every hour using a piler cron job.</p>
+<p><strong>Warning! Currently only the provider admins can set or fix both archiving and retention rules,
+because a single miswritten rule may lead to loss of important emails.</strong></p>
+<p>When piler starts it reads all the rules and compiles them at startup. If the piler daemon gets
+a HUP signal, then it re-reads the rules.</p>
+<h3 id="exclusion-rules">Exclusion rules<a class="headerlink" href="#exclusion-rules" title="Permanent link">#</a></h3>
+<p>You may define rules to prevent piler and pilerimport to archive certain messages, eg. having no subject,
+too big, recognized spam, etc.</p>
+<p>You may specify the From:, To/Cc:, Subject:, message size, attachment type and size value. Piler uses the
+TRE regex library to test whether the given rule matches the processed message. If so, then neither piler
+nor pilerimport will archive it, but rather discard it after logging.</p>
+<p>Some examples:</p>
+<table>
+<thead>
+<tr>
+<th>Pattern</th>
+<th>Matches on</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>subject: ^ {0,}$</td>
+<td>messages with no subject</td>
+</tr>
+<tr>
+<td>size: &gt; 1000000, attachment type: video/</td>
+<td>messages bigger than 1 MB + having a video attachment</td>
+</tr>
+<tr>
+<td>size: &lt; 500</td>
+<td>too short spam probes, not having a body</td>
+</tr>
+<tr>
+<td>subject: [SPAM]</td>
+<td>recognised spam emails</td>
+</tr>
+<tr>
+<td><code>BUY( NOW){0,1} (viagra|cialis)</code></td>
+<td>“buy” or “buy now” viagra/cialis spam</td>
+</tr>
+</tbody>
+</table>
+<p>You are encouraged to test your rules whether they work as expected. Use the pilertest utility to test a
+single EML format message against your exclusion rules. Pilertest prints the first matching exclusion rule
+(if there’s any), eg. the following mail is caught by a rule matching emails having no subject:</p>
+<pre><code>pilertest -W customerid -m message.eml
+</code></pre>
+<pre><code>locale: hu_HU
+message-id: &lt;586387.60094.qm@web83907.mail.sp1.yahoo.com&gt;
+from: *Queen Oneil queenbaby3@att.net queenbaby3 att net (att.net )*
+to: *undisclosed recipients ()*
+reference: **
+subject: **
+sent: 1293679136
+hdr len: 3007
+digest: 0230af406d0e03e56ed63eeb8e0891ed6a97f49d297f42c0d2565cb770311323
+rules check: from=,to=,subject=^$,size0,att.type=,att.size0
+attachments:
+direction: 0
+spam: 0
+</code></pre>
+<h2 id="retention-rules">Retention rules<a class="headerlink" href="#retention-rules" title="Permanent link">#</a></h2>
+<p>How long shall piler retain your messages? You may control it with the retention rules. The format is exactly
+the same as with the exclusion rules: you can define the From:, To/Cc:, Subject:, message size, etc. and the
+retention period in days.</p>
+<p>Every time piler archives a message, it assigns a retention period according to the retention rules or applying
+the default value (2257 days = 7 years + 2 days, unless you change it in piler.conf). After the retention period
+has expired the piler utilities will remove the message from the archive.</p>
+<p>It's recommended to create your retention policy before deploying any archiving solution.</p>
+<p>Note that the retention period is included in the per message verification digest, so the retention period should
+not be changed after the message has been archived.</p>
+<p>Piler also compiles a list from the retention rules, so whenever you change them, be sure to click on the
+“Apply settings” red button to send a HUP signal to piler daemon.</p>
+<p>Note that if you want to keep your emails forever for the given customer, then be sure to disable purging
+on the admin panel!</p>
+<h2 id="what-to-do-with-spam">What to do with spam<a class="headerlink" href="#what-to-do-with-spam" title="Permanent link">#</a></h2>
+<p>It's a waste to archive junk messages, so the best solution is to prevent them from entering the archive.
+This can be achieved by redirecting spam messages to a quarantine, so only good emails can get to the archive.</p>
+<p>If this setup is not feasible, you may create an exclusion rule that keeps spam emails out of the archive.
+Or you may create a retention rule that no spam is to be retained beyond 30 days. Unfortunately these may
+be error prone, think about a false positive error.</p>
+<h2 id="backup-and-restore">Backup and restore<a class="headerlink" href="#backup-and-restore" title="Permanent link">#</a></h2>
+<p>Backup is an essential part of the business continuity. Make sure that you backup the following directories and data to
+ensure that you will be able to restore in case of a problem.</p>
+<ul>
+<li>/etc/piler</li>
+<li>/var/piler/astore</li>
+<li>/var/piler/store</li>
+<li>/var/piler/manticore</li>
+</ul>
+<p>The /etc/piler directory contains piler configuration, key file, certificate, etc. <strong>Make sure that you never lose
+/etc/piler/piler.key, otherwise you won’t be able to decrypt the archived emails!</strong></p>
+<p>The /var/piler/store directory stores the archived emails. An email is splitted to several parts. A filename ending
+with .m stores the message itself without the attachments. The attachments are stored in /var/piler/astore directory
+in files named as <sha256 hash>-<message size>, eg. d440749d9a64d44e1fd81e63a5e3d1cfa57edd8884db3013d22d831fc21228cc-000050930.</p>
+<p>The stored .m files are organized to sub directories, eg.</p>
+<pre><code>/var/piler/store/&lt;server_id&gt;/&lt;customer_id&gt;/58f
+                                          /590
+                                          /591
+</code></pre>
+<p>Notice the subdirectories consisting of three hexadecimal numbers (58f, 590 and 591 in the example above). They hold ~12 days
+of data. After ~12 days (give or take) a new directory is created, and piler starts to put new emails to the new directory,
+and won’t touch any of the older directories ever. This behaviour allows you to create an incremental backup procedure.</p>
+<p>The index data follows a main - dailydelta - delta indexing scheme. The main files change once a day, the dailydelta files
+change every 30 mins. You don’t have to backup the delta files, it’s enough to backup the main files
+(ie. <code>/var/piler/manticore/customerid/main1.*</code>).</p>
+<p>Note that the index data can be regenerated, however the more emails you have, the longer the process takes, so it’s worth
+to backup the manticore files as well.</p>
+<p>Finally you should backup the mysql data. Piler stores crucial metadata, users, rules, audit data, etc. in a mysql database
+required to operate properly. <strong>Make sure to never lose the mysql databases!</strong></p>
+<p>You may choose to backup the emails as well. The pilerexport utility allows you to export yesterday’s emails to the current directory, eg.</p>
+<pre><code>cd /path/to/backup/somecustomer
+pilerexport -W somecustomer -a 2017.04.17 -b 2017.04.17.
+</code></pre>
+<p>The above command dumps all emails for ‘somecustomer’ to /path/to/backup/somecustomer archived on 2017.04.17.
+The filenames consist of the message serial id + .eml suffix, eg. 123.eml.</p>
+<p><strong>Important! DON’T export emails of different customers to the same target directory because the dumped eml files
+will be overwritten! Each customer should have its own dump directory.</strong></p>
+<p>The restore procedure simply involves importing these emails.</p>
+<p>You may even set up a secondary piler installation, see the next chapter.</p>
+<h2 id="remove-a-customers-data">Remove a customer’s data<a class="headerlink" href="#remove-a-customers-data" title="Permanent link">#</a></h2>
+<p>When you remove a customer on the gui node, then the customer’s reference is removed only, and all
+their emails, manticore index and sql database remain intact.
+To remove the customer’s data, follow the steps below on how to remove a customer called fictive.</p>
+<p>On all nodes including both gui and worker nodes (Note that steps 5-6 may take a long time):</p>
+<pre><code>stop searchd
+rm -rf /var/piler/manticore/fictive
+start searchd
+mysql&gt;drop database fictive;
+rm -rf /var/piler/astore/00/fictive
+rm -rf /var/piler/store/00/fictive
+</code></pre>
+<p>On the GUI node only:</p>
+<ul>
+<li>remove fictive from the customer list</li>
+<li>remove domains belonging to fictive customer</li>
+<li>remove fictive’s reference from /etc/piler/sites/customer-sites.php</li>
+</ul>
+<h2 id="setup-a-secondary-piler-site">Setup a secondary piler site<a class="headerlink" href="#setup-a-secondary-piler-site" title="Permanent link">#</a></h2>
+<p>There’s another option to mitigate the effects of a site disaster. Let’s say you have a Piler installation
+in Azure with a gui node, an smtp gateway, and 5 worker nodes.</p>
+<p>Now create another site at AWS (or your favourite provider. It can even be your datacenter if you will),
+and perform the same installation of the gui node, the smtp gateway, and the worker nodes. Make sure that
+you use the same internal IP addresses for both sites (ie. Azure and AWS in this example) for the worker nodes.</p>
+<p>Finally you have to configure the smtp gateway on each site to forward a copy of emails to the other site thus
+replicating emails automatically to the other site. When the azure site goes down or is destroyed, then you simply
+redirect customers to the backup site by fixing the DNS entries.</p>
+<p>One things is not covered in the documentation is that you have to keep the configurations of each sites
+synchronized, ie. set the same exclusion rules, same retention periods, etc. The current version of Piler
+doesn’t support this automatically.</p>
+<h2 id="best-practices">Best practices<a class="headerlink" href="#best-practices" title="Permanent link">#</a></h2>
+<p>A few recommended steps on how to operate piler.</p>
+<p>Set a reasonable default retention time in piler.conf that might be valid to most of your customers.</p>
+<p>The piler.conf files should be identical on all worker nodes.</p>
+<p>The piler.key file should be the same on all worker nodes.</p>
+<p>Use DNS domain names instead of IP-addresses.</p>
+<p>Monitor the piler nodes, including the gui node(s), the workers, and the smtp gateway as well.
+The monitoring should include checking port 25, 80 (or 443), 9312 availability, enough free disk space,
+whether mysql server is running, cpu, memory and disk io, etc.</p>
+<p><strong>Never ever run out of free disk space. Not even under /tmp. Note that manticore requires some additional
+temporary disk space while indexing besides the index files.</strong></p>
+<p>Implement a central syslog server or other log collecting solution. All hosts should send their mail
+related logs to a central log processing server.</p>
+<p>Backup all piler related configuration as well as data. This includes the following directories:</p>
+<pre><code>/etc/piler
+/var/piler/astore/&lt;server_id&gt;
+/var/piler/store/&lt;server_id&gt;
+/var/piler/manticore
+/var/piler/sphinx # for older deployments using sphinx
+</code></pre>
+<p>And backup the mysql databases as well!</p>
+<p>It’s recommended to put the worker nodes (or even all piler hosts) behind a firewall. See the Security
+considerations chapter in the <a href="../installation/">Installation guide</a>.</p>
+<p>The smtp gateway should support STARTTLS to secure emails on the wire.</p>
+<p>Buy a wildcard certificate for your domain, and you may use it to secure both GUI web access and smtp
+gateway. You may even use it on the worker nodes to secure smtp. In this case put both the private key
+and the certificate to /etc/piler/piler.pem, then restart piler-smtp process.</p>
+<p>In case of an issue, always check the logs. When piler encounters a problem, it syslogs the issue,
+it gives a clue what went wrong. Check the nginx logs as well.</p>
+<p>Also in case of a problem run the health check utility: /usr/libexec/piler/health-check.sh. It checks
+a few settings the Piler support may be interested in.</p></div>
+        
+        
+    </div>
+
+    
+      <footer class="col-md-12 text-center">
+          
+          
+            <hr>
+            <p>
+            <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</small>
+            </p>
+          
+
+          
+          
+      </footer>
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="../js/bootstrap-3.0.3.min.js"></script>
+
+    
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/highlight.min.js"></script>
+        
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+
+    <script>var base_url = ".."</script>
+    
+    <script src="../js/base.js"></script>
+    <script src="../search/main.js"></script>
+
+    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+    </body>
+
+</html>

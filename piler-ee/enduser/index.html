@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    <link rel="canonical" href="https://jsuto.github.io/piler-ee/enduser/">
+    <link rel="shortcut icon" href="../img/favicon.ico">
+
+    
+    <title>End user guide to piler enterprise edition - piler enterprise documentation</title>
+    
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/v4-shims.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.min.css">
+    <link href='//rsms.me/inter/inter.css' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
+    <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
+    <link href="../css/base.min.css" rel="stylesheet">
+    <link href="../css/cinder.min.css" rel="stylesheet">
+
+    
+        
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/styles/github.min.css">
+        
+    
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+            <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+        <![endif]-->
+
+    
+
+     
+</head>
+
+<body>
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+
+            <!-- Main title -->
+
+            
+              <a class="navbar-brand" href="..">piler enterprise documentation</a>
+            
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+
+            <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                            <i class="fas fa-search"></i> Search
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+    <div class="container">
+        
+        
+        <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="first-level active"><a href="#end-user-guide-to-piler-enterprise-edition">End user guide to piler enterprise edition</a></li>
+            <li class="second-level"><a href="#overview-of-how-piler-works">Overview of how Piler works</a></li>
+                
+            <li class="second-level"><a href="#login">Login</a></li>
+                
+            <li class="second-level"><a href="#settings">Settings</a></li>
+                
+            <li class="second-level"><a href="#search-for-emails">Search for emails</a></li>
+                
+                <li class="third-level"><a href="#quick-search">Quick search</a></li>
+                <li class="third-level"><a href="#quick-search-examples">Quick search examples</a></li>
+                <li class="third-level"><a href="#advanced-or-guided-search">Advanced (or guided) search</a></li>
+                <li class="third-level"><a href="#recall-previous-search-queries">Recall previous search queries</a></li>
+                <li class="third-level"><a href="#save-a-search-query">Save a search query</a></li>
+                <li class="third-level"><a href="#execute-a-saved-search-criteria">Execute a saved search criteria</a></li>
+            <li class="second-level"><a href="#use-the-search-results">Use the search results</a></li>
+                
+            <li class="second-level"><a href="#tag-messages">Tag messages</a></li>
+                
+            <li class="second-level"><a href="#add-notes-to-messages">Add notes to messages</a></li>
+                
+            <li class="second-level"><a href="#download-messages">Download messages</a></li>
+                
+            <li class="second-level"><a href="#restore-messages">Restore messages</a></li>
+                
+    </ul>
+</div></div>
+        <div class="col-md-9" role="main">
+
+<h1 id="end-user-guide-to-piler-enterprise-edition">End user guide to piler enterprise edition<a class="headerlink" href="#end-user-guide-to-piler-enterprise-edition" title="Permanent link">#</a></h1>
+<p>This documentation applies to Piler enterprise edition 1.7.2</p>
+<p>Revision #1</p>
+<p>Publication date: Apr 20, 2023</p>
+<h2 id="overview-of-how-piler-works">Overview of how Piler works<a class="headerlink" href="#overview-of-how-piler-works" title="Permanent link">#</a></h2>
+<p>Piler is a secure email archive that keeps your messages in a central repository. Piler archives every email
+it receives whether it be an incoming, outgoing or even an internal email.</p>
+<p>An important part of the archiving process is called indexing. It allows you to find the archived emails later
+based on search terms. Piler provides a web based GUI that can be accessed using a web browser, eg. Firefox, Chrome, etc.</p>
+<p>The message indexing is not real time. It runs periodically on the archiving host every half hour. It means
+that you cannot see your messages instantly in the GUI as soon as they are archived. It may take up to 30
+minutes until they appear in the search hits.</p>
+<p>The archived messages are encrypted in a tamper-proof manner. When you click on a message you should see a
+green tick sign with the “Message is verified” text. It means that the retrieved message is exactly the same
+that was archived. Otherwise you may see a failure sign with the “Message Failed Verification” text. See examples below.</p>
+<p>The GUI has a built-in access control to prevent a user from accessing others' messages. However, users with
+an auditor role can see every archived email.</p>
+<p>The GUI also creates an audit event each time a user performs an action, eg. enters a search query, downloads
+or restores a message, etc. Only auditors and administrators may search in the audit logs.</p>
+<h2 id="login">Login<a class="headerlink" href="#login" title="Permanent link">#</a></h2>
+<p>Go to the archive URL, usually it’s https://archive.yourdomain.com/</p>
+<p>The archive is usually configured to allow you to use your email address, and your email password as login
+credentials. In case of an issue, ask your IT for help.</p>
+<p><img alt="" src="../images/login.png" /></p>
+<h2 id="settings">Settings<a class="headerlink" href="#settings" title="Permanent link">#</a></h2>
+<p>After logging in you may view and edit your settings, eg. page length, date format and timezone. To get to
+the settings menu, click on your email address at the right side of the menu bar, then choose “Settings”
+from the dropdown menu.</p>
+<p>You may turn on two-factor authentication as well. If you do so, be sure to write down the backup codes.</p>
+<p><img alt="" src="../images/settings.png" /></p>
+<h2 id="search-for-emails">Search for emails<a class="headerlink" href="#search-for-emails" title="Permanent link">#</a></h2>
+<p>When you enter the archive the GUI presents you the last 20 archived messages. To have more hits per page,
+go to the “Settings” menu in the upper right corner of the screen.</p>
+<p>You may use two search interfaces:
+- Quick search in the long text input field
+- Advanced (or guided) search</p>
+<h3 id="quick-search">Quick search<a class="headerlink" href="#quick-search" title="Permanent link">#</a></h3>
+<p>This is the default and the preferred way of searching. Just enter the search terms, and you get the last
+10000 hits in a paged view. If there are more than 10000 hits, then the exact number is shown between parentheses.</p>
+<p><img alt="" src="../images/quick-search.png" /></p>
+<p>By default the GUI applies the search criteria to each field. Eg. if you type mycompany, then it searches for emails
+having mycompany in the sender email address, in the subject and in the body.</p>
+<p>Note that piler indexes the textual data of the attachments as well. If the GUI is instructed to search in the body,
+then it also searches in the attachments as well.</p>
+<p>The search is very intuitive. The GUI guesses the format of the words you type. If you type 2018-01-31 (2018.01.31
+is also a valid date) then it knows it's a date. If it has a @ sign, then it's an email address. Otherwise it's a
+subject or body expression.</p>
+<p>You may enter a finer search query by specifying keywords that precisely identify the type of the given search word.</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>from:</td>
+<td>Sender address</td>
+</tr>
+<tr>
+<td>to:</td>
+<td>Recipient address</td>
+</tr>
+<tr>
+<td>subject:</td>
+<td>Subject of the email</td>
+</tr>
+<tr>
+<td>body:</td>
+<td>Body of the email, including attachments</td>
+</tr>
+<tr>
+<td>date1:</td>
+<td>From (=not before) date (YYYY-MM-DD 00:00:00)</td>
+</tr>
+<tr>
+<td>date2:</td>
+<td>To (=not after) date (YYYY-MM-DD 23:59:59)</td>
+</tr>
+<tr>
+<td>size:</td>
+<td>Size of the message in bytes</td>
+</tr>
+<tr>
+<td>attachment:</td>
+<td>Attachment type. Possible values: word, excel, powerpoint, pdf, compressed, text, odf, image, audio, video, flash, other, any</td>
+</tr>
+<tr>
+<td>a:</td>
+<td>Same as attachment:</td>
+</tr>
+</tbody>
+</table>
+<h3 id="quick-search-examples">Quick search examples<a class="headerlink" href="#quick-search-examples" title="Permanent link">#</a></h3>
+<p>Emails from Gmail on 2018.02.28:
+<code>2018-02-28 @gmail.com</code></p>
+<p>Emails from Gmail before 2018.02.28 23:59:59:
+<code>date2: 2018-02-28, from: @gmail.com</code></p>
+<p>Emails from the Matrix (Both sender email addresses and names are indexed):
+<code>from: Agent Smith</code></p>
+<p>Emails to someone in Big company after 2018.01.31 00:00:00:
+<code>date1: 2018-01-31, to: @bigcompany.com</code></p>
+<p>Emails from jane@aaa.fu OR bill@aaa.fu in 2018 March having any kind of attachment:
+<code>date1:2018-03-01, date2:2018-03-31, from: jane@aaa.fu OR bill@aaa.fu a:any</code></p>
+<p>Emails from jane@aaa.fu OR bill@aaa.fu on 2018.02.15 having any kind of attachment:
+<code>date1:2018-02-15, date2:2018-02-15, from: jane@aaa.fu OR bill@aaa.fu a:any</code></p>
+<p>Emails on 2018.02.15 that both jane@aaa.fu AND bill@aaa.fu received having any kind of attachment:
+<code>date1:2018-02-15, date2:2018-02-15, to: jane@aaa.fu bill@aaa.fu a:any</code></p>
+<p>Viagra spam bigger than 200 kB spoofing my email address as the sender, and having 'order', then 'now' in the body:
+<code>size:&gt;.2M, subject: viagra OR cialis, body: order &lt;&lt; now, from: my@email.address</code></p>
+<p>Emails with the following expression: ‘you have to know’:
+<code>“you have to know”</code></p>
+<p>Price list to jenny@aaa.fu, in pdf attachment(s) smaller than 150 kB:
+<code>size:&lt;150k, a: pdf, subject: price list, to: jenny@aaa.fu</code></p>
+<p>Price list to jenny@aaa.fu, in pdf attachment(s) not containing the word ‘discount’:
+<code>a: pdf, subject: price list !discount, to: jenny@aaa.fu</code></p>
+<p>Search using a wildcard for words like permission, permissions, permissing, etc.
+(Note that you need at least 5 characters before the * symbol):
+<code>permissi*</code></p>
+<p>See the following table on some additional search operators:</p>
+<table>
+<thead>
+<tr>
+<th>Expression</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cat dog</td>
+<td>Having cat and dog (order is not important)</td>
+</tr>
+<tr>
+<td>cat OR dog</td>
+<td>Having cat or dog</td>
+</tr>
+<tr>
+<td>cat</td>
+<td>dog</td>
+</tr>
+<tr>
+<td>“cat dog”</td>
+<td>Having the expression “cat dog”</td>
+</tr>
+<tr>
+<td>!dog</td>
+<td>Not having dog</td>
+</tr>
+<tr>
+<td>-dog</td>
+<td>Not having dog</td>
+</tr>
+<tr>
+<td>“cat dog” ~10</td>
+<td>Proximity search</td>
+</tr>
+<tr>
+<td>cat &lt;&lt; dog</td>
+<td>Before operator: cat has to precede dog</td>
+</tr>
+</tbody>
+</table>
+<h3 id="advanced-or-guided-search">Advanced (or guided) search<a class="headerlink" href="#advanced-or-guided-search" title="Permanent link">#</a></h3>
+<p>The other search interface is the advanced or guided search. It's a popup window you can get by clicking on
+either the down arrow in the right corner of the search field or the “Advanced search” button.</p>
+<p><img alt="" src="../images/advanced-search.png" /></p>
+<p>The quick search and the advanced search are equivalent, they give you the same possibilities to define a
+search query. The advanced search presents you a list of separated input fields giving a better visual
+view where you can specify the same fields (From, To, dates, etc.) as with the quick search.</p>
+<h3 id="recall-previous-search-queries">Recall previous search queries<a class="headerlink" href="#recall-previous-search-queries" title="Permanent link">#</a></h3>
+<p>You may see a down arrow at the right side of the search field. Click on it to see your previous search
+queries, then select the search term you want to execute again.</p>
+<p><img alt="" src="../images/search-recall.png" /></p>
+<h3 id="save-a-search-query">Save a search query<a class="headerlink" href="#save-a-search-query" title="Permanent link">#</a></h3>
+<p>The GUI lets you save then load search queries. It's especially handy if you entered a longer search expression
+or if you have to perform some regular searches. To save the current search query, click on the “Options” button,
+then select “Save” from the dropdown menu.</p>
+<p><img alt="" src="../images/search-save.png" /></p>
+<h3 id="execute-a-saved-search-criteria">Execute a saved search criteria<a class="headerlink" href="#execute-a-saved-search-criteria" title="Permanent link">#</a></h3>
+<p>Click on the “Options” button, then select “Load”. You’ll see your saved queries. Click on the appropriate search
+criteria to execute it. You may remove a saved query by clicking on the “Remove” link next to the search expression.</p>
+<p><img alt="" src="../images/search-execute.png" /></p>
+<h2 id="use-the-search-results">Use the search results<a class="headerlink" href="#use-the-search-results" title="Permanent link">#</a></h2>
+<p>If you have a search result then you can view any of the messages by clicking on the subject line or the serial number.
+The message is shown in the lower view pane.</p>
+<p><img alt="" src="../images/search-results.png" /></p>
+<p>You don’t have to open a message to view its contents. You may simply hover over the subject text in the upper pane to
+see the first few hundred bytes of the message.</p>
+<h2 id="tag-messages">Tag messages<a class="headerlink" href="#tag-messages" title="Permanent link">#</a></h2>
+<p>You may assign tags to selected emails. To do that perform a query providing the search results you want to tag, then
+select the appropriate messages you want to tag. Enter the tag name to the input field, and finally click on the tag icon.</p>
+<p><img alt="" src="../images/tag-messages.png" /></p>
+<p>The search engine indexes the tags in regular intervals. Then you may use “tag:mytag1” search query to recall such tagged messages.</p>
+<p>You may also remove assigned tags. To do that select the messages you want to un-tag. Then simply click on the tag icon.</p>
+<h2 id="add-notes-to-messages">Add notes to messages<a class="headerlink" href="#add-notes-to-messages" title="Permanent link">#</a></h2>
+<p>You may assign notes to individual messages. To do that select the given message, and type your notes on the preview window
+in the lower pane, then finally click on the “Save” button.</p>
+<p><img alt="" src="../images/message-notes.png" /></p>
+<p>Just as with the tags, the search engine indexes your notes periodically as well. You may use the note: keyword to recall
+such a message, eg. note:important package bug</p>
+<h2 id="download-messages">Download messages<a class="headerlink" href="#download-messages" title="Permanent link">#</a></h2>
+<p>You may download individual emails by clicking on the Download link in the message preview pane. Click on the PDF icon
+to download the message as a PDF file. Notice the “Message is verified” text and its icon proving the message hasn’t been altered.</p>
+<p><img alt="" src="../images/message-download.png" /></p>
+<p>It's also possible to download the search results from the current page as a zip file. To do so, select some or all messages
+in the upper search results window, then click on the download icon.</p>
+<p><img alt="" src="../images/mass-download.png" /></p>
+<h2 id="restore-messages">Restore messages<a class="headerlink" href="#restore-messages" title="Permanent link">#</a></h2>
+<p>You may restore a single message by clicking the message, and then in the lower pane click on the restore button.
+The message is restored to your mailbox.</p>
+<p>Just as with the download feature, you may also restore several messages at a time. The steps are the same, except
+the final step is to click on the restore icon in the middle bar.</p>
+<p><img alt="" src="../images/restore.png" /></p></div>
+        
+        
+    </div>
+
+    
+      <footer class="col-md-12 text-center">
+          
+          
+            <hr>
+            <p>
+            <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</small>
+            </p>
+          
+
+          
+          
+      </footer>
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="../js/bootstrap-3.0.3.min.js"></script>
+
+    
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/highlight.min.js"></script>
+        
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+
+    <script>var base_url = ".."</script>
+    
+    <script src="../js/base.js"></script>
+    <script src="../search/main.js"></script>
+
+    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+    </body>
+
+</html>

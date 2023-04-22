@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    <link rel="canonical" href="https://jsuto.github.io/piler-ee/restapi/">
+    <link rel="shortcut icon" href="../img/favicon.ico">
+
+    
+    <title>Using the REST API - piler enterprise documentation</title>
+    
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/v4-shims.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.min.css">
+    <link href='//rsms.me/inter/inter.css' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
+    <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
+    <link href="../css/base.min.css" rel="stylesheet">
+    <link href="../css/cinder.min.css" rel="stylesheet">
+
+    
+        
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/styles/github.min.css">
+        
+    
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+            <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+        <![endif]-->
+
+    
+
+     
+</head>
+
+<body>
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+
+            <!-- Main title -->
+
+            
+              <a class="navbar-brand" href="..">piler enterprise documentation</a>
+            
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+
+            <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                            <i class="fas fa-search"></i> Search
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+    <div class="container">
+        
+        
+        <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="first-level active"><a href="#using-the-rest-api">Using the REST API</a></li>
+            <li class="second-level"><a href="#introduction">Introduction</a></li>
+                
+            <li class="second-level"><a href="#domains">Domains</a></li>
+                
+                <li class="third-level"><a href="#get-the-domain-list">Get the domain list</a></li>
+                <li class="third-level"><a href="#add-a-domain">Add a domain</a></li>
+                <li class="third-level"><a href="#delete-a-domain">Delete a domain</a></li>
+            <li class="second-level"><a href="#customers">Customers</a></li>
+                
+                <li class="third-level"><a href="#get-the-customer-id-list">Get the customer id list</a></li>
+                <li class="third-level"><a href="#get-the-customer-settings">Get the customer settings</a></li>
+                <li class="third-level"><a href="#get-the-customer-settings-for-customer-id1">Get the customer settings for customer id=1</a></li>
+                <li class="third-level"><a href="#add-a-customer">Add a customer</a></li>
+                <li class="third-level"><a href="#update-customer-settings">Update customer settings</a></li>
+                <li class="third-level"><a href="#delete-customer-settings-from-the-database">Delete customer settings from the database</a></li>
+            <li class="second-level"><a href="#users">Users</a></li>
+                
+                <li class="third-level"><a href="#add-a-user">Add a user</a></li>
+                <li class="third-level"><a href="#update-a-user">Update a user</a></li>
+                <li class="third-level"><a href="#delete-a-user">Delete a user</a></li>
+            <li class="second-level"><a href="#groups">Groups</a></li>
+                
+                <li class="third-level"><a href="#get-groups">Get groups</a></li>
+                <li class="third-level"><a href="#add-group">Add group</a></li>
+                <li class="third-level"><a href="#update-group">Update group</a></li>
+                <li class="third-level"><a href="#delete-group">Delete group</a></li>
+            <li class="second-level"><a href="#header-checks">Header checks</a></li>
+                
+                <li class="third-level"><a href="#get-header-checks">Get header checks</a></li>
+                <li class="third-level"><a href="#delete-header-check-rule">Delete header check rule</a></li>
+                <li class="third-level"><a href="#add-a-header-check-rule">Add a header check rule</a></li>
+    </ul>
+</div></div>
+        <div class="col-md-9" role="main">
+
+<h1 id="using-the-rest-api">Using the REST API<a class="headerlink" href="#using-the-rest-api" title="Permanent link">#</a></h1>
+<p>This documentation applies to Piler enterprise edition 1.7.2</p>
+<p>Revision #1</p>
+<p>Publication date: Apr 20, 2023</p>
+<h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">#</a></h2>
+<p>The REST API allows you to automate the most frequent operations for piler enterprise.</p>
+<p>You need to set the authentication header, in this tutorial we’ll use the default admin account.
+The hostname will be archive.aaa.fu. Note that customer admins may also use the REST API to affect their organization.</p>
+<pre><code>$ user='admin@local:pilerrocks'
+</code></pre>
+<h2 id="domains">Domains<a class="headerlink" href="#domains" title="Permanent link">#</a></h2>
+<h3 id="get-the-domain-list">Get the domain list<a class="headerlink" href="#get-the-domain-list" title="Permanent link">#</a></h3>
+<pre><code>curl -u &quot;$user&quot; archive.aaa.fu/api/v1/get_domains
+</code></pre>
+<pre><code>[{&quot;domain&quot;:&quot;aaa.fu&quot;,&quot;mapped&quot;:&quot;aaa.fu&quot;,&quot;ldap&quot;:&quot;company A&quot;}, {&quot;domain&quot;:&quot;acts.hu&quot;,&quot;mapped&quot;:&quot;fictive.com&quot;,&quot;ldap&quot;:&quot;company F&quot;}, {&quot;domain&quot;:&quot;bbb.fu&quot;,&quot;mapped&quot;:&quot;bbb.fu&quot;,&quot;ldap&quot;:&quot;&quot;}, {&quot;domain&quot;:&quot;fictive.com&quot;,&quot;mapped&quot;:&quot;fictive.com&quot;,&quot;ldap&quot;:&quot;company F&quot;}, {&quot;domain&quot;:&quot;fictive.net&quot;,&quot;mapped&quot;:&quot;fictive.com&quot;,&quot;ldap&quot;:&quot;company F&quot;}, {&quot;domain&quot;:&quot;fictive.org&quot;,&quot;mapped&quot;:&quot;fictive.com&quot;,&quot;ldap&quot;:&quot;company F&quot;}, {&quot;domain&quot;:&quot;local&quot;,&quot;mapped&quot;:&quot;local&quot;,&quot;ldap&quot;:&quot;&quot;},{&quot;domain&quot;:&quot;no.domain&quot;,&quot;mapped&quot;:&quot;bbb.fu&quot;,&quot;ldap&quot;:&quot;&quot;}]
+</code></pre>
+<h3 id="add-a-domain">Add a domain<a class="headerlink" href="#add-a-domain" title="Permanent link">#</a></h3>
+<pre><code>curl -u &quot;$user&quot; -d @data.json archive.aaa.fu/api/v1/add_domain
+</code></pre>
+<p>data.json:</p>
+<pre><code>[
+   {&quot;domain&quot;:&quot;qqq.fu&quot;,&quot;mapped&quot;:&quot;qqq.fu&quot;,&quot;ldap_id&quot;:&quot;0&quot;},
+   {&quot;domain&quot;:&quot;qqq.com&quot;,&quot;mapped&quot;:&quot;qqq.fu&quot;,&quot;ldap_id&quot;:&quot;0&quot;}
+]
+</code></pre>
+<h3 id="delete-a-domain">Delete a domain<a class="headerlink" href="#delete-a-domain" title="Permanent link">#</a></h3>
+<pre><code>curl -u &quot;$user&quot; -d @data.json archive.aaa.fu/api/v1/delete_domain
+</code></pre>
+<p>data.json:</p>
+<pre><code>[
+   {&quot;domain&quot;:&quot;qqq.fu&quot;},
+   {&quot;domain&quot;:&quot;qqq.com&quot;}
+]
+</code></pre>
+<h2 id="customers">Customers<a class="headerlink" href="#customers" title="Permanent link">#</a></h2>
+<h3 id="get-the-customer-id-list">Get the customer id list<a class="headerlink" href="#get-the-customer-id-list" title="Permanent link">#</a></h3>
+<pre><code>curl -u &quot;$user&quot; archive.aaa.fu/api/v1/get_customers
+</code></pre>
+<pre><code>[&quot;bbb&quot;,&quot;fictive&quot;,&quot;aaa&quot;]
+</code></pre>
+<h3 id="get-the-customer-settings">Get the customer settings<a class="headerlink" href="#get-the-customer-settings" title="Permanent link">#</a></h3>
+<pre><code>curl -u &quot;$user&quot; archive.aaa.fu/api/v1/get_customer_list
+</code></pre>
+<pre><code>[{&quot;id&quot;:&quot;2&quot;,&quot;customer_id&quot;:&quot;aaa&quot;,&quot;customer_address&quot;:&quot;aaa@aaa.fu&quot;,&quot;gui_url&quot;:&quot;aaa1.acts.hu&quot;,&quot;domain&quot;:&quot;aaa.fu&quot;,&quot;worker&quot;:&quot;cust1.acts.hu&quot;,&quot;quota&quot;:&quot;100&quot;,&quot;used&quot;:&quot;0&quot;,&quot;retention_days&quot;:&quot;2557&quot;,&quot;branding_url&quot;:null,&quot;branding_logo&quot;:null,&quot;support_link&quot;:null,&quot;background_colour&quot;:null,&quot;text_colour&quot;:null,&quot;enable_purge&quot;:&quot;0&quot;,&quot;enabled&quot;:&quot;1&quot;,&quot;created&quot;:&quot;1496555400&quot;,&quot;status&quot;:&quot;OK&quot;},{&quot;id&quot;:&quot;3&quot;,&quot;customer_id&quot;:&quot;bbb&quot;,&quot;customer_address&quot;:&quot;bbb@aaa.fu&quot;,&quot;gui_url&quot;:&quot;bbb1.acts.hu&quot;,&quot;domain&quot;:&quot;bbb.fu&quot;,&quot;worker&quot;:&quot;cust1.acts.hu&quot;,&quot;quota&quot;:&quot;1&quot;,&quot;used&quot;:&quot;0&quot;,&quot;retention_days&quot;:&quot;730&quot;,&quot;branding_url&quot;:null,&quot;branding_logo&quot;:null,&quot;support_link&quot;:null,&quot;background_colour&quot;:null,&quot;text_colour&quot;:null,&quot;enable_purge&quot;:&quot;1&quot;,&quot;enabled&quot;:&quot;1&quot;,&quot;created&quot;:&quot;1495555400&quot;,&quot;status&quot;:&quot;OK&quot;},{&quot;id&quot;:&quot;1&quot;,&quot;customer_id&quot;:&quot;fictive&quot;,&quot;customer_address&quot;:&quot;fictive@aaa.fu&quot;,&quot;gui_url&quot;:&quot;cust1.acts.hu&quot;,&quot;domain&quot;:&quot;fictive.com&quot;,&quot;worker&quot;:&quot;cust1.acts.hu&quot;,&quot;quota&quot;:&quot;0&quot;,&quot;used&quot;:&quot;0&quot;,&quot;retention_days&quot;:&quot;30&quot;,&quot;branding_url&quot;:null,&quot;branding_logo&quot;:null,&quot;support_link&quot;:null,&quot;background_colour&quot;:null,&quot;text_colour&quot;:null,&quot;enable_purge&quot;:&quot;1&quot;,&quot;enabled&quot;:&quot;1&quot;,&quot;created&quot;:&quot;1497291760&quot;,&quot;status&quot;:&quot;OK&quot;}]
+</code></pre>
+<h3 id="get-the-customer-settings-for-customer-id1">Get the customer settings for customer id=1<a class="headerlink" href="#get-the-customer-settings-for-customer-id1" title="Permanent link">#</a></h3>
+<pre><code>curl -u &quot;$user&quot; archive.aaa.fu/api/v1/get_customer_list/id/1
+</code></pre>
+<pre><code>{&quot;id&quot;:&quot;1&quot;,&quot;customer_id&quot;:&quot;fictive&quot;,&quot;customer_address&quot;:&quot;fictive@aaa.fu&quot;,&quot;gui_url&quot;:&quot;cust1.acts.hu&quot;,&quot;domain&quot;:&quot;fictive.com&quot;,&quot;worker&quot;:&quot;cust1.acts.hu&quot;,&quot;quota&quot;:&quot;0&quot;,&quot;used&quot;:&quot;0&quot;,&quot;retention_days&quot;:&quot;30&quot;,&quot;branding_url&quot;:null,&quot;branding_logo&quot;:null,&quot;support_link&quot;:null,&quot;background_colour&quot;:null,&quot;text_colour&quot;:null,&quot;enable_purge&quot;:&quot;1&quot;,&quot;enabled&quot;:&quot;1&quot;,&quot;created&quot;:&quot;1497291760&quot;}
+</code></pre>
+<h3 id="add-a-customer">Add a customer<a class="headerlink" href="#add-a-customer" title="Permanent link">#</a></h3>
+<pre><code>curl -u &quot;$user&quot; -d @data.json archive.aaa.fu/api/v1/add_customer
+</code></pre>
+<p>data.json:</p>
+<pre><code>[{
+   &quot;customer_id&quot;: &quot;qqq&quot;,
+   &quot;customer_address&quot;: &quot;qqq@aaa.fu&quot;,
+   &quot;worker&quot;: &quot;cust1.aaa.fu&quot;,
+   &quot;quota&quot;: 20,
+   &quot;retention_days&quot;: 45,
+   &quot;gui_url&quot;: &quot;qqq.aaa.fu&quot;,
+   &quot;domain&quot;: &quot;qqq.fu&quot;,
+   “admin_password”: &quot;$6$rounds=5000$7Sm7typK$UEjSSkYPNsPpv81Tv71NGAWCaSFprJz4b5YGFmRO640r9S8HohZlgYmjj5Qb7J08PQ4BzNFjKBqtLPv96Oxz90&quot;,
+   &quot;branding_url&quot;: &quot;&quot;,
+   &quot;support_link&quot;: &quot;&quot;,
+   &quot;enable_purge&quot;: 1
+}]
+</code></pre>
+<h3 id="update-customer-settings">Update customer settings<a class="headerlink" href="#update-customer-settings" title="Permanent link">#</a></h3>
+<pre><code>curl -u &quot;$user&quot; -d @data.json archive.aaa.fu/api/v1/update_customer
+</code></pre>
+<pre><code>[{
+   &quot;customer_id&quot;: &quot;qqq&quot;,
+   &quot;customer_address&quot;: &quot;qqq525@aaa.fu&quot;,
+   &quot;worker&quot;: &quot;cust1.aaa.fu&quot;,
+   &quot;quota&quot;: 20,
+   &quot;retention_days&quot;: 45,
+   &quot;gui_url&quot;: &quot;qqq.aaa.hu&quot;,
+   &quot;domain&quot;: &quot;qqq.fu&quot;,
+   &quot;branding_url&quot;: &quot;&quot;,
+   &quot;support_link&quot;: &quot;&quot;,
+   &quot;text_colour&quot;: &quot;&quot;,
+   &quot;background_colour&quot;: &quot;&quot;,
+   &quot;branding_logo&quot;: &quot;&quot;,
+   &quot;enable_purge&quot;: 1
+}]
+</code></pre>
+<h3 id="delete-customer-settings-from-the-database">Delete customer settings from the database<a class="headerlink" href="#delete-customer-settings-from-the-database" title="Permanent link">#</a></h3>
+<pre><code>curl -u &quot;$user&quot; -d ‘[{&quot;customer_id&quot;: &quot;bbb&quot;}]’ archive.aaa.fu/api/v1/delete_customer
+</code></pre>
+<p>Note that this removes only the customer reference from the customer_settings table. The customer’s data
+(mysql, manticore/sphinx, and emails) are not affected. These must be deleted manually.</p>
+<h2 id="users">Users<a class="headerlink" href="#users" title="Permanent link">#</a></h2>
+<h3 id="add-a-user">Add a user<a class="headerlink" href="#add-a-user" title="Permanent link">#</a></h3>
+<pre><code>curl -u &quot;$user&quot; -d @data.json archive.aaa.fu/api/v1/add_user
+</code></pre>
+<p>data.json:</p>
+<pre><code>[{
+   &quot;username&quot;: &quot;bela&quot;,
+   &quot;realname&quot;: &quot;bela baba&quot;,
+   &quot;email&quot;: &quot;bela@local&quot;,
+   &quot;domain&quot;: &quot;local&quot;,
+   &quot;password&quot;: &quot;$6$rounds=5000$7Sm7typK$UEjSSkYPNsPpv81Tv71NGAWCaSFprJz4b5YGFmRO640r9S8HohZlgYmjj5Qb7J08PQ4BzNFjKBqtLPv96Oxz90&quot;,
+   &quot;isadmin&quot;: &quot;0&quot;,
+   &quot;dn&quot;: &quot;&quot;,
+   &quot;samaccountname&quot;: &quot;&quot;
+}]
+</code></pre>
+<h3 id="update-a-user">Update a user<a class="headerlink" href="#update-a-user" title="Permanent link">#</a></h3>
+<pre><code>curl -u &quot;$user&quot; -d @data.json archive.aaa.fu/api/v1/update_user
+</code></pre>
+<p>data.json:</p>
+<pre><code>[{
+   &quot;uid&quot;: &quot;2&quot;,
+   &quot;username&quot;: &quot;bela&quot;,
+   &quot;realname&quot;: &quot;bela babaaaaa&quot;,
+   &quot;password&quot;: &quot;&quot;,
+   &quot;email&quot;: &quot;bela@local&quot;,
+   &quot;domain&quot;: &quot;local&quot;,
+   &quot;isadmin&quot;: &quot;0&quot;,
+   &quot;group&quot;: &quot;aaaa4&quot;,
+   &quot;dn&quot;: &quot;&quot;,
+   &quot;samaccountname&quot;: &quot;&quot;
+}]
+</code></pre>
+<h3 id="delete-a-user">Delete a user<a class="headerlink" href="#delete-a-user" title="Permanent link">#</a></h3>
+<pre><code>curl -u &quot;$user&quot; -d @data.json archive.aaa.fu/api/v1/delete_user
+</code></pre>
+<p>data.json:</p>
+<pre><code>[{
+   &quot;uid&quot;: &quot;2&quot;,
+   &quot;username&quot;: &quot;bela&quot;
+}]
+</code></pre>
+<h2 id="groups">Groups<a class="headerlink" href="#groups" title="Permanent link">#</a></h2>
+<h3 id="get-groups">Get groups<a class="headerlink" href="#get-groups" title="Permanent link">#</a></h3>
+<pre><code>curl -u &quot;$user&quot; cust1.aaa.fu/api/v1/get_groups
+</code></pre>
+<pre><code>[{&quot;id&quot;:&quot;1&quot;,&quot;groupname&quot;:&quot;group1&quot;}]
+</code></pre>
+<pre><code>curl -u &quot;$user&quot; -d '[{&quot;id&quot;:1}]' cust1.aaa.fu/api/v1/get_group
+</code></pre>
+<h3 id="add-group">Add group<a class="headerlink" href="#add-group" title="Permanent link">#</a></h3>
+<pre><code>curl -u &quot;$user&quot; -d @data.json cust1.aaa.fu/api/v1/add_group
+</code></pre>
+<p>data.json:</p>
+<pre><code>[{
+   &quot;groupname&quot;:&quot;aaaa&quot;,
+   &quot;email&quot;:&quot;bela@aaa.fu\nsanyi@aaa.fu&quot;,
+   &quot;assigned_email&quot;:&quot;jerry@aaa.fu\naaaa@aaa.fu&quot;
+}]
+</code></pre>
+<h3 id="update-group">Update group<a class="headerlink" href="#update-group" title="Permanent link">#</a></h3>
+<pre><code>curl -u &quot;$user&quot; -d @data.json cust1.aaa.fu/api/v1/update_group
+</code></pre>
+<p>data.json:</p>
+<pre><code>[{
+   &quot;id&quot;: 2,
+   &quot;groupname&quot;:&quot;aaaa4&quot;,
+   &quot;email&quot;:&quot;belaja@aaa.fu\nsanyi@aaa.fu&quot;,
+   &quot;assigned_email&quot;:&quot;jerry@aaa.fu\naaaa@aaa.fu&quot;
+}]
+</code></pre>
+<h3 id="delete-group">Delete group<a class="headerlink" href="#delete-group" title="Permanent link">#</a></h3>
+<pre><code>curl -u &quot;$user&quot; -d '[{&quot;id&quot;: 1}]' archive.aaa.fu/api/v1/delete_group
+</code></pre>
+<h2 id="header-checks">Header checks<a class="headerlink" href="#header-checks" title="Permanent link">#</a></h2>
+<p>Note that you need to reload the piler daemons to re-read the header checks.</p>
+<h3 id="get-header-checks">Get header checks<a class="headerlink" href="#get-header-checks" title="Permanent link">#</a></h3>
+<pre><code>curl -u &quot;$user&quot; cust1.aaa.fu/api/v1/get_header_checks
+</code></pre>
+<pre><code>[{&quot;id&quot;:&quot;1&quot;,&quot;pattern&quot;:&quot;subject:.*utf-8\\?Q\\?=E4=B[A-Z0-9]=[[:xdigit:]]{2}=E5&quot;,&quot;tag&quot;:&quot;TAG1&quot;}, {&quot;id&quot;:&quot;2&quot;,&quot;pattern&quot;:&quot;(To:.*@aaa.fu|From: Alice)&quot;,&quot;tag&quot;:&quot;ALICE&quot;}, {&quot;id&quot;:&quot;3&quot;,&quot;pattern&quot;:&quot;From:.*@yahoo.com&quot;,&quot;tag&quot;:&quot;YAHOO&quot;},
+{&quot;id&quot;:&quot;4&quot;,&quot;pattern&quot;:&quot;Authenticated sender: bob&quot;,&quot;tag&quot;:&quot;BOB&quot;},
+{&quot;id&quot;:&quot;5&quot;,&quot;pattern&quot;:&quot;Subject: \\[SPAM\\]&quot;,&quot;tag&quot;:&quot;SPAM&quot;}]
+</code></pre>
+<h3 id="delete-header-check-rule">Delete header check rule<a class="headerlink" href="#delete-header-check-rule" title="Permanent link">#</a></h3>
+<pre><code>curl -u &quot;$user&quot; -d '[{&quot;id&quot;:1}]' cust1.aaa.fu/api/v1/delete_header_check
+</code></pre>
+<h3 id="add-a-header-check-rule">Add a header check rule<a class="headerlink" href="#add-a-header-check-rule" title="Permanent link">#</a></h3>
+<pre><code>curl -u &quot;$user&quot; -d @data.json cust1.aaa.fu/api/v1/add_header_check
+</code></pre>
+<pre><code>[{
+   &quot;pattern&quot;:&quot;From:.*@yoyo.com&quot;,
+   &quot;tag&quot;:&quot;KKKKKK&quot;
+}]
+</code></pre></div>
+        
+        
+    </div>
+
+    
+      <footer class="col-md-12 text-center">
+          
+          
+            <hr>
+            <p>
+            <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</small>
+            </p>
+          
+
+          
+          
+      </footer>
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="../js/bootstrap-3.0.3.min.js"></script>
+
+    
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/highlight.min.js"></script>
+        
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+
+    <script>var base_url = ".."</script>
+    
+    <script src="../js/base.js"></script>
+    <script src="../search/main.js"></script>
+
+    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+    </body>
+
+</html>

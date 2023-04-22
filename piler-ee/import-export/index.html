@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    <link rel="canonical" href="https://jsuto.github.io/piler-ee/import-export/">
+    <link rel="shortcut icon" href="../img/favicon.ico">
+
+    
+    <title>Importing / exporting emails - piler enterprise documentation</title>
+    
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/v4-shims.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.min.css">
+    <link href='//rsms.me/inter/inter.css' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
+    <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
+    <link href="../css/base.min.css" rel="stylesheet">
+    <link href="../css/cinder.min.css" rel="stylesheet">
+
+    
+        
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/styles/github.min.css">
+        
+    
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+            <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+        <![endif]-->
+
+    
+
+     
+</head>
+
+<body>
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+
+            <!-- Main title -->
+
+            
+              <a class="navbar-brand" href="..">piler enterprise documentation</a>
+            
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+
+            <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                            <i class="fas fa-search"></i> Search
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+    <div class="container">
+        
+        
+        <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="first-level active"><a href="#importing-exporting-emails">Importing / exporting emails</a></li>
+            <li class="second-level"><a href="#exporting-emails">Exporting emails</a></li>
+                
+            <li class="second-level"><a href="#importing-emails">Importing emails</a></li>
+                
+                <li class="third-level"><a href="#importing-from-an-imap-server">Importing from an IMAP server</a></li>
+                <li class="third-level"><a href="#how-to-import-a-pst-file">How to import a PST file</a></li>
+                <li class="third-level"><a href="#how-to-use-impersonation-with-exchange">How to use impersonation with Exchange</a></li>
+                <li class="third-level"><a href="#importing-imap-accounts-over-the-gui">Importing IMAP accounts over the GUI</a></li>
+    </ul>
+</div></div>
+        <div class="col-md-9" role="main">
+
+<h1 id="importing-exporting-emails">Importing / exporting emails<a class="headerlink" href="#importing-exporting-emails" title="Permanent link">#</a></h1>
+<p>This documentation applies to Piler enterprise edition 1.7.2</p>
+<p>Revision #1</p>
+<p>Publication date: Apr 20, 2023</p>
+<h2 id="exporting-emails">Exporting emails<a class="headerlink" href="#exporting-emails" title="Permanent link">#</a></h2>
+<p>The GUI allows users to export their emails they can see in the search results. It’s suited to
+download one page of emails at a time, usually 20, 30, 50 or even 100 depending on the page
+length set for the given users.</p>
+<p>However, occasionally more emails needed to be exported. The pilerexport CLI utility can be
+used by administrators with shell access to the archive host.</p>
+<p>The pilerexport CLI utility allows you to export messages from the archive to EML files to
+the current directory. Each exported message is written to a distinct RFC-2822 formatted EML
+file, so expect lots of EML files in the current directory.</p>
+<p>IMPORTANT! The pilerexport utility is setuid to the piler user, and to let it create the EML
+files you have to cd to a directory where the piler user has write access.</p>
+<pre><code>usage: pilerexport
+
+    [-c &lt;config file&gt;]           Config file to use if not the default
+    -a &lt;start date&gt;              Start date in YYYY.MM.DD format
+    -b &lt;stop date&gt;               Stop date in YYYY.MM.DD format
+    -f &lt;email@address.com&gt;       From address
+    -r &lt;email@address.com&gt;       Recipient address
+    -e &lt;email@address.com&gt;       Export both sent and received emails
+    -F &lt;domain.com&gt;              From domain
+    -R &lt;domain.com&gt;              Recipient domain
+    -s &lt;size&gt;                    Min. size
+    -S &lt;size&gt;                    Max. size
+    -w &lt;where condition&gt;         Where condition to pass to sphinx, eg. &quot;match('@subject: piler')&quot;
+    -m &lt;max. matches&gt;            Max. matches to apply to sphinx query (default: 1000)
+    -i &lt;index list&gt;              Sphinx indices to use  (default: main1,dailydelta1,delta1)
+    -A                           Export all emails from archive
+    -W &lt;customer&gt;                Customer
+    -z &lt;zip file&gt;                Write exported EML files to a zip file
+    -Z &lt;batch size&gt;              Zip batch size. Valid range: 10-10000, default: 2000
+    -D &lt;max files&gt;               Max. number of files to put in a single directory, default: 2000
+    -p &lt;private key&gt;             Sign the created zip file with &lt;private key&gt;
+    -E &lt;export dir&gt;              Dump emails to this directory
+    -o                           Export emails to stdout
+    -q                           Quiet, print only errors
+    -d                           Dry run
+</code></pre>
+<p>If you want to see what messages piler would export, then use the -d (or -dryrun) command line option.
+It will print a list of IDs associated with each message.</p>
+<p>To prevent you dumping the whole archive you have to specify the from addresses and/or the recipient
+addresses and/or the start/stop dates. If you really want to export the whole archive, then use the -A
+(or --all) command line option. You may need lots of disk space and time to do so.</p>
+<p>You may specify more email addresses, see the examples below. The conditions are in Boolean AND relation with each other.</p>
+<p>A few examples using the customer called <code>“fictive”*</code>:</p>
+<p>export all emails sent on 2015.11.24 (aka a daily backup):
+<code>pilerexport -W fictive --start-date 2015.11.24 --stop-date 2015.11.24</code></p>
+<p>export all emails sent on 2015.11.24 bigger than 10 kB:
+<code>pilerexport -W fictive --start-date 2015.11.24 --stop-date 2015.11.24 -s 10000</code></p>
+<p>export all emails if size is between 100k and 2MB <em>AND</em> the sender is any of aaa@aaa.fu,bbb@aaa.fu <em>AND</em> the recipient is you@example.com:
+<code>pilerexport -W fictive --start-date 2015.11.24 --stop-date 2015.11.24 -s 10000 -S 200000 -f aaa@aaa.fu -f bbb@aaa.fu -r you@example.com</code></p>
+<p>export all emails sent to Gmail:
+<code>pilerexport -W fictive -R gmail.com</code></p>
+<p>export all emails received from Yahoo:
+<code>pilerexport -W fictive -F yahoo.com</code></p>
+<p>export all emails matching the sphinx query “subject: test”:
+<code>pilerexport -W fictive -w "match('@subject test')" -i fictive_main1,fictive_dailydelta1</code></p>
+<p><code>*</code>: For no-tenant installations you don’t have to specify the customer.</p>
+<h2 id="importing-emails">Importing emails<a class="headerlink" href="#importing-emails" title="Permanent link">#</a></h2>
+<p>The pilerimport utility allows you to import legacy emails. It supports a wide variety of sources, eg. imap, pop3 accounts,
+directories with EML files, MBOX files.</p>
+<p>IMPORTANT! The pilerimport utility is setuid to the piler user, and to let it create some temporary files you have to cd to
+a directory where the piler user has write access.</p>
+<pre><code>usage: pilerimport
+
+[-c &lt;config file&gt;]              Config file to use if not the default
+-e &lt;eml file&gt;                   EML file to import
+-m &lt;mailbox file&gt;               Mbox file to import
+-d &lt;dir&gt;                        Directory with EML files to import
+-i &lt;imap server&gt;                IMAP server to connect
+-K &lt;pop3 server&gt;                POP3 server to connect
+-u &lt;username&gt;                   Username for imap/pop3 import
+-p &lt;password&gt;                   Password for imap/pop3 import
+-P &lt;port&gt;                       Port for imap/pop3 import (default: 143/110
+-t &lt;timeout&gt;                    Timeout in sec for imap/pop3 import
+-x &lt;folder1,folder2,....folderN,&gt; Comma separated list of imap folders to skip. Add the trailing comma!
+-f &lt;imap folder&gt;                IMAP folder name to import
+-g &lt;imap folder&gt;                Move email after import to this IMAP folder
+-b &lt;batch limit&gt;                mport only this many emails
+-s &lt;start position&gt;             Start importing POP3 emails from this position
+-W &lt;customer&gt;
+-D                              Dry-run, do not import anything
+-o                              Only download emails for POP3/IMAP import
+-O &lt;move dir&gt;                   Move downloaded only emails to this directory (applies to imap/pop3)
+-r                              Remove imported emails
+-y                              Read emails from export
+-q                              Quiet mode
+</code></pre>
+<p>A few examples using the customer called <code>“fictive”*</code>:</p>
+<p>import a single EML file:
+<code>pilerimport -W fictive -e message-from-jack.eml</code></p>
+<p>Import a single EML file from STDIN:
+<code>cat some.eml | pilerimport -W fictive -e -</code></p>
+<p>Import all messages from a Unix mbox file:
+<code>pilerimport -W fictive -m /path/to/202008.mbox</code></p>
+<p>Import all messages from a directory having EML messages (it’s recursive):
+<code>pilerimport -W fictive -d /path/to/dir</code></p>
+<p>Import all messages from a directory having EML messages and remove all successfully imported eml files:
+<code>pilerimport -W fictive -d /path/to/dir -r</code></p>
+<p>Import messages from a POP3 server:
+<code>pilerimport -K pop3.yourdomain.com -u username -p  password</code></p>
+<h3 id="importing-from-an-imap-server">Importing from an IMAP server<a class="headerlink" href="#importing-from-an-imap-server" title="Permanent link">#</a></h3>
+<p>Though the pilerimport utility can import emails from imap servers, it might have a hard time with some
+imap server implementations. The recommended method is to use the imapfetch.py utility to download the
+emails from the imap servers, then run pilerimport -d to process emails in the directory, eg. <code>pilerimport -d /path/to/dir -r</code></p>
+<pre><code>export PATH=$PATH:/usr/libexec/piler
+imapfetch.py -s imap.yourdomain.com -u username -p password
+pilerimport -W fictive -d . -r
+</code></pre>
+<p>Download emails from the IMAP folders “2019” and “2020” only:
+<code>imapfetch.py -s imap.yourdomain.com -u username -p password -f 2019,2020</code></p>
+<p>By default imapfetch.py excludes the following IMAP folders: junk,trash,spam,draft</p>
+<p>Skip only the “junk” and “draft” IMAP folders:
+<code>imapfetch.py -s imap.yourdomain.com -u username -p password --skip-list junk,draft</code></p>
+<h3 id="how-to-import-a-pst-file">How to import a PST file<a class="headerlink" href="#how-to-import-a-pst-file" title="Permanent link">#</a></h3>
+<p>The pilerimport can process only EML files directly. However, you can extract the contents of
+the PST file with the readpst utility from the libpst package, then use pilerimport to import
+the required messages.</p>
+<p>You may use the following command:</p>
+<pre><code>readpst -M -b /path/to/file.pst
+</code></pre>
+<p><strong>Important! Verify that the extracted emails have proper headers, eg. valid From: address (and
+not just <MAILER-DAEMON> for the sent items), To: address(es), Date: header, Message-ID: header,
+and even Received: lines. These are crucial for piler, and you will have problems without them.</strong></p>
+<h3 id="how-to-use-impersonation-with-exchange">How to use impersonation with Exchange<a class="headerlink" href="#how-to-use-impersonation-with-exchange" title="Permanent link">#</a></h3>
+<pre><code>add-mailboxpermission username -AccessRights FullAccess -user superuser
+pilerimport -i mail.domain.com -u domain.com/superuser/username -p superpassword
+remove-mailboxpermission username -AccessRights FullAccess -user superuser
+</code></pre>
+<p>Replace 'username' with your email user (no @domain necessary), 'superuser' with your import user,
+and 'superpassword' with your import user's password, and 'domain.com' with your domain.</p>
+<h3 id="importing-imap-accounts-over-the-gui">Importing IMAP accounts over the GUI<a class="headerlink" href="#importing-imap-accounts-over-the-gui" title="Permanent link">#</a></h3>
+<p>To enable the import menu in the GUI, set the following in /etc/piler/config-site.php:</p>
+<pre><code>$config['ENABLE_IMPORT'] = 1;
+</code></pre>
+<p>For multitenant installations you may enable it selectively for certain customers when putting
+the above line to a per customer config file. The administrators may go to the <strong>administration / import</strong>
+menu, and add an import job by specifying the imap connection type (ssl or not), the imap server name,
+and the username and password.</p>
+<p>Visit <a href="https://mailpiler.com/import-over-the-gui/" target="_blank">https://mailpiler.com/import-over-the-gui/</a> for screenshots.</p></div>
+        
+        
+    </div>
+
+    
+      <footer class="col-md-12 text-center">
+          
+          
+            <hr>
+            <p>
+            <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</small>
+            </p>
+          
+
+          
+          
+      </footer>
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="../js/bootstrap-3.0.3.min.js"></script>
+
+    
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/highlight.min.js"></script>
+        
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+
+    <script>var base_url = ".."</script>
+    
+    <script src="../js/base.js"></script>
+    <script src="../search/main.js"></script>
+
+    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+    </body>
+
+</html>
