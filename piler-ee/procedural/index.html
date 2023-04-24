@@ -122,7 +122,8 @@ This document also applies to the <a href="http://www.mailpiler.org">open source
 <h2 id="receiving-emails">Receiving emails<a class="headerlink" href="#receiving-emails" title="Permanent link">#</a></h2>
 <p>Piler receives emails via the smtp protocol. The piler-smtp daemon listens on port 25 by default
 (it’s a configurable value) and accepts all emails from any remote smtp client that is able to reach port 25.</p>
-<p>You may use the smtp acl feature or appropriate firewall rules to ensure no malicious host can send emails to the archive.</p>
+<p>You may use the <a href="https://mailpiler.com/smtp-acl-list/">smtp acl</a> feature or appropriate firewall rules to
+ensure no malicious host can send emails to the archive.</p>
 <p>Note that even though the piler-smtp daemon accepts all connections on its own, it’s not an open relay.
 It only receives emails, but doesn’t send any.</p>
 <p>Piler-smtp syslogs a variable amount of data of the smtp transaction, eg. remote host IP address, date and time,
@@ -180,13 +181,14 @@ The log entry for a successfully stored message:</p>
 to provide a searchable archive. The parser extracts the textual information of the email including the
 attachments, and some information from the email headers, eg. subject, sender, recipients, date and the
 message id. The textual data to be indexed are written to a mysql table (sph_index).</p>
-<p>The sphinx indexer is called periodically to read the sph_index table, and updates the sphinx index files.
+<p>The sphinx or manticore indexer is called periodically to read the sph_index table, and updates the index files.
 After processing the sph_index table the indexer removes all processed rows from the table. The cleartext
 data stays in the sph_index table for up to 30 minutes.</p>
 <p>The index data directories have 0700 permissions to make sure only the piler user can access the index data.
-Note that the data in the mysql tables and in the sphinx database are not encrypted.</p>
+Note that the data in the index database are not encrypted.</p>
 <p>Starting from version 1.7.2, piler supports manticore realtime (rt) indexes as well. In that case the index
 data is written to the manticore daemon directly.</p>
+<p>The installer script (starting from version 1.7.2) by default enables encryption at rest for the mysql data.</p>
 <h2 id="rules">Rules<a class="headerlink" href="#rules" title="Permanent link">#</a></h2>
 <h3 id="exclusion-rules-formely-archiving-rules">Exclusion rules (formely archiving rules)<a class="headerlink" href="#exclusion-rules-formely-archiving-rules" title="Permanent link">#</a></h3>
 <p>Administrators may set up rules to discard specific emails based on subject, size, sender, recipient, etc.
@@ -227,7 +229,7 @@ not removed to ensure the integrity of the remaining emails.</p>
 expired. To do so administrators may add those email addresses to the legal hold table on the GUI, and the purging
 tool will exclude such emails no matter if the user’s emails are expired or not.</p>
 <h2 id="authentication">Authentication<a class="headerlink" href="#authentication" title="Permanent link">#</a></h2>
-<p>The gui allows access to emails only after authentication. The archive administrator may set up several authentication
+<p>The GUI allows access to emails only after authentication. The archive administrator may set up several authentication
 methods, eg. local database, LDAP, Active Directory, Azure AD, Single Sign-On (SSO), etc. Two factor authentication is
 also supported to enhance security. In that case the recovery codes are stored in the piler mysql database.</p>
 <p>All login attempts are syslogged. Bellow is a successful login against an LDAP database:</p>
@@ -245,7 +247,7 @@ Apr 18 10:38:09 myarchive piler-webui[431]: username=jim@fictive.com, customer=f
 </code></pre>
 <p>The GUI supports CAPTCHA to slow down a brute force login attack. Also single sign-on (SSO) is supported for passwordless access.</p>
 <h2 id="accessing-the-emails">Accessing the emails<a class="headerlink" href="#accessing-the-emails" title="Permanent link">#</a></h2>
-<p>Piler provides a web based GUI to users accessing their emails. The sphinx search engine provides the search results in seconds,
+<p>Piler provides a web based GUI to users accessing their emails. The search engine provides the search results in seconds,
 provided it’s allocated enough resources to serve requests.</p>
 <p>To ensure maximum security administrators should set up TLS for the virtual host serving the archive. They may also apply other
 restrictions to the GUI, eg. limit the access to a range of IP-addresses only.</p>
@@ -260,7 +262,7 @@ to syslog, eg.</p>
 <pre><code>Apr 18 10:51:42 myarchive piler-webui[433]: sphinx query: 'SELECT id FROM fictive_main1,fictive_dailydelta1,fictive_delta1 WHERE MATCH(' (@from jimXfictiveXcom | @to jimXfictiveXcom) ') ORDER BY `sent` DESC LIMIT 0,20 OPTION max_matches=1000' in 0.00 s, 15 hits, 15 total found
 </code></pre>
 <h2 id="additional-notes-on-the-gui">Additional notes on the GUI<a class="headerlink" href="#additional-notes-on-the-gui" title="Permanent link">#</a></h2>
-<p>A user may assign tags and notes to their own emails. These metadata are stored in the mysql database, and also indexed
+<p>A user may assign tags and notes to his own emails. These metadata are stored in the mysql database, and also indexed
 and then can be searched. Each user can search and see his own tags and notes only.</p>
 <p>Users can save search queries. The saved queries are stored in mysql database and in memcached if memcached support is enabled.</p>
 <p>The administrator account (eg. admin@local) is used only to administer piler. It's not a super powerful account to see
@@ -273,9 +275,9 @@ that the smarthost is configured to send using encryption.</p>
 <p>Users may download their emails in a zip or eml file. These files are created in /var/piler/www/tmp directory during the
 process, and removed immediately after sent to the user for download. These zip and eml files are not encrypted.</p>
 <h2 id="auditing">Auditing<a class="headerlink" href="#auditing" title="Permanent link">#</a></h2>
-<p>The GUI keeps track of what users do and when they do. Every user's action involves an audit record that the gui stores
+<p>The GUI keeps track of what users do and when they do. Every user's action involves an audit record that the GUI stores
 in the audit mysql table creating an audit trail of every user activity, eg. searching for some messages, viewing a message,
-downloading another one, etc. Also the GUI logs when a user logs in or logs out.</p>
+downloading another one, etc. Also the GUI records when a user logs in or logs out.</p>
 <p>The following information is logged:</p>
 <ul>
 <li>timestamp</li>
@@ -300,7 +302,7 @@ removes the message to ensure it’s a valid request.</p>
 is still in the archive. Only the purge utility removes the stored message and its attachments physically from the
 disk. See the notes for purging emails above for more.</p>
 <h2 id="disaster-recovery">Disaster recovery<a class="headerlink" href="#disaster-recovery" title="Permanent link">#</a></h2>
-<p>It’s the archive administrators liability to perform regular backups of the archived data in a safe manner following
+<p>It’s the archive administrators' liability to perform regular backups of the archived data in a safe manner following
 the regulations of both the company and the relevant industry.</p>
 <h2 id="the-legal-framework">The legal framework<a class="headerlink" href="#the-legal-framework" title="Permanent link">#</a></h2>
 <p>The legal basis for mail archiving varies from country to country and from industry to industry. Please consult with
