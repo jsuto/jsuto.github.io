@@ -334,6 +334,18 @@ s3_secure=1
 </code></pre>
 <p>s3_hostname should be the S3 hostname and port. Eg. Minio uses port 9000. For Wasabi, it might be s3.us-west-1.wasabisys.com.</p>
 <p>Set s3_secure=0 if your S3 host does NOT support TLS.</p>
+<p>S3 settings for oracle cloud:</p>
+<pre><code>s3_access_key=youraccesskey
+s3_bucket_prefix=
+s3_dir=/var/piler/s3
+s3_hostname=frnsjgsfvvgl.compat.objectstorage.eu-frankfurt-1.oraclecloud.com
+s3_region=eu-frankfurt-1
+s3_secret_key=yoursecretkey
+s3_secure=1
+s3_spread_in_buckets=0
+s3_threads=10
+s3_use_subdirs=1
+</code></pre>
 <p>Note that you should decide where to store the email files before starting archiving. Piler doesn’t support a mixed mode where some emails are stored locally, and some emails on an S3 object store.</p>
 <p>When using S3 storage the piler daemon writes all files to /var/piler/store/00 directory. There’s a tool to process these files, and upload them to the S3 store.</p>
 <p>Piler will upload all files for a given customer to a single bucket only. However, it’s possible to spread the files among 255 subdirectories. To enable this feature, set s3_use_subdirs=1. The names of the created subdirectories will be two hexadecimal characters, eg. “00”, “01”, … “ff”.</p>
