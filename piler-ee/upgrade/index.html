@@ -7,11 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     
-    <link rel="canonical" href="https://jsuto.github.io/piler-ee/">
-    <link rel="shortcut icon" href="img/favicon.ico">
+    <link rel="canonical" href="https://jsuto.github.io/piler-ee/upgrade/">
+    <link rel="shortcut icon" href="../img/favicon.ico">
 
     
-    <title>Home - piler enterprise documentation</title>
+    <title>Upgrading piler enterprise - piler enterprise documentation</title>
     
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
@@ -19,9 +19,9 @@
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.min.css">
     <link href='//rsms.me/inter/inter.css' rel='stylesheet' type='text/css'>
     <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
-    <link href="css/bootstrap-custom.min.css" rel="stylesheet">
-    <link href="css/base.min.css" rel="stylesheet">
-    <link href="css/cinder.min.css" rel="stylesheet">
+    <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
+    <link href="../css/base.min.css" rel="stylesheet">
+    <link href="../css/cinder.min.css" rel="stylesheet">
 
     
         
@@ -40,7 +40,7 @@
      
 </head>
 
-<body class="homepage" >
+<body>
 
     <div class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container">
@@ -59,7 +59,7 @@
             <!-- Main title -->
 
             
-              <a class="navbar-brand" href=".">piler enterprise documentation</a>
+              <a class="navbar-brand" href="..">piler enterprise documentation</a>
             
         </div>
 
@@ -69,8 +69,8 @@
                 <ul class="nav navbar-nav">
                 
                 
-                    <li class="active">
-                        <a href=".">Home</a>
+                    <li >
+                        <a href="..">Home</a>
                     </li>
                 
                 
@@ -98,44 +98,61 @@
         
         <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
-        <li class="first-level active"><a href="#piler-enterprise-documentation">Piler enterprise documentation</a></li>
-            <li class="second-level"><a href="#generic-notes">Generic notes</a></li>
+        <li class="first-level active"><a href="#upgrading-piler-enterprise">Upgrading piler enterprise</a></li>
+            <li class="second-level"><a href="#upgrading-procedure-from-162-to-172">Upgrading procedure from 1.6.2 to 1.7.2</a></li>
                 
-            <li class="second-level"><a href="#for-end-users">For end users</a></li>
-                
-            <li class="second-level"><a href="#for-administrators">For administrators</a></li>
-                
-            <li class="second-level"><a href="#video-tutorials">Video tutorials</a></li>
-                
+                <li class="third-level"><a href="#stop-all-piler-related-services">Stop all piler related services</a></li>
+                <li class="third-level"><a href="#have-a-backup-of-etcpiler-directory">Have a backup of /etc/piler directory</a></li>
+                <li class="third-level"><a href="#upgrade-piler-ee-package-with-dpkg-or-rpm">Upgrade piler-ee package with dpkg or rpm</a></li>
+                <li class="third-level"><a href="#update-your-license-file-etcpilerpilerlic">Update your license file (/etc/piler/piler.lic)</a></li>
+                <li class="third-level"><a href="#upgrade-the-database">Upgrade the database:</a></li>
+                <li class="third-level"><a href="#update-the-rewrite-rules-in-etcpilerpiler-nginxconf-according-to-etcpilerpiler-nginxconfdist">Update the rewrite rules in /etc/piler/piler-nginx.conf according to /etc/piler/piler-nginx.conf.dist</a></li>
+                <li class="third-level"><a href="#upgrade-the-minio-python-client">Upgrade the minio python client</a></li>
+                <li class="third-level"><a href="#if-you-already-use-s3-backend">If you already use S3 backend</a></li>
+                <li class="third-level"><a href="#if-using-sphinxsearch-then-perform-these-steps">If using sphinxsearch, then perform these steps:</a></li>
+                <li class="third-level"><a href="#start-all-piler-related-services">Start all piler related services</a></li>
     </ul>
 </div></div>
         <div class="col-md-9" role="main">
 
-<h1 id="piler-enterprise-documentation">Piler enterprise documentation<a class="headerlink" href="#piler-enterprise-documentation" title="Permanent link">#</a></h1>
-<h2 id="generic-notes">Generic notes<a class="headerlink" href="#generic-notes" title="Permanent link">#</a></h2>
-<p><a href="procedural/">Procedural documentation</a></p>
-<p><a href="https://mailpiler.com/gdpr-related-notes/" target="_blank">GDPR related notes</a></p>
-<p><a href="https://drive.google.com/file/d/1dfIFcDdfiA5HADR6FmxpPNeU8K-vjTaQ/" target="_blank">Piler Verfahrensdokumentation Enterprise Edition</a></p>
-<h2 id="for-end-users">For end users<a class="headerlink" href="#for-end-users" title="Permanent link">#</a></h2>
-<p><a href="enduser/">End user guide to piler enterprise edition</a></p>
-<h2 id="for-administrators">For administrators<a class="headerlink" href="#for-administrators" title="Permanent link">#</a></h2>
-<p><a href="https://mailpiler.com/RELEASE_NOTES" target="_blank">Release notes</a></p>
-<p><a href="upgrade/">Upgrading piler enterprise</a></p>
-<p><a href="installation/">Installing piler enterprise edition</a></p>
-<p><a href="administering/">Administering Piler enterprise edition</a></p>
-<p><a href="import-export/">Importing / exporting emails</a></p>
-<p><a href="configuring-the-mailserver/">Configuring the mail server for email archiving with Piler enterprise edition</a></p>
-<p><a href="restapi/">Using the REST API</a></p>
-<p><a href="https://mailpiler.com/using-azure-ad-single-sign-on-sso/" target="_blank">Authenticate against Azure AD</a></p>
-<p><a href="https://mailpiler.com/using-aws-cognito-single-sign-on-sso/" target="_blank">Authenticate against AWS Cognito</a></p>
-<p><a href="https://mailpiler.com/authenticate-against-google-workspace-formerly-gsuite/" target="_blank">Authenticate against Google Workspace</a></p>
-<h2 id="video-tutorials">Video tutorials<a class="headerlink" href="#video-tutorials" title="Permanent link">#</a></h2>
-<p><a href="https://youtu.be/9U8C8u3r_Bw" target="_blank">The bucket feature (10 min)</a></p>
-<p><a href="https://youtu.be/A1U7I7-D00o" target="_blank">Installing piler enterprise on a single ubuntu focal node (9 min)</a></p>
-<p><a href="https://www.youtube.com/watch?v=HUJ9ufBxU_Y" target="_blank">End user guide to the GUI, part #1: basic features (11 min)</a></p>
-<p><a href="https://www.youtube.com/watch?v=4sobGxL_tMA" target="_blank">End user guide to the GUI, part #2: searching (12 min)</a></p>
-<p><a href="https://youtu.be/2d8cxvhupx0" target="_blank">Setting up LDAP authentication in the GUI (4 min)</a></p>
-<p><a href="https://youtu.be/TTkhePF8B7s" target="_blank">Creating customers in a multi-tenant deployment (12 min)</a></p></div>
+<h1 id="upgrading-piler-enterprise">Upgrading piler enterprise<a class="headerlink" href="#upgrading-piler-enterprise" title="Permanent link">#</a></h1>
+<p>This documentation applies to Piler enterprise edition 1.7.2</p>
+<p>Revision #1</p>
+<p>Publication date: Apr 27, 2023</p>
+<h2 id="upgrading-procedure-from-162-to-172">Upgrading procedure from 1.6.2 to 1.7.2<a class="headerlink" href="#upgrading-procedure-from-162-to-172" title="Permanent link">#</a></h2>
+<h3 id="stop-all-piler-related-services">Stop all piler related services<a class="headerlink" href="#stop-all-piler-related-services" title="Permanent link">#</a></h3>
+<h3 id="have-a-backup-of-etcpiler-directory">Have a backup of /etc/piler directory<a class="headerlink" href="#have-a-backup-of-etcpiler-directory" title="Permanent link">#</a></h3>
+<h3 id="upgrade-piler-ee-package-with-dpkg-or-rpm">Upgrade piler-ee package with dpkg or rpm<a class="headerlink" href="#upgrade-piler-ee-package-with-dpkg-or-rpm" title="Permanent link">#</a></h3>
+<h3 id="update-your-license-file-etcpilerpilerlic">Update your license file (/etc/piler/piler.lic)<a class="headerlink" href="#update-your-license-file-etcpilerpilerlic" title="Permanent link">#</a></h3>
+<h3 id="upgrade-the-database">Upgrade the database:<a class="headerlink" href="#upgrade-the-database" title="Permanent link">#</a></h3>
+<pre><code>for i in /var/piler/sphinx/piler $(find /var/piler/sphinx/* -type d); do
+  mysql --defaults-file=/etc/piler/.my.cnf $(basename $i) &lt; /usr/share/piler/db-upgrade.sql
+  mysql --defaults-file=/etc/piler/.my.cnf $(basename $i) &lt;&lt;&lt; &quot;rename table archiving_rule to exclusion_rule&quot;
+done
+</code></pre>
+<h3 id="update-the-rewrite-rules-in-etcpilerpiler-nginxconf-according-to-etcpilerpiler-nginxconfdist">Update the rewrite rules in /etc/piler/piler-nginx.conf according to /etc/piler/piler-nginx.conf.dist<a class="headerlink" href="#update-the-rewrite-rules-in-etcpilerpiler-nginxconf-according-to-etcpilerpiler-nginxconfdist" title="Permanent link">#</a></h3>
+<h3 id="upgrade-the-minio-python-client">Upgrade the minio python client<a class="headerlink" href="#upgrade-the-minio-python-client" title="Permanent link">#</a></h3>
+<pre><code>pip3 install minio==7.1.12
+</code></pre>
+<h3 id="if-you-already-use-s3-backend">If you already use S3 backend<a class="headerlink" href="#if-you-already-use-s3-backend" title="Permanent link">#</a></h3>
+<p>Add the following to /etc/piler/piler.conf to keep compatibility:</p>
+<pre><code>s3_use_subdirs=0
+</code></pre>
+<h3 id="if-using-sphinxsearch-then-perform-these-steps">If using sphinxsearch, then perform these steps:<a class="headerlink" href="#if-using-sphinxsearch-then-perform-these-steps" title="Permanent link">#</a></h3>
+<p>a) add the following to /etc/piler/config-site.php:</p>
+<pre><code>$config['DIR_SPHINX'] = '/var/piler/sphinx/';
+</code></pre>
+<p>b) be sure to have the following in /etc/piler/piler.conf:</p>
+<pre><code>sphinxdir=/var/piler/sphinx
+</code></pre>
+<p>c) Create the following symlink:</p>
+<pre><code>ln -sf /etc/piler/sphinx.conf /etc/piler/manticore.conf
+</code></pre>
+<h3 id="start-all-piler-related-services">Start all piler related services<a class="headerlink" href="#start-all-piler-related-services" title="Permanent link">#</a></h3>
+<p>Restart nginx:</p>
+<pre><code>systemctl restart nginx
+</code></pre>
+<p>Then check <code>/var/log/mail.log</code> or <code>/var/log/maillog</code> to verify that everything is running fine.</p></div>
         
         
     </div>
@@ -155,7 +172,7 @@
       </footer>
     
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="js/bootstrap-3.0.3.min.js"></script>
+    <script src="../js/bootstrap-3.0.3.min.js"></script>
 
     
     <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/highlight.min.js"></script>
@@ -163,10 +180,10 @@
     <script>hljs.initHighlightingOnLoad();</script>
     
 
-    <script>var base_url = "."</script>
+    <script>var base_url = ".."</script>
     
-    <script src="js/base.js"></script>
-    <script src="search/main.js"></script>
+    <script src="../js/base.js"></script>
+    <script src="../search/main.js"></script>
 
     <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -237,8 +254,3 @@
     </body>
 
 </html>
-
-<!--
-MkDocs version : 1.4.2
-Build Date UTC : 2023-04-27 09:02:19.437686+00:00
--->
