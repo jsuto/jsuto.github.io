@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    <link rel="canonical" href="https://jsuto.github.io/piler-ee/migrate-sphinx-to-manticore/">
+    <link rel="shortcut icon" href="../img/favicon.ico">
+
+    
+    <title>Migrating from sphinx to manticore real-time index - piler enterprise documentation</title>
+    
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/v4-shims.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.min.css">
+    <link href='//rsms.me/inter/inter.css' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
+    <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
+    <link href="../css/base.min.css" rel="stylesheet">
+    <link href="../css/cinder.min.css" rel="stylesheet">
+
+    
+        
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/styles/github.min.css">
+        
+    
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+            <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+        <![endif]-->
+
+    
+
+     
+</head>
+
+<body>
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+
+            <!-- Main title -->
+
+            
+              <a class="navbar-brand" href="..">piler enterprise documentation</a>
+            
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                
+                
+                    <li >
+                        <a href="..">Home</a>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="https://mailpiler.com/">Site</a>
+                    </li>
+                
+                
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                            <i class="fas fa-search"></i> Search
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+    <div class="container">
+        
+        
+        <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="first-level active"><a href="#migrating-from-sphinx-to-manticore-real-time-index">Migrating from sphinx to manticore real-time index</a></li>
+            <li class="second-level"><a href="#introduction">Introduction</a></li>
+                
+            <li class="second-level"><a href="#upgrade-to-172">Upgrade to 1.7.2+</a></li>
+                
+            <li class="second-level"><a href="#uninstall-sphinxsearch">Uninstall sphinxsearch</a></li>
+                
+            <li class="second-level"><a href="#install-manticore">Install manticore</a></li>
+                
+            <li class="second-level"><a href="#create-the-default-tenant-in-manticore">Create the default tenant in manticore</a></li>
+                
+            <li class="second-level"><a href="#fix-config-sitephp">Fix config-site.php</a></li>
+                
+            <li class="second-level"><a href="#start-pilersearch-service">Start pilersearch service</a></li>
+                
+            <li class="second-level"><a href="#verify-the-following-files-in-varpilermanticorepiler">Verify the following files in /var/piler/manticore/piler</a></li>
+                
+            <li class="second-level"><a href="#fix-pilerconf">Fix piler.conf</a></li>
+                
+            <li class="second-level"><a href="#restart-the-piler-service">Restart the piler service</a></li>
+                
+            <li class="second-level"><a href="#reindex-emails">Reindex emails</a></li>
+                
+            <li class="second-level"><a href="#remove-the-indexer-jobs-in-pilers-crontab">Remove the indexer jobs in piler's crontab</a></li>
+                
+            <li class="second-level"><a href="#remove-sphinx-data">Remove sphinx data</a></li>
+                
+    </ul>
+</div></div>
+        <div class="col-md-9" role="main">
+
+<h1 id="migrating-from-sphinx-to-manticore-real-time-index">Migrating from sphinx to manticore real-time index<a class="headerlink" href="#migrating-from-sphinx-to-manticore-real-time-index" title="Permanent link">#</a></h1>
+<p>This documentation applies to Piler enterprise edition 1.7.2</p>
+<p>Revision #1</p>
+<p>Publication date: May 5, 2023</p>
+<h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">#</a></h2>
+<p>This document describes to how migrate sphinx index data to manticore real-time index on Ubuntu Linux.</p>
+<h2 id="upgrade-to-172">Upgrade to 1.7.2+<a class="headerlink" href="#upgrade-to-172" title="Permanent link">#</a></h2>
+<p>Follow the <a href="../upgrade/">upgrade</a> docs for the details</p>
+<h2 id="uninstall-sphinxsearch">Uninstall sphinxsearch<a class="headerlink" href="#uninstall-sphinxsearch" title="Permanent link">#</a></h2>
+<pre><code>systemctl stop pilersearch
+rm -f /usr/bin/index* /usr/bin/searchd /usr/bin/wordbreaker
+</code></pre>
+<h2 id="install-manticore">Install manticore<a class="headerlink" href="#install-manticore" title="Permanent link">#</a></h2>
+<pre><code>wget https://repo.manticoresearch.com/manticore-repo.noarch.deb
+dpkg -i manticore-repo.noarch.deb
+apt-get update
+apt-get install -y manticore manticore-columnar-lib manticore-extra
+systemctl stop manticore
+systemctl disable manticore
+touch /etc/piler/MANTICORE
+</code></pre>
+<h2 id="create-the-default-tenant-in-manticore">Create the default tenant in manticore<a class="headerlink" href="#create-the-default-tenant-in-manticore" title="Permanent link">#</a></h2>
+<pre><code>mkdir /var/piler/manticore/piler
+chown piler:piler /var/piler/manticore/piler
+</code></pre>
+<p>For multi-tenant installations: create the tenant dirs in manticore, eg.</p>
+<pre><code>mkdir /var/piler/manticore/customer1
+chown piler:piler /var/piler/manticore/customer1
+...
+</code></pre>
+<h2 id="fix-config-sitephp">Fix config-site.php<a class="headerlink" href="#fix-config-sitephp" title="Permanent link">#</a></h2>
+<p>Add the following to /etc/piler/config-site.php</p>
+<pre><code>$config['RT_INDEX'] = 1;
+</code></pre>
+<h2 id="start-pilersearch-service">Start pilersearch service<a class="headerlink" href="#start-pilersearch-service" title="Permanent link">#</a></h2>
+<pre><code>systemctl start pilersearch
+</code></pre>
+<h2 id="verify-the-following-files-in-varpilermanticorepiler">Verify the following files in /var/piler/manticore/piler<a class="headerlink" href="#verify-the-following-files-in-varpilermanticorepiler" title="Permanent link">#</a></h2>
+<pre><code>-rw------- 1 piler piler    0 May  5 12:25 main.lock
+-rw------- 1 piler piler  962 May  5 12:25 main.meta
+-rw------- 1 piler piler   68 May  5 12:25 main.ram
+-rw------- 1 piler piler    0 May  5 12:25 note1.lock
+-rw------- 1 piler piler  648 May  5 12:25 note1.meta
+-rw------- 1 piler piler   20 May  5 12:25 note1.ram
+-rw------- 1 piler piler    0 May  5 12:25 tag1.lock
+-rw------- 1 piler piler  647 May  5 12:25 tag1.meta
+-rw------- 1 piler piler   20 May  5 12:25 tag1.ram
+</code></pre>
+<p>For multi-tenant installations: check files in the tenant dirs, eg. <code>/var/piler/manticore/customer1</code></p>
+<h2 id="fix-pilerconf">Fix piler.conf<a class="headerlink" href="#fix-pilerconf" title="Permanent link">#</a></h2>
+<p>Edit /etc/piler/piler.conf, and add (or set) the following:</p>
+<pre><code>rtindex=1
+</code></pre>
+<h2 id="restart-the-piler-service">Restart the piler service<a class="headerlink" href="#restart-the-piler-service" title="Permanent link">#</a></h2>
+<pre><code>systemctl restart piler
+</code></pre>
+<h2 id="reindex-emails">Reindex emails<a class="headerlink" href="#reindex-emails" title="Permanent link">#</a></h2>
+<pre><code>cd /var/piler/imap
+reindex -a -p
+</code></pre>
+<p>For multi-tenant deployments: reindex for all tenants</p>
+<h2 id="remove-the-indexer-jobs-in-pilers-crontab">Remove the indexer jobs in piler's crontab<a class="headerlink" href="#remove-the-indexer-jobs-in-pilers-crontab" title="Permanent link">#</a></h2>
+<p>When using real-time (rt) index, there's no need to run the
+period indexer cron jobs.</p>
+<pre><code>sed -i 's/.*indexer.*\.sh/###/g' /var/spool/cron/crontabs/piler
+</code></pre>
+<h2 id="remove-sphinx-data">Remove sphinx data<a class="headerlink" href="#remove-sphinx-data" title="Permanent link">#</a></h2>
+<pre><code>rm -rf /var/piler/sphinx/
+</code></pre></div>
+        
+        
+    </div>
+
+    
+      <footer class="col-md-12 text-center">
+          
+          
+            <hr>
+            <p>
+            <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</small>
+            </p>
+          
+
+          
+          
+      </footer>
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="../js/bootstrap-3.0.3.min.js"></script>
+
+    
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/highlight.min.js"></script>
+        
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+
+    <script>var base_url = ".."</script>
+    
+    <script src="../js/base.js"></script>
+    <script src="../search/main.js"></script>
+
+    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+    </body>
+
+</html>
