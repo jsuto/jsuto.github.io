@@ -2,52 +2,52 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://jsuto.github.io/piler-ee/</loc>
-         <lastmod>2023-05-05</lastmod>
+         <lastmod>2023-07-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://jsuto.github.io/piler-ee/administering/</loc>
-         <lastmod>2023-05-05</lastmod>
+         <lastmod>2023-07-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://jsuto.github.io/piler-ee/configuring-the-mailserver/</loc>
-         <lastmod>2023-05-05</lastmod>
+         <lastmod>2023-07-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://jsuto.github.io/piler-ee/enduser/</loc>
-         <lastmod>2023-05-05</lastmod>
+         <lastmod>2023-07-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://jsuto.github.io/piler-ee/import-export/</loc>
-         <lastmod>2023-05-05</lastmod>
+         <lastmod>2023-07-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://jsuto.github.io/piler-ee/installation/</loc>
-         <lastmod>2023-05-05</lastmod>
+         <lastmod>2023-07-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://jsuto.github.io/piler-ee/migrate-sphinx-to-manticore/</loc>
-         <lastmod>2023-05-05</lastmod>
+         <lastmod>2023-07-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://jsuto.github.io/piler-ee/procedural/</loc>
-         <lastmod>2023-05-05</lastmod>
+         <lastmod>2023-07-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://jsuto.github.io/piler-ee/restapi/</loc>
-         <lastmod>2023-05-05</lastmod>
+         <lastmod>2023-07-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://jsuto.github.io/piler-ee/upgrade/</loc>
-         <lastmod>2023-05-05</lastmod>
+         <lastmod>2023-07-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>

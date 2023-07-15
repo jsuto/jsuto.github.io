@@ -134,6 +134,7 @@
             <li class="second-level"><a href="#securing-the-archive">Securing the archive</a></li>
                 
                 <li class="third-level"><a href="#securing-the-gui">Securing the GUI</a></li>
+                <li class="third-level"><a href="#enable-hcaptcha">Enable hCAPTCHA</a></li>
                 <li class="third-level"><a href="#securing-the-piler-smtp-daemon">Securing the piler-smtp daemon</a></li>
             <li class="second-level"><a href="#rules-and-policies">Rules and policies</a></li>
                 
@@ -155,9 +156,9 @@
         <div class="col-md-9" role="main">
 
 <h1 id="administering-piler-enterprise-edition">Administering piler enterprise edition<a class="headerlink" href="#administering-piler-enterprise-edition" title="Permanent link">#</a></h1>
-<p>This documentation applies to Piler enterprise edition 1.7.2</p>
+<p>This documentation applies to Piler enterprise edition 1.7.3</p>
 <p>Revision #1</p>
-<p>Publication date: Apr 20, 2023</p>
+<p>Publication date: Jul 15, 2023</p>
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">#</a></h2>
 <p>You have installed Piler enterprise using either the multiple nodes layout or the single node layout. The Piler GUI uses the http hostname to determine whether it’s the main admin site for the provider, or the customer site for customer admin and customer end users.</p>
 <p>This document applies to the main admin site for the provider. In the following examples gui-int.aaa.fu is used as the main admin site URL.</p>
@@ -393,8 +394,21 @@ a valid expression.</p>
 <li>Use single sign-on only</li>
 <li>Restrict the IP-range of the clients in nginx config</li>
 <li>Enable 2 factor authentication: <code>$config['ENABLE_GOOGLE_AUTHENTICATOR'] = 1;</code></li>
+<li>Enable hCAPTCHA, see below (1.7.3+)</li>
 <li>Enable CAPTCHA after 3 unsuccessful login attempt: <code>$config['CAPTCHA_FAILED_LOGIN_COUNT'] = 3;</code></li>
 </ul>
+<h3 id="enable-hcaptcha">Enable hCAPTCHA<a class="headerlink" href="#enable-hcaptcha" title="Permanent link">#</a></h3>
+<p>This feature requires piler enterprise version 1.7.3+.</p>
+<p>Register a plan at <a href="https://www.hcaptcha.com/">https://www.hcaptcha.com/</a>.
+There's a free plan up to 1 million requests per month.</p>
+<p>Create a site key and a secret, as well as add each hostnames you want to protect.</p>
+<p>Finally set the site key and secret in /etc/piler/config-site.php:</p>
+<pre><code>$config['HCAPTCHA_SITEKEY'] = 'aaaaa-bbbbb-......';
+$config['HCAPTCHA_SECRET'] = '0x...........';
+</code></pre>
+<p>Services providers using a multitenant license may be selective to enable this
+feature for specific tenants as well by putting these variables to the tenant's
+site specific config.</p>
 <h3 id="securing-the-piler-smtp-daemon">Securing the piler-smtp daemon<a class="headerlink" href="#securing-the-piler-smtp-daemon" title="Permanent link">#</a></h3>
 <ul>
 <li>Use SMTP ACL list to restrict access to port 25</li>
