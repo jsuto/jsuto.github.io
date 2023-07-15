@@ -399,9 +399,10 @@ a valid expression.</p>
 </ul>
 <h3 id="enable-hcaptcha">Enable hCAPTCHA<a class="headerlink" href="#enable-hcaptcha" title="Permanent link">#</a></h3>
 <p>This feature requires piler enterprise version 1.7.3+.</p>
+<p>Note that this feature obsoletes the previous secureimage based captcha.</p>
 <p>Register a plan at <a href="https://www.hcaptcha.com/">https://www.hcaptcha.com/</a>.
 There's a free plan up to 1 million requests per month.</p>
-<p>Create a site key and a secret, as well as add each hostnames you want to protect.</p>
+<p>Create a site key and a secret, as well as add each hostname you want to protect.</p>
 <p>Finally set the site key and secret in /etc/piler/config-site.php:</p>
 <pre><code>$config['HCAPTCHA_SITEKEY'] = 'aaaaa-bbbbb-......';
 $config['HCAPTCHA_SECRET'] = '0x...........';
