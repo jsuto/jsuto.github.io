@@ -108,7 +108,6 @@
                 <li class="third-level"><a href="#upgrade-the-database">Upgrade the database:</a></li>
                 <li class="third-level"><a href="#update-the-rewrite-rules-in-etcpilerpiler-nginxconf-according-to-etcpilerpiler-nginxconfdist">Update the rewrite rules in /etc/piler/piler-nginx.conf according to /etc/piler/piler-nginx.conf.dist</a></li>
                 <li class="third-level"><a href="#upgrade-the-minio-python-client">Upgrade the minio python client</a></li>
-                <li class="third-level"><a href="#if-you-already-use-s3-backend">If you already use S3 backend</a></li>
                 <li class="third-level"><a href="#if-using-sphinxsearch-then-perform-these-steps">If using sphinxsearch, then perform these steps:</a></li>
                 <li class="third-level"><a href="#start-all-piler-related-services">Start all piler related services</a></li>
     </ul>
@@ -133,10 +132,6 @@ done
 <h3 id="update-the-rewrite-rules-in-etcpilerpiler-nginxconf-according-to-etcpilerpiler-nginxconfdist">Update the rewrite rules in /etc/piler/piler-nginx.conf according to /etc/piler/piler-nginx.conf.dist<a class="headerlink" href="#update-the-rewrite-rules-in-etcpilerpiler-nginxconf-according-to-etcpilerpiler-nginxconfdist" title="Permanent link">#</a></h3>
 <h3 id="upgrade-the-minio-python-client">Upgrade the minio python client<a class="headerlink" href="#upgrade-the-minio-python-client" title="Permanent link">#</a></h3>
 <pre><code>pip3 install minio==7.1.12
-</code></pre>
-<h3 id="if-you-already-use-s3-backend">If you already use S3 backend<a class="headerlink" href="#if-you-already-use-s3-backend" title="Permanent link">#</a></h3>
-<p>Add the following to /etc/piler/piler.conf to keep compatibility:</p>
-<pre><code>s3_use_subdirs=0
 </code></pre>
 <h3 id="if-using-sphinxsearch-then-perform-these-steps">If using sphinxsearch, then perform these steps:<a class="headerlink" href="#if-using-sphinxsearch-then-perform-these-steps" title="Permanent link">#</a></h3>
 <p>a) add the following to /etc/piler/config-site.php:</p>
