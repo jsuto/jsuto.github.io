@@ -132,7 +132,7 @@ as well.</p>
 </code></pre>
 <p>Then add your CSS definitions to /var/piler/www/assets/css/my.css file.</p>
 <h2 id="inactivity-timeouts">Inactivity timeouts<a class="headerlink" href="#inactivity-timeouts" title="Permanent link">#</a></h2>
-<p>The GUI automatically logs the current user our after 1 hour inactivity.
+<p>The GUI automatically logs the current user out after 1 hour inactivity.
 Also the user's session expires and thus forces a logout after 2 hours.</p>
 <p>These are both configurable variables, set the following in /etc/piler/config-site.php,
 and fix the values to your needs:</p>
@@ -152,7 +152,7 @@ $config['CF_TURNSTILE_SECRET'] = 'yyyyyyyyyy';
 <h2 id="authentication-against-okta-oidc">Authentication against OKTA oidc<a class="headerlink" href="#authentication-against-okta-oidc" title="Permanent link">#</a></h2>
 <p>See <a href="https://mailpiler.com/okta-oidc-authentication/">https://mailpiler.com/okta-oidc-authentication/</a> for the details how to setup.</p>
 <h2 id="authentication-against-linkedin">Authentication against linkedin<a class="headerlink" href="#authentication-against-linkedin" title="Permanent link">#</a></h2>
-<p>Visit https://developer.linkedin.com/ and create an app.</p>
+<p>Visit <a href="https://developer.linkedin.com/">https://developer.linkedin.com/</a> and create an app.</p>
 <p>You need a company linkedin page, a logo, and preferably a link to your privacy policy.
 Accept the legal agreement, then click "Create app"</p>
 <p><img alt="" src="../images/piler-linkedin-app-1.png" /></p>
@@ -160,7 +160,7 @@ Accept the legal agreement, then click "Create app"</p>
 then click on the "Request access" button.</p>
 <p><img alt="" src="../images/piler-linkedin-app-2.png" /></p>
 <p>Finally on the "Auth" tab locate the "Authorized redirect URLs for you app" settings, and type
-<em>https://archive.example.com/callback-linkedin</em> (be sure to your your archive's URL).</p>
+<em>https://archive.example.com/callback-linkedin</em> (be sure to use your archive's URL).</p>
 <p><img alt="" src="../images/piler-linkedin-app-3.png" /></p>
 <p>Edit /etc/piler/config-site.php, and add the following. Use your client id and secret values.</p>
 <pre><code>$config['ENABLE_LINKEDIN'] = 1;
