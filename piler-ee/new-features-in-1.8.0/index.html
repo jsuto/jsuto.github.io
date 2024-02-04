@@ -155,13 +155,13 @@ $config['CF_TURNSTILE_SECRET'] = 'yyyyyyyyyy';
 <p>Visit https://developer.linkedin.com/ and create an app.</p>
 <p>You need a company linkedin page, a logo, and preferably a link to your privacy policy.
 Accept the legal agreement, then click "Create app"</p>
-<p><img alt="" src="piler-linkedin-app-1.png" /></p>
+<p><img alt="" src="../images/piler-linkedin-app-1.png" /></p>
 <p>On the "Products" page locate the "Sign In with LinkedIn using OpenID connect" product,
 then click on the "Request access" button.</p>
-<p><img alt="" src="piler-linkedin-app-2.png" /></p>
+<p><img alt="" src="../images/piler-linkedin-app-2.png" /></p>
 <p>Finally on the "Auth" tab locate the "Authorized redirect URLs for you app" settings, and type
 <em>https://archive.example.com/callback-linkedin</em> (be sure to your your archive's URL).</p>
-<p><img alt="" src="piler-linkedin-app-3.png" /></p>
+<p><img alt="" src="../images/piler-linkedin-app-3.png" /></p>
 <p>Edit /etc/piler/config-site.php, and add the following. Use your client id and secret values.</p>
 <pre><code>$config['ENABLE_LINKEDIN'] = 1;
 $config['LINKEDIN_CLIENT_ID'] = 'xxxxxxxxxxxxx';
