@@ -105,7 +105,7 @@
                 
             <li class="second-level"><a href="#inactivity-timeouts">Inactivity timeouts</a></li>
                 
-            <li class="second-level"><a href="#cloudflare-turnstile-support">Cloudflare Turnstile support</a></li>
+            <li class="second-level"><a href="#cloudflare-turnstile">Cloudflare Turnstile</a></li>
                 
             <li class="second-level"><a href="#authentication-against-keycloak">Authentication against Keycloak</a></li>
                 
@@ -120,7 +120,7 @@
 <h1 id="new-features-in-180">New features in 1.8.0<a class="headerlink" href="#new-features-in-180" title="Permanent link">#</a></h1>
 <p>This documentation applies to Piler enterprise edition 1.8.0</p>
 <p>Revision #1</p>
-<p>Publication date: Feb 4, 2024</p>
+<p>Publication date: Feb 6, 2024</p>
 <h2 id="reworked-the-gui-using-bootstrap-53-and-vuejs-3">Reworked the GUI using bootstrap 5.3 and vue.js 3<a class="headerlink" href="#reworked-the-gui-using-bootstrap-53-and-vuejs-3" title="Permanent link">#</a></h2>
 <p>Modernized the GUI using the latest bootstrap and vue.js. The new GUI
 is responsive, supports mobile devices, and finally we have dark mode
@@ -139,13 +139,15 @@ and fix the values to your needs:</p>
 <pre><code>$config['$ESSION_INACTIVITY_TIMEOUT'] = 3600;
 $config['SESSION_EXPIRY_TIMEOUT'] = 7200;
 </code></pre>
-<h2 id="cloudflare-turnstile-support">Cloudflare Turnstile support<a class="headerlink" href="#cloudflare-turnstile-support" title="Permanent link">#</a></h2>
+<h2 id="cloudflare-turnstile">Cloudflare Turnstile<a class="headerlink" href="#cloudflare-turnstile" title="Permanent link">#</a></h2>
 <p>Added support for Cloudflare Turnstile, a smart captcha alternative, with much better user experience.
-See <a href="https://www.cloudflare.com/products/turnstile/">https://www.cloudflare.com/products/turnstile/</a> for more.</p>
+From their website:</p>
+<p>"Turnstile delivers frustration-free, CAPTCHA-free web experiences to website visitors - with just a simple snippet of free code. Moreover, Turnstile stops abuse and confirms visitors are real without the data privacy concerns or awful user experience of CAPTCHAs."</p>
+<p>See <a href="https://www.cloudflare.com/products/turnstile/">https://www.cloudflare.com/products/turnstile/</a> for more.</p>
 <p>After registering a free account at Cloudflare, you may setup Turnstile. Then add
 the following variables to /etc/piler/config-site.php (be sure to use your values):</p>
-<pre><code>$config['CF_TURNSTILE_SITEKEY'] = 'xxxxxxxxxxxx';
-$config['CF_TURNSTILE_SECRET'] = 'yyyyyyyyyy';
+<pre><code>$config['CF_TURNSTILE_SITEKEY'] = '0x4AAAAAAAXXXX-XXXXXXXX';
+$config['CF_TURNSTILE_SECRET'] = '0x4AAAAAAAXXXXYYYYYYYYYYYYYYYYY';
 </code></pre>
 <h2 id="authentication-against-keycloak">Authentication against Keycloak<a class="headerlink" href="#authentication-against-keycloak" title="Permanent link">#</a></h2>
 <p>See <a href="https://mailpiler.com/keycloak-authentication/">https://mailpiler.com/keycloak-authentication/</a> for the details how to setup.</p>
