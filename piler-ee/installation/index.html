@@ -123,6 +123,8 @@
                 <li class="third-level"><a href="#setting-up-the-internal-instance">Setting up the internal instance</a></li>
             <li class="second-level"><a href="#s3-object-store">S3 object store</a></li>
                 
+            <li class="second-level"><a href="#s3-statistics">S3 statistics</a></li>
+                
             <li class="second-level"><a href="#mysql-settings">MySQL settings</a></li>
                 
             <li class="second-level"><a href="#security-considerations">Security considerations</a></li>
@@ -407,6 +409,36 @@ ln -sf /usr/libexec/piler/piler-s3.service .
 systemctl daemon-reload
 systemctl enable piler-s3
 systemctl start piler-s3
+</code></pre>
+<h2 id="s3-statistics">S3 statistics<a class="headerlink" href="#s3-statistics" title="Permanent link">#</a></h2>
+<p>To allow S3 statistics you need to install the minio client:</p>
+<pre><code>curl -o /usr/local/bin/mc https://dl.min.io/client/mc/release/linux-amd64/mc
+chmod +x /usr/local/bin/mc
+</code></pre>
+<p>Then create a config file for minio:</p>
+<pre><code>su - piler
+mkdir -p /var/piler/.mc/
+</code></pre>
+<p>Create /var/piler/.mc/config.json. In the below example we used the following parameters
+(be sure to use your own settings):</p>
+<pre><code>s3_hostname=https://zzzzzzzzzzzzzzzzz.eu.r2.cloudflarestorage.com
+s3_access_key=aabbaabbaabb
+s3_secret_key=deadbeef0123456789abcdef
+</code></pre>
+<pre><code>{&quot;version&quot;:&quot;10&quot;, &quot;aliases&quot;: {&quot;minio&quot;: {&quot;url&quot;:&quot;https://zzzzzzzzzzzzzzzzz.eu.r2.cloudflarestorage.com&quot;,&quot;accessKey&quot;:&quot;aabbaabbaabb&quot;, &quot;secretKey&quot;: &quot;deadbeef0123456789abcdef&quot;, &quot;api&quot;: &quot;S3v4&quot;, &quot;path&quot;: &quot;auto&quot;}}}
+</code></pre>
+<p>Then finally add the following to piler's crontab entries:</p>
+<pre><code>30 * * * * /usr/libexec/piler/s3-bucket-stat.sh minio
+</code></pre>
+<p>This will update the s3_bucket_stats table in the mysql piler database every hour.
+The result looks like</p>
+<pre><code>MariaDB [piler]&gt; select * from s3_bucket_stat;
++---------+----------+---------+---------------------+
+| bucket  | size     | objects | t                   |
++---------+----------+---------+---------------------+
+| fictive | 20481360 |    2978 | 2024-02-06 10:30:08 |
++---------+----------+---------+---------------------+
+1 row in set (0.001 sec)
 </code></pre>
 <h2 id="mysql-settings">MySQL settings<a class="headerlink" href="#mysql-settings" title="Permanent link">#</a></h2>
 <p>The MySQL database stores essential data, eg. metadata and other settings, so it’s very important that the MySQL server operates properly on both the worker and gui nodes. Therefore you must give MySQL proper resources.</p>
