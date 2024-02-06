@@ -425,13 +425,14 @@ mkdir -p /var/piler/.mc/
 s3_access_key=aabbaabbaabb
 s3_secret_key=deadbeef0123456789abcdef
 </code></pre>
+<p>/var/piler/.mc/config.json:</p>
 <pre><code>{&quot;version&quot;:&quot;10&quot;, &quot;aliases&quot;: {&quot;minio&quot;: {&quot;url&quot;:&quot;https://zzzzzzzzzzzzzzzzz.eu.r2.cloudflarestorage.com&quot;,&quot;accessKey&quot;:&quot;aabbaabbaabb&quot;, &quot;secretKey&quot;: &quot;deadbeef0123456789abcdef&quot;, &quot;api&quot;: &quot;S3v4&quot;, &quot;path&quot;: &quot;auto&quot;}}}
 </code></pre>
 <p>Then finally add the following to piler's crontab entries:</p>
 <pre><code>30 * * * * /usr/libexec/piler/s3-bucket-stat.sh minio
 </code></pre>
 <p>This will update the s3_bucket_stats table in the mysql piler database every hour.
-The result looks like</p>
+The result looks like the following. These details will be displayed at the tenant listing.</p>
 <pre><code>MariaDB [piler]&gt; select * from s3_bucket_stat;
 +---------+----------+---------+---------------------+
 | bucket  | size     | objects | t                   |
