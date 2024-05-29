@@ -190,6 +190,7 @@ $config['DOMAIN_REGEX'] value in config-site.php. See the default value in confi
 <h3 id="creating-the-customer">Creating the customer<a class="headerlink" href="#creating-the-customer" title="Permanent link">#</a></h3>
 <p>After creating domains for the customer, go to <strong>administration / customer</strong> page, then select the primary domain for the customer,
 add a customer ID, eg. fictiveco for the customer, fill the GUI URL field as well, then click Add, and verify that the customer is created.</p>
+<p>Note that the customer ID must be lower case, and must start with a letter.</p>
 <p>The GUI checks the hostname part of the URL (HTTP_HOST) to figure out which customer site the user visits.
 So each customer must have their own dedicated URL. The GUI URL field must be only the hostname (eg. fictiveco.myarchive.domain),
 no http:// prefix, etc.</p>
