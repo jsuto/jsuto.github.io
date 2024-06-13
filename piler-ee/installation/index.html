@@ -226,14 +226,14 @@ so <strong>prepare for having millions of files in the directories under /var/pi
 </code></pre>
 <p>You may also have a wildcard certificate for your domain, eg. <code>*.aaa.fu.</code></p>
 <h3 id="installing-piler">Installing piler<a class="headerlink" href="#installing-piler" title="Permanent link">#</a></h3>
-<pre><code>curl -o jammy.sh https://download.mailpiler.com/jammy.sh
-chmod +x jammy.sh
+<pre><code>curl -o noble.sh https://download.mailpiler.com/noble.sh
+chmod +x noble.sh
 </code></pre>
-<p>Before running the installer (=jammy.sh or centos9.sh for Redhat 9/Centos 9/Oracle Linux 9), be sure to revise the parameters, and fix them (especially MYSQL_ROOT_PASSWORD and MYSQL_PILER_PASSWORD) if necessary.</p>
+<p>Before running the installer (=noble.sh or centos9.sh for Redhat 9/Centos 9/Oracle Linux 9), be sure to revise the parameters, and fix them (especially MYSQL_ROOT_PASSWORD and MYSQL_PILER_PASSWORD) if necessary.</p>
 <p>By default the installer sets up encryption at rest for mysql data.</p>
 <p>For multitenant deployments be sure to set MULTITENANCY=1</p>
 <p>Run the following command on your host:</p>
-<pre><code>PILER_HOSTNAME=archive.aaa.fu ./jammy.sh
+<pre><code>PILER_HOSTNAME=archive.aaa.fu ./noble.sh
 </code></pre>
 <p>After the installation copy the licence for each worker node accordingly:</p>
 <pre><code>cp piler.lic /etc/piler/piler.lic
@@ -259,22 +259,22 @@ worker.aaa.fu       IN MX 10 worker0.aaa.fu.
 <p>You may also have a wildcard certificate for your domain, eg. *.aaa.fu, see the explanation below.</p>
 <p>Be sure to have the curl package installed.</p>
 <h3 id="installing-the-worker-nodes">Installing the worker nodes<a class="headerlink" href="#installing-the-worker-nodes" title="Permanent link">#</a></h3>
-<pre><code>curl -o jammy.sh https://download.mailpiler.com/jammy.sh
-chmod +x jammy.sh
+<pre><code>curl -o noble.sh https://download.mailpiler.com/noble.sh
+chmod +x noble.sh
 </code></pre>
 <p>Centos 9 users should get and use the centos9.sh script, and be sure to check out the Centos 9 specific notes section below.</p>
 <pre><code>curl -o centos9.sh https://download.mailpiler.com/centos9.sh
 chmod +x centos9.sh
 </code></pre>
-<p>Before running the installer (jammy.sh or centos9.sh), be sure to revise the parameters, and fix them (especially MYSQL_ROOT_PASSWORD, MYSQL_PILER_PASSWORD and AUTH_CODE) if necessary.</p>
+<p>Before running the installer (noble.sh or centos9.sh), be sure to revise the parameters, and fix them (especially MYSQL_ROOT_PASSWORD, MYSQL_PILER_PASSWORD and AUTH_CODE) if necessary.</p>
 <p>For multitenant deployments be sure to set MULTITENANCY=1</p>
 <p>AUTH_CODE must be the same on all nodes, it acts as a password. Also MYSQL_PILER_PASSWORD should be the same on all Piler nodes.</p>
 <p>By default the installer sets up encryption at rest for mysql data.</p>
 <p>Run the following on worker0.aaa.fu:</p>
-<pre><code>PILER_HOSTNAME=worker0.aaa.fu MULTINODES=1 MASTER_NODE=gui-int.aaa.fu ./jammy.sh
+<pre><code>PILER_HOSTNAME=worker0.aaa.fu MULTINODES=1 MASTER_NODE=gui-int.aaa.fu ./noble.sh
 </code></pre>
 <p>Run the following on worker1.aaa.fu:</p>
-<pre><code>PILER_HOSTNAME=worker1.aaa.fu MULTINODES=1 MASTER_NODE=gui-int.aaa.fu ./jammy.sh
+<pre><code>PILER_HOSTNAME=worker1.aaa.fu MULTINODES=1 MASTER_NODE=gui-int.aaa.fu ./noble.sh
 </code></pre>
 <p>Notice that the PILER_HOSTNAME parameter is unique for each worker node.</p>
 <p>After the installation copy the license for each worker node accordingly:</p>
@@ -286,14 +286,14 @@ chmod +x centos9.sh
 <p>The installer adds systemd services for piler, piler-smtp, pilersearch and tika.</p>
 <p>Note that each worker node requires a dedicated mysql server, so the installer script installs mysql daemon on each worker node.</p>
 <h3 id="installing-the-gui-node">Installing the GUI node<a class="headerlink" href="#installing-the-gui-node" title="Permanent link">#</a></h3>
-<pre><code>curl -o jammy.sh download.mailpiler.com/jammy.sh
-chmod +x jammy.sh
+<pre><code>curl -o noble.sh download.mailpiler.com/noble.sh
+chmod +x noble.sh
 </code></pre>
-<p>Before running the installer (=jammy.sh), be sure to revise the parameters, and fix them (especially MYSQL_ROOT_PASSWORD, MYSQL_PILER_PASSWORD and AUTH_CODE) if necessary. AUTH_CODE must be the same as on the worker nodes.</p>
+<p>Before running the installer (=noble.sh), be sure to revise the parameters, and fix them (especially MYSQL_ROOT_PASSWORD, MYSQL_PILER_PASSWORD and AUTH_CODE) if necessary. AUTH_CODE must be the same as on the worker nodes.</p>
 <p>If you plan to install the smtp gateway, then set USE_SMTP_GATEWAY=1 in the installer script (by default it’s not set).</p>
 <p>For multitenant deployments be sure to set MULTITENANCY=1</p>
 <p>Run the following command:</p>
-<pre><code>PILER_HOSTNAME=gui-int.aaa.fu MULTINODES=1 PRIMARY_MASTER=1 NODE_TYPE=MASTER ./jammy.sh
+<pre><code>PILER_HOSTNAME=gui-int.aaa.fu MULTINODES=1 PRIMARY_MASTER=1 NODE_TYPE=MASTER ./noble.sh
 </code></pre>
 <p>Add the worker node list to the site config:</p>
 <pre><code>echo '$config1[&quot;WORKER&quot;] = array(&quot;worker0.aaa.fu&quot;, &quot;worker1.aaa.fu&quot;);' &gt;&gt; /etc/piler/config-site.php
@@ -378,6 +378,19 @@ s3_bucket_prefix=
 s3_dir=/var/piler/s3
 s3_hostname=zzzzzzzzzzzzzzzzz.eu.r2.cloudflarestorage.com
 s3_region=auto
+s3_secret_key=yyyyyyyyyyyyyyyyyyyyyyyyyyyyy
+s3_secure=1
+s3_spread_in_buckets=0
+s3_threads=10
+s3_use_subdirs=1
+</code></pre>
+<p>S3 settings for Backblaze bucket using EU-central:</p>
+<p>(Note: Backblaze doesn't accept dot (.) in the bucket name!)</p>
+<pre><code>s3_access_key=xxxxxxxxxxxxxxxxxx
+s3_bucket_prefix=
+s3_dir=/var/piler/s3
+s3_hostname=s3.eu-central-003.backblazeb2.com
+s3_region=us-east-1
 s3_secret_key=yyyyyyyyyyyyyyyyyyyyyyyyyyyyy
 s3_secure=1
 s3_spread_in_buckets=0
