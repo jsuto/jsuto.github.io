@@ -488,7 +488,12 @@ retention period in days.</p>
 <p>Every time piler archives a message, it assigns a retention period according to the retention rules or applying
 the default value (2257 days = 7 years + 2 days, unless you change it in piler.conf). After the retention period
 has expired the piler utilities will remove the message from the archive.</p>
+<p>The "domain" field applies to both the sender and the recipient addresses. Eg. if you specify "example.com"
+in the domain field, and the sender is user@example.com, then the rule applies. If the recipient is
+user@example.com, then it still applies.</p>
 <p>It's recommended to create your retention policy before deploying any archiving solution.</p>
+<p>Also be sure to use the pilertest utility to be sure your retention rules work as expected.
+Test it in a message that should match, and with another one that shouldn't.</p>
 <p>Note that the retention period is included in the per message verification digest, so the retention period should
 not be changed after the message has been archived.</p>
 <p>Piler also compiles a list from the retention rules, so whenever you change them, be sure to click on the
