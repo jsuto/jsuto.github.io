@@ -108,7 +108,7 @@
                 <li class="third-level"><a href="#exchange-2003">Exchange 2003</a></li>
                 <li class="third-level"><a href="#exchange-2007">Exchange 2007</a></li>
                 <li class="third-level"><a href="#exchange-2010">Exchange 2010</a></li>
-                <li class="third-level"><a href="#exchange-2013">Exchange 2013</a></li>
+                <li class="third-level"><a href="#exchange-20132016">Exchange 2013/2016</a></li>
                 <li class="third-level"><a href="#kerio-connect">Kerio Connect</a></li>
                 <li class="third-level"><a href="#zimbra">Zimbra</a></li>
                 <li class="third-level"><a href="#exim">Exim</a></li>
@@ -121,8 +121,8 @@
         <div class="col-md-9" role="main">
 
 <h1 id="configuring-the-mail-server-for-email-archiving-with-piler-enterprise-edition">Configuring the mail server for email archiving with piler enterprise edition<a class="headerlink" href="#configuring-the-mail-server-for-email-archiving-with-piler-enterprise-edition" title="Permanent link">#</a></h1>
-<p>Revision #1</p>
-<p>Publication date: Apr 20, 2023</p>
+<p>Revision #2</p>
+<p>Publication date: Aug 23, 2024</p>
 <h2 id="configure-the-mail-server">Configure the mail server<a class="headerlink" href="#configure-the-mail-server" title="Permanent link">#</a></h2>
 <p>To start archiving emails you have to configure your mail servers to copy each and every single email they receive to piler via SMTP.</p>
 <p>The configuration process depends on the used mail server. We’ll use archive@archive.yourdomain.com address as an example
@@ -246,7 +246,7 @@ restored message as a duplicate. Edit config-site.php, and set the following:</p
 <li>Verify that all of the settings are correct. Click “New” then “Finish” once it is complete.</li>
 <li>The Send Connector should now be listed.</li>
 </ul>
-<h3 id="exchange-2013">Exchange 2013<a class="headerlink" href="#exchange-2013" title="Permanent link">#</a></h3>
+<h3 id="exchange-20132016">Exchange 2013/2016<a class="headerlink" href="#exchange-20132016" title="Permanent link">#</a></h3>
 <h4 id="setup-journaling">Setup Journaling<a class="headerlink" href="#setup-journaling" title="Permanent link">#</a></h4>
 <ul>
 <li>Login to the Exchange Control Panel by opening the browser at https://exchange.yourdomain.com/ecp (where exchange.yourdomain.com is the FQDN of your Exchange server)</li>
@@ -285,6 +285,16 @@ restored message as a duplicate. Edit config-site.php, and set the following:</p
 <li>Click ok. The mail servers should be listed under Source in the New Send Connector Window.</li>
 <li>Click finish</li>
 </ul>
+<p>The below images may help you creating the Send Connector. Note that the archive's
+hostname is "my.smarthost.local" on the screenshots. Be sure to use your own archive's hostname.</p>
+<p><img alt="" src="../images/exch-smarthost-1.png" /></p>
+<p><img alt="" src="../images/exch-smarthost-2.png" /></p>
+<p><img alt="" src="../images/exch-smarthost-3.png" /></p>
+<p><img alt="" src="../images/exch-smarthost-4.png" /></p>
+<p><img alt="" src="../images/exch-smarthost-5.png" /></p>
+<p><img alt="" src="../images/exch-smarthost-6.png" /></p>
+<p><img alt="" src="../images/exch-smarthost-7.png" /></p>
+<p><img alt="" src="../images/exch-smarthost-8.png" /></p>
 <h4 id="adjust-maximum-message-size">Adjust Maximum Message Size<a class="headerlink" href="#adjust-maximum-message-size" title="Permanent link">#</a></h4>
 <p>By default, the maximum send message size for the Connector is set to 10 MB. To change this:</p>
 <ul>
