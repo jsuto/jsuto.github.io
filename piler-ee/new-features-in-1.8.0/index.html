@@ -121,8 +121,8 @@
 
 <h1 id="new-features-in-180">New features in 1.8.0<a class="headerlink" href="#new-features-in-180" title="Permanent link">#</a></h1>
 <p>This documentation applies to Piler enterprise edition 1.8.0</p>
-<p>Revision #1</p>
-<p>Publication date: Feb 6, 2024</p>
+<p>Revision #2</p>
+<p>Publication date: Oct 5, 2024</p>
 <h2 id="reworked-the-gui-using-bootstrap-53-and-vuejs-3">Reworked the GUI using bootstrap 5.3 and vue.js 3<a class="headerlink" href="#reworked-the-gui-using-bootstrap-53-and-vuejs-3" title="Permanent link">#</a></h2>
 <p>Modernized the GUI using the latest bootstrap and vue.js. The new GUI
 is responsive, supports mobile devices, and finally we have dark mode
@@ -133,6 +133,31 @@ as well.</p>
 <pre><code>$config['CUSTOM_CSS'] = '&lt;link rel=&quot;stylesheet&quot; href=&quot;/assets/css/my.css&quot;&gt;';
 </code></pre>
 <p>Then add your CSS definitions to /var/piler/www/assets/css/my.css file.</p>
+<p>You may use your own images, favicons, etc. as well. Feel free to customize
+the following variables, then write them to config-site.php:</p>
+<pre><code>$config['TOAST_LOGO'] = '/assets/images/logo-round.svg';
+$config['SITE_LOGO'] = '/assets/images/login-logo.svg';
+$config['BRANDING_LOGO'] = '/assets/images/logo-header.svg';
+$config['NOT_FOUND_404_IMAGE'] = '/assets/images/404.svg';
+$config['PLACEHOLDER_IMAGE'] = '/assets/images/50x50.png';
+$config['PLACEHOLDER_ZIP'] = '/assets/misc/1.zip';
+$config['PLACEHOLDER_PDF'] = '/assets/misc/1.pdf';
+$config['REMOTE_IMAGE_REPLACEMENT'] = '/assets/images/remote.gif';
+
+$config['BRANDING_FAVICON'] = '
+  &lt;link rel=&quot;apple-touch-icon&quot; sizes=&quot;180x180&quot; href=&quot;/assets/ico/apple-touch-icon.png&quot;&gt;
+  &lt;link rel=&quot;icon&quot; type=&quot;image/png&quot; sizes=&quot;32x32&quot; href=&quot;/assets/ico/favicon-32x32.png&quot;&gt;
+  &lt;link rel=&quot;icon&quot; type=&quot;image/png&quot; sizes=&quot;16x16&quot; href=&quot;/assets/ico/favicon-16x16.png&quot;&gt;
+  &lt;link rel=&quot;manifest&quot; href=&quot;/assets/ico/site.webmanifest&quot;&gt;
+  &lt;link rel=&quot;mask-icon&quot; href=&quot;/assets/ico/safari-pinned-tab.svg&quot; color=&quot;#5bbad5&quot;&gt;
+  &lt;link rel=&quot;shortcut icon&quot; href=&quot;/assets/ico/favicon.ico&quot;&gt;
+  &lt;meta name=&quot;msapplication-TileColor&quot; content=&quot;#da532c&quot;&gt;
+  &lt;meta name=&quot;msapplication-config&quot; content=&quot;/assets/ico/browserconfig.xml&quot;&gt;
+  &lt;meta name=&quot;theme-color&quot; content=&quot;#ffffff&quot;&gt;
+';
+
+$config['BRANDING_URL'] = ''; // the URL when hovering over the logo
+</code></pre>
 <h2 id="inactivity-timeouts">Inactivity timeouts<a class="headerlink" href="#inactivity-timeouts" title="Permanent link">#</a></h2>
 <p>The GUI automatically logs the current user out after 1 hour inactivity.
 Also the user's session expires and thus forces a logout after 2 hours.</p>
