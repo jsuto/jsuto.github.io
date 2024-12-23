@@ -123,6 +123,7 @@
                 <li class="third-level"><a href="#setting-up-the-internal-instance">Setting up the internal instance</a></li>
             <li class="second-level"><a href="#s3-object-store">S3 object store</a></li>
                 
+                <li class="third-level"><a href="#notes">Notes</a></li>
             <li class="second-level"><a href="#s3-statistics">S3 statistics</a></li>
                 
             <li class="second-level"><a href="#mysql-settings">MySQL settings</a></li>
@@ -355,7 +356,6 @@ s3_access_key=youraccesskey
 s3_secret_key=yoursecretkey
 s3_bucket_prefix=
 s3_use_subdirs=1
-s3_spread_in_buckets=0
 s3_secure=1
 </code></pre>
 <p>s3_hostname should be the S3 hostname and port. Eg. Minio uses port 9000. For Wasabi, it might be s3.us-west-1.wasabisys.com.</p>
@@ -368,7 +368,6 @@ s3_hostname=frnsjgsfvvgl.compat.objectstorage.eu-frankfurt-1.oraclecloud.com
 s3_region=eu-frankfurt-1
 s3_secret_key=yoursecretkey
 s3_secure=1
-s3_spread_in_buckets=0
 s3_threads=10
 s3_use_subdirs=1
 </code></pre>
@@ -380,7 +379,6 @@ s3_hostname=zzzzzzzzzzzzzzzzz.eu.r2.cloudflarestorage.com
 s3_region=auto
 s3_secret_key=yyyyyyyyyyyyyyyyyyyyyyyyyyyyy
 s3_secure=1
-s3_spread_in_buckets=0
 s3_threads=10
 s3_use_subdirs=1
 </code></pre>
@@ -393,7 +391,6 @@ s3_hostname=s3.eu-central-003.backblazeb2.com
 s3_region=us-east-1
 s3_secret_key=yyyyyyyyyyyyyyyyyyyyyyyyyyyyy
 s3_secure=1
-s3_spread_in_buckets=0
 s3_threads=10
 s3_use_subdirs=1
 </code></pre>
@@ -423,6 +420,8 @@ systemctl daemon-reload
 systemctl enable piler-s3
 systemctl start piler-s3
 </code></pre>
+<h3 id="notes">Notes<a class="headerlink" href="#notes" title="Permanent link">#</a></h3>
+<p>The <code>s3_spread_in_buckets</code> variable will be obsoleted in future releases, please don't use it.</p>
 <h2 id="s3-statistics">S3 statistics<a class="headerlink" href="#s3-statistics" title="Permanent link">#</a></h2>
 <p>To allow S3 statistics you need to install the minio client:</p>
 <pre><code>curl -o /usr/local/bin/mc https://dl.min.io/client/mc/release/linux-amd64/mc
