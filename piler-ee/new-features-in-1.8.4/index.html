@@ -105,7 +105,7 @@
                 
             <li class="second-level"><a href="#apply-imap-flags-to-restored-emails">Apply IMAP flags to restored emails</a></li>
                 
-            <li class="second-level"><a href="#pdf-export-shall-include-the-message-headers-from-to-cc-subject-date">PDF export shall include the message headers (from, to, cc, subject, date)</a></li>
+            <li class="second-level"><a href="#pdf-export-shall-include-the-message-headers">PDF export shall include the message headers</a></li>
                 
             <li class="second-level"><a href="#improved-audit-search">Improved audit search</a></li>
                 
@@ -134,7 +134,7 @@ the user selects them.</p>
 limit how many emails a user can export from a search query.
 Set to 0 in /etc/piler/config-site.php to disable this feature
 and let the user export all emails that matches his query.
-The default value is 20000,</p>
+The default value is 20000.</p>
 <p>Note that the first N messages are selected based on the sort
 order the user has set (by default in descending order by sent
 date).</p>
@@ -142,13 +142,14 @@ date).</p>
 <p>You may apply IMAP flags to restored emails, eg.</p>
 <pre><code>$config['IMAP_FLAGS'] = ['\Seen'];
 </code></pre>
-<h2 id="pdf-export-shall-include-the-message-headers-from-to-cc-subject-date">PDF export shall include the message headers (from, to, cc, subject, date)<a class="headerlink" href="#pdf-export-shall-include-the-message-headers-from-to-cc-subject-date" title="Permanent link">#</a></h2>
+<h2 id="pdf-export-shall-include-the-message-headers">PDF export shall include the message headers<a class="headerlink" href="#pdf-export-shall-include-the-message-headers" title="Permanent link">#</a></h2>
+<p>PDF export adds the from, to, cc, subject, date headers</p>
 <h2 id="improved-audit-search">Improved audit search<a class="headerlink" href="#improved-audit-search" title="Permanent link">#</a></h2>
 <p>Note that the audit is moved to manticore real time index</p>
 <h2 id="added-mailcow-support">Added mailcow support<a class="headerlink" href="#added-mailcow-support" title="Permanent link">#</a></h2>
-<p>https://mailpiler.com/mailcow-support/</p>
+<p>See <a href="https://mailpiler.com/mailcow-support/">https://mailpiler.com/mailcow-support/</a> for more.</p>
 <h2 id="mass-download-emails-from-microsoft365-formerly-office365">Mass download emails from Microsoft365 (formerly Office365)<a class="headerlink" href="#mass-download-emails-from-microsoft365-formerly-office365" title="Permanent link">#</a></h2>
-<p>https://mailpiler.com/importing-legacy-emails-from-o365/</p></div>
+<p>See <a href="https://mailpiler.com/importing-legacy-emails-from-o365/">https://mailpiler.com/importing-legacy-emails-from-o365/</a> for more.</p></div>
         
         
     </div>
