@@ -110,14 +110,23 @@
                 <li class="third-level"><a href="#upgrade-the-minio-python-client">Upgrade the minio python client</a></li>
                 <li class="third-level"><a href="#if-using-sphinxsearch-then-perform-these-steps">If using sphinxsearch, then perform these steps:</a></li>
                 <li class="third-level"><a href="#start-all-piler-related-services">Start all piler related services</a></li>
+            <li class="second-level"><a href="#upgrading-procedure-from-172-to-184">Upgrading procedure from 1.7.2 to 1.8.4</a></li>
+                
+                <li class="third-level"><a href="#make-sure-you-have-php-8x-installed">Make sure you have php 8.x installed</a></li>
+                <li class="third-level"><a href="#stop-all-piler-related-services_1">Stop all piler related services</a></li>
+                <li class="third-level"><a href="#have-a-backup-of-etcpiler-directory_1">Have a backup of /etc/piler directory</a></li>
+                <li class="third-level"><a href="#upgrade-piler-ee-package-with-dpkg-or-rpm_1">Upgrade piler-ee package with dpkg or rpm</a></li>
+                <li class="third-level"><a href="#upgrade-the-database_1">Upgrade the database:</a></li>
+                <li class="third-level"><a href="#update-the-rewrite-rules-in-etcpilerpiler-nginxconf-according-to-etcpilerpiler-nginxconfdist_1">Update the rewrite rules in /etc/piler/piler-nginx.conf according to /etc/piler/piler-nginx.conf.dist</a></li>
+                <li class="third-level"><a href="#start-all-piler-related-services_1">Start all piler related services</a></li>
     </ul>
 </div></div>
         <div class="col-md-9" role="main">
 
 <h1 id="upgrading-piler-enterprise">Upgrading piler enterprise<a class="headerlink" href="#upgrading-piler-enterprise" title="Permanent link">#</a></h1>
-<p>This documentation applies to Piler enterprise edition 1.7.2</p>
-<p>Revision #1</p>
-<p>Publication date: Apr 27, 2023</p>
+<p>Revision #2</p>
+<p>Publication date: 2025-JAN-24</p>
+<p>Before doing anything, be sure to read the <a href="https://mailpiler.com/RELEASE_NOTES" target="_blank">release notes</a> to see what has changed</p>
 <h2 id="upgrading-procedure-from-162-to-172">Upgrading procedure from 1.6.2 to 1.7.2<a class="headerlink" href="#upgrading-procedure-from-162-to-172" title="Permanent link">#</a></h2>
 <h3 id="stop-all-piler-related-services">Stop all piler related services<a class="headerlink" href="#stop-all-piler-related-services" title="Permanent link">#</a></h3>
 <h3 id="have-a-backup-of-etcpiler-directory">Have a backup of /etc/piler directory<a class="headerlink" href="#have-a-backup-of-etcpiler-directory" title="Permanent link">#</a></h3>
@@ -144,6 +153,50 @@ done
 <pre><code>ln -sf /etc/piler/sphinx.conf /etc/piler/manticore.conf
 </code></pre>
 <h3 id="start-all-piler-related-services">Start all piler related services<a class="headerlink" href="#start-all-piler-related-services" title="Permanent link">#</a></h3>
+<p>Restart nginx:</p>
+<pre><code>systemctl restart nginx
+</code></pre>
+<p>Then check <code>/var/log/mail.log</code> or <code>/var/log/maillog</code> to verify that everything is running fine.</p>
+<h2 id="upgrading-procedure-from-172-to-184">Upgrading procedure from 1.7.2 to 1.8.4<a class="headerlink" href="#upgrading-procedure-from-172-to-184" title="Permanent link">#</a></h2>
+<h3 id="make-sure-you-have-php-8x-installed">Make sure you have php 8.x installed<a class="headerlink" href="#make-sure-you-have-php-8x-installed" title="Permanent link">#</a></h3>
+<h3 id="stop-all-piler-related-services_1">Stop all piler related services<a class="headerlink" href="#stop-all-piler-related-services_1" title="Permanent link">#</a></h3>
+<h3 id="have-a-backup-of-etcpiler-directory_1">Have a backup of /etc/piler directory<a class="headerlink" href="#have-a-backup-of-etcpiler-directory_1" title="Permanent link">#</a></h3>
+<h3 id="upgrade-piler-ee-package-with-dpkg-or-rpm_1">Upgrade piler-ee package with dpkg or rpm<a class="headerlink" href="#upgrade-piler-ee-package-with-dpkg-or-rpm_1" title="Permanent link">#</a></h3>
+<h3 id="upgrade-the-database_1">Upgrade the database:<a class="headerlink" href="#upgrade-the-database_1" title="Permanent link">#</a></h3>
+<pre><code>for i in /var/piler/sphinx/piler $(find /var/piler/sphinx/* -type d); do
+  mysql --defaults-file=/etc/piler/.my.cnf $(basename $i) &lt; /usr/share/piler/db-upgrade.sql
+done
+</code></pre>
+<p>If you use Manticore, then run:</p>
+<pre><code>for i in /var/piler/manticore/piler $(find /var/piler/manticore/* -type d); do
+   mysql --defaults-file=/etc/piler/.my.cnf $(basename $i) &lt; /usr/share/piler/db-upgrade.sql
+done
+</code></pre>
+<h3 id="update-the-rewrite-rules-in-etcpilerpiler-nginxconf-according-to-etcpilerpiler-nginxconfdist_1">Update the rewrite rules in /etc/piler/piler-nginx.conf according to /etc/piler/piler-nginx.conf.dist<a class="headerlink" href="#update-the-rewrite-rules-in-etcpilerpiler-nginxconf-according-to-etcpilerpiler-nginxconfdist_1" title="Permanent link">#</a></h3>
+<p>Add the following new variables to /etc/piler/piler.conf:</p>
+<pre><code>max_message_size=50000000
+max_smtp_memory=500000000
+</code></pre>
+<p>You may adjust the above values to your environment.</p>
+<p>Update the pidfile variable in /etc/piler/piler.conf:</p>
+<pre><code>pidfile=/var/piler/run/piler.pid
+</code></pre>
+<p>Add the following to /etc/piler/config-site.php:</p>
+<pre><code>$config['SPHINX_HOSTNAME_READONLY'] = '127.0.0.1:9307';
+</code></pre>
+<p>Install the pycryptodome package</p>
+<pre><code>pip install pycryptodome==3.20.0
+</code></pre>
+<p>Generate an encryption key:</p>
+<pre><code>openssl rand -base64 24
+</code></pre>
+<p>Add it to /etc/piler/piler.conf</p>
+<pre><code>crypt_key=..........
+</code></pre>
+<p>Also add it to /etc/piler/config-site.php:</p>
+<pre><code>$config['ENCRYPTION_KEY'] = '.......';
+</code></pre>
+<h3 id="start-all-piler-related-services_1">Start all piler related services<a class="headerlink" href="#start-all-piler-related-services_1" title="Permanent link">#</a></h3>
 <p>Restart nginx:</p>
 <pre><code>systemctl restart nginx
 </code></pre>
