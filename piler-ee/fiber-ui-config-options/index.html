@@ -356,10 +356,12 @@
 <hr />
 <h3 id="retriever_method">RETRIEVER_METHOD<a class="headerlink" href="#retriever_method" title="Permanent link">#</a></h3>
 <p>Default value: <code>direct</code></p>
-<p>Description: Defines how archived emails are retrieved. Options:
-- <code>direct</code>: Read directly from storage
-- <code>socket</code>: Use a UNIX domain socket connection
-- <code>s3</code>: Retrieve from Amazon S3 or compatible storage</p>
+<p>Description: Defines how archived emails are retrieved. Options:</p>
+<ul>
+<li><code>direct</code>: Read directly from storage</li>
+<li><code>socket</code>: Use a UNIX domain socket connection</li>
+<li><code>s3</code>: Retrieve from Amazon S3 or compatible storage</li>
+</ul>
 <hr />
 <h3 id="log_level">LOG_LEVEL<a class="headerlink" href="#log_level" title="Permanent link">#</a></h3>
 <p>Default value: <code>INFO</code></p>
@@ -435,7 +437,8 @@
 <hr />
 <h3 id="io_rate_limit_per_route">IO_RATE_LIMIT_PER_ROUTE<a class="headerlink" href="#io_rate_limit_per_route" title="Permanent link">#</a></h3>
 <p>Default value: <code>200</code></p>
-<p>Description: I/O rate limit per route (requests per second).</p>
+<p>Description: I/O rate limit for routes that retrieves emails or attachments from
+the storage, eg. view, download, attachments (requests per second).</p>
 <hr />
 <h3 id="dev_mode">DEV_MODE<a class="headerlink" href="#dev_mode" title="Permanent link">#</a></h3>
 <p>Default value: <code>false</code></p>
