@@ -169,8 +169,6 @@
                 
             <li class="second-level"><a href="#max_content_length_to_display">MAX_CONTENT_LENGTH_TO_DISPLAY</a></li>
                 
-            <li class="second-level"><a href="#description-maximum-content-size-in-bytes-to-render-in-the-ui-longer-messages-are-truncated-in-the-message-preview-but-other-than-that-the-message-is-still-intact">Description: Maximum content size (in bytes) to render in the UI. Longer messages are truncated in the message preview, but other than that the message is still intact.</a></li>
-                
             <li class="second-level"><a href="#rt_index">RT_INDEX</a></li>
                 
             <li class="second-level"><a href="#extra_notes">EXTRA_NOTES</a></li>
@@ -352,165 +350,166 @@
 <p>Revision #1</p>
 <p>Publication date: 2025-SEP-09</p>
 <hr />
-<h2 id="piler_key">PILER_KEY<a class="headerlink" href="#piler_key" title="Permanent link">#</a></h2>
+<h3 id="piler_key">PILER_KEY<a class="headerlink" href="#piler_key" title="Permanent link">#</a></h3>
 <p>Default value: <code>/etc/piler/piler.key</code></p>
 <p>Description: Path to the private key file used by Piler for signing and cryptographic operations.</p>
 <hr />
-<h2 id="retriever_method">RETRIEVER_METHOD<a class="headerlink" href="#retriever_method" title="Permanent link">#</a></h2>
+<h3 id="retriever_method">RETRIEVER_METHOD<a class="headerlink" href="#retriever_method" title="Permanent link">#</a></h3>
 <p>Default value: <code>direct</code></p>
 <p>Description: Defines how archived emails are retrieved. Options:
 - <code>direct</code>: Read directly from storage
 - <code>socket</code>: Use a UNIX domain socket connection
 - <code>s3</code>: Retrieve from Amazon S3 or compatible storage</p>
 <hr />
-<h2 id="log_level">LOG_LEVEL<a class="headerlink" href="#log_level" title="Permanent link">#</a></h2>
+<h3 id="log_level">LOG_LEVEL<a class="headerlink" href="#log_level" title="Permanent link">#</a></h3>
 <p>Default value: <code>INFO</code></p>
 <p>Description: Sets the logging verbosity level. Possible values: <code>DEBUG</code>, <code>INFO</code>, <code>WARN</code>, <code>ERROR</code>.</p>
 <hr />
-<h2 id="log_format">LOG_FORMAT<a class="headerlink" href="#log_format" title="Permanent link">#</a></h2>
+<h3 id="log_format">LOG_FORMAT<a class="headerlink" href="#log_format" title="Permanent link">#</a></h3>
 <p>Default value: <code>json</code></p>
 <p>Description: Output format of logs. Options: <code>json</code>, <code>plain</code>.</p>
 <hr />
-<h2 id="username">USERNAME<a class="headerlink" href="#username" title="Permanent link">#</a></h2>
+<h3 id="username">USERNAME<a class="headerlink" href="#username" title="Permanent link">#</a></h3>
 <p>Default value: <code>""</code></p>
 <p>Description: Username for the UI to run when started as root.</p>
 <hr />
-<h2 id="license_file">LICENSE_FILE<a class="headerlink" href="#license_file" title="Permanent link">#</a></h2>
+<h3 id="license_file">LICENSE_FILE<a class="headerlink" href="#license_file" title="Permanent link">#</a></h3>
 <p>Default value: <code>./license.jwt</code></p>
 <p>Description: Path to the license file containing a signed license token.</p>
 <hr />
-<h2 id="listen_addr">LISTEN_ADDR<a class="headerlink" href="#listen_addr" title="Permanent link">#</a></h2>
+<h3 id="listen_addr">LISTEN_ADDR<a class="headerlink" href="#listen_addr" title="Permanent link">#</a></h3>
 <p>Default value: <code>:3000</code></p>
 <p>Description: Address and port where the Fiber web application will listen for HTTP requests.</p>
 <hr />
-<h2 id="trusted_proxies">TRUSTED_PROXIES<a class="headerlink" href="#trusted_proxies" title="Permanent link">#</a></h2>
+<h3 id="trusted_proxies">TRUSTED_PROXIES<a class="headerlink" href="#trusted_proxies" title="Permanent link">#</a></h3>
 <p>Default value: <code>127.0.0.1</code></p>
 <p>Description: Comma-separated list of trusted proxy IP addresses for handling forwarded headers.</p>
 <hr />
-<h2 id="proxy_header">PROXY_HEADER<a class="headerlink" href="#proxy_header" title="Permanent link">#</a></h2>
+<h3 id="proxy_header">PROXY_HEADER<a class="headerlink" href="#proxy_header" title="Permanent link">#</a></h3>
 <p>Default value: <code>X-Forwarded-For</code></p>
 <p>Description: HTTP header used to extract the real client IP address when behind a proxy.</p>
 <hr />
-<h2 id="retriever_socket">RETRIEVER_SOCKET<a class="headerlink" href="#retriever_socket" title="Permanent link">#</a></h2>
+<h3 id="retriever_socket">RETRIEVER_SOCKET<a class="headerlink" href="#retriever_socket" title="Permanent link">#</a></h3>
 <p>Default value: <code>/var/piler/sockets/retriever.sock</code></p>
 <p>Description: Path to the UNIX domain socket used when <code>RETRIEVER_METHOD=socket</code>.</p>
 <hr />
-<h2 id="mysql_user">MYSQL_USER<a class="headerlink" href="#mysql_user" title="Permanent link">#</a></h2>
+<h3 id="mysql_user">MYSQL_USER<a class="headerlink" href="#mysql_user" title="Permanent link">#</a></h3>
 <p>Default value: <code>piler</code></p>
 <p>Description: MySQL database username.</p>
 <hr />
-<h2 id="mysql_password">MYSQL_PASSWORD<a class="headerlink" href="#mysql_password" title="Permanent link">#</a></h2>
+<h3 id="mysql_password">MYSQL_PASSWORD<a class="headerlink" href="#mysql_password" title="Permanent link">#</a></h3>
 <p>Default value: <code>piler123</code></p>
 <p>Description: MySQL database password.</p>
 <hr />
-<h2 id="mysql_host">MYSQL_HOST<a class="headerlink" href="#mysql_host" title="Permanent link">#</a></h2>
+<h3 id="mysql_host">MYSQL_HOST<a class="headerlink" href="#mysql_host" title="Permanent link">#</a></h3>
 <p>Default value: <code>localhost:3306</code></p>
 <p>Description: Host and port of the MySQL server.</p>
 <hr />
-<h2 id="mysql_max_open_conn">MYSQL_MAX_OPEN_CONN<a class="headerlink" href="#mysql_max_open_conn" title="Permanent link">#</a></h2>
+<h3 id="mysql_max_open_conn">MYSQL_MAX_OPEN_CONN<a class="headerlink" href="#mysql_max_open_conn" title="Permanent link">#</a></h3>
 <p>Default value: <code>50</code></p>
 <p>Description: Maximum number of open MySQL connections per child process.</p>
 <hr />
-<h2 id="mysql_max_idle_conn">MYSQL_MAX_IDLE_CONN<a class="headerlink" href="#mysql_max_idle_conn" title="Permanent link">#</a></h2>
+<h3 id="mysql_max_idle_conn">MYSQL_MAX_IDLE_CONN<a class="headerlink" href="#mysql_max_idle_conn" title="Permanent link">#</a></h3>
 <p>Default value: <code>20</code></p>
 <p>Description: Maximum number of idle MySQL connections in the connection pool.</p>
 <hr />
-<h2 id="mysql_conn_max_lifetime">MYSQL_CONN_MAX_LIFETIME<a class="headerlink" href="#mysql_conn_max_lifetime" title="Permanent link">#</a></h2>
+<h3 id="mysql_conn_max_lifetime">MYSQL_CONN_MAX_LIFETIME<a class="headerlink" href="#mysql_conn_max_lifetime" title="Permanent link">#</a></h3>
 <p>Default value: <code>300s</code></p>
 <p>Description: Maximum lifetime of a MySQL connection before it is recycled.</p>
 <hr />
-<h2 id="manticore_dsn">MANTICORE_DSN<a class="headerlink" href="#manticore_dsn" title="Permanent link">#</a></h2>
+<h3 id="manticore_dsn">MANTICORE_DSN<a class="headerlink" href="#manticore_dsn" title="Permanent link">#</a></h3>
 <p>Default value: <code>piler:piler123@tcp(localhost:9306)/?parseTime=true</code></p>
 <p>Description: DSN for connecting to Manticore search engine (read/write).</p>
 <hr />
-<h2 id="manticore_readonly_dsn">MANTICORE_READONLY_DSN<a class="headerlink" href="#manticore_readonly_dsn" title="Permanent link">#</a></h2>
+<h3 id="manticore_readonly_dsn">MANTICORE_READONLY_DSN<a class="headerlink" href="#manticore_readonly_dsn" title="Permanent link">#</a></h3>
 <p>Default value: <code>piler:piler123@tcp(localhost:9307)/?parseTime=true</code></p>
 <p>Description: DSN for connecting to Manticore search engine (read-only).</p>
 <hr />
-<h2 id="redis_addr">REDIS_ADDR<a class="headerlink" href="#redis_addr" title="Permanent link">#</a></h2>
+<h3 id="redis_addr">REDIS_ADDR<a class="headerlink" href="#redis_addr" title="Permanent link">#</a></h3>
 <p>Default value: <code>127.0.0.1:6379</code></p>
 <p>Description: Redis server address.</p>
 <hr />
-<h2 id="tenant_rate_limit_per_minute">TENANT_RATE_LIMIT_PER_MINUTE<a class="headerlink" href="#tenant_rate_limit_per_minute" title="Permanent link">#</a></h2>
+<h3 id="tenant_rate_limit_per_minute">TENANT_RATE_LIMIT_PER_MINUTE<a class="headerlink" href="#tenant_rate_limit_per_minute" title="Permanent link">#</a></h3>
 <p>Default value: <code>20000</code></p>
 <p>Description: Maximum number of requests allowed per tenant per minute.</p>
 <hr />
-<h2 id="io_rate_limit_per_route">IO_RATE_LIMIT_PER_ROUTE<a class="headerlink" href="#io_rate_limit_per_route" title="Permanent link">#</a></h2>
+<h3 id="io_rate_limit_per_route">IO_RATE_LIMIT_PER_ROUTE<a class="headerlink" href="#io_rate_limit_per_route" title="Permanent link">#</a></h3>
 <p>Default value: <code>200</code></p>
 <p>Description: I/O rate limit per route (requests per second).</p>
 <hr />
-<h2 id="dev_mode">DEV_MODE<a class="headerlink" href="#dev_mode" title="Permanent link">#</a></h2>
+<h3 id="dev_mode">DEV_MODE<a class="headerlink" href="#dev_mode" title="Permanent link">#</a></h3>
 <p>Default value: <code>false</code></p>
 <p>Description: Enables development mode with relaxed security and verbose logging.</p>
 <hr />
-<h2 id="node_type">NODE_TYPE<a class="headerlink" href="#node_type" title="Permanent link">#</a></h2>
+<h3 id="node_type">NODE_TYPE<a class="headerlink" href="#node_type" title="Permanent link">#</a></h3>
 <p>Default value: <code>master</code></p>
 <p>Description: Role of the current node in a multi-node setup. Options: <code>master</code>, <code>worker</code>.</p>
 <hr />
-<h2 id="workers">WORKERS<a class="headerlink" href="#workers" title="Permanent link">#</a></h2>
+<h3 id="workers">WORKERS<a class="headerlink" href="#workers" title="Permanent link">#</a></h3>
 <p>Default value: <code>""</code></p>
 <p>Description: List of worker node addresses (for multi-node setups).</p>
 <hr />
-<h2 id="jwt_secret">JWT_SECRET<a class="headerlink" href="#jwt_secret" title="Permanent link">#</a></h2>
+<h3 id="jwt_secret">JWT_SECRET<a class="headerlink" href="#jwt_secret" title="Permanent link">#</a></h3>
 <p>Default value: <code>""</code></p>
 <p>Description: Secret key used to sign JWT tokens.</p>
 <hr />
-<h2 id="enable_category">ENABLE_CATEGORY<a class="headerlink" href="#enable_category" title="Permanent link">#</a></h2>
+<h3 id="enable_category">ENABLE_CATEGORY<a class="headerlink" href="#enable_category" title="Permanent link">#</a></h3>
 <p>Default value: <code>true</code></p>
 <p>Description: Enable or disable category handling in the UI.</p>
 <hr />
-<h2 id="enable_redact">ENABLE_REDACT<a class="headerlink" href="#enable_redact" title="Permanent link">#</a></h2>
+<h3 id="enable_redact">ENABLE_REDACT<a class="headerlink" href="#enable_redact" title="Permanent link">#</a></h3>
 <p>Default value: <code>true</code></p>
 <p>Description: Enable or disable text redaction in the UI.</p>
 <hr />
-<h2 id="languages">LANGUAGES<a class="headerlink" href="#languages" title="Permanent link">#</a></h2>
+<h3 id="languages">LANGUAGES<a class="headerlink" href="#languages" title="Permanent link">#</a></h3>
 <p>Default value: <code>de,en,es,fr,zh</code></p>
 <p>Description: List of supported UI languages.</p>
 <hr />
-<h2 id="locale">LOCALE<a class="headerlink" href="#locale" title="Permanent link">#</a></h2>
+<h3 id="locale">LOCALE<a class="headerlink" href="#locale" title="Permanent link">#</a></h3>
 <p>Default value: <code>en-US</code></p>
 <p>Description: Default locale used for formatting dates and text.</p>
 <hr />
-<h2 id="login_logo">LOGIN_LOGO<a class="headerlink" href="#login_logo" title="Permanent link">#</a></h2>
+<h3 id="login_logo">LOGIN_LOGO<a class="headerlink" href="#login_logo" title="Permanent link">#</a></h3>
 <p>Default value: <code>/assets/images/login-logo.svg</code></p>
 <p>Description: Path to the logo displayed on the login page.</p>
 <hr />
-<h2 id="header_logo">HEADER_LOGO<a class="headerlink" href="#header_logo" title="Permanent link">#</a></h2>
+<h3 id="header_logo">HEADER_LOGO<a class="headerlink" href="#header_logo" title="Permanent link">#</a></h3>
 <p>Default value: <code>/assets/images/logo-header.svg</code></p>
 <p>Description: Path to the logo displayed in the application header.</p>
 <hr />
-<h2 id="toast_logo">TOAST_LOGO<a class="headerlink" href="#toast_logo" title="Permanent link">#</a></h2>
+<h3 id="toast_logo">TOAST_LOGO<a class="headerlink" href="#toast_logo" title="Permanent link">#</a></h3>
 <p>Default value: <code>/assets/images/logo-round.svg</code></p>
 <p>Description: Path to the logo used in toast notifications.</p>
 <hr />
-<h2 id="header_link">HEADER_LINK<a class="headerlink" href="#header_link" title="Permanent link">#</a></h2>
+<h3 id="header_link">HEADER_LINK<a class="headerlink" href="#header_link" title="Permanent link">#</a></h3>
 <p>Default value: <code>""</code></p>
 <p>Description: Custom link displayed in the application header.</p>
 <hr />
-<h2 id="header_link_title">HEADER_LINK_TITLE<a class="headerlink" href="#header_link_title" title="Permanent link">#</a></h2>
+<h3 id="header_link_title">HEADER_LINK_TITLE<a class="headerlink" href="#header_link_title" title="Permanent link">#</a></h3>
 <p>Default value: <code>""</code></p>
 <p>Description: Title text for the header link.</p>
 <hr />
-<h2 id="max_content_length_to_display">MAX_CONTENT_LENGTH_TO_DISPLAY<a class="headerlink" href="#max_content_length_to_display" title="Permanent link">#</a></h2>
+<h3 id="max_content_length_to_display">MAX_CONTENT_LENGTH_TO_DISPLAY<a class="headerlink" href="#max_content_length_to_display" title="Permanent link">#</a></h3>
 <p>Default value: <code>30000</code></p>
-<h2 id="description-maximum-content-size-in-bytes-to-render-in-the-ui-longer-messages-are-truncated-in-the-message-preview-but-other-than-that-the-message-is-still-intact">Description: Maximum content size (in bytes) to render in the UI. Longer messages are truncated in the message preview, but other than that the message is still intact.<a class="headerlink" href="#description-maximum-content-size-in-bytes-to-render-in-the-ui-longer-messages-are-truncated-in-the-message-preview-but-other-than-that-the-message-is-still-intact" title="Permanent link">#</a></h2>
-<h2 id="rt_index">RT_INDEX<a class="headerlink" href="#rt_index" title="Permanent link">#</a></h2>
+<p>Description: Maximum content size (in bytes) to render in the UI. Longer messages are truncated in the message preview, but other than that the message is still intact.</p>
+<hr />
+<h3 id="rt_index">RT_INDEX<a class="headerlink" href="#rt_index" title="Permanent link">#</a></h3>
 <p>Default value: <code>true</code></p>
 <p>Description: Enable or disable real-time indexing.</p>
 <hr />
-<h2 id="extra_notes">EXTRA_NOTES<a class="headerlink" href="#extra_notes" title="Permanent link">#</a></h2>
+<h3 id="extra_notes">EXTRA_NOTES<a class="headerlink" href="#extra_notes" title="Permanent link">#</a></h3>
 <p>Default value: <code>""</code></p>
 <p>Description: Custom notes displayed in the login page.</p>
 <hr />
-<h2 id="multitenancy">MULTITENANCY<a class="headerlink" href="#multitenancy" title="Permanent link">#</a></h2>
+<h3 id="multitenancy">MULTITENANCY<a class="headerlink" href="#multitenancy" title="Permanent link">#</a></h3>
 <p>Default value: <code>false</code></p>
 <p>Description: Enable or disable multi-tenant mode.</p>
 <hr />
-<h2 id="multinodes">MULTINODES<a class="headerlink" href="#multinodes" title="Permanent link">#</a></h2>
+<h3 id="multinodes">MULTINODES<a class="headerlink" href="#multinodes" title="Permanent link">#</a></h3>
 <p>Default value: <code>false</code></p>
 <p>Description: Enable or disable multi-node mode.</p>
 <hr />
-<h2 id="css">CSS<a class="headerlink" href="#css" title="Permanent link">#</a></h2>
+<h3 id="css">CSS<a class="headerlink" href="#css" title="Permanent link">#</a></h3>
 <p>Default value:  </p>
 <pre><code>&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css&quot; integrity=&quot;sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH&quot; crossorigin=&quot;anonymous&quot;&gt; 
 &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css&quot;&gt; 
@@ -518,330 +517,330 @@
 </code></pre>
 <p>Description: Built-in CSS includes for styling the UI.</p>
 <hr />
-<h2 id="custom_css">CUSTOM_CSS<a class="headerlink" href="#custom_css" title="Permanent link">#</a></h2>
+<h3 id="custom_css">CUSTOM_CSS<a class="headerlink" href="#custom_css" title="Permanent link">#</a></h3>
 <p>Default value: <code>""</code></p>
 <p>Description: Custom CSS overrides for the UI.</p>
 <hr />
-<h2 id="admin_group">ADMIN_GROUP<a class="headerlink" href="#admin_group" title="Permanent link">#</a></h2>
+<h3 id="admin_group">ADMIN_GROUP<a class="headerlink" href="#admin_group" title="Permanent link">#</a></h3>
 <p>Default value: <code>""</code></p>
 <p>Description: LDAP or SSO group mapped to administrators.</p>
 <hr />
-<h2 id="auditor_group">AUDITOR_GROUP<a class="headerlink" href="#auditor_group" title="Permanent link">#</a></h2>
+<h3 id="auditor_group">AUDITOR_GROUP<a class="headerlink" href="#auditor_group" title="Permanent link">#</a></h3>
 <p>Default value: <code>""</code></p>
 <p>Description: LDAP or SSO group mapped to auditors.</p>
 <hr />
-<h2 id="restricted_auditor_group">RESTRICTED_AUDITOR_GROUP<a class="headerlink" href="#restricted_auditor_group" title="Permanent link">#</a></h2>
+<h3 id="restricted_auditor_group">RESTRICTED_AUDITOR_GROUP<a class="headerlink" href="#restricted_auditor_group" title="Permanent link">#</a></h3>
 <p>Default value: <code>""</code></p>
 <p>Description: LDAP or SSO group mapped to restricted auditors.</p>
 <hr />
-<h2 id="dataofficer_group">DATAOFFICER_GROUP<a class="headerlink" href="#dataofficer_group" title="Permanent link">#</a></h2>
+<h3 id="dataofficer_group">DATAOFFICER_GROUP<a class="headerlink" href="#dataofficer_group" title="Permanent link">#</a></h3>
 <p>Default value: <code>""</code></p>
 <p>Description: LDAP or SSO group mapped to data officers.</p>
 <hr />
-<h2 id="enable_google_auth">ENABLE_GOOGLE_AUTH<a class="headerlink" href="#enable_google_auth" title="Permanent link">#</a></h2>
+<h3 id="enable_google_auth">ENABLE_GOOGLE_AUTH<a class="headerlink" href="#enable_google_auth" title="Permanent link">#</a></h3>
 <p>Default value: <code>false</code></p>
 <p>Description: Enable Google OAuth2 authentication.</p>
 <hr />
-<h2 id="google_client_id">GOOGLE_CLIENT_ID<a class="headerlink" href="#google_client_id" title="Permanent link">#</a></h2>
+<h3 id="google_client_id">GOOGLE_CLIENT_ID<a class="headerlink" href="#google_client_id" title="Permanent link">#</a></h3>
 <p>Default value: <code>""</code></p>
 <p>Description: Google OAuth2 client ID.</p>
 <hr />
-<h2 id="google_client_secret">GOOGLE_CLIENT_SECRET<a class="headerlink" href="#google_client_secret" title="Permanent link">#</a></h2>
+<h3 id="google_client_secret">GOOGLE_CLIENT_SECRET<a class="headerlink" href="#google_client_secret" title="Permanent link">#</a></h3>
 <p>Default value: <code>""</code></p>
 <p>Description: Google OAuth2 client secret.</p>
 <hr />
-<h2 id="google_redirect_url">GOOGLE_REDIRECT_URL<a class="headerlink" href="#google_redirect_url" title="Permanent link">#</a></h2>
+<h3 id="google_redirect_url">GOOGLE_REDIRECT_URL<a class="headerlink" href="#google_redirect_url" title="Permanent link">#</a></h3>
 <p>Default value: <code>""</code></p>
 <p>Description: Redirect URL for Google OAuth2 login.</p>
 <hr />
-<h2 id="enable_azure_auth">ENABLE_AZURE_AUTH<a class="headerlink" href="#enable_azure_auth" title="Permanent link">#</a></h2>
+<h3 id="enable_azure_auth">ENABLE_AZURE_AUTH<a class="headerlink" href="#enable_azure_auth" title="Permanent link">#</a></h3>
 <p>Default value: <code>false</code></p>
 <p>Description: Enable Microsoft Azure OAuth2 authentication.</p>
 <hr />
-<h2 id="azure_client_id">AZURE_CLIENT_ID<a class="headerlink" href="#azure_client_id" title="Permanent link">#</a></h2>
+<h3 id="azure_client_id">AZURE_CLIENT_ID<a class="headerlink" href="#azure_client_id" title="Permanent link">#</a></h3>
 <p>Default value: <code>""</code></p>
 <p>Description: Azure OAuth2 client ID.</p>
 <hr />
-<h2 id="azure_client_secret">AZURE_CLIENT_SECRET<a class="headerlink" href="#azure_client_secret" title="Permanent link">#</a></h2>
+<h3 id="azure_client_secret">AZURE_CLIENT_SECRET<a class="headerlink" href="#azure_client_secret" title="Permanent link">#</a></h3>
 <p>Default value: <code>""</code></p>
 <p>Description: Azure OAuth2 client secret.</p>
 <hr />
-<h2 id="azure_tenant_id">AZURE_TENANT_ID<a class="headerlink" href="#azure_tenant_id" title="Permanent link">#</a></h2>
+<h3 id="azure_tenant_id">AZURE_TENANT_ID<a class="headerlink" href="#azure_tenant_id" title="Permanent link">#</a></h3>
 <p>Default value: <code>""</code></p>
 <p>Description: Azure Active Directory tenant ID.</p>
 <hr />
-<h2 id="azure_redirect_url">AZURE_REDIRECT_URL<a class="headerlink" href="#azure_redirect_url" title="Permanent link">#</a></h2>
+<h3 id="azure_redirect_url">AZURE_REDIRECT_URL<a class="headerlink" href="#azure_redirect_url" title="Permanent link">#</a></h3>
 <p>Default value: <code>""</code></p>
 <p>Description: Redirect URL for Azure OAuth2 login.</p>
 <hr />
-<h2 id="enable_generic_oauth_auth">ENABLE_GENERIC_OAUTH_AUTH<a class="headerlink" href="#enable_generic_oauth_auth" title="Permanent link">#</a></h2>
+<h3 id="enable_generic_oauth_auth">ENABLE_GENERIC_OAUTH_AUTH<a class="headerlink" href="#enable_generic_oauth_auth" title="Permanent link">#</a></h3>
 <p>Default value: <code>false</code></p>
 <p>Description: Enable generic OAuth2 authentication.</p>
 <hr />
-<h2 id="generic_oauth_client_id">GENERIC_OAUTH_CLIENT_ID<a class="headerlink" href="#generic_oauth_client_id" title="Permanent link">#</a></h2>
+<h3 id="generic_oauth_client_id">GENERIC_OAUTH_CLIENT_ID<a class="headerlink" href="#generic_oauth_client_id" title="Permanent link">#</a></h3>
 <p>Default value: <code>""</code></p>
 <p>Description: Client ID for generic OAuth2 provider.</p>
 <hr />
-<h2 id="generic_oauth_client_secret">GENERIC_OAUTH_CLIENT_SECRET<a class="headerlink" href="#generic_oauth_client_secret" title="Permanent link">#</a></h2>
+<h3 id="generic_oauth_client_secret">GENERIC_OAUTH_CLIENT_SECRET<a class="headerlink" href="#generic_oauth_client_secret" title="Permanent link">#</a></h3>
 <p>Default value: <code>""</code></p>
 <p>Description: Client secret for generic OAuth2 provider.</p>
 <hr />
-<h2 id="generic_oauth_redirect_url">GENERIC_OAUTH_REDIRECT_URL<a class="headerlink" href="#generic_oauth_redirect_url" title="Permanent link">#</a></h2>
+<h3 id="generic_oauth_redirect_url">GENERIC_OAUTH_REDIRECT_URL<a class="headerlink" href="#generic_oauth_redirect_url" title="Permanent link">#</a></h3>
 <p>Default value: <code>""</code></p>
 <p>Description: Redirect URL for generic OAuth2 login.</p>
 <hr />
-<h2 id="generic_oauth_auth_url">GENERIC_OAUTH_AUTH_URL<a class="headerlink" href="#generic_oauth_auth_url" title="Permanent link">#</a></h2>
+<h3 id="generic_oauth_auth_url">GENERIC_OAUTH_AUTH_URL<a class="headerlink" href="#generic_oauth_auth_url" title="Permanent link">#</a></h3>
 <p>Default value: <code>""</code></p>
 <p>Description: Authorization URL for generic OAuth2 provider.</p>
 <hr />
-<h2 id="generic_oauth_token_url">GENERIC_OAUTH_TOKEN_URL<a class="headerlink" href="#generic_oauth_token_url" title="Permanent link">#</a></h2>
+<h3 id="generic_oauth_token_url">GENERIC_OAUTH_TOKEN_URL<a class="headerlink" href="#generic_oauth_token_url" title="Permanent link">#</a></h3>
 <p>Default value: <code>""</code></p>
 <p>Description: Token URL for generic OAuth2 provider.</p>
 <hr />
-<h2 id="generic_oauth_userinfo_url">GENERIC_OAUTH_USERINFO_URL<a class="headerlink" href="#generic_oauth_userinfo_url" title="Permanent link">#</a></h2>
+<h3 id="generic_oauth_userinfo_url">GENERIC_OAUTH_USERINFO_URL<a class="headerlink" href="#generic_oauth_userinfo_url" title="Permanent link">#</a></h3>
 <p>Default value: <code>""</code></p>
 <p>Description: User info URL for generic OAuth2 provider.</p>
 <hr />
-<h2 id="enable_authenticator">ENABLE_AUTHENTICATOR<a class="headerlink" href="#enable_authenticator" title="Permanent link">#</a></h2>
+<h3 id="enable_authenticator">ENABLE_AUTHENTICATOR<a class="headerlink" href="#enable_authenticator" title="Permanent link">#</a></h3>
 <p>Default value: <code>true</code></p>
 <p>Description: Enable TOTP authenticator usage for 2FA.</p>
 <hr />
-<h2 id="date_format">DATE_FORMAT<a class="headerlink" href="#date_format" title="Permanent link">#</a></h2>
+<h3 id="date_format">DATE_FORMAT<a class="headerlink" href="#date_format" title="Permanent link">#</a></h3>
 <p>Default value: <code>YYYY/MM/DD</code></p>
 <p>Description: Default date format used in the UI.</p>
 <hr />
-<h2 id="timezone">TIMEZONE<a class="headerlink" href="#timezone" title="Permanent link">#</a></h2>
+<h3 id="timezone">TIMEZONE<a class="headerlink" href="#timezone" title="Permanent link">#</a></h3>
 <p>Default value: <code>Europe/Budapest</code></p>
 <p>Description: Default timezone used by the application.</p>
 <hr />
-<h2 id="max_download_messages">MAX_DOWNLOAD_MESSAGES<a class="headerlink" href="#max_download_messages" title="Permanent link">#</a></h2>
+<h3 id="max_download_messages">MAX_DOWNLOAD_MESSAGES<a class="headerlink" href="#max_download_messages" title="Permanent link">#</a></h3>
 <p>Default value: <code>100</code></p>
 <p>Description: Maximum number of messages that can be downloaded at once.</p>
 <hr />
-<h2 id="smarthost">SMARTHOST<a class="headerlink" href="#smarthost" title="Permanent link">#</a></h2>
+<h3 id="smarthost">SMARTHOST<a class="headerlink" href="#smarthost" title="Permanent link">#</a></h3>
 <p>Default value: <code>""</code></p>
 <p>Description: SMTP relay host (smarthost) used for restoring emails.</p>
 <hr />
-<h2 id="smarthost_port">SMARTHOST_PORT<a class="headerlink" href="#smarthost_port" title="Permanent link">#</a></h2>
+<h3 id="smarthost_port">SMARTHOST_PORT<a class="headerlink" href="#smarthost_port" title="Permanent link">#</a></h3>
 <p>Default value: <code>""</code></p>
 <p>Description: Port number for the smarthost.</p>
 <hr />
-<h2 id="noreply_email_address">NOREPLY_EMAIL_ADDRESS<a class="headerlink" href="#noreply_email_address" title="Permanent link">#</a></h2>
+<h3 id="noreply_email_address">NOREPLY_EMAIL_ADDRESS<a class="headerlink" href="#noreply_email_address" title="Permanent link">#</a></h3>
 <p>Default value: <code>no-reply@archive.example.com</code></p>
 <p>Description: Default "no-reply" email address for the UI when restoring email messages.</p>
 <hr />
-<h2 id="enable_ldap_auth">ENABLE_LDAP_AUTH<a class="headerlink" href="#enable_ldap_auth" title="Permanent link">#</a></h2>
+<h3 id="enable_ldap_auth">ENABLE_LDAP_AUTH<a class="headerlink" href="#enable_ldap_auth" title="Permanent link">#</a></h3>
 <p>Default value: <code>false</code></p>
 <p>Description: Enable LDAP authentication.</p>
 <hr />
-<h2 id="ldap_host">LDAP_HOST<a class="headerlink" href="#ldap_host" title="Permanent link">#</a></h2>
+<h3 id="ldap_host">LDAP_HOST<a class="headerlink" href="#ldap_host" title="Permanent link">#</a></h3>
 <p>Default value: <code>""</code></p>
 <p>Description: LDAP server host and port.</p>
 <hr />
-<h2 id="ldap_base_dn">LDAP_BASE_DN<a class="headerlink" href="#ldap_base_dn" title="Permanent link">#</a></h2>
+<h3 id="ldap_base_dn">LDAP_BASE_DN<a class="headerlink" href="#ldap_base_dn" title="Permanent link">#</a></h3>
 <p>Default value: <code>""</code></p>
 <p>Description: Base DN for LDAP searches.</p>
 <hr />
-<h2 id="ldap_bind_dn">LDAP_BIND_DN<a class="headerlink" href="#ldap_bind_dn" title="Permanent link">#</a></h2>
+<h3 id="ldap_bind_dn">LDAP_BIND_DN<a class="headerlink" href="#ldap_bind_dn" title="Permanent link">#</a></h3>
 <p>Default value: <code>""</code></p>
 <p>Description: Bind DN used for LDAP authentication.</p>
 <hr />
-<h2 id="ldap_bind_password">LDAP_BIND_PASSWORD<a class="headerlink" href="#ldap_bind_password" title="Permanent link">#</a></h2>
+<h3 id="ldap_bind_password">LDAP_BIND_PASSWORD<a class="headerlink" href="#ldap_bind_password" title="Permanent link">#</a></h3>
 <p>Default value: <code>""</code></p>
 <p>Description: Password for LDAP bind DN.</p>
 <hr />
-<h2 id="ldap_account_objectclass">LDAP_ACCOUNT_OBJECTCLASS<a class="headerlink" href="#ldap_account_objectclass" title="Permanent link">#</a></h2>
+<h3 id="ldap_account_objectclass">LDAP_ACCOUNT_OBJECTCLASS<a class="headerlink" href="#ldap_account_objectclass" title="Permanent link">#</a></h3>
 <p>Default value: <code>""</code></p>
 <p>Description: LDAP object class for user accounts.</p>
 <hr />
-<h2 id="ldap_account_mail_attr">LDAP_ACCOUNT_MAIL_ATTR<a class="headerlink" href="#ldap_account_mail_attr" title="Permanent link">#</a></h2>
+<h3 id="ldap_account_mail_attr">LDAP_ACCOUNT_MAIL_ATTR<a class="headerlink" href="#ldap_account_mail_attr" title="Permanent link">#</a></h3>
 <p>Default value: <code>""</code></p>
 <p>Description: LDAP attribute for user email addresses.</p>
 <hr />
-<h2 id="ldap_account_userid_attr">LDAP_ACCOUNT_USERID_ATTR<a class="headerlink" href="#ldap_account_userid_attr" title="Permanent link">#</a></h2>
+<h3 id="ldap_account_userid_attr">LDAP_ACCOUNT_USERID_ATTR<a class="headerlink" href="#ldap_account_userid_attr" title="Permanent link">#</a></h3>
 <p>Default value: <code>""</code></p>
 <p>Description: LDAP attribute for user ID.</p>
 <hr />
-<h2 id="ldap_account_username_attr">LDAP_ACCOUNT_USERNAME_ATTR<a class="headerlink" href="#ldap_account_username_attr" title="Permanent link">#</a></h2>
+<h3 id="ldap_account_username_attr">LDAP_ACCOUNT_USERNAME_ATTR<a class="headerlink" href="#ldap_account_username_attr" title="Permanent link">#</a></h3>
 <p>Default value: <code>""</code></p>
 <p>Description: LDAP attribute for username.</p>
 <hr />
-<h2 id="ldap_distributionlist_objectclass">LDAP_DISTRIBUTIONLIST_OBJECTCLASS<a class="headerlink" href="#ldap_distributionlist_objectclass" title="Permanent link">#</a></h2>
+<h3 id="ldap_distributionlist_objectclass">LDAP_DISTRIBUTIONLIST_OBJECTCLASS<a class="headerlink" href="#ldap_distributionlist_objectclass" title="Permanent link">#</a></h3>
 <p>Default value: <code>""</code></p>
 <p>Description: LDAP object class for distribution lists.</p>
 <hr />
-<h2 id="ldap_distributionlist_mail_attr">LDAP_DISTRIBUTIONLIST_MAIL_ATTR<a class="headerlink" href="#ldap_distributionlist_mail_attr" title="Permanent link">#</a></h2>
+<h3 id="ldap_distributionlist_mail_attr">LDAP_DISTRIBUTIONLIST_MAIL_ATTR<a class="headerlink" href="#ldap_distributionlist_mail_attr" title="Permanent link">#</a></h3>
 <p>Default value: <code>""</code></p>
 <p>Description: LDAP attribute for distribution list email addresses.</p>
 <hr />
-<h2 id="enable_imap_auth">ENABLE_IMAP_AUTH<a class="headerlink" href="#enable_imap_auth" title="Permanent link">#</a></h2>
+<h3 id="enable_imap_auth">ENABLE_IMAP_AUTH<a class="headerlink" href="#enable_imap_auth" title="Permanent link">#</a></h3>
 <p>Default value: <code>false</code></p>
 <p>Description: Enable IMAP authentication.</p>
 <hr />
-<h2 id="restore_over_imap">RESTORE_OVER_IMAP<a class="headerlink" href="#restore_over_imap" title="Permanent link">#</a></h2>
+<h3 id="restore_over_imap">RESTORE_OVER_IMAP<a class="headerlink" href="#restore_over_imap" title="Permanent link">#</a></h3>
 <p>Default value: <code>true</code></p>
 <p>Description: Allow restoring messages to user mailboxes over IMAP.</p>
 <hr />
-<h2 id="imap_server">IMAP_SERVER<a class="headerlink" href="#imap_server" title="Permanent link">#</a></h2>
+<h3 id="imap_server">IMAP_SERVER<a class="headerlink" href="#imap_server" title="Permanent link">#</a></h3>
 <p>Default value: <code>""</code></p>
 <p>Description: IMAP server address.</p>
 <hr />
-<h2 id="imap_folder">IMAP_FOLDER<a class="headerlink" href="#imap_folder" title="Permanent link">#</a></h2>
+<h3 id="imap_folder">IMAP_FOLDER<a class="headerlink" href="#imap_folder" title="Permanent link">#</a></h3>
 <p>Default value: <code>INBOX</code></p>
 <p>Description: IMAP folder where restored emails are delivered.</p>
 <hr />
-<h2 id="imap_use_tls">IMAP_USE_TLS<a class="headerlink" href="#imap_use_tls" title="Permanent link">#</a></h2>
+<h3 id="imap_use_tls">IMAP_USE_TLS<a class="headerlink" href="#imap_use_tls" title="Permanent link">#</a></h3>
 <p>Default value: <code>true</code></p>
 <p>Description: Use TLS for IMAP connections.</p>
 <hr />
-<h2 id="enable_pop3_auth">ENABLE_POP3_AUTH<a class="headerlink" href="#enable_pop3_auth" title="Permanent link">#</a></h2>
+<h3 id="enable_pop3_auth">ENABLE_POP3_AUTH<a class="headerlink" href="#enable_pop3_auth" title="Permanent link">#</a></h3>
 <p>Default value: <code>false</code></p>
 <p>Description: Enable POP3 authentication.</p>
 <hr />
-<h2 id="pop3_server">POP3_SERVER<a class="headerlink" href="#pop3_server" title="Permanent link">#</a></h2>
+<h3 id="pop3_server">POP3_SERVER<a class="headerlink" href="#pop3_server" title="Permanent link">#</a></h3>
 <p>Default value: <code>""</code></p>
 <p>Description: POP3 server address.</p>
 <hr />
-<h2 id="pop3_use_tls">POP3_USE_TLS<a class="headerlink" href="#pop3_use_tls" title="Permanent link">#</a></h2>
+<h3 id="pop3_use_tls">POP3_USE_TLS<a class="headerlink" href="#pop3_use_tls" title="Permanent link">#</a></h3>
 <p>Default value: <code>true</code></p>
 <p>Description: Use TLS for POP3 connections.</p>
 <hr />
-<h2 id="mailcow_host">MAILCOW_HOST<a class="headerlink" href="#mailcow_host" title="Permanent link">#</a></h2>
+<h3 id="mailcow_host">MAILCOW_HOST<a class="headerlink" href="#mailcow_host" title="Permanent link">#</a></h3>
 <p>Default value: <code>""</code></p>
 <p>Description: Mailcow server address.</p>
 <hr />
-<h2 id="mailcow_api_key">MAILCOW_API_KEY<a class="headerlink" href="#mailcow_api_key" title="Permanent link">#</a></h2>
+<h3 id="mailcow_api_key">MAILCOW_API_KEY<a class="headerlink" href="#mailcow_api_key" title="Permanent link">#</a></h3>
 <p>Default value: <code>""</code></p>
 <p>Description: API key for Mailcow integration.</p>
 <hr />
-<h2 id="caution_text">CAUTION_TEXT<a class="headerlink" href="#caution_text" title="Permanent link">#</a></h2>
+<h3 id="caution_text">CAUTION_TEXT<a class="headerlink" href="#caution_text" title="Permanent link">#</a></h3>
 <p>Default value:
 <code>Caution: This message was sent from outside the company.&lt;br /&gt;Please do not click links or open attachments unless you&lt;br /&gt;recognize the source of this email and know the content is safe!</code></p>
 <p>Description: Warning banner displayed on external messages.</p>
 <hr />
-<h2 id="gotenberg_addr">GOTENBERG_ADDR<a class="headerlink" href="#gotenberg_addr" title="Permanent link">#</a></h2>
+<h3 id="gotenberg_addr">GOTENBERG_ADDR<a class="headerlink" href="#gotenberg_addr" title="Permanent link">#</a></h3>
 <p>Default value: <code>""</code></p>
 <p>Description: Address of Gotenberg service used for document PDF export.</p>
 <hr />
-<h2 id="enable_export">ENABLE_EXPORT<a class="headerlink" href="#enable_export" title="Permanent link">#</a></h2>
+<h3 id="enable_export">ENABLE_EXPORT<a class="headerlink" href="#enable_export" title="Permanent link">#</a></h3>
 <p>Default value: <code>true</code></p>
 <p>Description: Enable export functionality for messages.</p>
 <hr />
-<h2 id="min_size_to_enable_export">MIN_SIZE_TO_ENABLE_EXPORT<a class="headerlink" href="#min_size_to_enable_export" title="Permanent link">#</a></h2>
+<h3 id="min_size_to_enable_export">MIN_SIZE_TO_ENABLE_EXPORT<a class="headerlink" href="#min_size_to_enable_export" title="Permanent link">#</a></h3>
 <p>Default value: <code>10000000000</code></p>
 <p>Description: Minimum storage size (bytes) required before export is enabled.</p>
 <hr />
-<h2 id="max_export_messages">MAX_EXPORT_MESSAGES<a class="headerlink" href="#max_export_messages" title="Permanent link">#</a></h2>
+<h3 id="max_export_messages">MAX_EXPORT_MESSAGES<a class="headerlink" href="#max_export_messages" title="Permanent link">#</a></h3>
 <p>Default value: <code>20000</code></p>
 <p>Description: Maximum number of messages included in a single export.</p>
 <hr />
-<h2 id="export_timeout">EXPORT_TIMEOUT<a class="headerlink" href="#export_timeout" title="Permanent link">#</a></h2>
+<h3 id="export_timeout">EXPORT_TIMEOUT<a class="headerlink" href="#export_timeout" title="Permanent link">#</a></h3>
 <p>Default value: <code>300s</code></p>
 <p>Description: Timeout duration for export jobs.</p>
 <hr />
-<h2 id="admin_can_manage_exports">ADMIN_CAN_MANAGE_EXPORTS<a class="headerlink" href="#admin_can_manage_exports" title="Permanent link">#</a></h2>
+<h3 id="admin_can_manage_exports">ADMIN_CAN_MANAGE_EXPORTS<a class="headerlink" href="#admin_can_manage_exports" title="Permanent link">#</a></h3>
 <p>Default value: <code>true</code></p>
 <p>Description: Allow administrators to manage export jobs.</p>
 <hr />
-<h2 id="dir_export">DIR_EXPORT<a class="headerlink" href="#dir_export" title="Permanent link">#</a></h2>
+<h3 id="dir_export">DIR_EXPORT<a class="headerlink" href="#dir_export" title="Permanent link">#</a></h3>
 <p>Default value: <code>/var/piler/export</code></p>
 <p>Description: Directory where exported files are stored.</p>
 <hr />
-<h2 id="export_warning_text">EXPORT_WARNING_TEXT<a class="headerlink" href="#export_warning_text" title="Permanent link">#</a></h2>
+<h3 id="export_warning_text">EXPORT_WARNING_TEXT<a class="headerlink" href="#export_warning_text" title="Permanent link">#</a></h3>
 <p>Default value:
 <code>Exported files will be auto removed in 7 days. Please download them in their scheduled period</code></p>
 <p>Description: Warning text shown to users about export retention.</p>
 <hr />
-<h2 id="enable_delete">ENABLE_DELETE<a class="headerlink" href="#enable_delete" title="Permanent link">#</a></h2>
+<h3 id="enable_delete">ENABLE_DELETE<a class="headerlink" href="#enable_delete" title="Permanent link">#</a></h3>
 <p>Default value: <code>false</code></p>
 <p>Description: Enable delete functionality for messages.</p>
 <hr />
-<h2 id="need_to_approve_delete">NEED_TO_APPROVE_DELETE<a class="headerlink" href="#need_to_approve_delete" title="Permanent link">#</a></h2>
+<h3 id="need_to_approve_delete">NEED_TO_APPROVE_DELETE<a class="headerlink" href="#need_to_approve_delete" title="Permanent link">#</a></h3>
 <p>Default value: <code>false</code></p>
 <p>Description: Require data officer approval before message deletion.</p>
 <hr />
-<h2 id="app_trace_name">APP_TRACE_NAME<a class="headerlink" href="#app_trace_name" title="Permanent link">#</a></h2>
+<h3 id="app_trace_name">APP_TRACE_NAME<a class="headerlink" href="#app_trace_name" title="Permanent link">#</a></h3>
 <p>Default value: <code>""</code></p>
 <p>Description: Application trace name (used for distributed tracing).</p>
 <hr />
-<h2 id="trace_addr">TRACE_ADDR<a class="headerlink" href="#trace_addr" title="Permanent link">#</a></h2>
+<h3 id="trace_addr">TRACE_ADDR<a class="headerlink" href="#trace_addr" title="Permanent link">#</a></h3>
 <p>Default value: <code>""</code></p>
 <p>Description: Trace collector address (e.g., OpenTelemetry backend).</p>
 <hr />
-<h2 id="turnstile_site_key">TURNSTILE_SITE_KEY<a class="headerlink" href="#turnstile_site_key" title="Permanent link">#</a></h2>
+<h3 id="turnstile_site_key">TURNSTILE_SITE_KEY<a class="headerlink" href="#turnstile_site_key" title="Permanent link">#</a></h3>
 <p>Default value: <code>""</code></p>
 <p>Description: Cloudflare Turnstile site key.</p>
 <hr />
-<h2 id="turnstile_secret_key">TURNSTILE_SECRET_KEY<a class="headerlink" href="#turnstile_secret_key" title="Permanent link">#</a></h2>
+<h3 id="turnstile_secret_key">TURNSTILE_SECRET_KEY<a class="headerlink" href="#turnstile_secret_key" title="Permanent link">#</a></h3>
 <p>Default value: <code>""</code></p>
 <p>Description: Cloudflare Turnstile secret key.</p>
 <hr />
-<h2 id="tika_url">TIKA_URL<a class="headerlink" href="#tika_url" title="Permanent link">#</a></h2>
+<h3 id="tika_url">TIKA_URL<a class="headerlink" href="#tika_url" title="Permanent link">#</a></h3>
 <p>Default value: <code>http://127.0.0.1:9998/tika</code></p>
 <p>Description: Apache Tika server endpoint for content extraction.</p>
 <hr />
-<h2 id="header_line_to_hide">HEADER_LINE_TO_HIDE<a class="headerlink" href="#header_line_to_hide" title="Permanent link">#</a></h2>
+<h3 id="header_line_to_hide">HEADER_LINE_TO_HIDE<a class="headerlink" href="#header_line_to_hide" title="Permanent link">#</a></h3>
 <p>Default value: <code>""</code></p>
 <p>Description: Comma separated Email header lines to hide in the UI.</p>
 <hr />
-<h2 id="saml_cert_file">SAML_CERT_FILE<a class="headerlink" href="#saml_cert_file" title="Permanent link">#</a></h2>
+<h3 id="saml_cert_file">SAML_CERT_FILE<a class="headerlink" href="#saml_cert_file" title="Permanent link">#</a></h3>
 <p>Default value: <code>saml.crt</code></p>
 <p>Description: Path to the SAML certificate file.</p>
 <hr />
-<h2 id="saml_key_file">SAML_KEY_FILE<a class="headerlink" href="#saml_key_file" title="Permanent link">#</a></h2>
+<h3 id="saml_key_file">SAML_KEY_FILE<a class="headerlink" href="#saml_key_file" title="Permanent link">#</a></h3>
 <p>Default value: <code>saml.key</code></p>
 <p>Description: Path to the SAML private key file.</p>
 <hr />
-<h2 id="saml_metadata_url">SAML_METADATA_URL<a class="headerlink" href="#saml_metadata_url" title="Permanent link">#</a></h2>
+<h3 id="saml_metadata_url">SAML_METADATA_URL<a class="headerlink" href="#saml_metadata_url" title="Permanent link">#</a></h3>
 <p>Default value: <code>""</code></p>
 <p>Description: Metadata URL for SAML IdP.</p>
 <hr />
-<h2 id="tsa_public_key_file">TSA_PUBLIC_KEY_FILE<a class="headerlink" href="#tsa_public_key_file" title="Permanent link">#</a></h2>
+<h3 id="tsa_public_key_file">TSA_PUBLIC_KEY_FILE<a class="headerlink" href="#tsa_public_key_file" title="Permanent link">#</a></h3>
 <p>Default value: <code>""</code></p>
 <p>Description: Path to public key used to verify timestamp authority signatures.</p>
 <hr />
-<h2 id="jwt_rsa_public_keys_dir">JWT_RSA_PUBLIC_KEYS_DIR<a class="headerlink" href="#jwt_rsa_public_keys_dir" title="Permanent link">#</a></h2>
+<h3 id="jwt_rsa_public_keys_dir">JWT_RSA_PUBLIC_KEYS_DIR<a class="headerlink" href="#jwt_rsa_public_keys_dir" title="Permanent link">#</a></h3>
 <p>Default value: <code>""</code></p>
 <p>Description: Directory containing RSA public keys for JWT validation.</p>
 <hr />
-<h2 id="content_security_policy">CONTENT_SECURITY_POLICY<a class="headerlink" href="#content_security_policy" title="Permanent link">#</a></h2>
+<h3 id="content_security_policy">CONTENT_SECURITY_POLICY<a class="headerlink" href="#content_security_policy" title="Permanent link">#</a></h3>
 <p>Default value:
 <code>default-src 'self'; script-src 'self' 'unsafe-eval' 'sha256-ZswfTY7H35rbv8WC7NXBoiC7WNu86vSzCDChNWwZZDM=' 'sha256-Sc84R3QT4gTYLl5M2SIYCramZDi3OcEjJiog35/7ydU=' https://cdn.jsdelivr.net https://challenges.cloudflare.com ; style-src 'self' https://cdn.jsdelivr.net; img-src 'self' data: https://cdn.jsdelivr.net https://challenges.cloudflare.com; font-src 'self' https://cdn.jsdelivr.net; frame-src https://challenges.cloudflare.com; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'none';</code></p>
 <p>Description: Content Security Policy (CSP) header applied by the application.</p>
 <hr />
-<h2 id="s3_endpoint">S3_ENDPOINT<a class="headerlink" href="#s3_endpoint" title="Permanent link">#</a></h2>
+<h3 id="s3_endpoint">S3_ENDPOINT<a class="headerlink" href="#s3_endpoint" title="Permanent link">#</a></h3>
 <p>Default value: <code>""</code></p>
 <p>Description: S3-compatible storage endpoint, eg. <code>s3.eu-central-003.backblazeb2.com</code></p>
 <hr />
-<h2 id="s3_access_key">S3_ACCESS_KEY<a class="headerlink" href="#s3_access_key" title="Permanent link">#</a></h2>
+<h3 id="s3_access_key">S3_ACCESS_KEY<a class="headerlink" href="#s3_access_key" title="Permanent link">#</a></h3>
 <p>Default value: <code>""</code></p>
 <p>Description: Access key for S3 storage.</p>
 <hr />
-<h2 id="s3_secret_key">S3_SECRET_KEY<a class="headerlink" href="#s3_secret_key" title="Permanent link">#</a></h2>
+<h3 id="s3_secret_key">S3_SECRET_KEY<a class="headerlink" href="#s3_secret_key" title="Permanent link">#</a></h3>
 <p>Default value: <code>""</code></p>
 <p>Description: Secret key for S3 storage.</p>
 <hr />
-<h2 id="s3_use_ssl">S3_USE_SSL<a class="headerlink" href="#s3_use_ssl" title="Permanent link">#</a></h2>
+<h3 id="s3_use_ssl">S3_USE_SSL<a class="headerlink" href="#s3_use_ssl" title="Permanent link">#</a></h3>
 <p>Default value: <code>true</code></p>
 <p>Description: Enable SSL/TLS for S3 connections.</p>
 <hr />
-<h2 id="s3_region">S3_REGION<a class="headerlink" href="#s3_region" title="Permanent link">#</a></h2>
+<h3 id="s3_region">S3_REGION<a class="headerlink" href="#s3_region" title="Permanent link">#</a></h3>
 <p>Default value: <code>""</code></p>
 <p>Description: S3 region name.</p>
 <hr />
-<h2 id="s3_bucket_prefix">S3_BUCKET_PREFIX<a class="headerlink" href="#s3_bucket_prefix" title="Permanent link">#</a></h2>
+<h3 id="s3_bucket_prefix">S3_BUCKET_PREFIX<a class="headerlink" href="#s3_bucket_prefix" title="Permanent link">#</a></h3>
 <p>Default value: <code>""</code></p>
 <p>Description: Prefix applied to S3 buckets.</p>
 <hr />
-<h2 id="s3_use_subdirs">S3_USE_SUBDIRS<a class="headerlink" href="#s3_use_subdirs" title="Permanent link">#</a></h2>
+<h3 id="s3_use_subdirs">S3_USE_SUBDIRS<a class="headerlink" href="#s3_use_subdirs" title="Permanent link">#</a></h3>
 <p>Default value: <code>true</code></p>
 <p>Description: Store objects in subdirectories within the S3 bucket.</p>
 <hr />
-<h2 id="demo_mode">DEMO_MODE<a class="headerlink" href="#demo_mode" title="Permanent link">#</a></h2>
+<h3 id="demo_mode">DEMO_MODE<a class="headerlink" href="#demo_mode" title="Permanent link">#</a></h3>
 <p>Default value: <code>false</code></p>
 <p>Description: Enable demo mode with restricted functionality.</p>
 <hr />
-<h2 id="allowed_cidrs">ALLOWED_CIDRS<a class="headerlink" href="#allowed_cidrs" title="Permanent link">#</a></h2>
+<h3 id="allowed_cidrs">ALLOWED_CIDRS<a class="headerlink" href="#allowed_cidrs" title="Permanent link">#</a></h3>
 <p>Default value: <code>127.0.0.0/8,172.18.0.0/16,172.19.0.0/16,172.20.0.0/16</code></p>
 <p>Description: Defines CIDR blocks allowed to access the <code>/metrics</code> and <code>/healthz</code> endpoints.</p>
 <hr /></div>
