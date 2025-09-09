@@ -804,8 +804,13 @@
 <p>Description: Directory containing RSA public keys for JWT validation.</p>
 <hr />
 <h3 id="content_security_policy">CONTENT_SECURITY_POLICY<a class="headerlink" href="#content_security_policy" title="Permanent link">#</a></h3>
-<p>Default value:
-<code>default-src 'self'; script-src 'self' 'unsafe-eval' 'sha256-ZswfTY7H35rbv8WC7NXBoiC7WNu86vSzCDChNWwZZDM=' 'sha256-Sc84R3QT4gTYLl5M2SIYCramZDi3OcEjJiog35/7ydU=' https://cdn.jsdelivr.net https://challenges.cloudflare.com ; style-src 'self' https://cdn.jsdelivr.net; img-src 'self' data: https://cdn.jsdelivr.net https://challenges.cloudflare.com; font-src 'self' https://cdn.jsdelivr.net; frame-src https://challenges.cloudflare.com; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'none';</code></p>
+<p>Default value:</p>
+<pre><code>default-src 'self'; script-src 'self' 'unsafe-eval' 'sha256-ZswfTY7H35rbv8WC7NXBoiC7WNu86vSzCDChNWwZZDM=' 
+'sha256-Sc84R3QT4gTYLl5M2SIYCramZDi3OcEjJiog35/7ydU=' https://cdn.jsdelivr.net https://challenges.cloudflare.com ; 
+style-src 'self' https://cdn.jsdelivr.net; img-src 'self' data: https://cdn.jsdelivr.net https://challenges.cloudflare.com; 
+font-src 'self' https://cdn.jsdelivr.net; frame-src https://challenges.cloudflare.com; connect-src 'self'; 
+object-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'none';
+</code></pre>
 <p>Description: Content Security Policy (CSP) header applied by the application.</p>
 <hr />
 <h3 id="s3_endpoint">S3_ENDPOINT<a class="headerlink" href="#s3_endpoint" title="Permanent link">#</a></h3>
