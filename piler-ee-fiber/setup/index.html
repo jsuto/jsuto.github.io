@@ -8,7 +8,7 @@
       
       
       
-        <link rel="canonical" href="https://jsuto.github.io/piler-ee-v2/installation/">
+        <link rel="canonical" href="https://jsuto.github.io/piler-ee-v2/setup/">
       
       
       
@@ -256,53 +256,20 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#piler-architecture-overview" class="md-nav__link">
+  <a href="#installing-a-no-tenant-configuration-on-a-single-node-using-docker-compose" class="md-nav__link">
     <span class="md-ellipsis">
-      Piler architecture overview
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Piler architecture overview">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#single-node-layout" class="md-nav__link">
-    <span class="md-ellipsis">
-      Single node layout
+      Installing a no-tenant configuration on a single node using docker compose
     </span>
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#multiple-nodes-layout" class="md-nav__link">
+      
+        <li class="md-nav__item">
+  <a href="#installing-a-no-tenant-configuration-on-a-single-linux-vm-node" class="md-nav__link">
     <span class="md-ellipsis">
-      Multiple nodes layout
+      Installing a no-tenant configuration on a single Linux VM node
     </span>
   </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#platform-requirements" class="md-nav__link">
-    <span class="md-ellipsis">
-      Platform requirements
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#hardware-requirements" class="md-nav__link">
-    <span class="md-ellipsis">
-      Hardware requirements
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -326,35 +293,20 @@
 <p>This documentation applies to Piler enterprise edition 2.0.0</p>
 <p>Revision #1</p>
 <p>Publication date: 2025-SEP-21</p>
-<h2 id="piler-architecture-overview">Piler architecture overview<a class="headerlink" href="#piler-architecture-overview" title="Permanent link">#</a></h2>
-<p>Piler is flexible enough to support several configurations and layouts. Use one of the following layouts matching your environment.</p>
-<h3 id="single-node-layout">Single node layout<a class="headerlink" href="#single-node-layout" title="Permanent link">#</a></h3>
-<p><img alt="" src="../images/single-node-archive.png" /></p>
-<p>Figure 1. Single node installation</p>
-<p>This is the simplest layout, when you have a single node running piler enterprise. It allows you to start small, and expand later as you grow.</p>
-<p>Piler receives the emails directly, and archives them. The Piler node also runs the UI.
-To restore the emails it uses the smtp smarthost to deliver emails to the users’ mailboxes.</p>
-<h3 id="multiple-nodes-layout">Multiple nodes layout<a class="headerlink" href="#multiple-nodes-layout" title="Permanent link">#</a></h3>
-<p><img alt="" src="../images/multiple-nodes-archive.png" /></p>
-<p>Figure 2. Multiple nodes layout</p>
-<p>A typical installation contains the following nodes:</p>
-<p><strong>MX server</strong>: receives emails from the mail server, and distributes them among the worker nodes based on your preferences</p>
-<p><strong>Smarthost</strong>: receives emails to be restored from the UI node, and delivers them to mail server</p>
-<p><strong>Worker nodes</strong>: run the Piler daemons and archive the received emails</p>
-<p><strong>UI node</strong>: runs the Piler UI allowing users to view their emails</p>
-<h3 id="platform-requirements">Platform requirements<a class="headerlink" href="#platform-requirements" title="Permanent link">#</a></h3>
-<p>Piler enterprise supports Ubuntu 24.04 LTS (Noble) x64 and Centos 10 x64</p>
-<h3 id="hardware-requirements">Hardware requirements<a class="headerlink" href="#hardware-requirements" title="Permanent link">#</a></h3>
-<p>Piler can be installed on physical hardware, virtual machine (VMware, etc), in the cloud (AWS, etc) or in a Docker container. Piler requires:</p>
-<ul>
-<li>2+ GB memory</li>
-<li>2+ (v)CPU</li>
-<li>200+ GB disk space</li>
-</ul>
-<p>Note that piler stores data in /var/piler/store and /var/piler/astore directories. Expect to have
-several millions of files in various size ranging from few kB to several MB.</p>
-<p>See the <a href="https://sizing.mailpiler.com/" target="_blank">email archive sizing calculator</a> for more</p>
-<p>Piler also supports S3 compatible object stores, see section S3 object store for more details.</p>
+<h2 id="installing-a-no-tenant-configuration-on-a-single-node-using-docker-compose">Installing a no-tenant configuration on a single node using docker compose<a class="headerlink" href="#installing-a-no-tenant-configuration-on-a-single-node-using-docker-compose" title="Permanent link">#</a></h2>
+<p>There's a <a href="https://github.com/jsuto/piler-examples/tree/master/examples/v2.0.0/single-node-notenant">docker compose stack</a> that
+deploys all the necessary components. Follow the instructions in the README.</p>
+<h2 id="installing-a-no-tenant-configuration-on-a-single-linux-vm-node">Installing a no-tenant configuration on a single Linux VM node<a class="headerlink" href="#installing-a-no-tenant-configuration-on-a-single-linux-vm-node" title="Permanent link">#</a></h2>
+<p>Pick the installer for either Ubuntu 24.04 LTS (noble-new.sh) or Centos/Redhat/Oracle 10 (centos10-new.sh).
+In this example we pick Ubuntu.</p>
+<p>Customise the following variables:
+- PILER_HOSTNAME
+- MYSQL_ROOT_PASSWORD
+- MYSQL_PILER_PASSWORD
+- ARCH (if you are on arm64)</p>
+<p>Execute the installer</p>
+<pre><code>sudo ./noble-new.sh
+</code></pre>
 
 
 

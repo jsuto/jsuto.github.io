@@ -335,7 +335,7 @@
 <p>Piler receives the emails directly, and archives them. The Piler node also runs the UI.
 To restore the emails it uses the smtp smarthost to deliver emails to the usersâ€™ mailboxes.</p>
 <h3 id="multiple-nodes-layout">Multiple nodes layout<a class="headerlink" href="#multiple-nodes-layout" title="Permanent link">#</a></h3>
-<p><img alt="" src="../images/multiple-nodes-archive.png" /></p>
+<p><img alt="" src="../images/multiple-nodes-archive.svg" /></p>
 <p>Figure 2. Multiple nodes layout</p>
 <p>A typical installation contains the following nodes:</p>
 <p><strong>MX server</strong>: receives emails from the mail server, and distributes them among the worker nodes based on your preferences</p>
@@ -343,7 +343,11 @@ To restore the emails it uses the smtp smarthost to deliver emails to the usersâ
 <p><strong>Worker nodes</strong>: run the Piler daemons and archive the received emails</p>
 <p><strong>UI node</strong>: runs the Piler UI allowing users to view their emails</p>
 <h3 id="platform-requirements">Platform requirements<a class="headerlink" href="#platform-requirements" title="Permanent link">#</a></h3>
-<p>Piler enterprise supports Ubuntu 24.04 LTS (Noble) x64 and Centos 10 x64</p>
+<p>Supported platforms:
+- Ubuntu 24.04 LTS (Noble)
+- Centos 10
+- Docker compose (on any Linux ditro)</p>
+<p>Note that piler supports both x64 and arm64 platforms.</p>
 <h3 id="hardware-requirements">Hardware requirements<a class="headerlink" href="#hardware-requirements" title="Permanent link">#</a></h3>
 <p>Piler can be installed on physical hardware, virtual machine (VMware, etc), in the cloud (AWS, etc) or in a Docker container. Piler requires:</p>
 <ul>
