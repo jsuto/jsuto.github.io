@@ -274,6 +274,33 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#multiple-nodes-layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      Multiple nodes layout
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#platform-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Platform requirements
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hardware-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hardware requirements
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -307,6 +334,27 @@
 <p>This is the simplest layout, when you have a single node running piler enterprise. It allows you to start small, and expand later as you grow.</p>
 <p>Piler receives the emails directly, and archives them. The Piler node also runs the UI.
 To restore the emails it uses the smtp smarthost to deliver emails to the users’ mailboxes.</p>
+<h3 id="multiple-nodes-layout">Multiple nodes layout<a class="headerlink" href="#multiple-nodes-layout" title="Permanent link">#</a></h3>
+<p><img alt="" src="../images/multiple-nodes-archive.png" /></p>
+<p>Figure 2. Multiple nodes layout</p>
+<p>A typical installation contains the following nodes:</p>
+<p><strong>MX server</strong>: receives emails from the mail server, and distributes them among the worker nodes based on your preferences</p>
+<p><strong>Smarthost</strong>: receives emails to be restored from the UI node, and delivers them to mail server</p>
+<p><strong>Worker nodes</strong>: run the Piler daemons and archive the received emails</p>
+<p><strong>UI node</strong>: runs the Piler UI allowing users to view their emails</p>
+<h3 id="platform-requirements">Platform requirements<a class="headerlink" href="#platform-requirements" title="Permanent link">#</a></h3>
+<p>Piler enterprise supports Ubuntu 24.04 LTS (Noble) x64 and Centos 10 x64</p>
+<h3 id="hardware-requirements">Hardware requirements<a class="headerlink" href="#hardware-requirements" title="Permanent link">#</a></h3>
+<p>Piler can be installed on physical hardware, virtual machine (VMware, etc), in the cloud (AWS, etc) or in a Docker container. Piler requires:</p>
+<ul>
+<li>2+ GB memory</li>
+<li>2+ (v)CPU</li>
+<li>200+ GB disk space</li>
+</ul>
+<p>Note that piler stores data in /var/piler/store and /var/piler/astore directories. Expect to have
+several millions of files in various size ranging from few kB to several MB.</p>
+<p>See the <a href="https://sizing.mailpiler.com/" target="_blank">email archive sizing calculator</a> for more</p>
+<p>Piler also supports S3 compatible object stores, see section S3 object store for more details.</p>
 
 
 
