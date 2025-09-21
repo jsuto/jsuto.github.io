@@ -271,6 +271,21 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Installing a no-tenant configuration on a single Linux VM node">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#centosredhatoracle-linux-specific-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Centos/Redhat/Oracle Linux specific notes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -297,16 +312,22 @@
 <p>There's a <a href="https://github.com/jsuto/piler-examples/tree/master/examples/v2.0.0/single-node-notenant">docker compose stack</a> that
 deploys all the necessary components. Follow the instructions in the README.</p>
 <h2 id="installing-a-no-tenant-configuration-on-a-single-linux-vm-node">Installing a no-tenant configuration on a single Linux VM node<a class="headerlink" href="#installing-a-no-tenant-configuration-on-a-single-linux-vm-node" title="Permanent link">#</a></h2>
-<p>Pick the installer for either Ubuntu 24.04 LTS (noble-new.sh) or Centos/Redhat/Oracle 10 (centos10-new.sh).
+<p>Pick the installer for either Ubuntu 24.04 LTS (noble.sh) or Centos/Redhat/Oracle 10 (centos10.sh).
 In this example we pick Ubuntu.</p>
-<p>Customise the following variables:
-- PILER_HOSTNAME
-- MYSQL_ROOT_PASSWORD
-- MYSQL_PILER_PASSWORD
-- ARCH (if you are on arm64)</p>
+<p>Customise the following variables:</p>
+<ul>
+<li>PILER_HOSTNAME</li>
+<li>MYSQL_ROOT_PASSWORD</li>
+<li>MYSQL_PILER_PASSWORD</li>
+<li>ARCH (if you are on arm64)</li>
+</ul>
 <p>Execute the installer</p>
-<pre><code>sudo ./noble-new.sh
+<pre><code>curl -o noble.sh https://download.mailpiler.com/noble.sh
+chmod +x noble.sh
+sudo ./noble.sh
 </code></pre>
+<h3 id="centosredhatoracle-linux-specific-notes">Centos/Redhat/Oracle Linux specific notes<a class="headerlink" href="#centosredhatoracle-linux-specific-notes" title="Permanent link">#</a></h3>
+<p>SELinux is enabled by default. Please either disable it, or configure it properly.</p>
 
 
 
