@@ -256,6 +256,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#update-the-ui-config" class="md-nav__link">
+    <span class="md-ellipsis">
+      Update the UI config
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#s3-statistics" class="md-nav__link">
     <span class="md-ellipsis">
       S3 statistics
@@ -282,7 +291,8 @@
 
 <h1 id="using-s3-object-store">Using S3 object store<a class="headerlink" href="#using-s3-object-store" title="Permanent link">#</a></h1>
 <p>By default piler stores email files on the local filesystem under /var/piler subdirectories, thus requiring lots of disk space.</p>
-<p>Piler is able to store files on S3 compatible object stores, eg. Amazon S3, Wasabi, Exoscale, etc. Or you can even set up your own S3 object store with 3rd party software like Minio.</p>
+<p>Piler is able to store files on S3 compatible object stores, eg. Amazon S3, Wasabi, Exoscale, etc. Or you can even set up your own S3 object store with 3rd party software like Minio.
+Note that you should decide where to store the email files before starting archiving. Piler doesn’t support a mixed mode where some emails are stored locally, and some emails on an S3 object store.</p>
 <p>To enable using an S3 store, set the following in /etc/piler/piler.conf:</p>
 <pre><code>s3_hostname=your-s3-host.domain.com:9000
 s3_region=us-east-1
@@ -341,14 +351,15 @@ s3_secure=1
 s3_threads=10
 s3_use_subdirs=1
 </code></pre>
-<p>Put the S3 configuration to the UI env file as well. This is for a minio installation on port 9000 with no TLD configured:</p>
-<pre><code>S3_ENDPOINT=minio:9000
+<h2 id="update-the-ui-config">Update the UI config<a class="headerlink" href="#update-the-ui-config" title="Permanent link">#</a></h2>
+<p>Put the S3 configuration to the UI env file as well. This is for a minio installation on port 9000 with no TLS configured:</p>
+<pre><code>RETRIEVER_METHOD=s3
+S3_ENDPOINT=minio:9000
 S3_ACCESS_KEY=root
 S3_SECRET_KEY=example156
 S3_USE_SSL=false
 S3_REGION=us-east-1
 </code></pre>
-<p>Note that you should decide where to store the email files before starting archiving. Piler doesn’t support a mixed mode where some emails are stored locally, and some emails on an S3 object store.</p>
 <p>When using S3 storage the piler daemon writes all files to /var/piler/s3 directory. There’s a tool to process these files, and upload them to the S3 store.</p>
 <p>Piler will upload all files for a given tenant to a single bucket only. However, it’s possible to spread the files among 255 subdirectories. To enable this feature, set s3_use_subdirs=1. The names of
  the created subdirectories will be two hexadecimal characters, eg. “00”, “01”, … “ff”.</p>
