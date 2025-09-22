@@ -313,8 +313,6 @@
 Note that you should decide where to store the email files before starting archiving. Piler doesn’t support a mixed mode where some emails are stored locally, and some emails on an S3 object store.</p>
 <p>When using S3 storage the piler daemon writes all files to /var/piler/s3 directory. Then a piler service processes these files, and upload them to the S3 store.</p>
 <p>Piler will upload all files for a given tenant to a single bucket only.</p>
-<pre><code>s3_bucket_prefix=someprefix.
-</code></pre>
 <h2 id="enable-the-s3-storage">Enable the S3 storage<a class="headerlink" href="#enable-the-s3-storage" title="Permanent link">#</a></h2>
 <p>To enable using an S3 store, set the following in /etc/piler/piler.conf:</p>
 <pre><code>s3_hostname=your-s3-host.domain.com:9000
@@ -331,6 +329,8 @@ s3_secure=1
 <p>Set <code>s3_secure=0</code> if your S3 host does NOT support TLS.</p>
 <p>By default s3_bucket_prefix is empty. If you need to specify one, then make sure it conforms to domain names.</p>
 <p>Notes: you must NOT use the dash (-) character, however you may use a trailing dot, eg.</p>
+<pre><code>s3_bucket_prefix=someprefix.
+</code></pre>
 <p>S3 settings for oracle cloud:</p>
 <pre><code>s3_access_key=youraccesskey
 s3_bucket_prefix=
