@@ -8,21 +8,21 @@
       
       
       
-        <link rel="canonical" href="https://jsuto.github.io/piler-ee-v2/">
+        <link rel="canonical" href="https://jsuto.github.io/piler-ee-v2/s3-storage/">
       
       
       
       
-      <link rel="icon" href="assets/images/favicon.png">
+      <link rel="icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.6.20">
     
     
       
-        <title>piler enterprise documentation</title>
+        <title>Using S3 object store - piler enterprise documentation</title>
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.e53b48f4.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.e53b48f4.min.css">
       
       
 
@@ -41,7 +41,7 @@
       
     
     
-    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -60,7 +60,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#piler-enterprise-documentation" class="md-skip">
+        <a href="#using-s3-object-store" class="md-skip">
           Skip to content
         </a>
       
@@ -76,7 +76,7 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="." title="piler enterprise documentation" class="md-header__button md-logo" aria-label="piler enterprise documentation" data-md-component="logo">
+    <a href=".." title="piler enterprise documentation" class="md-header__button md-logo" aria-label="piler enterprise documentation" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -96,7 +96,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Home
+              Using S3 object store
             
           </span>
         </div>
@@ -174,7 +174,7 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="." title="piler enterprise documentation" class="md-nav__button md-logo" aria-label="piler enterprise documentation" data-md-component="logo">
+    <a href=".." title="piler enterprise documentation" class="md-nav__button md-logo" aria-label="piler enterprise documentation" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -189,32 +189,10 @@
       
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    Home
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="." class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
         
   
   
@@ -225,62 +203,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#generic-notes" class="md-nav__link">
-    <span class="md-ellipsis">
-      Generic notes
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#new-features" class="md-nav__link">
-    <span class="md-ellipsis">
-      New features
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#for-end-users" class="md-nav__link">
-    <span class="md-ellipsis">
-      For end users
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#for-administrators" class="md-nav__link">
-    <span class="md-ellipsis">
-      For administrators
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -334,36 +256,9 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#generic-notes" class="md-nav__link">
+  <a href="#s3-statistics" class="md-nav__link">
     <span class="md-ellipsis">
-      Generic notes
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#new-features" class="md-nav__link">
-    <span class="md-ellipsis">
-      New features
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#for-end-users" class="md-nav__link">
-    <span class="md-ellipsis">
-      For end users
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#for-administrators" class="md-nav__link">
-    <span class="md-ellipsis">
-      For administrators
+      S3 statistics
     </span>
   </a>
   
@@ -385,22 +280,111 @@
 
 
 
-<h1 id="piler-enterprise-documentation">Piler enterprise documentation<a class="headerlink" href="#piler-enterprise-documentation" title="Permanent link">#</a></h1>
-<h2 id="generic-notes">Generic notes<a class="headerlink" href="#generic-notes" title="Permanent link">#</a></h2>
-<p><a href="https://mailpiler.com/gdpr-related-notes/" target="_blank">GDPR related notes</a></p>
-<p><a href="https://drive.google.com/file/d/1dfIFcDdfiA5HADR6FmxpPNeU8K-vjTaQ/" target="_blank">Piler Verfahrensdokumentation Enterprise Edition</a></p>
-<h2 id="new-features">New features<a class="headerlink" href="#new-features" title="Permanent link">#</a></h2>
-<p><a href="new-features-in-2.0.0.md">New features in 2.0.0</a></p>
-<h2 id="for-end-users">For end users<a class="headerlink" href="#for-end-users" title="Permanent link">#</a></h2>
-<p><a href="enduser.md">End user guide to piler enterprise edition</a></p>
-<h2 id="for-administrators">For administrators<a class="headerlink" href="#for-administrators" title="Permanent link">#</a></h2>
-<p><a href="overview/">Overview</a></p>
-<p><a href="https://sizing.mailpiler.com/" target="_blank">Email archive sizing calculator</a></p>
-<p><a href="https://mailpiler.com/RELEASE_NOTES" target="_blank">Release notes</a></p>
-<p><a href="upgrade.md">Upgrading piler enterprise</a></p>
-<p><a href="setup/">Installing piler enterprise edition</a></p>
-<p><a href="fiber-ui-config-options/">UI config options</a>
-<a href="s3-storage/">Using S3 compatible storage</a></p>
+<h1 id="using-s3-object-store">Using S3 object store<a class="headerlink" href="#using-s3-object-store" title="Permanent link">#</a></h1>
+<p>By default piler stores email files on the local filesystem under /var/piler subdirectories, thus requiring lots of disk space.</p>
+<p>Piler is able to store files on S3 compatible object stores, eg. Amazon S3, Wasabi, Exoscale, etc. Or you can even set up your own S3 object store with 3rd party software like Minio.</p>
+<p>To enable using an S3 store, set the following in /etc/piler/piler.conf:</p>
+<pre><code>s3_hostname=your-s3-host.domain.com:9000
+s3_region=us-east-1
+s3_access_key=youraccesskey
+s3_secret_key=yoursecretkey
+s3_bucket_prefix=
+s3_dir=/var/piler/s3
+s3_use_subdirs=1
+s3_threads=10
+s3_secure=1
+</code></pre>
+<p>s3_hostname should be the S3 hostname and port. Eg. Minio uses port 9000. For Wasabi, it might be s3.us-west-1.wasabisys.com.</p>
+<p>Set s3_secure=0 if your S3 host does NOT support TLS.</p>
+<p>S3 settings for oracle cloud:</p>
+<pre><code>s3_access_key=youraccesskey
+s3_bucket_prefix=
+s3_dir=/var/piler/s3
+s3_hostname=frnsjgsfvvgl.compat.objectstorage.eu-frankfurt-1.oraclecloud.com
+s3_region=eu-frankfurt-1
+s3_secret_key=yoursecretkey
+s3_secure=1
+s3_threads=10
+s3_use_subdirs=1
+</code></pre>
+<p>S3 settings for Cloudflare bucket using EU jurisdiction:</p>
+<pre><code>s3_access_key=xxxxxxxxxxxxxxxxxx
+s3_bucket_prefix=
+s3_dir=/var/piler/s3
+s3_hostname=zzzzzzzzzzzzzzzzz.eu.r2.cloudflarestorage.com
+s3_region=auto
+s3_secret_key=yyyyyyyyyyyyyyyyyyyyyyyyyyyyy
+s3_secure=1
+s3_threads=10
+s3_use_subdirs=1
+</code></pre>
+<p>S3 settings for Backblaze bucket using EU-central:</p>
+<p>(Note: Backblaze doesn't accept dot (.) in the bucket name!)</p>
+<pre><code>s3_access_key=xxxxxxxxxxxxxxxxxx
+s3_bucket_prefix=
+s3_dir=/var/piler/s3
+s3_hostname=s3.eu-central-003.backblazeb2.com
+s3_region=us-east-1
+s3_secret_key=yyyyyyyyyyyyyyyyyyyyyyyyyyyyy
+s3_secure=1
+s3_threads=10
+s3_use_subdirs=1
+</code></pre>
+<p>S3 settings for Hetzner object store at fsn1 location:</p>
+<pre><code>s3_access_key=xxxxxxxxxxxxxxxxxx
+s3_bucket_prefix=
+s3_dir=/var/piler/s3
+s3_hostname=&lt;your hetzner id&gt;.fsn1.your-objectstorage.com
+s3_region=us-east-1
+s3_secret_key=yyyyyyyyyyyyyyyyyyyyyyyyyyyyy
+s3_secure=1
+s3_threads=10
+s3_use_subdirs=1
+</code></pre>
+<p>Note that you should decide where to store the email files before starting archiving. Piler doesn’t support a mixed mode where some emails are stored locally, and some emails on an S3 object store.</p>
+<p>When using S3 storage the piler daemon writes all files to /var/piler/s3 directory. There’s a tool to process these files, and upload them to the S3 store.</p>
+<p>Piler will upload all files for a given tenant to a single bucket only. However, it’s possible to spread the files among 255 subdirectories. To enable this feature, set s3_use_subdirs=1. The names of
+ the created subdirectories will be two hexadecimal characters, eg. “00”, “01”, … “ff”.</p>
+<p>By default s3_bucket_prefix is empty. If you need to specify one, then make sure it conforms to domain names. Notes: you must NOT use the dash (-) character, however you may use a trailing dot, eg.</p>
+<p>s3_bucket_prefix=someprefix.</p>
+<p>Finally enable the piler-s3 service:</p>
+<pre><code>cd /etc/systemd/system
+ln -sf /usr/libexec/piler/piler-s3.service .
+systemctl daemon-reload
+systemctl enable piler-s3
+systemctl start piler-s3
+</code></pre>
+<h2 id="s3-statistics">S3 statistics<a class="headerlink" href="#s3-statistics" title="Permanent link">#</a></h2>
+<p>To allow S3 statistics you need to install the minio client:</p>
+<pre><code>curl -o /usr/local/bin/mc https://dl.min.io/client/mc/release/linux-amd64/mc
+chmod +x /usr/local/bin/mc
+</code></pre>
+<p>Then create a config file for minio:</p>
+<pre><code>su - piler
+mkdir -p /var/piler/.mc/
+</code></pre>
+<p>Create /var/piler/.mc/config.json. In the below example we used the following parameters
+(be sure to use your own settings):</p>
+<pre><code>s3_hostname=https://zzzzzzzzzzzzzzzzz.eu.r2.cloudflarestorage.com
+s3_access_key=aabbaabbaabb
+s3_secret_key=deadbeef0123456789abcdef
+</code></pre>
+<p>/var/piler/.mc/config.json:</p>
+<pre><code>{&quot;version&quot;:&quot;10&quot;, &quot;aliases&quot;: {&quot;minio&quot;: {&quot;url&quot;:&quot;https://zzzzzzzzzzzzzzzzz.eu.r2.cloudflarestorage.com&quot;,&quot;accessKey&quot;:&quot;aabbaabbaabb&quot;, &quot;secretKey&quot;: &quot;deadbeef0123456789abcdef&quot;, &quot;api&quot;: &quot;S3v4&quot;, &quot;path&quot;: &quot;auto&quot;}}}
+</code></pre>
+<p>Then finally add the following to piler's crontab entries:</p>
+<pre><code>30 * * * * /usr/libexec/piler/s3-bucket-stat.sh minio
+</code></pre>
+<p>This will update the s3_bucket_stats table in the mysql piler database every hour.
+The result looks like the following. These details will be displayed at the tenant listing.</p>
+<pre><code>MariaDB [piler]&gt; select * from s3_bucket_stat;
++---------+----------+---------+---------------------+
+| bucket  | size     | objects | t                   |
++---------+----------+---------+---------------------+
+| fictive | 20481360 |    2978 | 2024-02-06 10:30:08 |
++---------+----------+---------+---------------------+
+1 row in set (0.001 sec)
+</code></pre>
 
 
 
@@ -449,10 +433,10 @@
     
     
       
-      <script id="__config" type="application/json">{"base": ".", "features": [], "search": "assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="assets/javascripts/bundle.f55a23d4.min.js"></script>
+      <script src="../assets/javascripts/bundle.f55a23d4.min.js"></script>
       
     
   </body>
