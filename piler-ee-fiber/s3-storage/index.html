@@ -313,8 +313,6 @@
 Note that you should decide where to store the email files before starting archiving. Piler doesn’t support a mixed mode where some emails are stored locally, and some emails on an S3 object store.</p>
 <p>When using S3 storage the piler daemon writes all files to /var/piler/s3 directory. Then a piler service processes these files, and upload them to the S3 store.</p>
 <p>Piler will upload all files for a given tenant to a single bucket only.</p>
-<p>By default s3_bucket_prefix is empty. If you need to specify one, then make sure it conforms to domain names.
-Notes: you must NOT use the dash (-) character, however you may use a trailing dot, eg.</p>
 <pre><code>s3_bucket_prefix=someprefix.
 </code></pre>
 <h2 id="enable-the-s3-storage">Enable the S3 storage<a class="headerlink" href="#enable-the-s3-storage" title="Permanent link">#</a></h2>
@@ -330,7 +328,9 @@ s3_threads=10
 s3_secure=1
 </code></pre>
 <p>s3_hostname should be the S3 hostname and port. Eg. Minio uses port 9000. For Wasabi, it might be s3.us-west-1.wasabisys.com.</p>
-<p>Set s3_secure=0 if your S3 host does NOT support TLS.</p>
+<p>Set <code>s3_secure=0</code> if your S3 host does NOT support TLS.</p>
+<p>By default s3_bucket_prefix is empty. If you need to specify one, then make sure it conforms to domain names.</p>
+<p>Notes: you must NOT use the dash (-) character, however you may use a trailing dot, eg.</p>
 <p>S3 settings for oracle cloud:</p>
 <pre><code>s3_access_key=youraccesskey
 s3_bucket_prefix=
@@ -385,11 +385,6 @@ S3_SECRET_KEY=example156
 S3_USE_SSL=false
 S3_REGION=us-east-1
 </code></pre>
-<p>When using S3 storage the piler daemon writes all files to /var/piler/s3 directory. There’s a tool to process these files, and upload them to the S3 store.</p>
-<p>Piler will upload all files for a given tenant to a single bucket only. However, it’s possible to spread the files among 255 subdirectories. To enable this feature, set s3_use_subdirs=1. The names of
- the created subdirectories will be two hexadecimal characters, eg. “00”, “01”, … “ff”.</p>
-<p>By default s3_bucket_prefix is empty. If you need to specify one, then make sure it conforms to domain names. Notes: you must NOT use the dash (-) character, however you may use a trailing dot, eg.</p>
-<p>s3_bucket_prefix=someprefix.</p>
 <h2 id="enable-the-the-piler-s3-service">Enable the the piler-s3 service<a class="headerlink" href="#enable-the-the-piler-s3-service" title="Permanent link">#</a></h2>
 <pre><code>cd /etc/systemd/system
 ln -sf /usr/libexec/piler/piler-s3.service .
