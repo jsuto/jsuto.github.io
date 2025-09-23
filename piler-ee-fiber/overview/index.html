@@ -284,6 +284,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#archive-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      Archive components
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#platform-requirements" class="md-nav__link">
     <span class="md-ellipsis">
       Platform requirements
@@ -329,7 +338,7 @@
 <h2 id="piler-architecture-overview">Piler architecture overview<a class="headerlink" href="#piler-architecture-overview" title="Permanent link">#</a></h2>
 <p>Piler is flexible enough to support several configurations and layouts. Use one of the following layouts matching your environment.</p>
 <h3 id="single-node-layout">Single node layout<a class="headerlink" href="#single-node-layout" title="Permanent link">#</a></h3>
-<p><img alt="" src="../images/single-node-archive.png" /></p>
+<p><img alt="" src="../images/single-node-archive.svg" /></p>
 <p>Figure 1. Single node installation</p>
 <p>This is the simplest layout, when you have a single node running piler enterprise. It allows you to start small, and expand later as you grow.</p>
 <p>Piler receives the emails directly, and archives them. The Piler node also runs the UI.
@@ -342,6 +351,18 @@ To restore the emails it uses the smtp smarthost to deliver emails to the usersâ
 <p><strong>Smarthost</strong>: receives emails to be restored from the UI node, and delivers them to mail server</p>
 <p><strong>Worker nodes</strong>: run the Piler daemons and archive the received emails</p>
 <p><strong>UI node</strong>: runs the Piler UI allowing users to view their emails</p>
+<h3 id="archive-components">Archive components<a class="headerlink" href="#archive-components" title="Permanent link">#</a></h3>
+<p><img alt="" src="../images/archive-components.svg" /></p>
+<p>Figure 3. Archive components</p>
+<p>Piler enterprise features the following components:</p>
+<ul>
+<li>piler binaries and daemons: archiving emails</li>
+<li>web appp: display the UI the REST API</li>
+<li>mysql: store crucial metadata</li>
+<li>manticore: search index and audit logs</li>
+<li>redis/valkey cache: store user sessions and other user data</li>
+<li>reverse proxy, eg. <a href="https://doc.traefik.io/traefik/getting-started/install-traefik/">traefik</a>, <a href="https://nginx.org">nginx</a>: provide https entrypoint</li>
+</ul>
 <h3 id="platform-requirements">Platform requirements<a class="headerlink" href="#platform-requirements" title="Permanent link">#</a></h3>
 <p>Supported platforms:</p>
 <ul>
