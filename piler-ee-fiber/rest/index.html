@@ -8,7 +8,7 @@
       
       
       
-        <link rel="canonical" href="https://jsuto.github.io/piler-ee-v2/overview/">
+        <link rel="canonical" href="https://jsuto.github.io/piler-ee-v2/rest/">
       
       
       
@@ -18,7 +18,7 @@
     
     
       
-        <title>Overview of piler enterprise edition - piler enterprise documentation</title>
+        <title>REST API - piler enterprise documentation</title>
       
     
     
@@ -60,7 +60,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#overview-of-piler-enterprise-edition" class="md-skip">
+        <a href="#rest-api" class="md-skip">
           Skip to content
         </a>
       
@@ -96,7 +96,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Overview of piler enterprise edition
+              REST API
             
           </span>
         </div>
@@ -256,53 +256,20 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#piler-architecture-overview" class="md-nav__link">
+  <a href="#get-the-jwt-access-token" class="md-nav__link">
     <span class="md-ellipsis">
-      Piler architecture overview
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Piler architecture overview">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#single-node-layout" class="md-nav__link">
-    <span class="md-ellipsis">
-      Single node layout
+      Get the JWT access token
     </span>
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#multiple-nodes-layout" class="md-nav__link">
+      
+        <li class="md-nav__item">
+  <a href="#domain-handling" class="md-nav__link">
     <span class="md-ellipsis">
-      Multiple nodes layout
+      Domain handling
     </span>
   </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#platform-requirements" class="md-nav__link">
-    <span class="md-ellipsis">
-      Platform requirements
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#hardware-requirements" class="md-nav__link">
-    <span class="md-ellipsis">
-      Hardware requirements
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -322,45 +289,19 @@
 
 
 
-<h1 id="overview-of-piler-enterprise-edition">Overview of piler enterprise edition<a class="headerlink" href="#overview-of-piler-enterprise-edition" title="Permanent link">#</a></h1>
-<p>This documentation applies to Piler enterprise edition 2.0.0</p>
-<p>Revision #1</p>
-<p>Publication date: 2025-SEP-21</p>
-<h2 id="piler-architecture-overview">Piler architecture overview<a class="headerlink" href="#piler-architecture-overview" title="Permanent link">#</a></h2>
-<p>Piler is flexible enough to support several configurations and layouts. Use one of the following layouts matching your environment.</p>
-<h3 id="single-node-layout">Single node layout<a class="headerlink" href="#single-node-layout" title="Permanent link">#</a></h3>
-<p><img alt="" src="../images/single-node-archive.png" /></p>
-<p>Figure 1. Single node installation</p>
-<p>This is the simplest layout, when you have a single node running piler enterprise. It allows you to start small, and expand later as you grow.</p>
-<p>Piler receives the emails directly, and archives them. The Piler node also runs the UI.
-To restore the emails it uses the smtp smarthost to deliver emails to the users’ mailboxes.</p>
-<h3 id="multiple-nodes-layout">Multiple nodes layout<a class="headerlink" href="#multiple-nodes-layout" title="Permanent link">#</a></h3>
-<p><img alt="" src="../images/multiple-nodes-archive.svg" /></p>
-<p>Figure 2. Multiple nodes layout</p>
-<p>A typical installation contains the following nodes:</p>
-<p><strong>MX server</strong>: receives emails from the mail server, and distributes them among the worker nodes based on your preferences</p>
-<p><strong>Smarthost</strong>: receives emails to be restored from the UI node, and delivers them to mail server</p>
-<p><strong>Worker nodes</strong>: run the Piler daemons and archive the received emails</p>
-<p><strong>UI node</strong>: runs the Piler UI allowing users to view their emails</p>
-<h3 id="platform-requirements">Platform requirements<a class="headerlink" href="#platform-requirements" title="Permanent link">#</a></h3>
-<p>Supported platforms:</p>
-<ul>
-<li>Ubuntu 24.04 LTS (Noble)</li>
-<li>Centos 10</li>
-<li>Docker compose (on any Linux ditro)</li>
-</ul>
-<p>Note that piler supports both x64 and arm64 platforms.</p>
-<h3 id="hardware-requirements">Hardware requirements<a class="headerlink" href="#hardware-requirements" title="Permanent link">#</a></h3>
-<p>Piler can be installed on physical hardware, virtual machine (VMware, etc), in the cloud (AWS, etc) or in a Docker container. Piler requires:</p>
-<ul>
-<li>2+ GB memory</li>
-<li>2+ (v)CPU</li>
-<li>200+ GB disk space</li>
-</ul>
-<p>Note that piler stores data in /var/piler/store and /var/piler/astore directories. Expect to have
-several millions of files in various size ranging from few kB to several MB.</p>
-<p>See the <a href="https://sizing.mailpiler.com/" target="_blank">email archive sizing calculator</a> for more</p>
-<p>Piler also supports S3 compatible object stores, see section <a href="../s3-storage/">S3 object store</a> for more details.</p>
+<h1 id="rest-api">REST API<a class="headerlink" href="#rest-api" title="Permanent link">#</a></h1>
+<h2 id="get-the-jwt-access-token">Get the JWT access token<a class="headerlink" href="#get-the-jwt-access-token" title="Permanent link">#</a></h2>
+<pre><code>ACCESS_TOKEN=&quot;$( curl -s -X POST \
+    -H &quot;Content-Type: application/json&quot; \
+    -d '{&quot;username&quot;:&quot;user@example.com&quot;, &quot;password&quot;:&quot;password&quot;}' \
+    &quot;https://archive.example.com/auth/login&quot; | jq -r '.access_token' )&quot;
+</code></pre>
+<h2 id="domain-handling">Domain handling<a class="headerlink" href="#domain-handling" title="Permanent link">#</a></h2>
+<p>"${CURL[@]}" -XPOST -d '{"domain":"gmail.com","mapped":"fictive.com","ldap_id":2}' "${SITE_URL}/api/admin/domain/add"</p>
+<p>Get domains:</p>
+<p>GET: https://archive.example.com/api/admin/domain</p>
+<p>Add a domain:</p>
+<p>POST: https://archive.example.com/api/admin/domain/add</p>
 
 
 

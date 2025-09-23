@@ -8,7 +8,7 @@
       
       
       
-        <link rel="canonical" href="https://jsuto.github.io/piler-ee-v2/overview/">
+        <link rel="canonical" href="https://jsuto.github.io/piler-ee-v2/security/">
       
       
       
@@ -18,7 +18,7 @@
     
     
       
-        <title>Overview of piler enterprise edition - piler enterprise documentation</title>
+        <title>Securing the archive - piler enterprise documentation</title>
       
     
     
@@ -60,7 +60,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#overview-of-piler-enterprise-edition" class="md-skip">
+        <a href="#securing-the-archive" class="md-skip">
           Skip to content
         </a>
       
@@ -96,7 +96,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Overview of piler enterprise edition
+              Securing the archive
             
           </span>
         </div>
@@ -256,16 +256,6 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#piler-architecture-overview" class="md-nav__link">
-    <span class="md-ellipsis">
-      Piler architecture overview
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Piler architecture overview">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
   <a href="#single-node-layout" class="md-nav__link">
     <span class="md-ellipsis">
       Single node layout
@@ -273,8 +263,8 @@
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
+      
+        <li class="md-nav__item">
   <a href="#multiple-nodes-layout" class="md-nav__link">
     <span class="md-ellipsis">
       Multiple nodes layout
@@ -282,27 +272,31 @@
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#platform-requirements" class="md-nav__link">
+      
+        <li class="md-nav__item">
+  <a href="#starttls-support" class="md-nav__link">
     <span class="md-ellipsis">
-      Platform requirements
+      STARTTLS support
     </span>
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#hardware-requirements" class="md-nav__link">
+      
+        <li class="md-nav__item">
+  <a href="#smtp-acl-lists" class="md-nav__link">
     <span class="md-ellipsis">
-      Hardware requirements
+      SMTP ACL lists
     </span>
   </a>
   
 </li>
-        
-      </ul>
-    </nav>
+      
+        <li class="md-nav__item">
+  <a href="#antivirus-and-antispam-support" class="md-nav__link">
+    <span class="md-ellipsis">
+      Antivirus and antispam support
+    </span>
+  </a>
   
 </li>
       
@@ -322,45 +316,40 @@
 
 
 
-<h1 id="overview-of-piler-enterprise-edition">Overview of piler enterprise edition<a class="headerlink" href="#overview-of-piler-enterprise-edition" title="Permanent link">#</a></h1>
+<h1 id="securing-the-archive">Securing the archive<a class="headerlink" href="#securing-the-archive" title="Permanent link">#</a></h1>
 <p>This documentation applies to Piler enterprise edition 2.0.0</p>
 <p>Revision #1</p>
-<p>Publication date: 2025-SEP-21</p>
-<h2 id="piler-architecture-overview">Piler architecture overview<a class="headerlink" href="#piler-architecture-overview" title="Permanent link">#</a></h2>
-<p>Piler is flexible enough to support several configurations and layouts. Use one of the following layouts matching your environment.</p>
+<p>Publication date: 2025-SEP-23</p>
 <h3 id="single-node-layout">Single node layout<a class="headerlink" href="#single-node-layout" title="Permanent link">#</a></h3>
-<p><img alt="" src="../images/single-node-archive.png" /></p>
-<p>Figure 1. Single node installation</p>
-<p>This is the simplest layout, when you have a single node running piler enterprise. It allows you to start small, and expand later as you grow.</p>
-<p>Piler receives the emails directly, and archives them. The Piler node also runs the UI.
-To restore the emails it uses the smtp smarthost to deliver emails to the users’ mailboxes.</p>
+<p>The piler node should be accessed on port 443 from the Internet. Port 25 should be limited to your mail servers, also see the SMTP ACL feature below.</p>
 <h3 id="multiple-nodes-layout">Multiple nodes layout<a class="headerlink" href="#multiple-nodes-layout" title="Permanent link">#</a></h3>
-<p><img alt="" src="../images/multiple-nodes-archive.svg" /></p>
-<p>Figure 2. Multiple nodes layout</p>
-<p>A typical installation contains the following nodes:</p>
-<p><strong>MX server</strong>: receives emails from the mail server, and distributes them among the worker nodes based on your preferences</p>
-<p><strong>Smarthost</strong>: receives emails to be restored from the UI node, and delivers them to mail server</p>
-<p><strong>Worker nodes</strong>: run the Piler daemons and archive the received emails</p>
-<p><strong>UI node</strong>: runs the Piler UI allowing users to view their emails</p>
-<h3 id="platform-requirements">Platform requirements<a class="headerlink" href="#platform-requirements" title="Permanent link">#</a></h3>
-<p>Supported platforms:</p>
+<p>UI node ports accessibility:</p>
 <ul>
-<li>Ubuntu 24.04 LTS (Noble)</li>
-<li>Centos 10</li>
-<li>Docker compose (on any Linux ditro)</li>
+<li>tcp/443: from the Internet</li>
+<li>tcp/3306: from the worker nodes</li>
 </ul>
-<p>Note that piler supports both x64 and arm64 platforms.</p>
-<h3 id="hardware-requirements">Hardware requirements<a class="headerlink" href="#hardware-requirements" title="Permanent link">#</a></h3>
-<p>Piler can be installed on physical hardware, virtual machine (VMware, etc), in the cloud (AWS, etc) or in a Docker container. Piler requires:</p>
+<p>The worker nodes ports accessibility:</p>
 <ul>
-<li>2+ GB memory</li>
-<li>2+ (v)CPU</li>
-<li>200+ GB disk space</li>
+<li>tcp/25: only the MX server</li>
+<li>tcp/80,443: only the UI node</li>
+<li>tcp/9312: only the UI node</li>
 </ul>
-<p>Note that piler stores data in /var/piler/store and /var/piler/astore directories. Expect to have
-several millions of files in various size ranging from few kB to several MB.</p>
-<p>See the <a href="https://sizing.mailpiler.com/" target="_blank">email archive sizing calculator</a> for more</p>
-<p>Piler also supports S3 compatible object stores, see section <a href="../s3-storage/">S3 object store</a> for more details.</p>
+<p>MX server ports accessibility:</p>
+<ul>
+<li>tcp/25: only from your mail servers</li>
+</ul>
+<p>It's also possible to use an internal network where the worker nodes' ports and the UI node mysql port are available.</p>
+<h3 id="starttls-support">STARTTLS support<a class="headerlink" href="#starttls-support" title="Permanent link">#</a></h3>
+<p>By default the installer creates a key and a self-signed certificate (/etc/piler/piler.pem) to support STARTTLS providing encrypted message transfer between the smtp client and the Piler smtp server. You are free to fix piler.pem to use your signed CA.</p>
+<h3 id="smtp-acl-lists">SMTP ACL lists<a class="headerlink" href="#smtp-acl-lists" title="Permanent link">#</a></h3>
+<p>Piler supports an smtp acl list similar to postscreen. See <a href="https://mailpiler.com/smtp-acl-list/">https://mailpiler.com/smtp-acl-list/</a> for more.</p>
+<h3 id="antivirus-and-antispam-support">Antivirus and antispam support<a class="headerlink" href="#antivirus-and-antispam-support" title="Permanent link">#</a></h3>
+<p>Piler expects clean emails only. Spam and other malware occupy valuable disk space and other resources on the piler host, not to mention that it might pose other problems. So you should do the heavy lifting of scanning and filtering of any spam and malware on your MX servers.</p>
+<p>However, Piler is able to use the result of any antispam application, provided that it sets a specific email header to mark spam emails. If you used SpamAssassin, then you may use the following setting in /etc/piler/piler.conf, then piler can recognize when it receives a spam:</p>
+<pre><code>spam_header_line=X-Spam-Flag: YES
+</code></pre>
+<p>If piler recognizes a spam, then you may set an exlusion rule to discard it (preventing from getting to the archive) or archive it for a shorter time, eg. 30 days or so.</p>
+<p>Note that piler supports a single spam header line, ie. you cannot specify the anti-spam headers of several anti-spam products. However, by using an SMTP it’s possible to rewrite several kind of antispam headers to a unified value. See <a href="https://mailpiler.com/consolidating-several-anti-spam-message-headers-on-the-smtp-gateway/">https://mailpiler.com/consolidating-several-anti-spam-message-headers-on-the-smtp-gateway/</a> for more.</p>
 
 
 

@@ -368,7 +368,7 @@ net.ipv4.tcp_keepalive_probes = 9
 }
 </code></pre>
 <h2 id="piler">Piler<a class="headerlink" href="#piler" title="Permanent link">#</a></h2>
-<p>The number of worker processes should be the number of cpu cores + 1, eg. for 2 CPUS: 3</p>
+<p>The number of worker processes should be the number of cpu cores + 1, eg. for 2 CPUs: 3</p>
 <p>The piler-smtp daemon buffers the email to memory. The <code>max_message_size</code> variable determines
 the max message size that piler-smtp accepts. The <code>max_smtp_memory</code> variable caps the max allocatable
 memory that piler-smtp may claim. Be sure to set these to match your needs in /etc/piler/piler.conf:</p>
