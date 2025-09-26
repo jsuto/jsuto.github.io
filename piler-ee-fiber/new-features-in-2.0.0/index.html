@@ -331,7 +331,7 @@
 <p>Publication date: 2025-SEP-26</p>
 <h2 id="better-ui-performance">Better UI performance<a class="headerlink" href="#better-ui-performance" title="Permanent link">#</a></h2>
 <p>Piler enterprise has a new web app backend. While the 1.x series relies on nginx+PHP,
-the 2.x series has been rewritten using Go Fiber. While the look of the UI is
+the 2.x series has been rewritten using Go Fiber. Though the look of the UI is
 the same, the backend offers a much better performance, see the <a href="../benchmarks/">benchmark comparison</a>
 between fiber and the legacy nginx+php app.</p>
 <h2 id="jwt-token-authentication">JWT token authentication<a class="headerlink" href="#jwt-token-authentication" title="Permanent link">#</a></h2>
@@ -344,7 +344,8 @@ users, and grant them a user session in the piler UI.</p>
 <h2 id="ui-license">UI license<a class="headerlink" href="#ui-license" title="Permanent link">#</a></h2>
 <p>The UI requires a dedicated license file.</p>
 <h2 id="dot-env-style-configuration">Dot-env style configuration<a class="headerlink" href="#dot-env-style-configuration" title="Permanent link">#</a></h2>
-<p>The fiber UI uses an .env file (similar to what node.js apps use) to set various parameters.</p>
+<p>The fiber UI uses an .env file (similar to what node.js apps use) to set various parameters,
+see the <a href="../fiber-ui-config-options/">UI config options</a> page what config parameters are available.</p>
 <p>When having a multi-tenant deployment, the global values can be overridden by setting
 the per-tenant values in the piler database customer_settings table <code>settings_json</code> column, eg.</p>
 <pre><code>{&quot;HEADER_LINK_TITLE&quot;:&quot;Example archive&quot;, &quot;HEADER_LINK&quot;:&quot;https://example.com&quot;}
