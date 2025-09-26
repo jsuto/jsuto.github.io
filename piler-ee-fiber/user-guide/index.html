@@ -1,0 +1,695 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://jsuto.github.io/piler-ee-v2/user-guide/">
+      
+      
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.6.20">
+    
+    
+      
+        <title>End user guide to piler enterprise edition - piler enterprise documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.e53b48f4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#end-user-guide-to-piler-enterprise-edition" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="piler enterprise documentation" class="md-header__button md-logo" aria-label="piler enterprise documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            piler enterprise documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              End user guide to piler enterprise edition
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="piler enterprise documentation" class="md-nav__button md-logo" aria-label="piler enterprise documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    piler enterprise documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://mailpiler.com/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Site
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview-of-how-piler-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview of how Piler works
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#login" class="md-nav__link">
+    <span class="md-ellipsis">
+      Login
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      Settings
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#search-for-emails" class="md-nav__link">
+    <span class="md-ellipsis">
+      Search for emails
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Search for emails">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#quick-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quick search
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quick-search-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quick search examples
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#advanced-or-guided-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advanced (or guided) search
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recall-previous-search-queries" class="md-nav__link">
+    <span class="md-ellipsis">
+      Recall previous search queries
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#save-a-search-query" class="md-nav__link">
+    <span class="md-ellipsis">
+      Save a search query
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#execute-a-saved-search-criteria" class="md-nav__link">
+    <span class="md-ellipsis">
+      Execute a saved search criteria
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#use-the-search-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      Use the search results
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tag-messages" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tag messages
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#add-notes-to-messages" class="md-nav__link">
+    <span class="md-ellipsis">
+      Add notes to messages
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-messages" class="md-nav__link">
+    <span class="md-ellipsis">
+      Download messages
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#restore-messages" class="md-nav__link">
+    <span class="md-ellipsis">
+      Restore messages
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exporting-messages-from-the-ui" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exporting messages from the UI
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="end-user-guide-to-piler-enterprise-edition">End user guide to piler enterprise edition<a class="headerlink" href="#end-user-guide-to-piler-enterprise-edition" title="Permanent link">#</a></h1>
+<p>This documentation applies to Piler enterprise edition 2.0.0</p>
+<p>Revision #1</p>
+<p>Publication date: 2025-SEP-26</p>
+<h2 id="overview-of-how-piler-works">Overview of how Piler works<a class="headerlink" href="#overview-of-how-piler-works" title="Permanent link">#</a></h2>
+<p>Piler is a secure email archive that keeps your messages in a central repository. Piler archives every email
+it receives whether it be an incoming, outgoing or even an internal email.</p>
+<p>An important part of the archiving process is called indexing. It allows you to find the archived emails later
+based on search terms. Piler provides a web based UI that can be accessed using a web browser, eg. Firefox, Chrome, etc.</p>
+<p>The message indexing is close to real time. Messages appear in the search results within seconds.</p>
+<p>The archived messages are encrypted in a tamper-proof manner. When you click on a message you should see a
+green tick sign that means that the message retrieved from the archive is the same that was actually archived.
+Otherwise you may see a red failure sign.</p>
+<p>The UI has a built-in access control to prevent a user from accessing others' messages. However, users with
+an auditor role can see every archived email.</p>
+<p>The UI also creates an audit event each time a user performs an action, eg. enters a search query, downloads
+or restores a message, etc. Only auditors and administrators may search in the audit logs.</p>
+<h2 id="login">Login<a class="headerlink" href="#login" title="Permanent link">#</a></h2>
+<p>Go to the archive URL, usually it’s https://archive.example.com/</p>
+<p>The archive is usually configured to allow you to use your email address, and your email password as login
+credentials. In case of an issue, ask your IT for help. In some environments single sign-on (SSO) is set.
+In that case you don't type your credentials to the piler UI. When in doubt, ask your system administrators.</p>
+<p><img alt="" src="../images/login.png" /></p>
+<h2 id="settings">Settings<a class="headerlink" href="#settings" title="Permanent link">#</a></h2>
+<p>After logging in you may view and edit your settings, eg. page length, date format and timezone. To get to
+the settings menu, click on gear icon at the top right corner.</p>
+<p>You may turn on two-factor authentication as well. If you do so, be sure to write down the backup codes.</p>
+<p><img alt="" src="images/settings.png" /></p>
+<h2 id="search-for-emails">Search for emails<a class="headerlink" href="#search-for-emails" title="Permanent link">#</a></h2>
+<p>When you enter the archive the GUI presents you the last 20 archived messages. To have more hits per page,
+go to the “Settings” menu in the upper right corner of the screen.</p>
+<p>You may use two search interfaces:
+- Quick search in the long text input field
+- Advanced (or guided) search</p>
+<h3 id="quick-search">Quick search<a class="headerlink" href="#quick-search" title="Permanent link">#</a></h3>
+<p>This is the default and the preferred way of searching. Just enter the search terms, and you get the last
+10000 hits in a paged view. If there are more than 10000 hits, then the exact number is shown between parentheses.</p>
+<p><img alt="" src="../images/search-01.png" /></p>
+<p>By default the UI applies the search criteria to each field. Eg. if you type mycompany, then it searches for emails
+having mycompany in the sender email address, in the subject and in the body.</p>
+<p>Note that piler indexes the textual data of the attachments as well. If the UI is instructed to search in the body,
+then it also searches in the attachments as well.</p>
+<p>The search is very intuitive. The UI guesses the format of the words you type. If you type 2018-01-31 (2018.01.31
+is also a valid date) then it knows it's a date. If it has a @ sign, then it's an email address. Otherwise it's a
+subject or body expression.</p>
+<p>You may enter a finer search query by specifying keywords that precisely identify the type of the given search word.</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>from:</td>
+<td>Sender address</td>
+</tr>
+<tr>
+<td>to:</td>
+<td>Recipient address</td>
+</tr>
+<tr>
+<td>subject:</td>
+<td>Subject of the email</td>
+</tr>
+<tr>
+<td>body:</td>
+<td>Body of the email, including attachments</td>
+</tr>
+<tr>
+<td>date1:</td>
+<td>From (=not before) date (YYYY-MM-DD 00:00:00)</td>
+</tr>
+<tr>
+<td>date2:</td>
+<td>To (=not after) date (YYYY-MM-DD 23:59:59)</td>
+</tr>
+<tr>
+<td>size:</td>
+<td>Size of the message in bytes</td>
+</tr>
+<tr>
+<td>attachment:</td>
+<td>Attachment type. Possible values: word, excel, powerpoint, pdf, compressed, text, odf, image, audio, video, flash, other, any</td>
+</tr>
+<tr>
+<td>a:</td>
+<td>Same as attachment:</td>
+</tr>
+</tbody>
+</table>
+<h3 id="quick-search-examples">Quick search examples<a class="headerlink" href="#quick-search-examples" title="Permanent link">#</a></h3>
+<p>Emails from Gmail on 2018.02.28:
+<code>2018-02-28 @gmail.com</code></p>
+<p>Emails from Gmail before 2018.02.28 23:59:59:
+<code>date2: 2018-02-28, from: @gmail.com</code></p>
+<p>Emails from the Matrix (Both sender email addresses and names are indexed):
+<code>from: Agent Smith</code></p>
+<p>Emails to someone in Big company after 2018.01.31 00:00:00:
+<code>date1: 2018-01-31, to: @bigcompany.com</code></p>
+<p>Emails from jane@aaa.fu OR bill@aaa.fu in 2018 March having any kind of attachment:
+<code>date1:2018-03-01, date2:2018-03-31, from: jane@aaa.fu OR bill@aaa.fu a:any</code></p>
+<p>Emails from jane@aaa.fu OR bill@aaa.fu on 2018.02.15 having any kind of attachment:
+<code>date1:2018-02-15, date2:2018-02-15, from: jane@aaa.fu OR bill@aaa.fu a:any</code></p>
+<p>Emails on 2018.02.15 that both jane@aaa.fu AND bill@aaa.fu received having any kind of attachment:
+<code>date1:2018-02-15, date2:2018-02-15, to: jane@aaa.fu bill@aaa.fu a:any</code></p>
+<p>Viagra spam bigger than 200 kB spoofing my email address as the sender, and having 'order', then 'now' in the body:
+<code>size:&gt;.2M, subject: viagra OR cialis, body: order &lt;&lt; now, from: my@email.address</code></p>
+<p>Emails with the following expression: ‘you have to know’:
+<code>“you have to know”</code></p>
+<p>Price list to jenny@aaa.fu, in pdf attachment(s) smaller than 150 kB:
+<code>size:&lt;150k, a: pdf, subject: price list, to: jenny@aaa.fu</code></p>
+<p>Price list to jenny@aaa.fu, in pdf attachment(s) not containing the word ‘discount’:
+<code>a: pdf, subject: price list !discount, to: jenny@aaa.fu</code></p>
+<p>Search using a wildcard for words like permission, permissions, permissing, etc.
+(Note that you need at least 5 characters before the * symbol):
+<code>permissi*</code></p>
+<p>See the following table on some additional search operators:</p>
+<table>
+<thead>
+<tr>
+<th>Expression</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cat dog</td>
+<td>Having cat and dog (order is not important)</td>
+</tr>
+<tr>
+<td>cat OR dog</td>
+<td>Having cat or dog</td>
+</tr>
+<tr>
+<td>cat</td>
+<td>dog</td>
+</tr>
+<tr>
+<td>“cat dog”</td>
+<td>Having the expression “cat dog”</td>
+</tr>
+<tr>
+<td>!dog</td>
+<td>Not having dog</td>
+</tr>
+<tr>
+<td>-dog</td>
+<td>Not having dog</td>
+</tr>
+<tr>
+<td>“cat dog” ~10</td>
+<td>Proximity search</td>
+</tr>
+<tr>
+<td>cat &lt;&lt; dog</td>
+<td>Before operator: cat has to precede dog</td>
+</tr>
+</tbody>
+</table>
+<h3 id="advanced-or-guided-search">Advanced (or guided) search<a class="headerlink" href="#advanced-or-guided-search" title="Permanent link">#</a></h3>
+<p>The other search interface is the advanced or guided search. It's a popup window you can get by clicking on
+either the down arrow in the right corner of the search field or the “Advanced search” button.</p>
+<p><img alt="" src="../images/advanced-search.png" /></p>
+<p>The quick search and the advanced search are equivalent, they give you the same possibilities to define a
+search query. The advanced search presents you a list of separated input fields giving a better visual
+view where you can specify the same fields (From, To, dates, etc.) as with the quick search.</p>
+<h3 id="recall-previous-search-queries">Recall previous search queries<a class="headerlink" href="#recall-previous-search-queries" title="Permanent link">#</a></h3>
+<p>You may see a down arrow at the right side of the search field. Click on it to see your previous search
+queries, then select the search term you want to execute again.</p>
+<p><img alt="" src="../images/search-history.png" /></p>
+<h3 id="save-a-search-query">Save a search query<a class="headerlink" href="#save-a-search-query" title="Permanent link">#</a></h3>
+<p>The UI lets you save then load search queries. It's especially handy if you entered a longer search expression
+or if you have to perform some regular searches. To save the current search query, click on the “Save query” button.</p>
+<h3 id="execute-a-saved-search-criteria">Execute a saved search criteria<a class="headerlink" href="#execute-a-saved-search-criteria" title="Permanent link">#</a></h3>
+<p>Click on the “Load queries” button to recall your saved searches, then click on the appropriate search
+criteria to execute it. You may remove a saved query by clicking on the red trash bin icon next to the search expression.</p>
+<p><img alt="" src="../images/search-saved.png" /></p>
+<h2 id="use-the-search-results">Use the search results<a class="headerlink" href="#use-the-search-results" title="Permanent link">#</a></h2>
+<p>If you have a search result then you can view any of the messages by clicking on it, eg. on the subject line.
+The message is shown in the preview pane to the right.</p>
+<p><img alt="" src="../images/view-message.png" /></p>
+<p>You don’t have to open a message to view its contents. You may simply hover over the subject text in the search results
+list to see the first few hundred bytes of the message.</p>
+<h2 id="tag-messages">Tag messages<a class="headerlink" href="#tag-messages" title="Permanent link">#</a></h2>
+<p>You may assign tags to selected emails. To do that perform a query providing the search results you want to tag, then
+select the appropriate messages you want to tag. Enter the tag name to the input field, and finally click on the tag icon.</p>
+<p><img alt="" src="../images/tag-message.png" /></p>
+<p>Then you may use “tag:mytag” search query to recall such tagged messages.</p>
+<p>You may also remove assigned tags. To do that select the messages you want to un-tag. Click on the tag icon, leave
+the tag field empty, then click on the "Tag" button.</p>
+<h2 id="add-notes-to-messages">Add notes to messages<a class="headerlink" href="#add-notes-to-messages" title="Permanent link">#</a></h2>
+<p>You may assign notes to individual messages. To do that select the given message, and type your notes on the preview window
+in the lower pane, then finally click on the “Save” button.</p>
+<p><img alt="" src="../images/note-message.png" /></p>
+<p>Then you may use the <code>note: keywords</code> to recall such a message, eg. <code>note: test note</code></p>
+<h2 id="download-messages">Download messages<a class="headerlink" href="#download-messages" title="Permanent link">#</a></h2>
+<p>You may download individual emails by clicking on the Download link or icon in the message preview pane. Click on the PDF icon
+to download the message as a PDF file.</p>
+<p>It's also possible to download the search results from the current page as a zip file. To do so, select some or all messages
+in the upper search results window, then click on the download icon.</p>
+<p><img alt="" src="../images/download-messages.png" /></p>
+<h2 id="restore-messages">Restore messages<a class="headerlink" href="#restore-messages" title="Permanent link">#</a></h2>
+<p>You may restore a single message by clicking the message, and then on the restore button or link in the preview pane.
+The message is restored to your mailbox.</p>
+<p>Just as with the download feature, you may also restore several messages at a time. Select the messages you want to restore,
+then click on the right arrow icon on the top left icon bar.</p>
+<p><img alt="" src="../images/restore-messages.png" /></p>
+<h2 id="exporting-messages-from-the-ui">Exporting messages from the UI<a class="headerlink" href="#exporting-messages-from-the-ui" title="Permanent link">#</a></h2>
+<p>You may download 20-100 emails from the UI at the same time by selecting them.
+What if you entered a search query, and it produced 5000 hits, and you need all of them?</p>
+<p>If the archive administrators enabled the export feature, you may click on the save icon (it looks like a floppy disc)
+in the top left icon bar to initiate a background process that exports all emails matching the search query.</p>
+<p>Then click on the "Exports" button, and you may download a zip file containing the emails. Be sure to click on the "Remove" link after you downloaded the zip file.</p>
+<p><img alt="" src="../images/export-messages.png" /></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>
