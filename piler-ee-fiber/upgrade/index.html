@@ -8,7 +8,7 @@
       
       
       
-        <link rel="canonical" href="https://jsuto.github.io/piler-ee-v2/new-features-in-2.0.0/">
+        <link rel="canonical" href="https://jsuto.github.io/piler-ee-v2/upgrade/">
       
       
       
@@ -18,7 +18,7 @@
     
     
       
-        <title>What's new in 2.0.0 - piler enterprise documentation</title>
+        <title>Upgrading - piler enterprise documentation</title>
       
     
     
@@ -60,7 +60,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#whats-new-in-200" class="md-skip">
+        <a href="#upgrading" class="md-skip">
           Skip to content
         </a>
       
@@ -96,7 +96,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              What's new in 2.0.0
+              Upgrading
             
           </span>
         </div>
@@ -256,54 +256,18 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#better-ui-performance" class="md-nav__link">
+  <a href="#prerequisites" class="md-nav__link">
     <span class="md-ellipsis">
-      Better UI performance
+      Prerequisites
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#jwt-token-authentication" class="md-nav__link">
+  <a href="#upgrade-steps" class="md-nav__link">
     <span class="md-ellipsis">
-      JWT token authentication
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#support-for-external-authentiation" class="md-nav__link">
-    <span class="md-ellipsis">
-      Support for external authentiation
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#audit-records-moved-to-manticore" class="md-nav__link">
-    <span class="md-ellipsis">
-      Audit records moved to Manticore
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#ui-license" class="md-nav__link">
-    <span class="md-ellipsis">
-      UI license
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#dot-env-style-configuration" class="md-nav__link">
-    <span class="md-ellipsis">
-      Dot-env style configuration
+      Upgrade steps
     </span>
   </a>
   
@@ -325,30 +289,19 @@
 
 
 
-<h1 id="whats-new-in-200">What's new in 2.0.0<a class="headerlink" href="#whats-new-in-200" title="Permanent link">#</a></h1>
+<h1 id="upgrading">Upgrading<a class="headerlink" href="#upgrading" title="Permanent link">#</a></h1>
 <p>This documentation applies to Piler enterprise edition 2.0.0</p>
 <p>Revision #1</p>
 <p>Publication date: 2025-SEP-26</p>
-<h2 id="better-ui-performance">Better UI performance<a class="headerlink" href="#better-ui-performance" title="Permanent link">#</a></h2>
-<p>Piler enterprise has a new web app backend. While the 1.x series relies on nginx+PHP,
-the 2.x series has been rewritten using Go Fiber. While the look of the UI is
-the same, the backend offers a much better performance, see the <a href="../benchmarks/">benchmark comparison</a>
-between fiber and the legacy nginx+php app.</p>
-<h2 id="jwt-token-authentication">JWT token authentication<a class="headerlink" href="#jwt-token-authentication" title="Permanent link">#</a></h2>
-<p>The REST API uses JWT tokens to authenticate the request.</p>
-<h2 id="support-for-external-authentiation">Support for external authentiation<a class="headerlink" href="#support-for-external-authentiation" title="Permanent link">#</a></h2>
-<p>It's possible to use ED25519 signed JWT tokens to let an external application authenticate
-users, and grant them a user session in the piler UI.</p>
-<h2 id="audit-records-moved-to-manticore">Audit records moved to Manticore<a class="headerlink" href="#audit-records-moved-to-manticore" title="Permanent link">#</a></h2>
-<p>To offer better searchability, the audit records are written to a manticore table.</p>
-<h2 id="ui-license">UI license<a class="headerlink" href="#ui-license" title="Permanent link">#</a></h2>
-<p>The UI requires a dedicated license file.</p>
-<h2 id="dot-env-style-configuration">Dot-env style configuration<a class="headerlink" href="#dot-env-style-configuration" title="Permanent link">#</a></h2>
-<p>The fiber UI uses an .env file (similar to what node.js apps use) to set various parameters.</p>
-<p>When having a multi-tenant deployment, the global values can be overridden by setting
-the per-tenant values in the piler database customer_settings table <code>settings_json</code> column, eg.</p>
-<pre><code>{&quot;HEADER_LINK_TITLE&quot;:&quot;Example archive&quot;, &quot;HEADER_LINK&quot;:&quot;https://example.com&quot;}
-</code></pre>
+<p>The 2.x version ships a brand new web app that is not compatible with the old one,
+has a different configuration mechanism, and has a few prerequisites</p>
+<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">#</a></h2>
+<ul>
+<li>real time index</li>
+<li>dynamic indexes when using a multi-tenant deployment</li>
+</ul>
+<h2 id="upgrade-steps">Upgrade steps<a class="headerlink" href="#upgrade-steps" title="Permanent link">#</a></h2>
+<p>...</p>
 
 
 
