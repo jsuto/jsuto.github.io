@@ -6,6 +6,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://jsuto.github.io/piler-ee-v2/benchmarks/</loc>
+         <lastmod>2025-09-26</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://jsuto.github.io/piler-ee-v2/fiber-ui-config-options/</loc>
          <lastmod>2025-09-26</lastmod>
          <changefreq>daily</changefreq>

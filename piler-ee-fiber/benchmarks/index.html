@@ -8,7 +8,7 @@
       
       
       
-        <link rel="canonical" href="https://jsuto.github.io/piler-ee-v2/new-features-in-2.0.0/">
+        <link rel="canonical" href="https://jsuto.github.io/piler-ee-v2/benchmarks/">
       
       
       
@@ -18,7 +18,7 @@
     
     
       
-        <title>What's new in 2.0.0 - piler enterprise documentation</title>
+        <title>Benchmarking the new fiber UI - piler enterprise documentation</title>
       
     
     
@@ -60,7 +60,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#whats-new-in-200" class="md-skip">
+        <a href="#benchmarking-the-new-fiber-ui" class="md-skip">
           Skip to content
         </a>
       
@@ -96,7 +96,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              What's new in 2.0.0
+              Benchmarking the new fiber UI
             
           </span>
         </div>
@@ -256,27 +256,27 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#better-ui-performance" class="md-nav__link">
+  <a href="#benchmark-comparison" class="md-nav__link">
     <span class="md-ellipsis">
-      Better UI performance
+      Benchmark comparison
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#jwt-token-authentication" class="md-nav__link">
+  <a href="#the-results" class="md-nav__link">
     <span class="md-ellipsis">
-      JWT token authentication
+      The results
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#support-for-external-authentiation" class="md-nav__link">
+  <a href="#why-nginxphp-fpm-tops-out-earlier" class="md-nav__link">
     <span class="md-ellipsis">
-      Support for external authentiation
+      Why nginx/php-fpm tops out earlier
     </span>
   </a>
   
@@ -298,20 +298,51 @@
 
 
 
-<h1 id="whats-new-in-200">What's new in 2.0.0<a class="headerlink" href="#whats-new-in-200" title="Permanent link">#</a></h1>
+<h1 id="benchmarking-the-new-fiber-ui">Benchmarking the new fiber UI<a class="headerlink" href="#benchmarking-the-new-fiber-ui" title="Permanent link">#</a></h1>
 <p>This documentation applies to Piler enterprise edition 2.0.0</p>
 <p>Revision #1</p>
 <p>Publication date: 2025-SEP-26</p>
-<h2 id="better-ui-performance">Better UI performance<a class="headerlink" href="#better-ui-performance" title="Permanent link">#</a></h2>
 <p>Piler enterprise has a new web app backend. While the 1.x series relies on nginx+PHP,
 the 2.x series has been rewritten using Go Fiber. While the look of the UI is
-the same, the backend offers a much better performance, see the <a href="../benchmarks/">benchmark comparison</a>
-between fiber and the legacy nginx+php app.</p>
-<h2 id="jwt-token-authentication">JWT token authentication<a class="headerlink" href="#jwt-token-authentication" title="Permanent link">#</a></h2>
-<p>The REST API uses JWT tokens to authenticate the request.</p>
-<h2 id="support-for-external-authentiation">Support for external authentiation<a class="headerlink" href="#support-for-external-authentiation" title="Permanent link">#</a></h2>
-<p>It's possible to use ED25519 signed JWT tokens to let an external application authenticate
-users, and grant them a user session in the piler UI.</p>
+the same, the backend offers a much better performance.</p>
+<h2 id="benchmark-comparison">Benchmark comparison<a class="headerlink" href="#benchmark-comparison" title="Permanent link">#</a></h2>
+<p>The below numbers apply to a virtual machine (VM) having 2 vCPUs and 2 GB memory.
+Both the fiber and the nginx+php combo have been hit by the k6 performance testing tool
+using 50 virtual users (VU) for 30s.</p>
+<p>The search test used an array of 5 search expressions. The view test used an array of
+5 messages ranging from 6 kB to 300 kB. Also the search test included a 0.001s delay
+between requests.</p>
+<h2 id="the-results">The results<a class="headerlink" href="#the-results" title="Permanent link">#</a></h2>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>fiber</th>
+<th>nginx+php</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Search</td>
+<td>28-29k</td>
+<td>9.2k</td>
+</tr>
+<tr>
+<td>View</td>
+<td>18k</td>
+<td>1.7k</td>
+</tr>
+</tbody>
+</table>
+<p>The results indicate that the fiber UI outperforms the legacy UI by a factor of 3 when searching,
+and by a factor of 10 when retrieving emails from the storage.</p>
+<h2 id="why-nginxphp-fpm-tops-out-earlier">Why nginx/php-fpm tops out earlier<a class="headerlink" href="#why-nginxphp-fpm-tops-out-earlier" title="Permanent link">#</a></h2>
+<p>Context switching: PHP-FPM spawns pools of workers, each a separate process. Even with tuning, there’s higher scheduling overhead compared to Fiber goroutines.</p>
+<p>IPC overhead: Every request goes through nginx → fastcgi interface → PHP-FPM socket. Fiber skips this layer.</p>
+<p>Memory pressure: With 2 GB RAM, each PHP-FPM worker might use 20–50 MB under load. 50 workers could eat most of your RAM, so pm.max_children can’t be raised too high.</p>
+<p>PHP runtime cost: Each request must bootstrap PHP, autoload, parse code paths, etc. Fiber just dispatches Go handlers in memory.</p>
+<p>The throughput ceiling is in the PHP code execution itself (runtime overhead + DB roundtrips).</p>
+<p>That’s why Fiber is already giving you a 3× boost with the same DB backend and hardware.</p>
 
 
 
