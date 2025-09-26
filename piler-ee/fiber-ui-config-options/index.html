@@ -311,36 +311,23 @@
                 
             <li class="second-level"><a href="#header_line_to_hide">HEADER_LINE_TO_HIDE</a></li>
                 
-            <li class="second-level"><a href="#saml_cert_file">SAML_CERT_FILE</a></li>
+            <li class="second-level"><a href="#example-header_line_to_hidereceiveddelivered-to">Example: HEADER_LINE_TO_HIDE=Received,Delivered-To</a></li>
                 
-            <li class="second-level"><a href="#saml_key_file">SAML_KEY_FILE</a></li>
-                
-            <li class="second-level"><a href="#saml_metadata_url">SAML_METADATA_URL</a></li>
-                
-            <li class="second-level"><a href="#tsa_public_key_file">TSA_PUBLIC_KEY_FILE</a></li>
-                
-            <li class="second-level"><a href="#jwt_rsa_public_keys_dir">JWT_RSA_PUBLIC_KEYS_DIR</a></li>
-                
-            <li class="second-level"><a href="#content_security_policy">CONTENT_SECURITY_POLICY</a></li>
-                
-            <li class="second-level"><a href="#s3_endpoint">S3_ENDPOINT</a></li>
-                
-            <li class="second-level"><a href="#s3_access_key">S3_ACCESS_KEY</a></li>
-                
-            <li class="second-level"><a href="#s3_secret_key">S3_SECRET_KEY</a></li>
-                
-            <li class="second-level"><a href="#s3_use_ssl">S3_USE_SSL</a></li>
-                
-            <li class="second-level"><a href="#s3_region">S3_REGION</a></li>
-                
-            <li class="second-level"><a href="#s3_bucket_prefix">S3_BUCKET_PREFIX</a></li>
-                
-            <li class="second-level"><a href="#s3_use_subdirs">S3_USE_SUBDIRS</a></li>
-                
-            <li class="second-level"><a href="#demo_mode">DEMO_MODE</a></li>
-                
-            <li class="second-level"><a href="#allowed_cidrs">ALLOWED_CIDRS</a></li>
-                
+                <li class="third-level"><a href="#saml_cert_file">SAML_CERT_FILE</a></li>
+                <li class="third-level"><a href="#saml_key_file">SAML_KEY_FILE</a></li>
+                <li class="third-level"><a href="#saml_metadata_url">SAML_METADATA_URL</a></li>
+                <li class="third-level"><a href="#tsa_public_key_file">TSA_PUBLIC_KEY_FILE</a></li>
+                <li class="third-level"><a href="#jwt_rsa_public_keys_dir">JWT_RSA_PUBLIC_KEYS_DIR</a></li>
+                <li class="third-level"><a href="#content_security_policy">CONTENT_SECURITY_POLICY</a></li>
+                <li class="third-level"><a href="#s3_endpoint">S3_ENDPOINT</a></li>
+                <li class="third-level"><a href="#s3_access_key">S3_ACCESS_KEY</a></li>
+                <li class="third-level"><a href="#s3_secret_key">S3_SECRET_KEY</a></li>
+                <li class="third-level"><a href="#s3_use_ssl">S3_USE_SSL</a></li>
+                <li class="third-level"><a href="#s3_region">S3_REGION</a></li>
+                <li class="third-level"><a href="#s3_bucket_prefix">S3_BUCKET_PREFIX</a></li>
+                <li class="third-level"><a href="#s3_use_subdirs">S3_USE_SUBDIRS</a></li>
+                <li class="third-level"><a href="#demo_mode">DEMO_MODE</a></li>
+                <li class="third-level"><a href="#allowed_cidrs">ALLOWED_CIDRS</a></li>
     </ul>
 </div></div>
         <div class="col-md-9" role="main">
@@ -784,8 +771,8 @@ the storage, eg. view, download, attachments (requests per second).</p>
 <hr />
 <h3 id="header_line_to_hide">HEADER_LINE_TO_HIDE<a class="headerlink" href="#header_line_to_hide" title="Permanent link">#</a></h3>
 <p>Default value: <code>""</code></p>
-<p>Description: Comma separated Email header lines to hide in the UI.</p>
-<hr />
+<p>Description: Comma separated Email header lines (without the colon!) to hide in the UI.</p>
+<h2 id="example-header_line_to_hidereceiveddelivered-to">Example: HEADER_LINE_TO_HIDE=Received,Delivered-To<a class="headerlink" href="#example-header_line_to_hidereceiveddelivered-to" title="Permanent link">#</a></h2>
 <h3 id="saml_cert_file">SAML_CERT_FILE<a class="headerlink" href="#saml_cert_file" title="Permanent link">#</a></h3>
 <p>Default value: <code>saml.crt</code></p>
 <p>Description: Path to the SAML certificate file.</p>

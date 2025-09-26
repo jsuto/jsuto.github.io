@@ -7,11 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     
-    <link rel="canonical" href="https://jsuto.github.io/piler-ee/">
-    <link rel="shortcut icon" href="img/favicon.ico">
+    <link rel="canonical" href="https://jsuto.github.io/piler-ee/performance/">
+    <link rel="shortcut icon" href="../img/favicon.ico">
 
     
-    <title>Home - piler enterprise documentation</title>
+    <title>Performance tuning - piler enterprise documentation</title>
     
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
@@ -19,9 +19,9 @@
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.min.css">
     <link href='//rsms.me/inter/inter.css' rel='stylesheet' type='text/css'>
     <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
-    <link href="css/bootstrap-custom.min.css" rel="stylesheet">
-    <link href="css/base.min.css" rel="stylesheet">
-    <link href="css/cinder.min.css" rel="stylesheet">
+    <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
+    <link href="../css/base.min.css" rel="stylesheet">
+    <link href="../css/cinder.min.css" rel="stylesheet">
 
     
         
@@ -40,7 +40,7 @@
      
 </head>
 
-<body class="homepage" >
+<body>
 
     <div class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container">
@@ -59,7 +59,7 @@
             <!-- Main title -->
 
             
-              <a class="navbar-brand" href=".">piler enterprise documentation</a>
+              <a class="navbar-brand" href="..">piler enterprise documentation</a>
             
         </div>
 
@@ -69,8 +69,8 @@
                 <ul class="nav navbar-nav">
                 
                 
-                    <li class="active">
-                        <a href=".">Home</a>
+                    <li >
+                        <a href="..">Home</a>
                     </li>
                 
                 
@@ -98,54 +98,135 @@
         
         <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
-        <li class="first-level active"><a href="#piler-enterprise-documentation">Piler enterprise documentation</a></li>
-            <li class="second-level"><a href="#generic-notes">Generic notes</a></li>
+        <li class="first-level active"><a href="#performance-tuning">Performance tuning</a></li>
+            <li class="second-level"><a href="#tuning-nginx">Tuning nginx</a></li>
                 
-            <li class="second-level"><a href="#new-features-in-18x">New features in 1.8.x</a></li>
+            <li class="second-level"><a href="#tuning-php">Tuning PHP</a></li>
                 
-            <li class="second-level"><a href="#for-end-users">For end users</a></li>
-                
-            <li class="second-level"><a href="#for-administrators">For administrators</a></li>
-                
-            <li class="second-level"><a href="#video-tutorials">Video tutorials</a></li>
+                <li class="third-level"><a href="#key-points">Key points:</a></li>
+            <li class="second-level"><a href="#enable-php-fpm-status">Enable php-fpm status</a></li>
                 
     </ul>
 </div></div>
         <div class="col-md-9" role="main">
 
-<h1 id="piler-enterprise-documentation">Piler enterprise documentation<a class="headerlink" href="#piler-enterprise-documentation" title="Permanent link">#</a></h1>
-<h2 id="generic-notes">Generic notes<a class="headerlink" href="#generic-notes" title="Permanent link">#</a></h2>
-<p><a href="procedural/">Procedural documentation</a></p>
-<p><a href="https://mailpiler.com/gdpr-related-notes/" target="_blank">GDPR related notes</a></p>
-<p><a href="https://drive.google.com/file/d/1dfIFcDdfiA5HADR6FmxpPNeU8K-vjTaQ/" target="_blank">Piler Verfahrensdokumentation Enterprise Edition</a></p>
-<h2 id="new-features-in-18x">New features in 1.8.x<a class="headerlink" href="#new-features-in-18x" title="Permanent link">#</a></h2>
-<p><a href="new-features-in-1.8.4/">New features in 1.8.4</a></p>
-<p><a href="new-features-in-1.8.2/">New features in 1.8.2</a></p>
-<p><a href="new-features-in-1.8.0/">New features in 1.8.0</a></p>
-<h2 id="for-end-users">For end users<a class="headerlink" href="#for-end-users" title="Permanent link">#</a></h2>
-<p><a href="enduser/">End user guide to piler enterprise edition</a></p>
-<h2 id="for-administrators">For administrators<a class="headerlink" href="#for-administrators" title="Permanent link">#</a></h2>
-<p><a href="https://sizing.mailpiler.com/" target="_blank">Email archive sizing calculator</a></p>
-<p><a href="https://mailpiler.com/RELEASE_NOTES" target="_blank">Release notes</a></p>
-<p><a href="upgrade/">Upgrading piler enterprise</a></p>
-<p><a href="migrate-sphinx-to-manticore/">Migrating from sphinx to manticore</a></p>
-<p><a href="installation/">Installing piler enterprise edition</a></p>
-<p><a href="administering/">Administering Piler enterprise edition</a></p>
-<p><a href="import-export/">Importing / exporting emails</a></p>
-<p><a href="configuring-the-mailserver/">Configuring the mail server for email archiving with Piler enterprise edition</a></p>
-<p><a href="restapi/">Using the REST API</a></p>
-<p><a href="https://mailpiler.com/using-azure-ad-single-sign-on-sso/" target="_blank">Authenticate against Azure AD</a></p>
-<p><a href="https://mailpiler.com/using-aws-cognito-single-sign-on-sso/" target="_blank">Authenticate against AWS Cognito</a></p>
-<p><a href="https://mailpiler.com/authenticate-against-google-workspace-formerly-gsuite/" target="_blank">Authenticate against Google Workspace</a></p>
-<p><a href="performance/">Performance tuning</a></p>
-<p><a href="troubleshooting/">Troubleshooting</a></p>
-<h2 id="video-tutorials">Video tutorials<a class="headerlink" href="#video-tutorials" title="Permanent link">#</a></h2>
-<p><a href="https://youtu.be/9U8C8u3r_Bw" target="_blank">The bucket feature (10 min)</a></p>
-<p><a href="https://youtu.be/A1U7I7-D00o" target="_blank">Installing piler enterprise on a single ubuntu focal node (9 min)</a></p>
-<p><a href="https://www.youtube.com/watch?v=HUJ9ufBxU_Y" target="_blank">End user guide to the GUI, part #1: basic features (11 min)</a></p>
-<p><a href="https://www.youtube.com/watch?v=4sobGxL_tMA" target="_blank">End user guide to the GUI, part #2: searching (12 min)</a></p>
-<p><a href="https://youtu.be/2d8cxvhupx0" target="_blank">Setting up LDAP authentication in the GUI (4 min)</a></p>
-<p><a href="https://youtu.be/TTkhePF8B7s" target="_blank">Creating customers in a multi-tenant deployment (12 min)</a></p></div>
+<h1 id="performance-tuning">Performance tuning<a class="headerlink" href="#performance-tuning" title="Permanent link">#</a></h1>
+<p>This documentation applies to Piler enterprise edition 1.8.x</p>
+<p>Revision #1</p>
+<p>Publication date: 2025-09-26</p>
+<p>In the below example, we optimise for a 2 vCPU + 2 GB RAM box for high concurrency without exhausting memory</p>
+<h2 id="tuning-nginx">Tuning nginx<a class="headerlink" href="#tuning-nginx" title="Permanent link">#</a></h2>
+<p>/etc/nginx/nginx.conf:</p>
+<pre><code>events {
+    worker_connections 4096;   # worker_connections * worker_processes = max simultaneous connections
+    multi_accept on;           # accept as many as possible
+    use epoll;                 # (Linux only, usually auto-detected)
+}
+
+http {
+    sendfile on;
+    tcp_nopush on;
+    tcp_nodelay on;
+
+    keepalive_timeout 65;
+    keepalive_requests 10000;
+
+    client_max_body_size 4M;
+    client_body_buffer_size 128k;
+    client_header_buffer_size 4k;
+    large_client_header_buffers 4 16k;
+
+    # Buffers for fastcgi (PHP-FPM)
+    fastcgi_buffers 16 16k;
+    fastcgi_buffer_size 32k;
+    fastcgi_busy_buffers_size 64k;
+    fastcgi_temp_file_write_size 64k;
+    fastcgi_connect_timeout 30s;
+    fastcgi_send_timeout 30s;
+    fastcgi_read_timeout 30s;
+}
+</code></pre>
+<h2 id="tuning-php">Tuning PHP<a class="headerlink" href="#tuning-php" title="Permanent link">#</a></h2>
+<p>/etc/php/8.3/fpm/pool.d/www.conf:</p>
+<pre><code>; --- Process management ---
+pm = dynamic
+pm.max_children = 40        ; hard cap on workers, prevents OOM
+pm.start_servers = 6        ; reasonable initial pool
+pm.min_spare_servers = 6
+pm.max_spare_servers = 20
+
+; --- Recycling ---
+pm.max_requests = 500       ; recycle workers to avoid leaks
+
+; --- Timeouts ---
+request_terminate_timeout = 30s
+request_slowlog_timeout = 10s
+slowlog = /var/log/php8.3-fpm.slow.log
+
+; --- Logging ---
+catch_workers_output = yes
+
+; --- Resource limits ---
+rlimit_files = 65535
+rlimit_core = 0
+
+; --- PHP INI overrides (per pool) ---
+php_admin_value[memory_limit] = 256M   ; cap memory per worker
+php_admin_value[max_execution_time] = 30
+php_admin_value[post_max_size] = 4M
+php_admin_value[upload_max_filesize] = 4M
+php_admin_value[expose_php] = 0
+
+; PHP-FPM status page
+pm.status_path = /php-fpm-status
+ping.path = /ping
+ping.response = pong
+</code></pre>
+<p>/etc/php/8.3/fpm/php.ini:</p>
+<pre><code>opcache.enable=1
+opcache.enable_cli=1
+opcache.memory_consumption=256    ; shared memory in MB
+opcache.interned_strings_buffer=16
+opcache.max_accelerated_files=20000
+opcache.validate_timestamps=1     ; check file changes
+opcache.revalidate_freq=2
+opcache.fast_shutdown=1
+
+realpath_cache_size=4096k
+realpath_cache_ttl=600
+</code></pre>
+<h3 id="key-points">Key points:<a class="headerlink" href="#key-points" title="Permanent link">#</a></h3>
+<p>pm.max_children = 40 → with 2 GB RAM and ~30–40 MB per worker under search load, this is safe.</p>
+<p>pm.max_requests = 500 → prevents long-lived workers from fragmenting memory.</p>
+<p>Memory cap (memory_limit = 256M) → ensures no runaway scripts eat too much.</p>
+<p>rlimit_files raised → nginx + php-fpm under load can otherwise hit "Too many open files" error.</p>
+<h2 id="enable-php-fpm-status">Enable php-fpm status<a class="headerlink" href="#enable-php-fpm-status" title="Permanent link">#</a></h2>
+<p>/etc/piler/piler-nginx:</p>
+<pre><code>location ~ ^/(php-fpm-status|ping)$ {
+    fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    include fastcgi_params;
+    fastcgi_pass unix:/run/php/php8.3-fpm.sock;
+    allow 127.0.0.1;
+    deny all;
+}
+</code></pre>
+<p>Check metrics:</p>
+<pre><code>curl http://127.0.0.1/php-fpm-status
+</code></pre>
+<p>The result is something like</p>
+<pre><code>pool:                 www
+process manager:      dynamic
+start time:           15/Sep/2025:12:00:00 +0000
+accepted conn:        10234
+listen queue:         0
+max children reached: 0
+active processes:     12
+idle processes:       8
+</code></pre>
+<p>Key fields:</p>
+<p>listen queue &gt; 0 → requests are waiting (too few workers).</p>
+<p>max children reached &gt; 0 → all workers were busy (raise pm.max_children).</p>
+<p>active processes close to max_children under load → you’re at capacity.</p></div>
         
         
     </div>
@@ -165,7 +246,7 @@
       </footer>
     
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="js/bootstrap-3.0.3.min.js"></script>
+    <script src="../js/bootstrap-3.0.3.min.js"></script>
 
     
     <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/highlight.min.js"></script>
@@ -173,10 +254,10 @@
     <script>hljs.initHighlightingOnLoad();</script>
     
 
-    <script>var base_url = "."</script>
+    <script>var base_url = ".."</script>
     
-    <script src="js/base.js"></script>
-    <script src="search/main.js"></script>
+    <script src="../js/base.js"></script>
+    <script src="../search/main.js"></script>
 
     <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -247,8 +328,3 @@
     </body>
 
 </html>
-
-<!--
-MkDocs version : 1.6.0
-Build Date UTC : 2025-09-26 03:14:05.107018+00:00
--->
