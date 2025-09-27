@@ -8,7 +8,7 @@
       
       
       
-        <link rel="canonical" href="https://jsuto.github.io/piler-ee-v2/rest/">
+        <link rel="canonical" href="https://jsuto.github.io/piler-ee-v2/azure-ad-auth/">
       
       
       
@@ -18,7 +18,7 @@
     
     
       
-        <title>REST API - piler enterprise 2.x documentation</title>
+        <title>Authenticating against Azure AD/Entra - piler enterprise 2.x documentation</title>
       
     
     
@@ -60,7 +60,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#rest-api" class="md-skip">
+        <a href="#authenticating-against-azure-adentra" class="md-skip">
           Skip to content
         </a>
       
@@ -96,7 +96,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              REST API
+              Authenticating against Azure AD/Entra
             
           </span>
         </div>
@@ -256,18 +256,36 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#get-the-jwt-access-token" class="md-nav__link">
+  <a href="#prerequisites" class="md-nav__link">
     <span class="md-ellipsis">
-      Get the JWT access token
+      Prerequisites
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#domain-handling" class="md-nav__link">
+  <a href="#setup-the-application-in-azure" class="md-nav__link">
     <span class="md-ellipsis">
-      Domain handling
+      Setup the application in Azure
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configure-the-piler-ui-to-allow-azure-ad-authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configure the piler UI to allow Azure AD authentication
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#let-the-users-log-in" class="md-nav__link">
+    <span class="md-ellipsis">
+      Let the users log in
     </span>
   </a>
   
@@ -289,19 +307,37 @@
 
 
 
-<h1 id="rest-api">REST API<a class="headerlink" href="#rest-api" title="Permanent link">#</a></h1>
-<h2 id="get-the-jwt-access-token">Get the JWT access token<a class="headerlink" href="#get-the-jwt-access-token" title="Permanent link">#</a></h2>
-<pre><code>ACCESS_TOKEN=&quot;$( curl -s -X POST \
-    -H &quot;Content-Type: application/json&quot; \
-    -d '{&quot;username&quot;:&quot;user@example.com&quot;, &quot;password&quot;:&quot;password&quot;}' \
-    &quot;https://archive.example.com/auth/login&quot; | jq -r '.access_token' )&quot;
+<h1 id="authenticating-against-azure-adentra">Authenticating against Azure AD/Entra<a class="headerlink" href="#authenticating-against-azure-adentra" title="Permanent link">#</a></h1>
+<p>This documentation applies to Piler enterprise edition 2.0.0</p>
+<p>Revision #1</p>
+<p>Publication date: 2025-SEP-26</p>
+<p>Azure is a popular cloud provider, and the piler UI supports Azure AD/Entra to provide Single Sign-On (SSO).</p>
+<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">#</a></h2>
+<p>You have an Azure subscription or trial, you have created users and preferably groups in the appropriate Azure tenant.</p>
+<p>Click on “App registration“, enter a name for the application, select “Any Azure AD directory – Multitenant” at the supported account types,
+and set the “Redirect URI“. Be sure to replace “archive.exmple.com” with your archive FQDN. Finally record the application (client) id value.</p>
+<h2 id="setup-the-application-in-azure">Setup the application in Azure<a class="headerlink" href="#setup-the-application-in-azure" title="Permanent link">#</a></h2>
+<p><img alt="" src="../images/azure-register-app.png" /></p>
+<p>Click “Certificates and secrets”, create a new client secret, and record the secret value.</p>
+<p><img alt="" src="../images/azure-create-secret.png" /></p>
+<p>Select “API permissions”, and add the following permissions, then click on the “Grant Admin consent for …” button</p>
+<p><img alt="" src="../images/azure-07-permissions.png" /></p>
+<h2 id="configure-the-piler-ui-to-allow-azure-ad-authentication">Configure the piler UI to allow Azure AD authentication<a class="headerlink" href="#configure-the-piler-ui-to-allow-azure-ad-authentication" title="Permanent link">#</a></h2>
+<p>Add the following to the .env file (or to the settings json if you have a multi-tenant license:
+Be sure to use your actual IDs and secret values!</p>
+<pre><code>ENABLE_AZURE_AUTH=true
+AZURE_REDIRECT_URL=https://archive.example.com/auth/azure/callback
+AZURE_CLIENT_SECRET=xxxxx~yyyyy_hhhhhhhhhhh.jjjjjjjjjjjjjjjj
+AZURE_CLIENT_ID=aaaaaaaaa-bbbbbb-ccccc-dddddd-eeeeeeeeeeee
+AZURE_TENANT_ID=xxxxxxx-yyyyyyy-zzzzzzzzz-tttttttttt
 </code></pre>
-<h2 id="domain-handling">Domain handling<a class="headerlink" href="#domain-handling" title="Permanent link">#</a></h2>
-<p>"${CURL[@]}" -XPOST -d '{"domain":"gmail.com","mapped":"fictive.com","ldap_id":2}' "${SITE_URL}/api/admin/domain/add"</p>
-<p>Get domains:</p>
-<p>GET: https://archive.example.com/api/admin/domain</p>
-<p>Add a domain:</p>
-<p>POST: https://archive.example.com/api/admin/domain/add</p>
+<h2 id="let-the-users-log-in">Let the users log in<a class="headerlink" href="#let-the-users-log-in" title="Permanent link">#</a></h2>
+<p>Users will see the “Azure AD” link on the login screen.</p>
+<p><img alt="" src="../images/azure-login.png" /></p>
+<p>After clicking on it the user is redirected to Azure for authentication. After providing his credentials, he’s redirected back to the piler UI.</p>
+<p><img alt="" src="../images/search-01.png" /></p>
+<p>The user also has his group assignments from Azure, and the local groups if there are any.</p>
+<p><img alt="" src="../images/azure-settings-in-piler.png" /></p>
 
 
 

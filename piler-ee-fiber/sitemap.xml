@@ -6,6 +6,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://jsuto.github.io/piler-ee-v2/azure-ad-auth/</loc>
+         <lastmod>2025-09-27</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://jsuto.github.io/piler-ee-v2/benchmarks/</loc>
          <lastmod>2025-09-27</lastmod>
          <changefreq>daily</changefreq>
@@ -22,11 +27,6 @@
     </url>
     <url>
          <loc>https://jsuto.github.io/piler-ee-v2/overview/</loc>
-         <lastmod>2025-09-27</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://jsuto.github.io/piler-ee-v2/rest/</loc>
          <lastmod>2025-09-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
