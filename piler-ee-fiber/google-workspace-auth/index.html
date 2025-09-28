@@ -8,21 +8,21 @@
       
       
       
-        <link rel="canonical" href="https://jsuto.github.io/piler-ee-v2/">
+        <link rel="canonical" href="https://jsuto.github.io/piler-ee-v2/google-workspace-auth/">
       
       
       
       
-      <link rel="icon" href="assets/images/favicon.png">
+      <link rel="icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.6.20">
     
     
       
-        <title>piler enterprise 2.x documentation</title>
+        <title>Authenticating against Google Workspace (formerly known as GSuite) - piler enterprise 2.x documentation</title>
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.e53b48f4.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.e53b48f4.min.css">
       
       
 
@@ -41,7 +41,7 @@
       
     
     
-    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -60,7 +60,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#piler-enterprise-2x-documentation" class="md-skip">
+        <a href="#authenticating-against-google-workspace-formerly-known-as-gsuite" class="md-skip">
           Skip to content
         </a>
       
@@ -76,7 +76,7 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="." title="piler enterprise 2.x documentation" class="md-header__button md-logo" aria-label="piler enterprise 2.x documentation" data-md-component="logo">
+    <a href=".." title="piler enterprise 2.x documentation" class="md-header__button md-logo" aria-label="piler enterprise 2.x documentation" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -96,7 +96,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Home
+              Authenticating against Google Workspace (formerly known as GSuite)
             
           </span>
         </div>
@@ -174,7 +174,7 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="." title="piler enterprise 2.x documentation" class="md-nav__button md-logo" aria-label="piler enterprise 2.x documentation" data-md-component="logo">
+    <a href=".." title="piler enterprise 2.x documentation" class="md-nav__button md-logo" aria-label="piler enterprise 2.x documentation" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -189,32 +189,10 @@
       
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    Home
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="." class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
         
   
   
@@ -225,62 +203,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#generic-notes" class="md-nav__link">
-    <span class="md-ellipsis">
-      Generic notes
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#new-features" class="md-nav__link">
-    <span class="md-ellipsis">
-      New features
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#for-end-users" class="md-nav__link">
-    <span class="md-ellipsis">
-      For end users
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#for-administrators" class="md-nav__link">
-    <span class="md-ellipsis">
-      For administrators
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -334,36 +256,36 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#generic-notes" class="md-nav__link">
+  <a href="#prerequisites" class="md-nav__link">
     <span class="md-ellipsis">
-      Generic notes
+      Prerequisites
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#new-features" class="md-nav__link">
+  <a href="#register-the-archive-as-a-web-application" class="md-nav__link">
     <span class="md-ellipsis">
-      New features
+      Register the archive as a web application
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#for-end-users" class="md-nav__link">
+  <a href="#configure-google-to-send-a-copy-of-each-received-email-to-piler" class="md-nav__link">
     <span class="md-ellipsis">
-      For end users
+      Configure Google to send a copy of each received email to piler
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#for-administrators" class="md-nav__link">
+  <a href="#login-for-end-users" class="md-nav__link">
     <span class="md-ellipsis">
-      For administrators
+      Login for end users
     </span>
   </a>
   
@@ -385,28 +307,41 @@
 
 
 
-<h1 id="piler-enterprise-2x-documentation">Piler enterprise 2.x documentation<a class="headerlink" href="#piler-enterprise-2x-documentation" title="Permanent link">#</a></h1>
-<h2 id="generic-notes">Generic notes<a class="headerlink" href="#generic-notes" title="Permanent link">#</a></h2>
-<p><a href="https://mailpiler.com/gdpr-related-notes/" target="_blank">GDPR related notes</a></p>
-<p><a href="https://drive.google.com/file/d/1dfIFcDdfiA5HADR6FmxpPNeU8K-vjTaQ/" target="_blank">Piler Verfahrensdokumentation Enterprise Edition</a></p>
-<h2 id="new-features">New features<a class="headerlink" href="#new-features" title="Permanent link">#</a></h2>
-<p><a href="new-features-in-2.0.0/">New features in 2.0.0</a></p>
-<h2 id="for-end-users">For end users<a class="headerlink" href="#for-end-users" title="Permanent link">#</a></h2>
-<p><a href="user-guide/">User guide to the UI</a></p>
-<h2 id="for-administrators">For administrators<a class="headerlink" href="#for-administrators" title="Permanent link">#</a></h2>
-<p><a href="overview/">Overview</a></p>
-<p><a href="https://sizing.mailpiler.com/" target="_blank">Email archive sizing calculator</a></p>
-<p><a href="https://mailpiler.com/RELEASE_NOTES" target="_blank">Release notes</a></p>
-<p><a href="upgrade/">Upgrading piler enterprise</a></p>
-<p><a href="setup/">Installing piler enterprise edition</a></p>
-<p><a href="tuning/">Tuning the archive</a></p>
-<p><a href="benchmarks/">Benchmarking the archive</a></p>
-<p><a href="fiber-ui-config-options/">UI config options</a></p>
-<p><a href="s3-storage/">Using S3 compatible storage</a></p>
-<p><a href="security/">Securing the archive</a></p>
-<p><a href="https://pileree.docs.apiary.io/#" target="_blank">REST API</a></p>
-<p><a href="azure-ad-auth/">Azure AD/Entra SSO login</a></p>
-<p><a href="google-workspace-auth/">Google Workspace SSO login</a></p>
+<h1 id="authenticating-against-google-workspace-formerly-known-as-gsuite">Authenticating against Google Workspace (formerly known as GSuite)<a class="headerlink" href="#authenticating-against-google-workspace-formerly-known-as-gsuite" title="Permanent link">#</a></h1>
+<p>This documentation applies to Piler enterprise edition 2.0.0</p>
+<p>Revision #1</p>
+<p>Publication date: 2025-SEP-26</p>
+<p>Google Workspace is a widely used email platform. This documentation describes how to setup Single Sign-On (SSO).</p>
+<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">#</a></h2>
+<p>You have your own domain at Google Workspace.</p>
+<h2 id="register-the-archive-as-a-web-application">Register the archive as a web application<a class="headerlink" href="#register-the-archive-as-a-web-application" title="Permanent link">#</a></h2>
+<p>Go to <a href="https://console.developers.google.com/apis/credentials">https://console.developers.google.com/apis/credentials</a> then click on “Create credentials”, then select “OAuth Client ID”.</p>
+<p>Fill the required fields, then click on the “CREATE” button. see the image below. Make sure you use your own archive’s hostname.</p>
+<p><img alt="" src="../images/google-oauth-client-id.png" /></p>
+<p>Then you’ll see a popup window that “OAuth client created”. Record the client id and the client secret values.</p>
+<p><img alt="" src="images/google-oauth-client-id-created.png" /></p>
+<pre><code>ENABLE_GOOGLE_AUTH=true
+GOOGLE_REDIRECT_URL=https://archive.example.com/auth/google/callback
+GOOGLE_CLIENT_ID=303962613204-lbusc167ip7oleddkrad0n66jml2igce.apps.googleusercontent.com
+GOOGLE_CLIENT_SECRET=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
+</code></pre>
+<h2 id="configure-google-to-send-a-copy-of-each-received-email-to-piler">Configure Google to send a copy of each received email to piler<a class="headerlink" href="#configure-google-to-send-a-copy-of-each-received-email-to-piler" title="Permanent link">#</a></h2>
+<p>Visit <a href="https://admin.google.com/AdminHome?hl=en#AppDetails:service=email">https://admin.google.com/AdminHome?hl=en#AppDetails:service=email</a> then select “Advanced settings”.</p>
+<p>Find the “Routing” section, hover over the “Receiving routing” item, then click “Configure”.</p>
+<p>Give a name to the setting, eg. “piler-receiving-rule”.</p>
+<p>Check the “Inbound”, and “Internal – receiving” checkboxes under “1. Email messages to affect”.</p>
+<p>Check the “Add X-Gm-Original-To header” option.</p>
+<p><img alt="" src="images/google-journaling-1.png" /></p>
+<p>Right under the “Also deliver to” option check “Add more recipients”, select “Advanced”, then check “Change envelope recipient”, and type the archiving email address at “Replace recipient”.</p>
+<p><img alt="" src="images/google-journaling-2.png" /></p>
+<p>Click on “Save”, then on “Add setting”.</p>
+<p>Do the same for “Sender routing”, except select “Outbound”, and “Internal – sending” at “1. Email messages to affect”</p>
+<p>Finally click on the “Save changes” button.</p>
+<h2 id="login-for-end-users">Login for end users<a class="headerlink" href="#login-for-end-users" title="Permanent link">#</a></h2>
+<p>Users should click on the “Google Workspace” link, then grant permission to the registered web application to read the user’s settings.</p>
+<p><img alt="" src="images/google-workspace-login.png" /></p>
+<p>If all goes well, then the user is redirected back to the archive and has access to his archived emails.</p>
+<p><img alt="" src="../images/search-01.png" /></p>
 
 
 
@@ -455,10 +390,10 @@
     
     
       
-      <script id="__config" type="application/json">{"base": ".", "features": [], "search": "assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="assets/javascripts/bundle.f55a23d4.min.js"></script>
+      <script src="../assets/javascripts/bundle.f55a23d4.min.js"></script>
       
     
   </body>
