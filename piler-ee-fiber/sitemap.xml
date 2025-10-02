@@ -41,6 +41,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://jsuto.github.io/piler-ee-v2/roles/</loc>
+         <lastmod>2025-10-02</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://jsuto.github.io/piler-ee-v2/s3-storage/</loc>
          <lastmod>2025-10-02</lastmod>
          <changefreq>daily</changefreq>
