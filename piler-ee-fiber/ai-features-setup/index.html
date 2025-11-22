@@ -947,10 +947,12 @@
 <p>Piler's AI features provide intelligent email summarization, conversational search, and thread analysis using a local LLM (Large Language Model). This guide walks you through setting up the AI infrastructure.</p>
 <hr />
 <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">#</a></h2>
-<p><strong>AI Features Available:</strong>
-- ✨ <strong>Email Summarization</strong> - Instant AI-generated summaries
-- 🔍 <strong>Conversational Search</strong> - Natural language queries
-- 📋 <strong>Thread Summarization</strong> - Structured thread intelligence</p>
+<p><strong>AI Features Available:</strong></p>
+<ul>
+<li>✨ <strong>Email Summarization</strong> Instant AI-generated summaries</li>
+<li>🔍 <strong>Conversational Search</strong> Natural language queries</li>
+<li>📋 <strong>Thread Summarization</strong> Structured thread intelligence</li>
+</ul>
 <p><strong>Key Advantage:</strong> 100% on-premise. Your data NEVER leaves your infrastructure.</p>
 <hr />
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">#</a></h2>
@@ -1186,7 +1188,7 @@ pkill piler-ui
 <h3 id="same-server-simplest">Same Server (Simplest)<a class="headerlink" href="#same-server-simplest" title="Permanent link">#</a></h3>
 <p><strong>Piler and Ollama on same machine:</strong></p>
 <pre><code>┌─────────────────────────────────┐
-│  Server                          │
+│  Server                         │
 │  ┌──────────┐    ┌───────────┐  │
 │  │ Piler UI │───→│  Ollama   │  │
 │  │ :3000    │    │  :11434   │  │
@@ -1200,12 +1202,12 @@ LLM_BASE_URL=http://localhost:11434
 <hr />
 <h3 id="separate-llm-server-recommended-for-production">Separate LLM Server (Recommended for Production)<a class="headerlink" href="#separate-llm-server-recommended-for-production" title="Permanent link">#</a></h3>
 <p><strong>Piler on one server, Ollama on GPU server:</strong></p>
-<pre><code>┌─────────────┐         ┌──────────────────┐
-│ Piler Server│         │  GPU Server      │
-│             │         │                  │
-│  Piler UI   │────────→│  Ollama :11434   │
+<pre><code>┌─────────────┐         ┌──────────────────-┐
+│ Piler Server│         │  GPU Server       │
+│             │         │                   │
+│  Piler UI   │────────→│  Ollama :11434    │
 │  :3000      │ Network │  (GPU-accelerated)│
-└─────────────┘         └──────────────────┘
+└─────────────┘         └───────────────── ─┘
 
 Config:
 LLM_BASE_URL=http://gpu-server.internal:11434
@@ -1416,14 +1418,18 @@ sudo ufw deny 11434  # Block others
 - Email subject
 - Email body (truncated to 50KB for summaries)
 - Thread messages (up to 50 messages)</p>
-<p><strong>What NEVER leaves your server:</strong>
-- Nothing! Ollama runs locally
-- No external API calls
-- No telemetry (unless you enable it)</p>
-<p><strong>Compliance:</strong>
-- ✅ GDPR compliant (data stays on-premise)
-- ✅ HIPAA compatible (no third-party processing)
-- ✅ SOC 2 friendly (complete audit trail)</p>
+<p><strong>What NEVER leaves your server:</strong></p>
+<ul>
+<li>Nothing! Ollama runs locally</li>
+<li>No external API calls</li>
+<li>No telemetry (unless you enable it)</li>
+</ul>
+<p><strong>Compliance:</strong></p>
+<ul>
+<li>✅ GDPR compliant (data stays on-premise)</li>
+<li>✅ HIPAA compatible (no third-party processing)</li>
+<li>✅ SOC 2 friendly (complete audit trail)</li>
+</ul>
 <hr />
 <h2 id="production-deployment">Production Deployment<a class="headerlink" href="#production-deployment" title="Permanent link">#</a></h2>
 <h3 id="recommended-architecture">Recommended Architecture<a class="headerlink" href="#recommended-architecture" title="Permanent link">#</a></h3>
@@ -1475,13 +1481,17 @@ LLM_BASE_URL=http://llm-loadbalancer:11434
 <hr />
 <h2 id="cost-analysis">Cost Analysis<a class="headerlink" href="#cost-analysis" title="Permanent link">#</a></h2>
 <h3 id="on-premise-ollama">On-Premise (Ollama)<a class="headerlink" href="#on-premise-ollama" title="Permanent link">#</a></h3>
-<p><strong>One-time costs:</strong>
-- RTX 4090 GPU: $1,600-2,000
-- Server: $2,000-4,000 (if needed)
-- Setup: $500-1,000 (engineering time)</p>
-<p><strong>Ongoing:</strong>
-- Power: ~$30-50/month (300W GPU)
-- Maintenance: Minimal</p>
+<p><strong>One-time costs:</strong></p>
+<ul>
+<li>RTX 4090 GPU: $1,600-2,000</li>
+<li>Server: $2,000-4,000 (if needed)</li>
+<li>Setup: $500-1,000 (engineering time)</li>
+</ul>
+<p><strong>Ongoing:</strong></p>
+<ul>
+<li>Power: ~$30-50/month (300W GPU)</li>
+<li>Maintenance: Minimal</li>
+</ul>
 <p><strong>Total first year:</strong> ~$4,000-7,000</p>
 <p><strong>Unlimited queries</strong> after initial investment.</p>
 <h3 id="cloud-api-alternative-not-recommended">Cloud API (Alternative - Not Recommended)<a class="headerlink" href="#cloud-api-alternative-not-recommended" title="Permanent link">#</a></h3>
