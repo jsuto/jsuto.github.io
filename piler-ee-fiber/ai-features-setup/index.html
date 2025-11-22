@@ -1,0 +1,1902 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://jsuto.github.io/piler-ee-v2/ai-features-setup/">
+      
+      
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.6.20">
+    
+    
+      
+        <title>AI Features Setup Guide - piler enterprise 2.x documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.e53b48f4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#ai-features-setup-guide" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="piler enterprise 2.x documentation" class="md-header__button md-logo" aria-label="piler enterprise 2.x documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            piler enterprise 2.x documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              AI Features Setup Guide
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="piler enterprise 2.x documentation" class="md-nav__button md-logo" aria-label="piler enterprise 2.x documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    piler enterprise 2.x documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://mailpiler.com/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Site
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Prerequisites">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hardware-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hardware Requirements
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#software-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Software Requirements
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installation-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installation Methods
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Installation Methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#method-1-ollama-recommended" class="md-nav__link">
+    <span class="md-ellipsis">
+      Method 1: Ollama (Recommended) ⭐
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Method 1: Ollama (Recommended) ⭐">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#install-ollama" class="md-nav__link">
+    <span class="md-ellipsis">
+      Install Ollama
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pull-the-llm-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pull the LLM Model
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#test-ollama" class="md-nav__link">
+    <span class="md-ellipsis">
+      Test Ollama
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#start-ollama-as-service" class="md-nav__link">
+    <span class="md-ellipsis">
+      Start Ollama as Service
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#method-2-lm-studio-alternative" class="md-nav__link">
+    <span class="md-ellipsis">
+      Method 2: LM Studio (Alternative)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#method-3-custom-llm-server-advanced" class="md-nav__link">
+    <span class="md-ellipsis">
+      Method 3: Custom LLM Server (Advanced)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#piler-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Piler Configuration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Piler Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-enable-ai-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Enable AI Features
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-restart-piler" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Restart Piler
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-verify-ai-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Verify AI Features
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#network-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Network Setup
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Network Setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#same-server-simplest" class="md-nav__link">
+    <span class="md-ellipsis">
+      Same Server (Simplest)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#separate-llm-server-recommended-for-production" class="md-nav__link">
+    <span class="md-ellipsis">
+      Separate LLM Server (Recommended for Production)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docker-compose-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docker Compose Setup
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance-tuning" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance Tuning
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Performance Tuning">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gpu-acceleration-nvidia" class="md-nav__link">
+    <span class="md-ellipsis">
+      GPU Acceleration (NVIDIA)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cpu-only-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      CPU-Only Optimization
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#memory-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      Memory Management
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Troubleshooting
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#llm-service-not-configured-error" class="md-nav__link">
+    <span class="md-ellipsis">
+      "LLM service not configured" Error
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#slow-ai-responses-10-seconds" class="md-nav__link">
+    <span class="md-ellipsis">
+      Slow AI Responses (&gt;10 seconds)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#model-not-found-error" class="md-nav__link">
+    <span class="md-ellipsis">
+      "Model not found" Error
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#out-of-memory-oom-errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      Out of Memory (OOM) Errors
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#connection-timeout" class="md-nav__link">
+    <span class="md-ellipsis">
+      Connection Timeout
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#security-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Security Considerations
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Security Considerations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#network-security" class="md-nav__link">
+    <span class="md-ellipsis">
+      Network Security
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-privacy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Privacy
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#production-deployment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Production Deployment
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Production Deployment">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#recommended-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Recommended Architecture
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#high-availability" class="md-nav__link">
+    <span class="md-ellipsis">
+      High Availability
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cost-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cost Analysis
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cost Analysis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#on-premise-ollama" class="md-nav__link">
+    <span class="md-ellipsis">
+      On-Premise (Ollama)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cloud-api-alternative-not-recommended" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cloud API (Alternative - Not Recommended)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuration Reference
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuration Reference">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#all-available-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      All Available Options
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multi-tenant-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Multi-Tenant Configuration
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#customizing-ai-behavior" class="md-nav__link">
+    <span class="md-ellipsis">
+      Customizing AI Behavior
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Customizing AI Behavior">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#default-conversational-search-prompt" class="md-nav__link">
+    <span class="md-ellipsis">
+      Default Conversational Search Prompt
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#customizing-the-prompt" class="md-nav__link">
+    <span class="md-ellipsis">
+      Customizing the Prompt
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#monitoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      Monitoring
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Monitoring">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#check-ai-feature-health" class="md-nav__link">
+    <span class="md-ellipsis">
+      Check AI Feature Health
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#performance-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance Metrics
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#upgrading" class="md-nav__link">
+    <span class="md-ellipsis">
+      Upgrading
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Upgrading">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#update-ollama" class="md-nav__link">
+    <span class="md-ellipsis">
+      Update Ollama
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      Update Model
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#piler-updates" class="md-nav__link">
+    <span class="md-ellipsis">
+      Piler Updates
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#faq" class="md-nav__link">
+    <span class="md-ellipsis">
+      FAQ
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="FAQ">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#q-do-i-need-a-gpu" class="md-nav__link">
+    <span class="md-ellipsis">
+      Q: Do I need a GPU?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q-can-i-use-gpt-4claude-instead-of-ollama" class="md-nav__link">
+    <span class="md-ellipsis">
+      Q: Can I use GPT-4/Claude instead of Ollama?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q-how-much-disk-space-for-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      Q: How much disk space for models?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q-can-multiple-piler-instances-share-one-ollama" class="md-nav__link">
+    <span class="md-ellipsis">
+      Q: Can multiple Piler instances share one Ollama?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q-what-if-ollama-crashes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Q: What if Ollama crashes?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q-can-i-customize-ai-prompts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Q: Can I customize AI prompts?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q-does-this-work-offlineair-gapped" class="md-nav__link">
+    <span class="md-ellipsis">
+      Q: Does this work offline/air-gapped?
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#support" class="md-nav__link">
+    <span class="md-ellipsis">
+      Support
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Support">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#getting-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      Getting Help
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reporting-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Reporting Issues
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Next Steps
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="ai-features-setup-guide">AI Features Setup Guide<a class="headerlink" href="#ai-features-setup-guide" title="Permanent link">#</a></h1>
+<p>Piler's AI features provide intelligent email summarization, conversational search, and thread analysis using a local LLM (Large Language Model). This guide walks you through setting up the AI infrastructure.</p>
+<hr />
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">#</a></h2>
+<p><strong>AI Features Available:</strong>
+- ✨ <strong>Email Summarization</strong> - Instant AI-generated summaries
+- 🔍 <strong>Conversational Search</strong> - Natural language queries
+- 📋 <strong>Thread Summarization</strong> - Structured thread intelligence</p>
+<p><strong>Key Advantage:</strong> 100% on-premise. Your data NEVER leaves your infrastructure.</p>
+<hr />
+<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">#</a></h2>
+<h3 id="hardware-requirements">Hardware Requirements<a class="headerlink" href="#hardware-requirements" title="Permanent link">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>Deployment Size</th>
+<th>Minimum</th>
+<th>Recommended</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Small</strong> (100-500 users)</td>
+<td>4 CPU cores, 8GB RAM</td>
+<td>RTX 3060 (12GB VRAM)</td>
+<td>CPU-only works but slow (10-30s per query)</td>
+</tr>
+<tr>
+<td><strong>Medium</strong> (500-5K users)</td>
+<td>8 CPU cores, 16GB RAM</td>
+<td>RTX 4090 (24GB VRAM)</td>
+<td>GPU highly recommended (2-5s per query)</td>
+</tr>
+<tr>
+<td><strong>Large</strong> (5K+ users)</td>
+<td>16 CPU cores, 32GB RAM</td>
+<td>A100 (40GB VRAM)</td>
+<td>GPU required for acceptable performance</td>
+</tr>
+</tbody>
+</table>
+<p><strong>GPU strongly recommended</strong> for production (20-50x faster than CPU).</p>
+<h3 id="software-requirements">Software Requirements<a class="headerlink" href="#software-requirements" title="Permanent link">#</a></h3>
+<ul>
+<li><strong>Linux:</strong> Ubuntu 22.04+, Debian 12+, RHEL 9+, or similar</li>
+<li><strong>macOS:</strong> macOS 12+ (Apple Silicon or Intel)</li>
+<li><strong>Docker:</strong> (optional) For containerized deployment</li>
+</ul>
+<hr />
+<h2 id="installation-methods">Installation Methods<a class="headerlink" href="#installation-methods" title="Permanent link">#</a></h2>
+<h3 id="method-1-ollama-recommended">Method 1: Ollama (Recommended) ⭐<a class="headerlink" href="#method-1-ollama-recommended" title="Permanent link">#</a></h3>
+<p><strong>Why Ollama:</strong>
+- ✅ Easiest installation (one command)
+- ✅ Automatic GPU detection
+- ✅ Model management built-in
+- ✅ Works on Linux, macOS, Windows
+- ✅ Production-ready
+- ✅ Free and open source</p>
+<h4 id="install-ollama">Install Ollama<a class="headerlink" href="#install-ollama" title="Permanent link">#</a></h4>
+<p><strong>Linux/macOS:</strong></p>
+<pre><code class="language-bash"># One-line install
+curl -fsSL https://ollama.com/install.sh | sh
+
+# Verify installation
+ollama --version
+# Should show: ollama version X.X.X
+</code></pre>
+<p><strong>Or with Docker:</strong></p>
+<pre><code class="language-bash">docker pull ollama/ollama:latest
+
+# GPU support (NVIDIA)
+docker run -d --gpus=all -v ollama:/root/.ollama -p 11434:11434 --name ollama ollama/ollama
+
+# CPU only
+docker run -d -v ollama:/root/.ollama -p 11434:11434 --name ollama ollama/ollama
+</code></pre>
+<h4 id="pull-the-llm-model">Pull the LLM Model<a class="headerlink" href="#pull-the-llm-model" title="Permanent link">#</a></h4>
+<p><strong>Recommended model: Llama 3.1 (8B)</strong></p>
+<pre><code class="language-bash"># Pull model (will download ~4.7GB)
+ollama pull llama3.1:8b
+
+# Verify model is available
+ollama list
+# Should show: llama3.1:8b ... 4.7 GB
+</code></pre>
+<p><strong>Alternative models:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Size</th>
+<th>VRAM</th>
+<th>Speed</th>
+<th>Quality</th>
+<th>Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>llama3.1:8b</strong></td>
+<td>4.7GB</td>
+<td>6GB</td>
+<td>Fast</td>
+<td>Excellent</td>
+<td><strong>Recommended</strong></td>
+</tr>
+<tr>
+<td>llama3.1:70b</td>
+<td>40GB</td>
+<td>48GB</td>
+<td>Slow</td>
+<td>Best</td>
+<td>Large deployments only</td>
+</tr>
+<tr>
+<td>mistral:7b</td>
+<td>4.1GB</td>
+<td>5GB</td>
+<td>Very fast</td>
+<td>Good</td>
+<td>Budget/CPU setups</td>
+</tr>
+<tr>
+<td>qwen2.5:7b</td>
+<td>4.7GB</td>
+<td>6GB</td>
+<td>Fast</td>
+<td>Excellent</td>
+<td>Multilingual</td>
+</tr>
+<tr>
+<td>phi3:mini</td>
+<td>2.3GB</td>
+<td>3GB</td>
+<td>Very fast</td>
+<td>Good</td>
+<td>Small/demo setups</td>
+</tr>
+</tbody>
+</table>
+<h4 id="test-ollama">Test Ollama<a class="headerlink" href="#test-ollama" title="Permanent link">#</a></h4>
+<pre><code class="language-bash"># Test generation
+curl http://localhost:11434/api/generate -d '{
+  &quot;model&quot;: &quot;llama3.1:8b&quot;,
+  &quot;prompt&quot;: &quot;Summarize: This is a test email about quarterly budget approval.&quot;,
+  &quot;stream&quot;: false
+}'
+
+# Should return JSON with summary
+</code></pre>
+<h4 id="start-ollama-as-service">Start Ollama as Service<a class="headerlink" href="#start-ollama-as-service" title="Permanent link">#</a></h4>
+<p><strong>Linux (systemd):</strong></p>
+<pre><code class="language-bash"># Ollama installer creates service automatically
+sudo systemctl enable ollama
+sudo systemctl start ollama
+sudo systemctl status ollama
+</code></pre>
+<p><strong>macOS (launchd):</strong></p>
+<pre><code class="language-bash"># Ollama runs as service automatically after install
+# Check status:
+ps aux | grep ollama
+</code></pre>
+<p><strong>Docker:</strong></p>
+<pre><code class="language-bash"># Already running if you used docker run -d
+docker ps | grep ollama
+</code></pre>
+<hr />
+<h3 id="method-2-lm-studio-alternative">Method 2: LM Studio (Alternative)<a class="headerlink" href="#method-2-lm-studio-alternative" title="Permanent link">#</a></h3>
+<p><strong>Why LM Studio:</strong>
+- GUI for model management
+- Good for macOS/Windows users
+- Easy testing and experimentation</p>
+<p><strong>Install:</strong>
+1. Download from https://lmstudio.ai/
+2. Install and open LM Studio
+3. Download a model (llama3.1:8b recommended)
+4. Start local server on port 11434</p>
+<p><strong>Configure Piler:</strong></p>
+<pre><code class="language-bash">LLM_BASE_URL=http://localhost:1234  # LM Studio default port
+LLM_MODEL=llama3.1:8b
+</code></pre>
+<hr />
+<h3 id="method-3-custom-llm-server-advanced">Method 3: Custom LLM Server (Advanced)<a class="headerlink" href="#method-3-custom-llm-server-advanced" title="Permanent link">#</a></h3>
+<p>For organizations with specific requirements:</p>
+<p><strong>vLLM (High performance):</strong></p>
+<pre><code class="language-bash">pip install vllm
+vllm serve meta-llama/Llama-3.1-8B-Instruct --port 11434
+</code></pre>
+<p><strong>Ollama on remote server:</strong></p>
+<pre><code class="language-bash"># On GPU server
+OLLAMA_HOST=0.0.0.0:11434 ollama serve
+
+# On Piler server
+LLM_BASE_URL=http://gpu-server.internal:11434
+</code></pre>
+<hr />
+<h2 id="piler-configuration">Piler Configuration<a class="headerlink" href="#piler-configuration" title="Permanent link">#</a></h2>
+<h3 id="1-enable-ai-features">1. Enable AI Features<a class="headerlink" href="#1-enable-ai-features" title="Permanent link">#</a></h3>
+<p>Edit your Piler <code>.env</code> file:</p>
+<pre><code class="language-bash"># Enable AI features
+LLM_ENABLED=true
+
+# Ollama connection
+LLM_BASE_URL=http://localhost:11434
+LLM_MODEL=llama3.1:8b
+
+# Cache settings (optional tuning)
+LLM_CACHE_EXPIRY_MINUTES=15
+
+# Advanced (optional)
+NL2QUERY_PROMPT_FILE=  # Empty = use embedded default
+</code></pre>
+<h3 id="2-restart-piler">2. Restart Piler<a class="headerlink" href="#2-restart-piler" title="Permanent link">#</a></h3>
+<pre><code class="language-bash"># Systemd
+sudo systemctl restart piler
+
+# Docker
+docker-compose restart piler-ui
+
+# Manual
+pkill piler-ui
+./piler-ui
+</code></pre>
+<h3 id="3-verify-ai-features">3. Verify AI Features<a class="headerlink" href="#3-verify-ai-features" title="Permanent link">#</a></h3>
+<p><strong>Check LLM connectivity:</strong></p>
+<pre><code class="language-bash">curl http://localhost:3000/api/v1/llm/ping \
+  -H &quot;Authorization: Bearer YOUR_TOKEN&quot;
+
+# Should return:
+{&quot;status&quot;:&quot;ok&quot;,&quot;model&quot;:&quot;llama3.1:8b&quot;}
+</code></pre>
+<p><strong>In the UI:</strong>
+1. Log in to Piler
+2. View any email
+3. Click "AI Tools" dropdown
+4. Click "AI Summary"
+5. Should see summary within 2-5 seconds ✅</p>
+<hr />
+<h2 id="network-setup">Network Setup<a class="headerlink" href="#network-setup" title="Permanent link">#</a></h2>
+<h3 id="same-server-simplest">Same Server (Simplest)<a class="headerlink" href="#same-server-simplest" title="Permanent link">#</a></h3>
+<p><strong>Piler and Ollama on same machine:</strong></p>
+<pre><code>┌─────────────────────────────────┐
+│  Server                          │
+│  ┌──────────┐    ┌───────────┐  │
+│  │ Piler UI │───→│  Ollama   │  │
+│  │ :3000    │    │  :11434   │  │
+│  └──────────┘    └───────────┘  │
+└─────────────────────────────────┘
+
+Config:
+LLM_BASE_URL=http://localhost:11434
+</code></pre>
+<p><strong>Firewall:</strong> No changes needed (local connection)</p>
+<hr />
+<h3 id="separate-llm-server-recommended-for-production">Separate LLM Server (Recommended for Production)<a class="headerlink" href="#separate-llm-server-recommended-for-production" title="Permanent link">#</a></h3>
+<p><strong>Piler on one server, Ollama on GPU server:</strong></p>
+<pre><code>┌─────────────┐         ┌──────────────────┐
+│ Piler Server│         │  GPU Server      │
+│             │         │                  │
+│  Piler UI   │────────→│  Ollama :11434   │
+│  :3000      │ Network │  (GPU-accelerated)│
+└─────────────┘         └──────────────────┘
+
+Config:
+LLM_BASE_URL=http://gpu-server.internal:11434
+</code></pre>
+<p><strong>Firewall rules:</strong></p>
+<pre><code class="language-bash"># On GPU server
+sudo ufw allow from PILER_SERVER_IP to any port 11434
+
+# Or open to network (if trusted)
+sudo ufw allow 11434/tcp
+</code></pre>
+<p><strong>Ollama config (GPU server):</strong></p>
+<pre><code class="language-bash"># Allow network access
+export OLLAMA_HOST=0.0.0.0:11434
+
+# Start Ollama
+ollama serve
+</code></pre>
+<hr />
+<h3 id="docker-compose-setup">Docker Compose Setup<a class="headerlink" href="#docker-compose-setup" title="Permanent link">#</a></h3>
+<p><strong>Full stack with Ollama:</strong></p>
+<pre><code class="language-yaml">version: '3.8'
+
+services:
+  piler-ui:
+    image: sutoj/piler-ui:latest
+    environment:
+      LLM_ENABLED: &quot;true&quot;
+      LLM_BASE_URL: &quot;http://ollama:11434&quot;
+      LLM_MODEL: &quot;llama3.1:8b&quot;
+    depends_on:
+      - ollama
+    networks:
+      - piler-network
+
+  ollama:
+    image: ollama/ollama:latest
+    volumes:
+      - ollama-data:/root/.ollama
+    ports:
+      - &quot;11434:11434&quot;
+    # GPU support (uncomment if you have NVIDIA GPU)
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: 1
+    #           capabilities: [gpu]
+    networks:
+      - piler-network
+
+networks:
+  piler-network:
+    driver: bridge
+
+volumes:
+  ollama-data:
+</code></pre>
+<p><strong>Pull model:</strong></p>
+<pre><code class="language-bash">docker-compose up -d
+docker exec -it &lt;ollama-container&gt; ollama pull llama3.1:8b
+</code></pre>
+<hr />
+<h2 id="performance-tuning">Performance Tuning<a class="headerlink" href="#performance-tuning" title="Permanent link">#</a></h2>
+<h3 id="gpu-acceleration-nvidia">GPU Acceleration (NVIDIA)<a class="headerlink" href="#gpu-acceleration-nvidia" title="Permanent link">#</a></h3>
+<p><strong>Verify GPU is detected:</strong></p>
+<pre><code class="language-bash"># Check NVIDIA driver
+nvidia-smi
+
+# Ollama should detect GPU automatically
+# Check logs:
+journalctl -u ollama -f | grep -i gpu
+# Should show: &quot;Using GPU: NVIDIA GeForce RTX 4090&quot;
+</code></pre>
+<p><strong>If GPU not detected:</strong></p>
+<pre><code class="language-bash"># Install CUDA toolkit
+# Ubuntu/Debian:
+sudo apt install nvidia-cuda-toolkit
+
+# Restart Ollama
+sudo systemctl restart ollama
+</code></pre>
+<h3 id="cpu-only-optimization">CPU-Only Optimization<a class="headerlink" href="#cpu-only-optimization" title="Permanent link">#</a></h3>
+<p><strong>If running without GPU:</strong></p>
+<pre><code class="language-bash"># Use smaller model for faster responses
+ollama pull phi3:mini  # 2.3GB, faster on CPU
+
+# Update Piler config
+LLM_MODEL=phi3:mini
+</code></pre>
+<p><strong>Tune thread count:</strong></p>
+<pre><code class="language-bash"># Set CPU threads (default: auto)
+export OLLAMA_NUM_THREADS=8  # Match your CPU cores
+
+ollama serve
+</code></pre>
+<h3 id="memory-management">Memory Management<a class="headerlink" href="#memory-management" title="Permanent link">#</a></h3>
+<p><strong>Limit model memory:</strong></p>
+<pre><code class="language-bash"># Unload models after 5 minutes of inactivity (default)
+export OLLAMA_KEEP_ALIVE=5m
+
+# Or keep loaded always (faster but uses RAM)
+export OLLAMA_KEEP_ALIVE=-1
+
+ollama serve
+</code></pre>
+<hr />
+<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">#</a></h2>
+<h3 id="llm-service-not-configured-error">"LLM service not configured" Error<a class="headerlink" href="#llm-service-not-configured-error" title="Permanent link">#</a></h3>
+<p><strong>Cause:</strong> Piler can't reach Ollama</p>
+<p><strong>Solutions:</strong></p>
+<ol>
+<li><strong>Check Ollama is running:</strong></li>
+</ol>
+<pre><code class="language-bash">curl http://localhost:11434/api/tags
+# Should return list of models
+</code></pre>
+<ol>
+<li><strong>Check Piler config:</strong></li>
+</ol>
+<pre><code class="language-bash">grep LLM_BASE_URL .env
+# Should match Ollama address
+</code></pre>
+<ol>
+<li><strong>Check firewall (if separate servers):</strong></li>
+</ol>
+<pre><code class="language-bash"># From Piler server
+curl http://gpu-server:11434/api/tags
+# Should connect
+</code></pre>
+<h3 id="slow-ai-responses-10-seconds">Slow AI Responses (&gt;10 seconds)<a class="headerlink" href="#slow-ai-responses-10-seconds" title="Permanent link">#</a></h3>
+<p><strong>Cause:</strong> Running on CPU without GPU</p>
+<p><strong>Solutions:</strong></p>
+<ol>
+<li>
+<p><strong>Add GPU:</strong> Install NVIDIA GPU, verify with <code>nvidia-smi</code></p>
+</li>
+<li>
+<p><strong>Use smaller model:</strong></p>
+</li>
+</ol>
+<pre><code class="language-bash">ollama pull phi3:mini
+# Update LLM_MODEL=phi3:mini in .env
+</code></pre>
+<ol>
+<li><strong>Upgrade hardware:</strong></li>
+<li>Minimum: 8 CPU cores, 16GB RAM</li>
+<li>Recommended: RTX 3060 or better</li>
+</ol>
+<h3 id="model-not-found-error">"Model not found" Error<a class="headerlink" href="#model-not-found-error" title="Permanent link">#</a></h3>
+<p><strong>Cause:</strong> Model not pulled</p>
+<p><strong>Solution:</strong></p>
+<pre><code class="language-bash"># Pull the model
+ollama pull llama3.1:8b
+
+# Verify
+ollama list
+</code></pre>
+<h3 id="out-of-memory-oom-errors">Out of Memory (OOM) Errors<a class="headerlink" href="#out-of-memory-oom-errors" title="Permanent link">#</a></h3>
+<p><strong>Cause:</strong> Model too large for available VRAM/RAM</p>
+<p><strong>Solutions:</strong></p>
+<ol>
+<li><strong>Use smaller model:</strong></li>
+</ol>
+<pre><code class="language-bash">ollama pull llama3.1:8b  # Instead of 70b
+</code></pre>
+<ol>
+<li><strong>Increase swap (Linux):</strong></li>
+</ol>
+<pre><code class="language-bash">sudo fallocate -l 16G /swapfile
+sudo chmod 600 /swapfile
+sudo mkswap /swapfile
+sudo swapon /swapfile
+</code></pre>
+<ol>
+<li><strong>Reduce concurrent requests:</strong></li>
+</ol>
+<pre><code class="language-bash"># Piler handles this automatically with rate limiting
+# No config needed
+</code></pre>
+<h3 id="connection-timeout">Connection Timeout<a class="headerlink" href="#connection-timeout" title="Permanent link">#</a></h3>
+<p><strong>Cause:</strong> LLM taking too long to respond</p>
+<p><strong>Solution:</strong>
+Piler has built-in timeouts:
+- Email summary: 60 seconds
+- Thread summary: 120 seconds
+- Search translation: 10 seconds</p>
+<p>These are reasonable. If hitting timeouts, your LLM is too slow (needs GPU).</p>
+<hr />
+<h2 id="security-considerations">Security Considerations<a class="headerlink" href="#security-considerations" title="Permanent link">#</a></h2>
+<h3 id="network-security">Network Security<a class="headerlink" href="#network-security" title="Permanent link">#</a></h3>
+<p><strong>Ollama has NO authentication!</strong></p>
+<p><strong>If running on separate server:</strong></p>
+<pre><code class="language-bash"># Option 1: Firewall (recommended)
+sudo ufw allow from PILER_IP to any port 11434
+sudo ufw deny 11434  # Block others
+
+# Option 2: VPN/Private network
+# Run Ollama on private network only
+
+# Option 3: Reverse proxy with auth (advanced)
+# Use nginx with basic auth in front of Ollama
+</code></pre>
+<p><strong>Never expose Ollama directly to the internet!</strong></p>
+<h3 id="data-privacy">Data Privacy<a class="headerlink" href="#data-privacy" title="Permanent link">#</a></h3>
+<p><strong>What gets sent to Ollama:</strong>
+- Email subject
+- Email body (truncated to 50KB for summaries)
+- Thread messages (up to 50 messages)</p>
+<p><strong>What NEVER leaves your server:</strong>
+- Nothing! Ollama runs locally
+- No external API calls
+- No telemetry (unless you enable it)</p>
+<p><strong>Compliance:</strong>
+- ✅ GDPR compliant (data stays on-premise)
+- ✅ HIPAA compatible (no third-party processing)
+- ✅ SOC 2 friendly (complete audit trail)</p>
+<hr />
+<h2 id="production-deployment">Production Deployment<a class="headerlink" href="#production-deployment" title="Permanent link">#</a></h2>
+<h3 id="recommended-architecture">Recommended Architecture<a class="headerlink" href="#recommended-architecture" title="Permanent link">#</a></h3>
+<p><strong>For small deployments (&lt;500 users):</strong></p>
+<pre><code>┌────────────────────────────┐
+│  Single Server             │
+│  • Piler UI                │
+│  • Ollama (CPU/small GPU)  │
+│  • MySQL                   │
+│  • Manticore               │
+└────────────────────────────┘
+
+Hardware: 8 cores, 16GB RAM, optional RTX 3060
+</code></pre>
+<p><strong>For medium deployments (500-5K users):</strong></p>
+<pre><code>┌─────────────┐      ┌──────────────┐
+│ Piler Server│      │  GPU Server  │
+│ • UI        │─────→│  • Ollama    │
+│ • MySQL     │      │  • RTX 4090  │
+│ • Manticore │      └──────────────┘
+└─────────────┘
+</code></pre>
+<p><strong>For large deployments (5K+ users):</strong></p>
+<pre><code>┌─────────────┐      ┌────────────────────┐
+│ Piler Master│      │  GPU Cluster       │
+│ • UI        │─────→│  • Ollama (node 1) │
+│             │      │  • Ollama (node 2) │
+└─────────────┘      └────────────────────┘
+         │
+         ├──→ Worker 1 (emails)
+         └──→ Worker 2 (emails)
+
+Use load balancer for Ollama nodes
+</code></pre>
+<h3 id="high-availability">High Availability<a class="headerlink" href="#high-availability" title="Permanent link">#</a></h3>
+<p><strong>Option 1: Multiple Ollama instances</strong></p>
+<pre><code class="language-bash"># Run Ollama on 2+ servers
+# Use nginx/HAProxy load balancer
+
+# Piler config:
+LLM_BASE_URL=http://llm-loadbalancer:11434
+</code></pre>
+<p><strong>Option 2: Failover</strong></p>
+<pre><code class="language-bash"># Primary Ollama on GPU server
+# Backup Ollama on CPU (slower but works)
+
+# Application handles failover automatically via retries
+</code></pre>
+<hr />
+<h2 id="cost-analysis">Cost Analysis<a class="headerlink" href="#cost-analysis" title="Permanent link">#</a></h2>
+<h3 id="on-premise-ollama">On-Premise (Ollama)<a class="headerlink" href="#on-premise-ollama" title="Permanent link">#</a></h3>
+<p><strong>One-time costs:</strong>
+- RTX 4090 GPU: $1,600-2,000
+- Server: $2,000-4,000 (if needed)
+- Setup: $500-1,000 (engineering time)</p>
+<p><strong>Ongoing:</strong>
+- Power: ~$30-50/month (300W GPU)
+- Maintenance: Minimal</p>
+<p><strong>Total first year:</strong> ~$4,000-7,000</p>
+<p><strong>Unlimited queries</strong> after initial investment.</p>
+<h3 id="cloud-api-alternative-not-recommended">Cloud API (Alternative - Not Recommended)<a class="headerlink" href="#cloud-api-alternative-not-recommended" title="Permanent link">#</a></h3>
+<p><strong>OpenAI/Anthropic pricing:</strong>
+- ~$0.01-0.05 per summary
+- 1,000 summaries/day = $10-50/day = $3,650-18,250/year
+- 10,000 summaries/day = $36,500-182,500/year</p>
+<p><strong>Drawbacks:</strong>
+- ❌ Data leaves your infrastructure (compliance risk)
+- ❌ Ongoing per-query costs
+- ❌ Vendor lock-in
+- ❌ Potential downtime (external dependency)</p>
+<p><strong>Recommendation:</strong> On-premise Ollama for enterprise. Cloud APIs only for trials/demos.</p>
+<hr />
+<h2 id="configuration-reference">Configuration Reference<a class="headerlink" href="#configuration-reference" title="Permanent link">#</a></h2>
+<h3 id="all-available-options">All Available Options<a class="headerlink" href="#all-available-options" title="Permanent link">#</a></h3>
+<pre><code class="language-bash"># Core AI Settings
+LLM_ENABLED=true|false
+# Enable/disable all AI features
+# Default: false
+
+LLM_BASE_URL=http://localhost:11434
+# Ollama/LLM server URL
+# Default: http://localhost:11434
+
+LLM_MODEL=llama3.1:8b
+# Model name (must be pulled in Ollama)
+# Default: llama3.1:8b
+# Alternatives: mistral:7b, qwen2.5:7b, phi3:mini
+
+LLM_CACHE_EXPIRY_MINUTES=15
+# Redis cache TTL for summaries
+# Default: 15 minutes
+# Threads cached for 60 minutes (hardcoded)
+
+NL2QUERY_PROMPT_FILE=
+# Custom prompt template for conversational search
+# Empty = use embedded default
+# Example: /etc/piler/prompts/custom_nl2query.txt
+</code></pre>
+<h3 id="multi-tenant-configuration">Multi-Tenant Configuration<a class="headerlink" href="#multi-tenant-configuration" title="Permanent link">#</a></h3>
+<p><strong>Same LLM for all tenants:</strong></p>
+<pre><code class="language-bash"># Global config in .env
+LLM_ENABLED=true
+LLM_BASE_URL=http://localhost:11434
+</code></pre>
+<p><strong>Per-tenant enable/disable:</strong></p>
+<pre><code class="language-sql">-- In tenant_settings table
+UPDATE piler.tenant_settings
+SET settings_json = JSON_SET(settings_json, '$.llm_enabled', true)
+WHERE tenant_id = 'tenant1';
+</code></pre>
+<hr />
+<h2 id="customizing-ai-behavior">Customizing AI Behavior<a class="headerlink" href="#customizing-ai-behavior" title="Permanent link">#</a></h2>
+<h3 id="default-conversational-search-prompt">Default Conversational Search Prompt<a class="headerlink" href="#default-conversational-search-prompt" title="Permanent link">#</a></h3>
+<p>The conversational search uses this prompt template (embedded in binary):</p>
+<p><strong>Location:</strong> <code>internal/llm/prompts/nl2query.txt</code></p>
+<details>
+<summary><b>Click to view full default prompt template</b></summary>
+
+
+<pre><code>You are a search query translator for an email archiving system. Convert natural language questions into Piler search syntax.
+
+SEARCH SYNTAX:
+- from:email@domain.com - Filter by sender
+- to:email@domain.com - Filter by recipient
+- subject:keyword - Search in subject (can include multiple words: subject:word1 word2)
+- subject:&quot;exact phrase&quot; - Search for exact phrase in subject
+- body:keyword - Search in body text (can include multiple words: body:word1 word2)
+- body:&quot;exact phrase&quot; - Search for exact phrase in body
+- date1:YYYY-MM-DD - Start date (use with date2 for range)
+- date2:YYYY-MM-DD - End date (use with date1 for range)
+- a:any - Has any attachment
+- a:pdf - Has PDF attachments ONLY
+- a:word - Has Word document attachments ONLY
+- a:excel - Has Excel spreadsheet attachments ONLY
+- a:image - Has image attachments ONLY (jpg, png, gif, etc. - use a:image, NOT a:jpg)
+- a:zip - Has zip/archive attachments ONLY
+- attachment:filename.pdf - Has specific attachment filename
+- size:&gt;5M - Size greater than 5MB (use M for megabytes, K for kilobytes)
+- direction:inbound - Received emails (also: direction:outbound, direction:internal)
+- category:name - Filter by category (short form: cat:name)
+- tag:tagname - Search by tag
+- note:text - Search in notes
+- id:123 - Specific message ID
+
+OPERATORS:
+- Multiple terms separated by spaces are implicitly AND (no parentheses needed)
+- OR - Either term (use uppercase: urgent OR important)
+- NOT - Exclude term (use uppercase: NOT spam)
+- &quot;exact phrase&quot; - Phrase search in quotes
+- * - Wildcard (john* matches john, johnny, johns)
+- ( ) - ONLY use parentheses for grouping OR/NOT operations, NOT for simple AND queries
+
+IMPORTANT NOTES:
+- For date ranges, use date1: and date2: together (NOT date:X..Y)
+- For &quot;has any attachment&quot; use a:any (NOT has:attachment)
+- Valid attachment types: a:pdf, a:word, a:excel, a:image, a:zip, a:any
+- For images, ALWAYS use a:image (NOT a:jpg, a:png, etc.)
+- For size, use M for megabytes, K for kilobytes (e.g., size:&gt;5M NOT size:&gt;5MB)
+- Keep queries SIMPLE - only include meaningful search terms, skip filler words
+- Skip generic words like &quot;with&quot;, &quot;about&quot;, &quot;problems&quot;, &quot;issues&quot;, &quot;emails&quot;, &quot;messages&quot;
+- Focus on specific entities: names, subjects, dates, attachment types
+- Example: &quot;virtualfax problems with pdf attachments&quot; → &quot;subject:virtualfax a:pdf&quot; (skip &quot;problems with&quot;)
+- There is NO is:unread filter (this is an archive, not a mailbox)
+- Direction must be: inbound, outbound, or internal
+
+RELATIVE DATES (calculate from today: {{CURRENT_DATE}}):
+- &quot;today&quot; → date1:{{TODAY}} date2:{{TODAY}}
+- &quot;yesterday&quot; → date1:{{YESTERDAY}} date2:{{YESTERDAY}}
+- &quot;last week&quot; → date1:{{LAST_WEEK}} (7 days ago)
+- &quot;last month&quot; → date1:{{LAST_MONTH}} (30 days ago)
+- &quot;last quarter&quot; → date1:{{LAST_QUARTER}} (90 days ago)
+- &quot;this month&quot; → date1:{{MONTH_START}} date2:{{TODAY}}
+- &quot;this year&quot; → date1:{{YEAR_START}}
+
+EXAMPLES:
+Input: &quot;emails from sarah last week&quot;
+Output: {&quot;query&quot;:&quot;from:sarah date1:{{LAST_WEEK}}&quot;,&quot;explanation&quot;:&quot;Emails from Sarah sent since {{LAST_WEEK}}&quot;,&quot;confidence&quot;:0.95}
+
+Input: &quot;urgent messages about project&quot;
+Output: {&quot;query&quot;:&quot;subject:urgent subject:project&quot;,&quot;explanation&quot;:&quot;Messages about urgent project&quot;,&quot;confidence&quot;:0.90}
+
+Input: &quot;employment invitation&quot;
+Output: {&quot;query&quot;:&quot;subject:employment invitation&quot;,&quot;explanation&quot;:&quot;Emails about employment invitation&quot;,&quot;confidence&quot;:0.92}
+
+Input: &quot;virtualfax problems with pdf attachments&quot;
+Output: {&quot;query&quot;:&quot;subject:virtualfax a:pdf&quot;,&quot;explanation&quot;:&quot;Virtualfax emails with PDF attachments&quot;,&quot;confidence&quot;:0.93}
+
+Input: &quot;large PDF attachments from vendors&quot;
+Output: {&quot;query&quot;:&quot;from:*vendor* size:&gt;5M a:pdf&quot;,&quot;explanation&quot;:&quot;PDF attachments larger than 5MB from vendor domains&quot;,&quot;confidence&quot;:0.88}
+
+Input: &quot;images from operator&quot;
+Output: {&quot;query&quot;:&quot;a:image from:operator&quot;,&quot;explanation&quot;:&quot;Image attachments from operator&quot;,&quot;confidence&quot;:0.95}
+
+Input: &quot;invoices in December&quot;
+Output: {&quot;query&quot;:&quot;subject:invoice date1:2024-12-01 date2:2024-12-31&quot;,&quot;explanation&quot;:&quot;Emails with 'invoice' in subject from December 2024&quot;,&quot;confidence&quot;:0.92}
+
+Input: &quot;emails with any attachments from john&quot;
+Output: {&quot;query&quot;:&quot;from:john a:any&quot;,&quot;explanation&quot;:&quot;Emails from John that have attachments&quot;,&quot;confidence&quot;:0.95}
+
+Input: &quot;emails about budget OR finance from sarah&quot;
+Output: {&quot;query&quot;:&quot;from:sarah (subject:budget OR subject:finance)&quot;,&quot;explanation&quot;:&quot;Emails from Sarah about budget or finance&quot;,&quot;confidence&quot;:0.93}
+
+Input: &quot;attachments sent in the last 5 years&quot;
+Output: {&quot;query&quot;:&quot;date1:2020-01-20 a:any&quot;,&quot;explanation&quot;:&quot;Emails with attachments since January 2020&quot;,&quot;confidence&quot;:0.94}
+
+CONTEXT-AWARE EXAMPLES (showing how to handle follow-ups):
+
+Context: Previous query was &quot;virtualfax problems with pdf attachments&quot; → &quot;subject:virtualfax a:pdf&quot;
+Input: &quot;after 2015-10-21&quot;
+Output: {&quot;query&quot;:&quot;subject:virtualfax a:pdf date1:2015-10-21&quot;,&quot;explanation&quot;:&quot;Virtualfax emails with PDF attachments after October 21, 2015&quot;,&quot;confidence&quot;:0.96}
+
+Context: Previous query was &quot;emails from john&quot; → &quot;from:john&quot;
+Input: &quot;just PDFs&quot;
+Output: {&quot;query&quot;:&quot;from:john a:pdf&quot;,&quot;explanation&quot;:&quot;PDF emails from John&quot;,&quot;confidence&quot;:0.95}
+
+Context: Previous query was &quot;invoices last month&quot; → &quot;subject:invoice date1:2024-12-20&quot;
+Input: &quot;over $10,000&quot;
+Output: {&quot;query&quot;:&quot;subject:invoice date1:2024-12-20 body:$10,000 OR body:10000&quot;,&quot;explanation&quot;:&quot;Invoices from last month over $10,000&quot;,&quot;confidence&quot;:0.88}
+
+{{CONVERSATION_CONTEXT}}
+
+IMPORTANT RULES:
+1. MUST return valid JSON with exactly these fields: query, explanation, confidence
+2. If there is CONTEXT from previous queries, you MUST include those search terms in the new query
+3. For follow-up/refinement queries (like &quot;just PDFs&quot; or &quot;after 2020&quot;), ALWAYS combine with previous context
+4. Use confidence &lt; 0.7 if the question is ambiguous
+5. For ambiguous queries, explain what clarification is needed in the explanation field
+6. Calculate today's date from context (assume current date: {{CURRENT_DATE}})
+7. NEVER change dates provided by the user - if user says &quot;2015&quot; use 2015, NOT 2025 (this is an archive with old emails)
+8. Use EXACT dates from user input - do not assume typos or correct dates
+9. Always escape special characters in email addresses
+10. Use wildcards (*) for partial matches when appropriate
+11. Prefer (subject:X OR body:X) over just subject:X unless explicitly about subject only
+
+RESPONSE FORMAT (copy this structure exactly):
+{
+  &quot;query&quot;: &quot;your translated search query here&quot;,
+  &quot;explanation&quot;: &quot;brief explanation of what you're searching for&quot;,
+  &quot;confidence&quot;: 0.95
+}
+
+Respond with ONLY the JSON object above. No markdown, no code blocks, no extra text.
+</code></pre>
+
+
+</details>
+
+<h3 id="customizing-the-prompt">Customizing the Prompt<a class="headerlink" href="#customizing-the-prompt" title="Permanent link">#</a></h3>
+<p><strong>Why customize:</strong>
+- Add industry-specific examples (legal, healthcare, finance)
+- Improve accuracy for your organization's terminology
+- Adjust for different LLM models</p>
+<p><strong>How to customize:</strong></p>
+<ol>
+<li><strong>Create custom prompt file:</strong></li>
+</ol>
+<pre><code class="language-bash"># Copy embedded template (extract from binary or docs)
+cat &gt; /etc/piler/custom_nl2query.txt &lt;&lt; 'EOF'
+[Paste default template above]
+
+# Add your custom examples:
+Input: &quot;discovery documents from opposing counsel&quot;
+Output: {&quot;query&quot;:&quot;from:*@opposing-firm.com category:discovery&quot;,&quot;explanation&quot;:&quot;...&quot;,&quot;confidence&quot;:0.94}
+
+Input: &quot;patient records with consent forms&quot;
+Output: {&quot;query&quot;:&quot;subject:patient subject:consent a:pdf&quot;,&quot;explanation&quot;:&quot;...&quot;,&quot;confidence&quot;:0.93}
+EOF
+</code></pre>
+<ol>
+<li><strong>Point Piler to custom prompt:</strong></li>
+</ol>
+<pre><code class="language-bash"># In .env
+NL2QUERY_PROMPT_FILE=/etc/piler/custom_nl2query.txt
+</code></pre>
+<ol>
+<li><strong>Restart Piler:</strong></li>
+</ol>
+<pre><code class="language-bash">sudo systemctl restart piler-ui
+</code></pre>
+<p><strong>Template variables available:</strong>
+- <code>{{CURRENT_DATE}}</code> - Today's date (auto-calculated)
+- <code>{{LAST_WEEK}}</code>, <code>{{LAST_MONTH}}</code>, <code>{{LAST_QUARTER}}</code> - Relative dates
+- <code>{{CONVERSATION_CONTEXT}}</code> - Previous queries (auto-injected)</p>
+<p><strong>Testing your prompt:</strong>
+Try queries in the UI and check if translations match expectations. Iterate based on real usage patterns.</p>
+<hr />
+<h2 id="monitoring">Monitoring<a class="headerlink" href="#monitoring" title="Permanent link">#</a></h2>
+<h3 id="check-ai-feature-health">Check AI Feature Health<a class="headerlink" href="#check-ai-feature-health" title="Permanent link">#</a></h3>
+<p><strong>1. Test LLM connectivity:</strong></p>
+<pre><code class="language-bash">curl http://localhost:3000/api/v1/llm/ping \
+  -H &quot;Cookie: session=YOUR_SESSION&quot;
+
+# Should return:
+{&quot;status&quot;:&quot;ok&quot;,&quot;model&quot;:&quot;llama3.1:8b&quot;}
+</code></pre>
+<p><strong>2. Monitor Ollama:</strong></p>
+<pre><code class="language-bash"># Check running models
+curl http://localhost:11434/api/tags
+
+# Monitor logs
+journalctl -u ollama -f
+
+# Check resource usage
+htop  # Watch CPU/RAM
+nvidia-smi -l 1  # Watch GPU (if NVIDIA)
+</code></pre>
+<p><strong>3. Check Piler logs:</strong></p>
+<pre><code class="language-bash">tail -f /var/log/piler/app.log | grep -i llm
+
+# Look for:
+# &quot;LLM summarization failed&quot; - problems
+# &quot;Cache hit for email summary&quot; - working well
+</code></pre>
+<h3 id="performance-metrics">Performance Metrics<a class="headerlink" href="#performance-metrics" title="Permanent link">#</a></h3>
+<p><strong>Target metrics:</strong>
+- Email summary: &lt;5 seconds (P95)
+- Thread summary: &lt;30 seconds for 20-message thread (P95)
+- Search translation: &lt;3 seconds (P95)
+- LLM uptime: &gt;99%</p>
+<p><strong>If slower:</strong>
+- Add GPU
+- Use smaller model
+- Check network latency (if separate servers)</p>
+<hr />
+<h2 id="upgrading">Upgrading<a class="headerlink" href="#upgrading" title="Permanent link">#</a></h2>
+<h3 id="update-ollama">Update Ollama<a class="headerlink" href="#update-ollama" title="Permanent link">#</a></h3>
+<pre><code class="language-bash"># Linux/macOS
+curl -fsSL https://ollama.com/install.sh | sh
+
+# Docker
+docker pull ollama/ollama:latest
+docker-compose up -d
+</code></pre>
+<h3 id="update-model">Update Model<a class="headerlink" href="#update-model" title="Permanent link">#</a></h3>
+<pre><code class="language-bash"># Pull newer version
+ollama pull llama3.1:8b
+
+# Old version removed automatically if space needed
+</code></pre>
+<h3 id="piler-updates">Piler Updates<a class="headerlink" href="#piler-updates" title="Permanent link">#</a></h3>
+<p>AI features are part of Piler UI - update Piler as normal:</p>
+<pre><code class="language-bash"># Binary update
+sudo systemctl stop piler-ui
+sudo cp new-piler-ui /var/piler/ui/app
+sudo systemctl start piler
+
+# Docker update
+docker-compose pull sutoj/piler-ui:2.1.0
+docker-compose up -d
+</code></pre>
+<hr />
+<h2 id="faq">FAQ<a class="headerlink" href="#faq" title="Permanent link">#</a></h2>
+<h3 id="q-do-i-need-a-gpu">Q: Do I need a GPU?<a class="headerlink" href="#q-do-i-need-a-gpu" title="Permanent link">#</a></h3>
+<p><strong>A:</strong> Highly recommended but not required.
+- <strong>Without GPU:</strong> 10-30 seconds per summary (acceptable for light use)
+- <strong>With GPU:</strong> 2-5 seconds per summary (production quality)</p>
+<h3 id="q-can-i-use-gpt-4claude-instead-of-ollama">Q: Can I use GPT-4/Claude instead of Ollama?<a class="headerlink" href="#q-can-i-use-gpt-4claude-instead-of-ollama" title="Permanent link">#</a></h3>
+<p><strong>A:</strong> Technically yes, but <strong>not recommended:</strong>
+- ❌ Data leaves your infrastructure
+- ❌ Ongoing costs
+- ❌ Requires code changes (different API format)
+- ❌ Compliance risks</p>
+<p>Ollama is designed for on-premise use.</p>
+<h3 id="q-how-much-disk-space-for-models">Q: How much disk space for models?<a class="headerlink" href="#q-how-much-disk-space-for-models" title="Permanent link">#</a></h3>
+<p><strong>A:</strong> ~5-10GB per model
+- llama3.1:8b: 4.7GB
+- Keep 2-3 models for testing: ~15GB
+- Models stored in <code>~/.ollama/models/</code></p>
+<h3 id="q-can-multiple-piler-instances-share-one-ollama">Q: Can multiple Piler instances share one Ollama?<a class="headerlink" href="#q-can-multiple-piler-instances-share-one-ollama" title="Permanent link">#</a></h3>
+<p><strong>A:</strong> Yes! Ollama handles concurrent requests.
+- Single RTX 4090: ~10-20 concurrent requests
+- Add more GPUs for higher concurrency</p>
+<h3 id="q-what-if-ollama-crashes">Q: What if Ollama crashes?<a class="headerlink" href="#q-what-if-ollama-crashes" title="Permanent link">#</a></h3>
+<p><strong>A:</strong> AI features gracefully degrade:
+1. User gets "LLM service unavailable" error
+2. Can still use traditional search
+3. Cached summaries still served (if available)
+4. No impact on email viewing/searching</p>
+<p>Ollama auto-restarts via systemd.</p>
+<h3 id="q-can-i-customize-ai-prompts">Q: Can I customize AI prompts?<a class="headerlink" href="#q-can-i-customize-ai-prompts" title="Permanent link">#</a></h3>
+<p><strong>A:</strong> Yes! See <a href="https://github.com/jsuto/piler-ee/blob/master/docs/AI-PROMPT-CUSTOMIZATION.md">AI Prompt Customization Guide</a></p>
+<h3 id="q-does-this-work-offlineair-gapped">Q: Does this work offline/air-gapped?<a class="headerlink" href="#q-does-this-work-offlineair-gapped" title="Permanent link">#</a></h3>
+<p><strong>A:</strong> Yes!
+1. Download Ollama installer on internet-connected machine
+2. Pull model: <code>ollama pull llama3.1:8b</code>
+3. Copy model files to air-gapped server
+4. Works completely offline</p>
+<hr />
+<h2 id="support">Support<a class="headerlink" href="#support" title="Permanent link">#</a></h2>
+<h3 id="getting-help">Getting Help<a class="headerlink" href="#getting-help" title="Permanent link">#</a></h3>
+<ol>
+<li><strong>Check logs:</strong> <code>journalctl -u piler-ui</code> and <code>journalctl -u ollama</code></li>
+<li><strong>Test Ollama directly:</strong> <code>curl http://localhost:11434/api/tags</code></li>
+<li><strong>Verify config:</strong> <code>grep LLM .env</code></li>
+<li><strong>Contact support:</strong> support@mailpiler.com</li>
+</ol>
+<h3 id="reporting-issues">Reporting Issues<a class="headerlink" href="#reporting-issues" title="Permanent link">#</a></h3>
+<p>Include:
+- Piler version: <code>./piler-ui --version</code>
+- Ollama version: <code>ollama --version</code>
+- Model: <code>ollama list</code>
+- Error logs (last 50 lines)
+- Hardware: CPU, RAM, GPU (if any)</p>
+<hr />
+<h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">#</a></h2>
+<ol>
+<li>✅ Install Ollama</li>
+<li>✅ Pull llama3.1:8b model</li>
+<li>✅ Configure Piler (LLM_ENABLED=true)</li>
+<li>✅ Restart Piler</li>
+<li>✅ Test AI Summary feature</li>
+<li>✅ Train users on AI features</li>
+</ol>
+<p><strong>See also:</strong>
+- <a href="ai-features-user-guide.md">AI Features User Guide</a> - How to use AI features
+- <a href="../fiber-ui-config-options/">Configuration Options</a> - All Piler settings</p>
+<hr />
+<p><strong>Last Update:</strong> November 22, 2025
+<strong>Piler Version:</strong> 2.1.0+
+<strong>Status:</strong> Production Ready</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>
