@@ -997,13 +997,15 @@
 <hr />
 <h2 id="installation-methods">Installation Methods<a class="headerlink" href="#installation-methods" title="Permanent link">#</a></h2>
 <h3 id="method-1-ollama-recommended">Method 1: Ollama (Recommended) ⭐<a class="headerlink" href="#method-1-ollama-recommended" title="Permanent link">#</a></h3>
-<p><strong>Why Ollama:</strong>
-- ✅ Easiest installation (one command)
-- ✅ Automatic GPU detection
-- ✅ Model management built-in
-- ✅ Works on Linux, macOS, Windows
-- ✅ Production-ready
-- ✅ Free and open source</p>
+<p><strong>Why Ollama:</strong></p>
+<ul>
+<li>✅ Easiest installation (one command)</li>
+<li>✅ Automatic GPU detection</li>
+<li>✅ Model management built-in</li>
+<li>✅ Works on Linux, macOS, Windows</li>
+<li>✅ Production-ready</li>
+<li>✅ Free and open source</li>
+</ul>
 <h4 id="install-ollama">Install Ollama<a class="headerlink" href="#install-ollama" title="Permanent link">#</a></h4>
 <p><strong>Linux/macOS:</strong></p>
 <pre><code class="language-bash"># One-line install
@@ -1114,15 +1116,19 @@ docker ps | grep ollama
 </code></pre>
 <hr />
 <h3 id="method-2-lm-studio-alternative">Method 2: LM Studio (Alternative)<a class="headerlink" href="#method-2-lm-studio-alternative" title="Permanent link">#</a></h3>
-<p><strong>Why LM Studio:</strong>
-- GUI for model management
-- Good for macOS/Windows users
-- Easy testing and experimentation</p>
-<p><strong>Install:</strong>
-1. Download from https://lmstudio.ai/
-2. Install and open LM Studio
-3. Download a model (llama3.1:8b recommended)
-4. Start local server on port 11434</p>
+<p><strong>Why LM Studio:</strong></p>
+<ul>
+<li>GUI for model management</li>
+<li>Good for macOS/Windows users</li>
+<li>Easy testing and experimentation</li>
+</ul>
+<p><strong>Install:</strong></p>
+<ol>
+<li>Download from https://lmstudio.ai/</li>
+<li>Install and open LM Studio</li>
+<li>Download a model (llama3.1:8b recommended)</li>
+<li>Start local server on port 11434</li>
+</ol>
 <p><strong>Configure Piler:</strong></p>
 <pre><code class="language-bash">LLM_BASE_URL=http://localhost:1234  # LM Studio default port
 LLM_MODEL=llama3.1:8b
@@ -1177,12 +1183,14 @@ pkill piler-ui
 # Should return:
 {&quot;status&quot;:&quot;ok&quot;,&quot;model&quot;:&quot;llama3.1:8b&quot;}
 </code></pre>
-<p><strong>In the UI:</strong>
-1. Log in to Piler
-2. View any email
-3. Click "AI Tools" dropdown
-4. Click "AI Summary"
-5. Should see summary within 2-5 seconds ✅</p>
+<p><strong>In the UI:</strong></p>
+<ol>
+<li>Log in to Piler</li>
+<li>View any email</li>
+<li>Click "AI Tools" dropdown</li>
+<li>Click "AI Summary"</li>
+<li>Should see summary within 2-5 seconds ✅</li>
+</ol>
 <hr />
 <h2 id="network-setup">Network Setup<a class="headerlink" href="#network-setup" title="Permanent link">#</a></h2>
 <h3 id="same-server-simplest">Same Server (Simplest)<a class="headerlink" href="#same-server-simplest" title="Permanent link">#</a></h3>
@@ -1354,8 +1362,12 @@ curl http://gpu-server:11434/api/tags
 # Update LLM_MODEL=phi3:mini in .env
 </code></pre>
 <ol>
-<li><strong>Upgrade hardware:</strong></li>
-<li>Minimum: 8 CPU cores, 16GB RAM</li>
+<li>
+<p><strong>Upgrade hardware:</strong></p>
+</li>
+<li>
+<p>Minimum: 8 CPU cores, 16GB RAM</p>
+</li>
 <li>Recommended: RTX 3060 or better</li>
 </ol>
 <h3 id="model-not-found-error">"Model not found" Error<a class="headerlink" href="#model-not-found-error" title="Permanent link">#</a></h3>
@@ -1414,10 +1426,12 @@ sudo ufw deny 11434  # Block others
 </code></pre>
 <p><strong>Never expose Ollama directly to the internet!</strong></p>
 <h3 id="data-privacy">Data Privacy<a class="headerlink" href="#data-privacy" title="Permanent link">#</a></h3>
-<p><strong>What gets sent to Ollama:</strong>
-- Email subject
-- Email body (truncated to 50KB for summaries)
-- Thread messages (up to 50 messages)</p>
+<p><strong>What gets sent to Ollama:</strong></p>
+<ul>
+<li>Email subject</li>
+<li>Email body (truncated to 50KB for summaries)</li>
+<li>Thread messages (up to 50 messages)</li>
+</ul>
 <p><strong>What NEVER leaves your server:</strong></p>
 <ul>
 <li>Nothing! Ollama runs locally</li>
@@ -1495,15 +1509,19 @@ LLM_BASE_URL=http://llm-loadbalancer:11434
 <p><strong>Total first year:</strong> ~$4,000-7,000</p>
 <p><strong>Unlimited queries</strong> after initial investment.</p>
 <h3 id="cloud-api-alternative-not-recommended">Cloud API (Alternative - Not Recommended)<a class="headerlink" href="#cloud-api-alternative-not-recommended" title="Permanent link">#</a></h3>
-<p><strong>OpenAI/Anthropic pricing:</strong>
-- ~$0.01-0.05 per summary
-- 1,000 summaries/day = $10-50/day = $3,650-18,250/year
-- 10,000 summaries/day = $36,500-182,500/year</p>
-<p><strong>Drawbacks:</strong>
-- ❌ Data leaves your infrastructure (compliance risk)
-- ❌ Ongoing per-query costs
-- ❌ Vendor lock-in
-- ❌ Potential downtime (external dependency)</p>
+<p><strong>OpenAI/Anthropic pricing:</strong></p>
+<ul>
+<li>~$0.01-0.05 per summary</li>
+<li>1,000 summaries/day = $10-50/day = $3,650-18,250/year</li>
+<li>10,000 summaries/day = $36,500-182,500/year</li>
+</ul>
+<p><strong>Drawbacks:</strong></p>
+<ul>
+<li>❌ Data leaves your infrastructure (compliance risk)</li>
+<li>❌ Ongoing per-query costs</li>
+<li>❌ Vendor lock-in</li>
+<li>❌ Potential downtime (external dependency)</li>
+</ul>
 <p><strong>Recommendation:</strong> On-premise Ollama for enterprise. Cloud APIs only for trials/demos.</p>
 <hr />
 <h2 id="configuration-reference">Configuration Reference<a class="headerlink" href="#configuration-reference" title="Permanent link">#</a></h2>
@@ -1682,10 +1700,12 @@ Respond with ONLY the JSON object above. No markdown, no code blocks, no extra t
 </details>
 
 <h3 id="customizing-the-prompt">Customizing the Prompt<a class="headerlink" href="#customizing-the-prompt" title="Permanent link">#</a></h3>
-<p><strong>Why customize:</strong>
-- Add industry-specific examples (legal, healthcare, finance)
-- Improve accuracy for your organization's terminology
-- Adjust for different LLM models</p>
+<p><strong>Why customize:</strong></p>
+<ul>
+<li>Add industry-specific examples (legal, healthcare, finance)</li>
+<li>Improve accuracy for your organization's terminology</li>
+<li>Adjust for different LLM models</li>
+</ul>
 <p><strong>How to customize:</strong></p>
 <ol>
 <li><strong>Create custom prompt file:</strong></li>
@@ -1713,12 +1733,14 @@ NL2QUERY_PROMPT_FILE=/etc/piler/custom_nl2query.txt
 </ol>
 <pre><code class="language-bash">sudo systemctl restart piler-ui
 </code></pre>
-<p><strong>Template variables available:</strong>
-- <code>{{CURRENT_DATE}}</code> - Today's date (auto-calculated)
-- <code>{{LAST_WEEK}}</code>, <code>{{LAST_MONTH}}</code>, <code>{{LAST_QUARTER}}</code> - Relative dates
-- <code>{{CONVERSATION_CONTEXT}}</code> - Previous queries (auto-injected)</p>
-<p><strong>Testing your prompt:</strong>
-Try queries in the UI and check if translations match expectations. Iterate based on real usage patterns.</p>
+<p><strong>Template variables available:</strong></p>
+<ul>
+<li><code>{{CURRENT_DATE}}</code> Today's date (auto-calculated)</li>
+<li><code>{{LAST_WEEK}}</code>, <code>{{LAST_MONTH}}</code>, <code>{{LAST_QUARTER}}</code> Relative dates</li>
+<li><code>{{CONVERSATION_CONTEXT}}</code> Previous queries (auto-injected)</li>
+</ul>
+<p><strong>Testing your prompt:</strong></p>
+<p>Try queries in the UI and check if translations match expectations. Iterate based on real usage patterns.</p>
 <hr />
 <h2 id="monitoring">Monitoring<a class="headerlink" href="#monitoring" title="Permanent link">#</a></h2>
 <h3 id="check-ai-feature-health">Check AI Feature Health<a class="headerlink" href="#check-ai-feature-health" title="Permanent link">#</a></h3>
@@ -1748,15 +1770,19 @@ nvidia-smi -l 1  # Watch GPU (if NVIDIA)
 # &quot;Cache hit for email summary&quot; - working well
 </code></pre>
 <h3 id="performance-metrics">Performance Metrics<a class="headerlink" href="#performance-metrics" title="Permanent link">#</a></h3>
-<p><strong>Target metrics:</strong>
-- Email summary: &lt;5 seconds (P95)
-- Thread summary: &lt;30 seconds for 20-message thread (P95)
-- Search translation: &lt;3 seconds (P95)
-- LLM uptime: &gt;99%</p>
-<p><strong>If slower:</strong>
-- Add GPU
-- Use smaller model
-- Check network latency (if separate servers)</p>
+<p><strong>Target metrics:</strong></p>
+<ul>
+<li>Email summary: &lt;5 seconds (P95)</li>
+<li>Thread summary: &lt;30 seconds for 20-message thread (P95)</li>
+<li>Search translation: &lt;3 seconds (P95)</li>
+<li>LLM uptime: &gt;99%</li>
+</ul>
+<p><strong>If slower:</strong></p>
+<ul>
+<li>Add GPU</li>
+<li>Use smaller model</li>
+<li>Check network latency (if separate servers)</li>
+</ul>
 <hr />
 <h2 id="upgrading">Upgrading<a class="headerlink" href="#upgrading" title="Permanent link">#</a></h2>
 <h3 id="update-ollama">Update Ollama<a class="headerlink" href="#update-ollama" title="Permanent link">#</a></h3>
@@ -1787,40 +1813,52 @@ docker-compose up -d
 <hr />
 <h2 id="faq">FAQ<a class="headerlink" href="#faq" title="Permanent link">#</a></h2>
 <h3 id="q-do-i-need-a-gpu">Q: Do I need a GPU?<a class="headerlink" href="#q-do-i-need-a-gpu" title="Permanent link">#</a></h3>
-<p><strong>A:</strong> Highly recommended but not required.
-- <strong>Without GPU:</strong> 10-30 seconds per summary (acceptable for light use)
-- <strong>With GPU:</strong> 2-5 seconds per summary (production quality)</p>
+<p><strong>A:</strong> Highly recommended but not required.</p>
+<ul>
+<li><strong>Without GPU:</strong> 10-30 seconds per summary (acceptable for light use)</li>
+<li><strong>With GPU:</strong> 2-5 seconds per summary (production quality)</li>
+</ul>
 <h3 id="q-can-i-use-gpt-4claude-instead-of-ollama">Q: Can I use GPT-4/Claude instead of Ollama?<a class="headerlink" href="#q-can-i-use-gpt-4claude-instead-of-ollama" title="Permanent link">#</a></h3>
-<p><strong>A:</strong> Technically yes, but <strong>not recommended:</strong>
-- ❌ Data leaves your infrastructure
-- ❌ Ongoing costs
-- ❌ Requires code changes (different API format)
-- ❌ Compliance risks</p>
+<p><strong>A:</strong> Technically yes, but <strong>not recommended:</strong></p>
+<ul>
+<li>❌ Data leaves your infrastructure</li>
+<li>❌ Ongoing costs</li>
+<li>❌ Requires code changes (different API format)</li>
+<li>❌ Compliance risks</li>
+</ul>
 <p>Ollama is designed for on-premise use.</p>
 <h3 id="q-how-much-disk-space-for-models">Q: How much disk space for models?<a class="headerlink" href="#q-how-much-disk-space-for-models" title="Permanent link">#</a></h3>
-<p><strong>A:</strong> ~5-10GB per model
-- llama3.1:8b: 4.7GB
-- Keep 2-3 models for testing: ~15GB
-- Models stored in <code>~/.ollama/models/</code></p>
+<p><strong>A:</strong> ~5-10GB per model</p>
+<ul>
+<li>llama3.1:8b: 4.7GB</li>
+<li>Keep 2-3 models for testing: ~15GB</li>
+<li>Models stored in <code>~/.ollama/models/</code></li>
+</ul>
 <h3 id="q-can-multiple-piler-instances-share-one-ollama">Q: Can multiple Piler instances share one Ollama?<a class="headerlink" href="#q-can-multiple-piler-instances-share-one-ollama" title="Permanent link">#</a></h3>
-<p><strong>A:</strong> Yes! Ollama handles concurrent requests.
-- Single RTX 4090: ~10-20 concurrent requests
-- Add more GPUs for higher concurrency</p>
+<p><strong>A:</strong> Yes! Ollama handles concurrent requests.</p>
+<ul>
+<li>Single RTX 4090: ~10-20 concurrent requests</li>
+<li>Add more GPUs for higher concurrency</li>
+</ul>
 <h3 id="q-what-if-ollama-crashes">Q: What if Ollama crashes?<a class="headerlink" href="#q-what-if-ollama-crashes" title="Permanent link">#</a></h3>
-<p><strong>A:</strong> AI features gracefully degrade:
-1. User gets "LLM service unavailable" error
-2. Can still use traditional search
-3. Cached summaries still served (if available)
-4. No impact on email viewing/searching</p>
+<p><strong>A:</strong> AI features gracefully degrade:</p>
+<ol>
+<li>User gets "LLM service unavailable" error</li>
+<li>Can still use traditional search</li>
+<li>Cached summaries still served (if available)</li>
+<li>No impact on email viewing/searching</li>
+</ol>
 <p>Ollama auto-restarts via systemd.</p>
 <h3 id="q-can-i-customize-ai-prompts">Q: Can I customize AI prompts?<a class="headerlink" href="#q-can-i-customize-ai-prompts" title="Permanent link">#</a></h3>
 <p><strong>A:</strong> Yes! See <a href="https://github.com/jsuto/piler-ee/blob/master/docs/AI-PROMPT-CUSTOMIZATION.md">AI Prompt Customization Guide</a></p>
 <h3 id="q-does-this-work-offlineair-gapped">Q: Does this work offline/air-gapped?<a class="headerlink" href="#q-does-this-work-offlineair-gapped" title="Permanent link">#</a></h3>
-<p><strong>A:</strong> Yes!
-1. Download Ollama installer on internet-connected machine
-2. Pull model: <code>ollama pull llama3.1:8b</code>
-3. Copy model files to air-gapped server
-4. Works completely offline</p>
+<p><strong>A:</strong> Yes!</p>
+<ol>
+<li>Download Ollama installer on internet-connected machine</li>
+<li>Pull model: <code>ollama pull llama3.1:8b</code></li>
+<li>Copy model files to air-gapped server</li>
+<li>Works completely offline</li>
+</ol>
 <hr />
 <h2 id="support">Support<a class="headerlink" href="#support" title="Permanent link">#</a></h2>
 <h3 id="getting-help">Getting Help<a class="headerlink" href="#getting-help" title="Permanent link">#</a></h3>
@@ -1831,12 +1869,14 @@ docker-compose up -d
 <li><strong>Contact support:</strong> support@mailpiler.com</li>
 </ol>
 <h3 id="reporting-issues">Reporting Issues<a class="headerlink" href="#reporting-issues" title="Permanent link">#</a></h3>
-<p>Include:
-- Piler version: <code>./piler-ui --version</code>
-- Ollama version: <code>ollama --version</code>
-- Model: <code>ollama list</code>
-- Error logs (last 50 lines)
-- Hardware: CPU, RAM, GPU (if any)</p>
+<p>Include:</p>
+<ul>
+<li>Piler version: <code>./piler-ui --version</code></li>
+<li>Ollama version: <code>ollama --version</code></li>
+<li>Model: <code>ollama list</code></li>
+<li>Error logs (last 50 lines)</li>
+<li>Hardware: CPU, RAM, GPU (if any)</li>
+</ul>
 <hr />
 <h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">#</a></h2>
 <ol>
@@ -1847,9 +1887,11 @@ docker-compose up -d
 <li>✅ Test AI Summary feature</li>
 <li>✅ Train users on AI features</li>
 </ol>
-<p><strong>See also:</strong>
-- <a href="ai-features-user-guide.md">AI Features User Guide</a> - How to use AI features
-- <a href="../fiber-ui-config-options/">Configuration Options</a> - All Piler settings</p>
+<p><strong>See also:</strong></p>
+<ul>
+<li><a href="ai-features-user-guide.md">AI Features User Guide</a> - How to use AI features</li>
+<li><a href="../fiber-ui-config-options/">Configuration Options</a> - All Piler settings</li>
+</ul>
 <hr />
 <p><strong>Last Update:</strong> November 22, 2025
 <strong>Piler Version:</strong> 2.1.0+
