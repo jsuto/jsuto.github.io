@@ -271,6 +271,39 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Upgrade steps">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fix-permissions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fix permissions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#run-the-migrations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Run the migrations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-the-passwords" class="md-nav__link">
+    <span class="md-ellipsis">
+      Update the passwords
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -290,9 +323,9 @@
 
 
 <h1 id="upgrading">Upgrading<a class="headerlink" href="#upgrading" title="Permanent link">#</a></h1>
-<p>This documentation applies to Piler enterprise edition 2.0.0</p>
-<p>Revision #1</p>
-<p>Publication date: 2025-SEP-26</p>
+<p>This documentation applies to Piler enterprise edition 2.1.0</p>
+<p>Revision #2</p>
+<p>Publication date: 2025-NOV-23</p>
 <p>The 2.x version ships a brand new web app that is not compatible with the old one,
 has a different configuration mechanism, and has a few prerequisites</p>
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">#</a></h2>
@@ -301,7 +334,24 @@ has a different configuration mechanism, and has a few prerequisites</p>
 <li>dynamic indexes when using a multi-tenant deployment</li>
 </ul>
 <h2 id="upgrade-steps">Upgrade steps<a class="headerlink" href="#upgrade-steps" title="Permanent link">#</a></h2>
-<p>...</p>
+<h3 id="fix-permissions">Fix permissions<a class="headerlink" href="#fix-permissions" title="Permanent link">#</a></h3>
+<pre><code>chmod 750 /var/piler/store/
+chmod 750 /var/piler/astore/
+</code></pre>
+<h3 id="run-the-migrations">Run the migrations<a class="headerlink" href="#run-the-migrations" title="Permanent link">#</a></h3>
+<p>Run mysql migrations on each piler related mysql database:</p>
+<pre><code>for i in /usr/share/piler/migrations/sql/*.sql; do
+   mariadb --defaults-file=/etc/piler/.my.cnf piler &lt; $i
+done
+</code></pre>
+<p>Run manticore migrations for each tenant:</p>
+<pre><code>sed 's/TENANTID/piler/g' /usr/share/piler/migrations/manticore/001_migrate_manticore_audit_tables.sql | mariadb -h0 -P9306
+</code></pre>
+<h3 id="update-the-passwords">Update the passwords<a class="headerlink" href="#update-the-passwords" title="Permanent link">#</a></h3>
+<p>Piler uses the bcrypt password hashing algorithm, so the passwords in the local database must be fixed.</p>
+<p>The below statement updates the built-in admin user's password to <em>pilerrocks</em></p>
+<pre><code>mariadb --defaults-file=/etc/piler/.my.cnf piler &lt;&lt;&lt; 'update user set password=&quot;$2y$10$dEzUkJcI824suvEp4p.87u5IT7JitTzpMiMkBtOo7/RZvCYO5b8tC&quot; where uid=1'
+</code></pre>
 
 
 
