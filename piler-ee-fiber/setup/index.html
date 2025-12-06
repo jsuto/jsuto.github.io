@@ -305,16 +305,14 @@
 
 
 <h1 id="installing-piler-enterprise-edition">Installing piler enterprise edition<a class="headerlink" href="#installing-piler-enterprise-edition" title="Permanent link">#</a></h1>
-<p>This documentation applies to Piler enterprise edition 2.0.0</p>
-<p>Revision #1</p>
-<p>Publication date: 2025-SEP-21</p>
+<p>This documentation applies to Piler enterprise edition 2.1.0</p>
+<p>Revision #2</p>
+<p>Publication date: 2025-DE-06</p>
 <h2 id="installing-a-no-tenant-configuration-on-a-single-node-using-docker-compose">Installing a no-tenant configuration on a single node using docker compose<a class="headerlink" href="#installing-a-no-tenant-configuration-on-a-single-node-using-docker-compose" title="Permanent link">#</a></h2>
-<p>There's a <a href="https://github.com/jsuto/piler-examples/tree/master/examples/v2.0.0/single-node-notenant">docker compose stack</a> that
+<p>There's a <a href="https://github.com/jsuto/piler-examples/tree/master/examples/v2.1.0/single-node-notenant">docker compose stack</a> that
 deploys all the necessary components. Follow the instructions in the README.</p>
 <h2 id="installing-a-no-tenant-configuration-on-a-single-linux-vm-node">Installing a no-tenant configuration on a single Linux VM node<a class="headerlink" href="#installing-a-no-tenant-configuration-on-a-single-linux-vm-node" title="Permanent link">#</a></h2>
-<p>Pick the installer for either Ubuntu 24.04 LTS (noble.sh) or Centos/Redhat/Oracle 10 (centos10.sh).
-In this example we pick Ubuntu.</p>
-<p>Customise the following variables:</p>
+<p>Download the installer script, customise the following variables:</p>
 <ul>
 <li>PILER_HOSTNAME</li>
 <li>MYSQL_ROOT_PASSWORD</li>
@@ -322,11 +320,11 @@ In this example we pick Ubuntu.</p>
 <li>ARCH (either "amd64" or "arm64")</li>
 </ul>
 <p>Execute the installer</p>
-<pre><code>curl -o noble.sh https://download.mailpiler.com/noble.sh
-chmod +x noble.sh
-sudo ./noble.sh
+<pre><code>curl -o install.sh https://download.mailpiler.com/install.sh
+chmod +x install.sh
+sudo ./install.sh
 </code></pre>
-<p>Copy both license files (piler.lic and license.jwt) to /etc/piler directory, then reboot the host,
+<p>Copy the license file to /etc/piler/license.jwt, then reboot the host,
 and verify that all services come up properly.</p>
 <h3 id="centosredhatoracle-linux-specific-notes">Centos/Redhat/Oracle Linux specific notes<a class="headerlink" href="#centosredhatoracle-linux-specific-notes" title="Permanent link">#</a></h3>
 <p>SELinux is enabled by default. Please either disable it, or configure it properly.</p>
