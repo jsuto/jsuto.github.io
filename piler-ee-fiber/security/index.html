@@ -342,7 +342,7 @@
 <h3 id="starttls-support">STARTTLS support<a class="headerlink" href="#starttls-support" title="Permanent link">#</a></h3>
 <p>By default the installer creates a key and a self-signed certificate (/etc/piler/piler.pem) to support STARTTLS providing encrypted message transfer between the smtp client and the Piler smtp server. You are free to fix piler.pem to use your signed CA.</p>
 <h3 id="smtp-acl-lists">SMTP ACL lists<a class="headerlink" href="#smtp-acl-lists" title="Permanent link">#</a></h3>
-<p>Piler supports an smtp acl list similar to postscreen. See <a href="https://mailpiler.com/smtp-acl-list/">https://mailpiler.com/smtp-acl-list/</a> for more.</p>
+<p>Piler supports an smtp acl list similar to postscreen. See <a href="https://mailpiler.com/blog/smtp-acl-list/">https://mailpiler.com/blog/smtp-acl-list/</a> for more.</p>
 <h3 id="antivirus-and-antispam-support">Antivirus and antispam support<a class="headerlink" href="#antivirus-and-antispam-support" title="Permanent link">#</a></h3>
 <p>Piler expects clean emails only. Spam and other malware occupy valuable disk space and other resources on the piler host, not to mention that it might pose other problems. So you should do the heavy lifting of scanning and filtering of any spam and malware on your MX servers.</p>
 <p>However, Piler is able to use the result of any antispam application, provided that it sets a specific email header to mark spam emails. If you used SpamAssassin, then you may use the following setting in /etc/piler/piler.conf, then piler can recognize when it receives a spam:</p>

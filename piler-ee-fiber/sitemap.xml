@@ -2,82 +2,87 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://jsuto.github.io/piler-ee-v2/</loc>
-         <lastmod>2025-12-06</lastmod>
+         <lastmod>2025-12-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://jsuto.github.io/piler-ee-v2/ai-features-setup/</loc>
-         <lastmod>2025-12-06</lastmod>
+         <lastmod>2025-12-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://jsuto.github.io/piler-ee-v2/azure-ad-auth/</loc>
-         <lastmod>2025-12-06</lastmod>
+         <lastmod>2025-12-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://jsuto.github.io/piler-ee-v2/benchmarks/</loc>
-         <lastmod>2025-12-06</lastmod>
+         <lastmod>2025-12-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://jsuto.github.io/piler-ee-v2/fiber-ui-config-options/</loc>
-         <lastmod>2025-12-06</lastmod>
+         <lastmod>2025-12-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://jsuto.github.io/piler-ee-v2/google-workspace-auth/</loc>
-         <lastmod>2025-12-06</lastmod>
+         <lastmod>2025-12-08</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://jsuto.github.io/piler-ee-v2/import-emails/</loc>
+         <lastmod>2025-12-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://jsuto.github.io/piler-ee-v2/new-features-in-2.0.0/</loc>
-         <lastmod>2025-12-06</lastmod>
+         <lastmod>2025-12-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://jsuto.github.io/piler-ee-v2/overview/</loc>
-         <lastmod>2025-12-06</lastmod>
+         <lastmod>2025-12-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://jsuto.github.io/piler-ee-v2/permissions/</loc>
-         <lastmod>2025-12-06</lastmod>
+         <lastmod>2025-12-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://jsuto.github.io/piler-ee-v2/roles/</loc>
-         <lastmod>2025-12-06</lastmod>
+         <lastmod>2025-12-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://jsuto.github.io/piler-ee-v2/s3-storage/</loc>
-         <lastmod>2025-12-06</lastmod>
+         <lastmod>2025-12-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://jsuto.github.io/piler-ee-v2/security/</loc>
-         <lastmod>2025-12-06</lastmod>
+         <lastmod>2025-12-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://jsuto.github.io/piler-ee-v2/setup/</loc>
-         <lastmod>2025-12-06</lastmod>
+         <lastmod>2025-12-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://jsuto.github.io/piler-ee-v2/tuning/</loc>
-         <lastmod>2025-12-06</lastmod>
+         <lastmod>2025-12-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://jsuto.github.io/piler-ee-v2/upgrade/</loc>
-         <lastmod>2025-12-06</lastmod>
+         <lastmod>2025-12-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://jsuto.github.io/piler-ee-v2/user-guide/</loc>
-         <lastmod>2025-12-06</lastmod>
+         <lastmod>2025-12-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>
