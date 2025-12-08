@@ -342,14 +342,14 @@
 <h3 id="starttls-support">STARTTLS support<a class="headerlink" href="#starttls-support" title="Permanent link">#</a></h3>
 <p>By default the installer creates a key and a self-signed certificate (/etc/piler/piler.pem) to support STARTTLS providing encrypted message transfer between the smtp client and the Piler smtp server. You are free to fix piler.pem to use your signed CA.</p>
 <h3 id="smtp-acl-lists">SMTP ACL lists<a class="headerlink" href="#smtp-acl-lists" title="Permanent link">#</a></h3>
-<p>Piler supports an smtp acl list similar to postscreen. See <a href="https://mailpiler.com/blog/smtp-acl-list/">https://mailpiler.com/blog/smtp-acl-list/</a> for more.</p>
+<p>Piler supports an smtp acl list similar to postscreen. See <a href="https://mailpiler.com/blog/smtp-acl-list">https://mailpiler.com/blog/smtp-acl-list</a> for more.</p>
 <h3 id="antivirus-and-antispam-support">Antivirus and antispam support<a class="headerlink" href="#antivirus-and-antispam-support" title="Permanent link">#</a></h3>
 <p>Piler expects clean emails only. Spam and other malware occupy valuable disk space and other resources on the piler host, not to mention that it might pose other problems. So you should do the heavy lifting of scanning and filtering of any spam and malware on your MX servers.</p>
-<p>However, Piler is able to use the result of any antispam application, provided that it sets a specific email header to mark spam emails. If you used SpamAssassin, then you may use the following setting in /etc/piler/piler.conf, then piler can recognize when it receives a spam:</p>
-<pre><code>spam_header_line=X-Spam-Flag: YES
+<p>However, Piler is able to use the result of any antispam application, provided that it sets a specific email header to mark spam emails. If you used SpamAssassin, then you may use the following setting in /var/piler/.env, then piler can recognize when it receives a spam:</p>
+<pre><code>SPAM_HEADER_LINE=X-Spam-Flag: YES
 </code></pre>
 <p>If piler recognizes a spam, then you may set an exlusion rule to discard it (preventing from getting to the archive) or archive it for a shorter time, eg. 30 days or so.</p>
-<p>Note that piler supports a single spam header line, ie. you cannot specify the anti-spam headers of several anti-spam products. However, by using an SMTP it’s possible to rewrite several kind of antispam headers to a unified value. See <a href="https://mailpiler.com/consolidating-several-anti-spam-message-headers-on-the-smtp-gateway/">https://mailpiler.com/consolidating-several-anti-spam-message-headers-on-the-smtp-gateway/</a> for more.</p>
+<p>Note that piler supports a single spam header line, ie. you cannot specify the anti-spam headers of several anti-spam products. However, by using an SMTP it’s possible to rewrite several kind of antispam headers to a unified value. See <a href="../misc/#consolidating-several-anti-spam-message-headers-on-the-smtp-gateway">consolidating several anti spam message headers on the smtp gateway</a> for more.</p>
 
 
 

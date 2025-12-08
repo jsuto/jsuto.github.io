@@ -462,6 +462,8 @@ Examples:
   imapfetch -server imap.aaa.fu -user bela@aaa.fu -password abcde123 -tenantid piler
 </code></pre>
 <p>The imapfetch utility can download emails from an IMAP server to the current directory, then you can use pilerimport to process them.</p>
+<pre><code>pilerimport -dir . -remove
+</code></pre>
 <h2 id="import-from-google-workspace">Import from Google Workspace<a class="headerlink" href="#import-from-google-workspace" title="Permanent link">#</a></h2>
 <h3 id="enable-gmail-api-and-admin-sdk-api">Enable Gmail API and Admin SDK API<a class="headerlink" href="#enable-gmail-api-and-admin-sdk-api" title="Permanent link">#</a></h3>
 <p>Go to Google Cloud Console</p>
@@ -481,8 +483,9 @@ Examples:
 <p>Then select “Manage Domain Wide Delegation”</p>
 <p><img alt="" src="../images/import-google-workspace-4.png" /></p>
 <p>Add the Service Account Client ID and authorize the following scopes:</p>
-<p>https://www.googleapis.com/auth/gmail.readonly
-https://www.googleapis.com/auth/admin.directory.user.readonly</p>
+<pre><code>https://www.googleapis.com/auth/gmail.readonly
+https://www.googleapis.com/auth/admin.directory.user.readonly
+</code></pre>
 <p><img alt="" src="../images/import-google-workspace-5.png" /></p>
 <h3 id="download-all-emails">Download all emails<a class="headerlink" href="#download-all-emails" title="Permanent link">#</a></h3>
 <p>Use your Google Workspace admin email (eg. admin@example.com) with the json credentials file you created above:</p>
