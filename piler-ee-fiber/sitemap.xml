@@ -21,6 +21,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://jsuto.github.io/piler-ee-v2/export-emails/</loc>
+         <lastmod>2025-12-08</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://jsuto.github.io/piler-ee-v2/fiber-ui-config-options/</loc>
          <lastmod>2025-12-08</lastmod>
          <changefreq>daily</changefreq>
