@@ -375,6 +375,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#import-pst-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      Import PST files
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -563,6 +572,9 @@ drwxr-xr-x 2 piler piler 4096 May 30 09:29 'test folder 1'/
 <p>When you have downloaded all emails, run pilerimport to import them. The command below processes all emails in the “emails” directory, and removes the processed emails:</p>
 <pre><code>pilerimport -dir emails -remove
 </code></pre>
+<h2 id="import-pst-files">Import PST files<a class="headerlink" href="#import-pst-files" title="Permanent link">#</a></h2>
+<p>PST files are not supported directly. First you need to extract the individual emails as RFC-2822 formatted eml files, and then pilerimport can process them.
+Probably it's best done on a Windows computer.</p>
 
 
 
