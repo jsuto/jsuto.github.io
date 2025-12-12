@@ -1,0 +1,853 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://jsuto.github.io/piler-ee-v2/migration/barracuda/">
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.6.20">
+    
+    
+      
+        <title>Migrating from Barracuda Message Archiver - piler enterprise 2.x documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.e53b48f4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#migrating-from-barracuda-message-archiver" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="piler enterprise 2.x documentation" class="md-header__button md-logo" aria-label="piler enterprise 2.x documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            piler enterprise 2.x documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Migrating from Barracuda Message Archiver
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="piler enterprise 2.x documentation" class="md-nav__button md-logo" aria-label="piler enterprise 2.x documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    piler enterprise 2.x documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://mailpiler.com/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Site
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-1-export-from-barracuda" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 1: Export from Barracuda
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 1: Export from Barracuda">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#access-the-web-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      Access the Web Interface
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#navigate-to-export" class="md-nav__link">
+    <span class="md-ellipsis">
+      Navigate to Export
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configure-export-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configure Export Settings
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#monitor-export-progress" class="md-nav__link">
+    <span class="md-ellipsis">
+      Monitor Export Progress
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#download-exported-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      Download Exported Files
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-2-extract-zip-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 2: Extract ZIP Files
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 2: Extract ZIP Files">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#on-linux" class="md-nav__link">
+    <span class="md-ellipsis">
+      On Linux
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#on-windows-if-extracting-before-transfer" class="md-nav__link">
+    <span class="md-ellipsis">
+      On Windows (if extracting before transfer)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verify-extraction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Verify Extraction
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-3-transfer-to-piler-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 3: Transfer to Piler Server
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 3: Transfer to Piler Server">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-rsync-recommended" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using rsync (Recommended)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-usb-drive" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using USB Drive
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-4-import-into-piler" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 4: Import into Piler
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 4: Import into Piler">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#set-permissions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Set Permissions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#run-import" class="md-nav__link">
+    <span class="md-ellipsis">
+      Run Import
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#monitor-progress" class="md-nav__link">
+    <span class="md-ellipsis">
+      Monitor Progress
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-5-verify-migration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 5: Verify Migration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 5: Verify Migration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#review-import-statistics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Review Import Statistics
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verify-in-piler-ui" class="md-nav__link">
+    <span class="md-ellipsis">
+      Verify in Piler UI
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#investigate-failures" class="md-nav__link">
+    <span class="md-ellipsis">
+      Investigate Failures
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Troubleshooting
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#zip-extraction-fails" class="md-nav__link">
+    <span class="md-ellipsis">
+      ZIP extraction fails
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#non-eml-files-in-export" class="md-nav__link">
+    <span class="md-ellipsis">
+      Non-EML files in export
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#very-slow-export-from-barracuda" class="md-nav__link">
+    <span class="md-ellipsis">
+      Very slow export from Barracuda
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#memory-issues-during-large-import" class="md-nav__link">
+    <span class="md-ellipsis">
+      Memory issues during large import
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#high-failure-rate-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      High failure rate (&gt;1%)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#alternative-barracuda-support-export" class="md-nav__link">
+    <span class="md-ellipsis">
+      Alternative: Barracuda Support Export
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cleanup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cleanup
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      Reference
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="migrating-from-barracuda-message-archiver">Migrating from Barracuda Message Archiver<a class="headerlink" href="#migrating-from-barracuda-message-archiver" title="Permanent link">#</a></h1>
+<p>This documentation applies to Piler enterprise edition 2.1.0</p>
+<p>Revision #1</p>
+<p>Publication date: 2025-DEC-12</p>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">#</a></h2>
+<p>Barracuda Message Archiver stores emails in a proprietary format but provides an export feature that outputs ZIP files containing EML messages. This guide covers the self-service export process.</p>
+<p><strong>Note:</strong> Barracuda's professional migration services can cost $10,000-$50,000. The self-service approach described here is free but requires administrator effort.</p>
+<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">#</a></h2>
+<ul>
+<li>Barracuda Message Archiver administrator access</li>
+<li>Sufficient disk space for export (1.5-2x your archive size for ZIP + extracted files)</li>
+<li>Network or USB storage for transferring data to Piler server</li>
+</ul>
+<h2 id="step-1-export-from-barracuda">Step 1: Export from Barracuda<a class="headerlink" href="#step-1-export-from-barracuda" title="Permanent link">#</a></h2>
+<h3 id="access-the-web-interface">Access the Web Interface<a class="headerlink" href="#access-the-web-interface" title="Permanent link">#</a></h3>
+<ol>
+<li>Log into the Barracuda Message Archiver web interface</li>
+<li>Navigate using an administrator account</li>
+</ol>
+<h3 id="navigate-to-export">Navigate to Export<a class="headerlink" href="#navigate-to-export" title="Permanent link">#</a></h3>
+<ol>
+<li>Go to <strong>Tools</strong> in the main navigation</li>
+<li>Click <strong>Export Messages</strong></li>
+</ol>
+<h3 id="configure-export-settings">Configure Export Settings<a class="headerlink" href="#configure-export-settings" title="Permanent link">#</a></h3>
+<ol>
+<li><strong>Date Range</strong>: Select the time period to export</li>
+<li>For full migration, select your earliest archive date to today</li>
+<li>
+<p>For large archives, consider exporting in yearly chunks</p>
+</li>
+<li>
+<p><strong>Mailboxes</strong>: Select which mailboxes to export</p>
+</li>
+<li>Choose "All" for complete migration</li>
+<li>
+<p>Or select specific mailboxes/users</p>
+</li>
+<li>
+<p><strong>Format</strong>: Select <strong>ZIP</strong> format</p>
+</li>
+<li>ZIP files contain individual EML messages</li>
+<li>
+<p>PST format requires Windows conversion step</p>
+</li>
+<li>
+<p><strong>Destination</strong>: Choose where to save exports</p>
+</li>
+<li>Network share recommended for large exports</li>
+<li>
+<p>Local disk if transferring via USB later</p>
+</li>
+<li>
+<p>Click <strong>Export</strong> to begin</p>
+</li>
+</ol>
+<h3 id="monitor-export-progress">Monitor Export Progress<a class="headerlink" href="#monitor-export-progress" title="Permanent link">#</a></h3>
+<ul>
+<li>Barracuda shows export progress in the interface</li>
+<li>Large archives may take many hours or days</li>
+<li>Exports may be split into multiple ZIP files</li>
+</ul>
+<h3 id="download-exported-files">Download Exported Files<a class="headerlink" href="#download-exported-files" title="Permanent link">#</a></h3>
+<ol>
+<li>Once export completes, download all ZIP files</li>
+<li>Verify file integrity (check file sizes, no truncation)</li>
+<li>Store in accessible location for transfer</li>
+</ol>
+<h2 id="step-2-extract-zip-files">Step 2: Extract ZIP Files<a class="headerlink" href="#step-2-extract-zip-files" title="Permanent link">#</a></h2>
+<p>Before importing, extract all ZIP archives.</p>
+<h3 id="on-linux">On Linux<a class="headerlink" href="#on-linux" title="Permanent link">#</a></h3>
+<pre><code class="language-bash"># Create extraction directory
+mkdir -p /var/piler/import/barracuda
+
+# Extract all ZIP files
+cd /path/to/downloaded/zips
+for zip in *.zip; do
+  unzip -o &quot;$zip&quot; -d /var/piler/import/barracuda/
+done
+</code></pre>
+<h3 id="on-windows-if-extracting-before-transfer">On Windows (if extracting before transfer)<a class="headerlink" href="#on-windows-if-extracting-before-transfer" title="Permanent link">#</a></h3>
+<ol>
+<li>Right-click each ZIP file</li>
+<li>Select "Extract All..."</li>
+<li>Extract to a folder for transfer</li>
+</ol>
+<h3 id="verify-extraction">Verify Extraction<a class="headerlink" href="#verify-extraction" title="Permanent link">#</a></h3>
+<pre><code class="language-bash"># Count extracted EML files
+find /var/piler/import/barracuda -name &quot;*.eml&quot; | wc -l
+
+# Check sample file
+head -20 /var/piler/import/barracuda/sample.eml
+</code></pre>
+<h2 id="step-3-transfer-to-piler-server">Step 3: Transfer to Piler Server<a class="headerlink" href="#step-3-transfer-to-piler-server" title="Permanent link">#</a></h2>
+<p>If extracted on a different machine, transfer to Piler server.</p>
+<h3 id="using-rsync-recommended">Using rsync (Recommended)<a class="headerlink" href="#using-rsync-recommended" title="Permanent link">#</a></h3>
+<pre><code class="language-bash">rsync -avz --progress /path/to/barracuda/ piler-server:/var/piler/import/barracuda/
+</code></pre>
+<h3 id="using-usb-drive">Using USB Drive<a class="headerlink" href="#using-usb-drive" title="Permanent link">#</a></h3>
+<p>For multi-TB archives:</p>
+<ol>
+<li>Copy extracted files to USB drive</li>
+<li>Connect to Piler server</li>
+<li>Mount and copy to import directory</li>
+</ol>
+<h2 id="step-4-import-into-piler">Step 4: Import into Piler<a class="headerlink" href="#step-4-import-into-piler" title="Permanent link">#</a></h2>
+<h3 id="set-permissions">Set Permissions<a class="headerlink" href="#set-permissions" title="Permanent link">#</a></h3>
+<pre><code class="language-bash">chown -R piler:piler /var/piler/import/barracuda/
+</code></pre>
+<h3 id="run-import">Run Import<a class="headerlink" href="#run-import" title="Permanent link">#</a></h3>
+<pre><code class="language-bash">pilerimport -dir /var/piler/import/barracuda \
+  -tenantid fictive \
+  -workers 8 \
+  -progress
+</code></pre>
+<p>For very large archives:</p>
+<pre><code class="language-bash">pilerimport -dir /var/piler/import/barracuda \
+  -tenantid fictive \
+  -workers 16 \
+  -progress
+</code></pre>
+<h3 id="monitor-progress">Monitor Progress<a class="headerlink" href="#monitor-progress" title="Permanent link">#</a></h3>
+<p>Watch the progress bar for:</p>
+<ul>
+<li>Total files discovered</li>
+<li>Processing rate</li>
+<li>Success/failure counts</li>
+</ul>
+<h2 id="step-5-verify-migration">Step 5: Verify Migration<a class="headerlink" href="#step-5-verify-migration" title="Permanent link">#</a></h2>
+<h3 id="review-import-statistics">Review Import Statistics<a class="headerlink" href="#review-import-statistics" title="Permanent link">#</a></h3>
+<pre><code>Import completed:
+  Processed:  2,500,000
+  Success:    2,450,000
+  Duplicates:    45,000
+  Failed:         5,000
+</code></pre>
+<h3 id="verify-in-piler-ui">Verify in Piler UI<a class="headerlink" href="#verify-in-piler-ui" title="Permanent link">#</a></h3>
+<ol>
+<li>Log into Piler web interface</li>
+<li>Search across different date ranges</li>
+<li>Verify attachments open correctly</li>
+<li>Confirm all expected users/mailboxes appear</li>
+</ol>
+<h3 id="investigate-failures">Investigate Failures<a class="headerlink" href="#investigate-failures" title="Permanent link">#</a></h3>
+<p>Common failure causes:</p>
+<ul>
+<li>Corrupted EML files in Barracuda export</li>
+<li>Encoding issues with special characters</li>
+<li>Malformed headers in old emails</li>
+</ul>
+<p>Review failed files manually if count is significant.</p>
+<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">#</a></h2>
+<h3 id="zip-extraction-fails">ZIP extraction fails<a class="headerlink" href="#zip-extraction-fails" title="Permanent link">#</a></h3>
+<pre><code class="language-bash"># Try unzip with different options
+unzip -o -O CP437 archive.zip -d /var/piler/import/
+
+# For corrupted ZIP, try recovering
+zip -FF corrupted.zip --out fixed.zip
+</code></pre>
+<h3 id="non-eml-files-in-export">Non-EML files in export<a class="headerlink" href="#non-eml-files-in-export" title="Permanent link">#</a></h3>
+<p>Barracuda may include metadata files. These are automatically skipped by pilerimport.</p>
+<h3 id="very-slow-export-from-barracuda">Very slow export from Barracuda<a class="headerlink" href="#very-slow-export-from-barracuda" title="Permanent link">#</a></h3>
+<ul>
+<li>Export during off-hours</li>
+<li>Export in smaller date range chunks</li>
+<li>Contact Barracuda support if export hangs</li>
+</ul>
+<h3 id="memory-issues-during-large-import">Memory issues during large import<a class="headerlink" href="#memory-issues-during-large-import" title="Permanent link">#</a></h3>
+<p>Reduce worker count:</p>
+<pre><code class="language-bash">pilerimport -dir /var/piler/import/barracuda -workers 4 -progress
+</code></pre>
+<h3 id="high-failure-rate-1">High failure rate (&gt;1%)<a class="headerlink" href="#high-failure-rate-1" title="Permanent link">#</a></h3>
+<ol>
+<li>Check sample failed files for patterns</li>
+<li>Verify ZIP extraction completed fully</li>
+<li>Look for encoding issues in filenames</li>
+<li>Check Piler server disk space</li>
+</ol>
+<h2 id="alternative-barracuda-support-export">Alternative: Barracuda Support Export<a class="headerlink" href="#alternative-barracuda-support-export" title="Permanent link">#</a></h2>
+<p>If self-service export isn't feasible:</p>
+<ol>
+<li>Contact Barracuda Technical Support</li>
+<li>Request export assistance</li>
+<li>Be prepared for professional services fees ($10K-$50K)</li>
+<li>Barracuda will provide exported files in EML or PST format</li>
+<li>Follow import steps above once you receive the export</li>
+</ol>
+<h2 id="cleanup">Cleanup<a class="headerlink" href="#cleanup" title="Permanent link">#</a></h2>
+<p>After successful migration:</p>
+<pre><code class="language-bash"># Remove imported files
+rm -rf /var/piler/import/barracuda/
+
+# Remove original ZIP files
+rm -rf /path/to/downloaded/zips/
+</code></pre>
+<h2 id="reference">Reference<a class="headerlink" href="#reference" title="Permanent link">#</a></h2>
+<ul>
+<li><a href="https://campus.barracuda.com/product/messagearchiver/doc/170275426/migrating-to-a-new-barracuda-message-archiver/">Barracuda Migration Guide</a></li>
+<li><a href="../../import-emails/">Piler Import Documentation</a></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>
