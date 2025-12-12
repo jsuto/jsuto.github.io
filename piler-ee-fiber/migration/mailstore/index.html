@@ -670,8 +670,11 @@ rsync -avz --progress --partial /path/to/mailstore-export/ piler-server:/var/pil
 <ul>
 <li>Check file permissions</li>
 <li>Look for corrupted EML files</li>
-<li>Review Piler logs: <code>docker logs piler 2&gt;&amp;1 | grep -i error</code></li>
+<li>Review Piler logs:</li>
 </ul>
+<p><code>docker logs piler 2&gt;&amp;1 | grep -i error</code></p>
+<p>or</p>
+<p><code>journalctl -xeu piler  | grep -i error</code></p>
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">#</a></h2>
 <h3 id="permission-denied-errors">"Permission denied" errors<a class="headerlink" href="#permission-denied-errors" title="Permanent link">#</a></h3>
 <pre><code class="language-bash">chown -R piler:piler /var/piler/import/
