@@ -1,0 +1,1177 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://jsuto.github.io/piler-ee-v2/ediscovery/configuration/">
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.6.20">
+    
+    
+      
+        <title>eDiscovery Configuration Reference - piler enterprise 2.x documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.e53b48f4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#ediscovery-configuration-reference" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="piler enterprise 2.x documentation" class="md-header__button md-logo" aria-label="piler enterprise 2.x documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            piler enterprise 2.x documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              eDiscovery Configuration Reference
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="piler enterprise 2.x documentation" class="md-nav__button md-logo" aria-label="piler enterprise 2.x documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    piler enterprise 2.x documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://mailpiler.com/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Site
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#environment-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      Environment Variables
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Environment Variables">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#export-directory" class="md-nav__link">
+    <span class="md-ellipsis">
+      Export Directory
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#concurrent-export-limits" class="md-nav__link">
+    <span class="md-ellipsis">
+      Concurrent Export Limits
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worker-threads" class="md-nav__link">
+    <span class="md-ellipsis">
+      Worker Threads
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#database-tables" class="md-nav__link">
+    <span class="md-ellipsis">
+      Database Tables
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Database Tables">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#per-tenant-tables" class="md-nav__link">
+    <span class="md-ellipsis">
+      Per-Tenant Tables
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Per-Tenant Tables">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ediscovery_exports" class="md-nav__link">
+    <span class="md-ellipsis">
+      ediscovery_exports
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ediscovery_bates_sequences" class="md-nav__link">
+    <span class="md-ellipsis">
+      ediscovery_bates_sequences
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ediscovery_export_items" class="md-nav__link">
+    <span class="md-ellipsis">
+      ediscovery_export_items
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ediscovery_download_log" class="md-nav__link">
+    <span class="md-ellipsis">
+      ediscovery_download_log
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#global-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      Global Table
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Global Table">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ediscovery_active_exports" class="md-nav__link">
+    <span class="md-ellipsis">
+      ediscovery_active_exports
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#export-configuration-object" class="md-nav__link">
+    <span class="md-ellipsis">
+      Export Configuration Object
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Export Configuration Object">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configuration-fields" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuration Fields
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#load-file-formats" class="md-nav__link">
+    <span class="md-ellipsis">
+      Load File Formats
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Load File Formats">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#csv-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      CSV Format
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dat-format-concordance" class="md-nav__link">
+    <span class="md-ellipsis">
+      DAT Format (Concordance)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#file-naming-conventions" class="md-nav__link">
+    <span class="md-ellipsis">
+      File Naming Conventions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="File Naming Conventions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#native-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      Native Files
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#text-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      Text Files
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#attachments" class="md-nav__link">
+    <span class="md-ellipsis">
+      Attachments
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#custodian-organization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Custodian Organization
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api-endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      API Endpoints
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="API Endpoints">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#auditor-endpoints-require-auditor-role" class="md-nav__link">
+    <span class="md-ellipsis">
+      Auditor Endpoints (require auditor role)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#admin-endpoints-require-admin-role" class="md-nav__link">
+    <span class="md-ellipsis">
+      Admin Endpoints (require admin role)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#security-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Security Considerations
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Security Considerations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#access-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      Access Control
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#file-system-security" class="md-nav__link">
+    <span class="md-ellipsis">
+      File System Security
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-retention" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Retention
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#migration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Migration
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="ediscovery-configuration-reference">eDiscovery Configuration Reference<a class="headerlink" href="#ediscovery-configuration-reference" title="Permanent link">#</a></h1>
+<p>This document covers all configuration options for the eDiscovery Export feature.</p>
+<h2 id="environment-variables">Environment Variables<a class="headerlink" href="#environment-variables" title="Permanent link">#</a></h2>
+<h3 id="export-directory">Export Directory<a class="headerlink" href="#export-directory" title="Permanent link">#</a></h3>
+<p>eDiscovery exports use the standard Piler export directory:</p>
+<pre><code class="language-bash"># Base directory for all exports (default: /var/piler/export)
+DIR_EXPORT=/var/piler/export
+</code></pre>
+<p>eDiscovery exports are stored in a subdirectory structure:</p>
+<pre><code>{DIR_EXPORT}/
+└── {tenant_id}/
+    └── ediscovery/
+        └── {job_id}/
+            ├── loadfile.csv
+            ├── loadfile.dat
+            ├── NATIVES/
+            ├── TEXT/
+            └── ATTACHMENTS/
+</code></pre>
+<h3 id="concurrent-export-limits">Concurrent Export Limits<a class="headerlink" href="#concurrent-export-limits" title="Permanent link">#</a></h3>
+<pre><code class="language-bash"># Maximum concurrent exports across all tenants (default: 3)
+EDISCOVERY_MAX_GLOBAL_EXPORTS=3
+
+# Maximum concurrent exports per tenant (default: 1)
+EDISCOVERY_MAX_TENANT_EXPORTS=1
+</code></pre>
+<p>These limits prevent resource exhaustion during large exports. The global limit ensures the server isn't overwhelmed when multiple tenants run exports simultaneously.</p>
+<h3 id="worker-threads">Worker Threads<a class="headerlink" href="#worker-threads" title="Permanent link">#</a></h3>
+<pre><code class="language-bash"># Number of parallel workers for processing emails (default: 4, max: 32)
+EDISCOVERY_WORKERS=4
+</code></pre>
+<p>Increase for faster exports on high-CPU systems. Decrease if exports cause performance issues for other users.</p>
+<h2 id="database-tables">Database Tables<a class="headerlink" href="#database-tables" title="Permanent link">#</a></h2>
+<h3 id="per-tenant-tables">Per-Tenant Tables<a class="headerlink" href="#per-tenant-tables" title="Permanent link">#</a></h3>
+<p>These tables are created in each tenant's database (<code>{tenant_id}.tablename</code>):</p>
+<h4 id="ediscovery_exports"><code>ediscovery_exports</code><a class="headerlink" href="#ediscovery_exports" title="Permanent link">#</a></h4>
+<p>Stores export job metadata.</p>
+<table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id</code></td>
+<td>BIGINT</td>
+<td>Auto-increment primary key</td>
+</tr>
+<tr>
+<td><code>job_id</code></td>
+<td>VARCHAR(64)</td>
+<td>Unique job identifier (UUID)</td>
+</tr>
+<tr>
+<td><code>status</code></td>
+<td>VARCHAR(32)</td>
+<td>pending, running, completed, failed, cancelled</td>
+</tr>
+<tr>
+<td><code>bates_prefix</code></td>
+<td>VARCHAR(32)</td>
+<td>Bates number prefix</td>
+</tr>
+<tr>
+<td><code>bates_start</code></td>
+<td>INT</td>
+<td>Starting Bates number</td>
+</tr>
+<tr>
+<td><code>bates_end</code></td>
+<td>INT</td>
+<td>Ending Bates number (after completion)</td>
+</tr>
+<tr>
+<td><code>total_emails</code></td>
+<td>INT</td>
+<td>Total emails to process</td>
+</tr>
+<tr>
+<td><code>processed</code></td>
+<td>INT</td>
+<td>Emails processed so far</td>
+</tr>
+<tr>
+<td><code>failed</code></td>
+<td>INT</td>
+<td>Emails that failed processing</td>
+</tr>
+<tr>
+<td><code>config_json</code></td>
+<td>TEXT</td>
+<td>JSON export configuration</td>
+</tr>
+<tr>
+<td><code>output_path</code></td>
+<td>VARCHAR(512)</td>
+<td>Path to output directory</td>
+</tr>
+<tr>
+<td><code>output_size</code></td>
+<td>BIGINT</td>
+<td>Total size of export files</td>
+</tr>
+<tr>
+<td><code>error_message</code></td>
+<td>TEXT</td>
+<td>Error details if failed</td>
+</tr>
+<tr>
+<td><code>created_by</code></td>
+<td>VARCHAR(255)</td>
+<td>Email of user who created export</td>
+</tr>
+<tr>
+<td><code>created_at</code></td>
+<td>TIMESTAMP</td>
+<td>Creation timestamp</td>
+</tr>
+<tr>
+<td><code>started_at</code></td>
+<td>TIMESTAMP</td>
+<td>Processing start time</td>
+</tr>
+<tr>
+<td><code>completed_at</code></td>
+<td>TIMESTAMP</td>
+<td>Completion timestamp</td>
+</tr>
+</tbody>
+</table>
+<h4 id="ediscovery_bates_sequences"><code>ediscovery_bates_sequences</code><a class="headerlink" href="#ediscovery_bates_sequences" title="Permanent link">#</a></h4>
+<p>Tracks Bates number sequences for continuity.</p>
+<table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id</code></td>
+<td>BIGINT</td>
+<td>Auto-increment primary key</td>
+</tr>
+<tr>
+<td><code>prefix</code></td>
+<td>VARCHAR(32)</td>
+<td>Bates prefix (unique)</td>
+</tr>
+<tr>
+<td><code>last_number</code></td>
+<td>INT</td>
+<td>Last assigned number</td>
+</tr>
+<tr>
+<td><code>updated_at</code></td>
+<td>TIMESTAMP</td>
+<td>Last update timestamp</td>
+</tr>
+</tbody>
+</table>
+<h4 id="ediscovery_export_items"><code>ediscovery_export_items</code><a class="headerlink" href="#ediscovery_export_items" title="Permanent link">#</a></h4>
+<p>Maps individual emails to their Bates numbers.</p>
+<table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id</code></td>
+<td>BIGINT</td>
+<td>Auto-increment primary key</td>
+</tr>
+<tr>
+<td><code>job_id</code></td>
+<td>VARCHAR(64)</td>
+<td>Reference to export job</td>
+</tr>
+<tr>
+<td><code>email_id</code></td>
+<td>BIGINT</td>
+<td>Reference to archived email</td>
+</tr>
+<tr>
+<td><code>bates_number</code></td>
+<td>VARCHAR(64)</td>
+<td>Assigned Bates number</td>
+</tr>
+<tr>
+<td><code>status</code></td>
+<td>VARCHAR(32)</td>
+<td>success, failed, skipped</td>
+</tr>
+<tr>
+<td><code>error_message</code></td>
+<td>TEXT</td>
+<td>Error if failed</td>
+</tr>
+<tr>
+<td><code>processed_at</code></td>
+<td>TIMESTAMP</td>
+<td>Processing timestamp</td>
+</tr>
+</tbody>
+</table>
+<h4 id="ediscovery_download_log"><code>ediscovery_download_log</code><a class="headerlink" href="#ediscovery_download_log" title="Permanent link">#</a></h4>
+<p>Audit trail for export downloads.</p>
+<table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id</code></td>
+<td>BIGINT</td>
+<td>Auto-increment primary key</td>
+</tr>
+<tr>
+<td><code>job_id</code></td>
+<td>VARCHAR(64)</td>
+<td>Reference to export job</td>
+</tr>
+<tr>
+<td><code>downloaded_by</code></td>
+<td>VARCHAR(255)</td>
+<td>User who downloaded</td>
+</tr>
+<tr>
+<td><code>downloaded_at</code></td>
+<td>TIMESTAMP</td>
+<td>Download timestamp</td>
+</tr>
+<tr>
+<td><code>ip_address</code></td>
+<td>VARCHAR(45)</td>
+<td>Client IP address</td>
+</tr>
+<tr>
+<td><code>user_agent</code></td>
+<td>TEXT</td>
+<td>Browser user agent</td>
+</tr>
+</tbody>
+</table>
+<h3 id="global-table">Global Table<a class="headerlink" href="#global-table" title="Permanent link">#</a></h3>
+<p>Created in the main <code>piler</code> database:</p>
+<h4 id="ediscovery_active_exports"><code>ediscovery_active_exports</code><a class="headerlink" href="#ediscovery_active_exports" title="Permanent link">#</a></h4>
+<p>Tracks currently running exports across all tenants for enforcing global limits.</p>
+<table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id</code></td>
+<td>BIGINT</td>
+<td>Auto-increment primary key</td>
+</tr>
+<tr>
+<td><code>tenant_id</code></td>
+<td>VARCHAR(32)</td>
+<td>Tenant identifier</td>
+</tr>
+<tr>
+<td><code>job_id</code></td>
+<td>VARCHAR(64)</td>
+<td>Export job ID</td>
+</tr>
+<tr>
+<td><code>started_at</code></td>
+<td>TIMESTAMP</td>
+<td>When export started</td>
+</tr>
+</tbody>
+</table>
+<h2 id="export-configuration-object">Export Configuration Object<a class="headerlink" href="#export-configuration-object" title="Permanent link">#</a></h2>
+<p>When creating an export, the following configuration is stored as JSON:</p>
+<pre><code class="language-json">{
+  &quot;bates_prefix&quot;: &quot;ACME&quot;,
+  &quot;bates_start_number&quot;: 1,
+  &quot;bates_digits&quot;: 6,
+  &quot;include_natives&quot;: true,
+  &quot;include_text&quot;: true,
+  &quot;include_attachments&quot;: true,
+  &quot;organize_by_custodian&quot;: false,
+  &quot;load_file_format&quot;: &quot;csv&quot;,
+  &quot;date_format&quot;: &quot;iso8601&quot;,
+  &quot;email_ids&quot;: [1001, 1002, 1003],
+  &quot;workers&quot;: 4
+}
+</code></pre>
+<h3 id="configuration-fields">Configuration Fields<a class="headerlink" href="#configuration-fields" title="Permanent link">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>bates_prefix</code></td>
+<td>string</td>
+<td>required</td>
+<td>Prefix for Bates numbers</td>
+</tr>
+<tr>
+<td><code>bates_start_number</code></td>
+<td>int</td>
+<td>0 (auto)</td>
+<td>Starting number, 0 = continue from last</td>
+</tr>
+<tr>
+<td><code>bates_digits</code></td>
+<td>int</td>
+<td>6</td>
+<td>Number of digits in Bates number</td>
+</tr>
+<tr>
+<td><code>include_natives</code></td>
+<td>bool</td>
+<td>true</td>
+<td>Include original EML files</td>
+</tr>
+<tr>
+<td><code>include_text</code></td>
+<td>bool</td>
+<td>false</td>
+<td>Extract plain text files</td>
+</tr>
+<tr>
+<td><code>include_attachments</code></td>
+<td>bool</td>
+<td>false</td>
+<td>Extract attachments separately</td>
+</tr>
+<tr>
+<td><code>organize_by_custodian</code></td>
+<td>bool</td>
+<td>false</td>
+<td>Create custodian folders</td>
+</tr>
+<tr>
+<td><code>load_file_format</code></td>
+<td>string</td>
+<td>"csv"</td>
+<td>"csv", "dat", or "both"</td>
+</tr>
+<tr>
+<td><code>date_format</code></td>
+<td>string</td>
+<td>"iso8601"</td>
+<td>"iso8601", "us", or "eu"</td>
+</tr>
+<tr>
+<td><code>email_ids</code></td>
+<td>[]int64</td>
+<td>required</td>
+<td>List of email IDs to export</td>
+</tr>
+<tr>
+<td><code>workers</code></td>
+<td>int</td>
+<td>4</td>
+<td>Parallel processing workers (1-32)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="load-file-formats">Load File Formats<a class="headerlink" href="#load-file-formats" title="Permanent link">#</a></h2>
+<h3 id="csv-format">CSV Format<a class="headerlink" href="#csv-format" title="Permanent link">#</a></h3>
+<ul>
+<li>Delimiter: Comma (<code>,</code>)</li>
+<li>Quote character: Double quote (<code>"</code>)</li>
+<li>Encoding: UTF-8 with BOM</li>
+<li>Line endings: CRLF (<code>\r\n</code>)</li>
+<li>Header row: Yes</li>
+</ul>
+<h3 id="dat-format-concordance">DAT Format (Concordance)<a class="headerlink" href="#dat-format-concordance" title="Permanent link">#</a></h3>
+<ul>
+<li>Field delimiter: <code>þ</code> (U+00FE, Concordance default)</li>
+<li>Text qualifier: <code>¶</code> (U+00B6, Concordance default)</li>
+<li>Newline replacement: <code>®</code> (U+00AE)</li>
+<li>Encoding: UTF-8</li>
+<li>Line endings: CRLF (<code>\r\n</code>)</li>
+<li>Header row: Yes</li>
+</ul>
+<h2 id="file-naming-conventions">File Naming Conventions<a class="headerlink" href="#file-naming-conventions" title="Permanent link">#</a></h2>
+<h3 id="native-files">Native Files<a class="headerlink" href="#native-files" title="Permanent link">#</a></h3>
+<pre><code>{BATES_PREFIX}_{NUMBER}.eml
+Example: ACME_000001.eml
+</code></pre>
+<h3 id="text-files">Text Files<a class="headerlink" href="#text-files" title="Permanent link">#</a></h3>
+<pre><code>{BATES_PREFIX}_{NUMBER}.txt
+Example: ACME_000001.txt
+</code></pre>
+<h3 id="attachments">Attachments<a class="headerlink" href="#attachments" title="Permanent link">#</a></h3>
+<pre><code>{BATES_PREFIX}_{NUMBER}_{ATTACHMENT_SEQ}.{ext}
+Example: ACME_000001_001.pdf
+</code></pre>
+<h3 id="custodian-organization">Custodian Organization<a class="headerlink" href="#custodian-organization" title="Permanent link">#</a></h3>
+<p>When enabled, files are organized:</p>
+<pre><code>{CUSTODIAN_EMAIL}/
+├── NATIVES/
+│   └── ACME_000001.eml
+├── TEXT/
+│   └── ACME_000001.txt
+└── ATTACHMENTS/
+    └── ACME_000001_001.pdf
+</code></pre>
+<h2 id="api-endpoints">API Endpoints<a class="headerlink" href="#api-endpoints" title="Permanent link">#</a></h2>
+<h3 id="auditor-endpoints-require-auditor-role">Auditor Endpoints (require auditor role)<a class="headerlink" href="#auditor-endpoints-require-auditor-role" title="Permanent link">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Endpoint</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>POST</td>
+<td><code>/api/v1/ediscovery/export</code></td>
+<td>Create new export</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/api/v1/ediscovery/exports</code></td>
+<td>List all exports</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/api/v1/ediscovery/exports/:job_id</code></td>
+<td>Get export details</td>
+</tr>
+<tr>
+<td>POST</td>
+<td><code>/api/v1/ediscovery/exports/:job_id/cancel</code></td>
+<td>Cancel running export</td>
+</tr>
+<tr>
+<td>DELETE</td>
+<td><code>/api/v1/ediscovery/exports/:job_id</code></td>
+<td>Delete export</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/api/v1/ediscovery/exports/:job_id/download</code></td>
+<td>Download export ZIP</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/api/v1/ediscovery/bates-prefixes</code></td>
+<td>Get Bates prefix sequences</td>
+</tr>
+</tbody>
+</table>
+<h3 id="admin-endpoints-require-admin-role">Admin Endpoints (require admin role)<a class="headerlink" href="#admin-endpoints-require-admin-role" title="Permanent link">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Endpoint</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GET</td>
+<td><code>/api/v1/admin/ediscovery/exports</code></td>
+<td>List all tenant exports</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/api/v1/admin/ediscovery/bates-prefixes</code></td>
+<td>Get all Bates prefixes</td>
+</tr>
+</tbody>
+</table>
+<h2 id="security-considerations">Security Considerations<a class="headerlink" href="#security-considerations" title="Permanent link">#</a></h2>
+<h3 id="access-control">Access Control<a class="headerlink" href="#access-control" title="Permanent link">#</a></h3>
+<ul>
+<li>Only users with auditor role (role_id = 2) can create exports</li>
+<li>Users can only see/download their own tenant's exports</li>
+<li>Download actions are logged with IP and user agent</li>
+</ul>
+<h3 id="file-system-security">File System Security<a class="headerlink" href="#file-system-security" title="Permanent link">#</a></h3>
+<ul>
+<li>Export directories should be on encrypted volumes</li>
+<li>Consider filesystem permissions on the export directory</li>
+</ul>
+<h3 id="data-retention">Data Retention<a class="headerlink" href="#data-retention" title="Permanent link">#</a></h3>
+<ul>
+<li>Exports remain until manually deleted</li>
+<li>Consider implementing automatic cleanup policies</li>
+<li>Download logs are retained indefinitely for audit purposes</li>
+</ul>
+<h2 id="migration">Migration<a class="headerlink" href="#migration" title="Permanent link">#</a></h2>
+<p>Apply the migration to create required tables:</p>
+<pre><code class="language-bash"># Run migration 014_ediscovery_export.sql on each tenant database
+mysql -u piler -p tenant_db &lt; util/migrations/sql/014_ediscovery_export.sql
+
+# Run global migration on piler database
+mysql -u piler -p piler &lt; util/migrations/sql/014_ediscovery_global.sql
+</code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>

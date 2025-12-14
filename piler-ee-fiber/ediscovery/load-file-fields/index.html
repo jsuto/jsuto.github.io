@@ -1,0 +1,1258 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://jsuto.github.io/piler-ee-v2/ediscovery/load-file-fields/">
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.6.20">
+    
+    
+      
+        <title>Load File Field Definitions - piler enterprise 2.x documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.e53b48f4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#load-file-field-definitions" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="piler enterprise 2.x documentation" class="md-header__button md-logo" aria-label="piler enterprise 2.x documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            piler enterprise 2.x documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Load File Field Definitions
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="piler enterprise 2.x documentation" class="md-nav__button md-logo" aria-label="piler enterprise 2.x documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    piler enterprise 2.x documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://mailpiler.com/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Site
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#field-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Field Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#detailed-field-definitions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Detailed Field Definitions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Detailed Field Definitions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#document-identification" class="md-nav__link">
+    <span class="md-ellipsis">
+      Document Identification
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Document Identification">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#docid" class="md-nav__link">
+    <span class="md-ellipsis">
+      DOCID
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#begbates-endbates" class="md-nav__link">
+    <span class="md-ellipsis">
+      BEGBATES / ENDBATES
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#begattach-endattach" class="md-nav__link">
+    <span class="md-ellipsis">
+      BEGATTACH / ENDATTACH
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parentid" class="md-nav__link">
+    <span class="md-ellipsis">
+      PARENTID
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#attachnum" class="md-nav__link">
+    <span class="md-ellipsis">
+      ATTACHNUM
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#addressing-fields" class="md-nav__link">
+    <span class="md-ellipsis">
+      Addressing Fields
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Addressing Fields">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#from" class="md-nav__link">
+    <span class="md-ellipsis">
+      FROM
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#to" class="md-nav__link">
+    <span class="md-ellipsis">
+      TO
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cc" class="md-nav__link">
+    <span class="md-ellipsis">
+      CC
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bcc" class="md-nav__link">
+    <span class="md-ellipsis">
+      BCC
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#date-fields" class="md-nav__link">
+    <span class="md-ellipsis">
+      Date Fields
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Date Fields">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#datesent" class="md-nav__link">
+    <span class="md-ellipsis">
+      DATESENT
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#datereceived" class="md-nav__link">
+    <span class="md-ellipsis">
+      DATERECEIVED
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#attachment-information" class="md-nav__link">
+    <span class="md-ellipsis">
+      Attachment Information
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Attachment Information">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hasattach" class="md-nav__link">
+    <span class="md-ellipsis">
+      HASATTACH
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#attachcount" class="md-nav__link">
+    <span class="md-ellipsis">
+      ATTACHCOUNT
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#attachnames" class="md-nav__link">
+    <span class="md-ellipsis">
+      ATTACHNAMES
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#file-paths" class="md-nav__link">
+    <span class="md-ellipsis">
+      File Paths
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="File Paths">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nativepath" class="md-nav__link">
+    <span class="md-ellipsis">
+      NATIVEPATH
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#textpath" class="md-nav__link">
+    <span class="md-ellipsis">
+      TEXTPATH
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#attachpath" class="md-nav__link">
+    <span class="md-ellipsis">
+      ATTACHPATH
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#document-properties" class="md-nav__link">
+    <span class="md-ellipsis">
+      Document Properties
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Document Properties">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#custodian" class="md-nav__link">
+    <span class="md-ellipsis">
+      CUSTODIAN
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filetype" class="md-nav__link">
+    <span class="md-ellipsis">
+      FILETYPE
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fileext" class="md-nav__link">
+    <span class="md-ellipsis">
+      FILEEXT
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filesize" class="md-nav__link">
+    <span class="md-ellipsis">
+      FILESIZE
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hash-values" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hash Values
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Hash Values">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#md5hash" class="md-nav__link">
+    <span class="md-ellipsis">
+      MD5HASH
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sha256hash" class="md-nav__link">
+    <span class="md-ellipsis">
+      SHA256HASH
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#email-threading" class="md-nav__link">
+    <span class="md-ellipsis">
+      Email Threading
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Email Threading">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#messageid" class="md-nav__link">
+    <span class="md-ellipsis">
+      MESSAGEID
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inreplyto" class="md-nav__link">
+    <span class="md-ellipsis">
+      INREPLYTO
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      REFERENCES
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conversationid" class="md-nav__link">
+    <span class="md-ellipsis">
+      CONVERSATIONID
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#email-metadata" class="md-nav__link">
+    <span class="md-ellipsis">
+      Email Metadata
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Email Metadata">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#importance" class="md-nav__link">
+    <span class="md-ellipsis">
+      IMPORTANCE
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sensitivity" class="md-nav__link">
+    <span class="md-ellipsis">
+      SENSITIVITY
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#direction" class="md-nav__link">
+    <span class="md-ellipsis">
+      DIRECTION
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verified" class="md-nav__link">
+    <span class="md-ellipsis">
+      VERIFIED
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#csv-format-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      CSV Format Example
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dat-format-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      DAT Format Example
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#import-compatibility" class="md-nav__link">
+    <span class="md-ellipsis">
+      Import Compatibility
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Import Compatibility">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#relativity" class="md-nav__link">
+    <span class="md-ellipsis">
+      Relativity
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#concordance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Concordance
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nuix" class="md-nav__link">
+    <span class="md-ellipsis">
+      NUIX
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#logikcull" class="md-nav__link">
+    <span class="md-ellipsis">
+      Logikcull
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#special-characters" class="md-nav__link">
+    <span class="md-ellipsis">
+      Special Characters
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Special Characters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#csv-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      CSV Handling
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dat-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      DAT Handling
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="load-file-field-definitions">Load File Field Definitions<a class="headerlink" href="#load-file-field-definitions" title="Permanent link">#</a></h1>
+<p>This document provides detailed definitions for all fields in the eDiscovery load files generated by Piler.</p>
+<h2 id="field-overview">Field Overview<a class="headerlink" href="#field-overview" title="Permanent link">#</a></h2>
+<table>
+<thead>
+<tr>
+<th>Field Name</th>
+<th>Description</th>
+<th>Example Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DOCID</td>
+<td>Bates number (primary identifier)</td>
+<td><code>ACME_000001</code></td>
+</tr>
+<tr>
+<td>BEGBATES</td>
+<td>Beginning Bates number</td>
+<td><code>ACME_000001</code></td>
+</tr>
+<tr>
+<td>ENDBATES</td>
+<td>Ending Bates number</td>
+<td><code>ACME_000001</code></td>
+</tr>
+<tr>
+<td>BEGATTACH</td>
+<td>First Bates of attachment range</td>
+<td><code>ACME_000001</code></td>
+</tr>
+<tr>
+<td>ENDATTACH</td>
+<td>Last Bates of attachment range</td>
+<td><code>ACME_000001_003</code></td>
+</tr>
+<tr>
+<td>PARENTID</td>
+<td>Parent document Bates (for attachments)</td>
+<td><code>ACME_000001</code></td>
+</tr>
+<tr>
+<td>ATTACHNUM</td>
+<td>Attachment sequence number</td>
+<td><code>001</code></td>
+</tr>
+<tr>
+<td>FROM</td>
+<td>Sender email address</td>
+<td><code>john.smith@company.com</code></td>
+</tr>
+<tr>
+<td>TO</td>
+<td>Recipient email addresses</td>
+<td><code>jane.doe@company.com; bob@ext.com</code></td>
+</tr>
+<tr>
+<td>CC</td>
+<td>CC recipient addresses</td>
+<td><code>legal@company.com</code></td>
+</tr>
+<tr>
+<td>BCC</td>
+<td>BCC recipient addresses</td>
+<td><code>archive@company.com</code></td>
+</tr>
+<tr>
+<td>SUBJECT</td>
+<td>Email subject line</td>
+<td><code>RE: Contract Review</code></td>
+</tr>
+<tr>
+<td>DATESENT</td>
+<td>Date and time sent</td>
+<td><code>2024-03-15T10:30:00Z</code></td>
+</tr>
+<tr>
+<td>DATERECEIVED</td>
+<td>Date and time received</td>
+<td><code>2024-03-15T10:30:05Z</code></td>
+</tr>
+<tr>
+<td>HASATTACH</td>
+<td>Whether email has attachments</td>
+<td><code>TRUE</code> or <code>FALSE</code></td>
+</tr>
+<tr>
+<td>ATTACHCOUNT</td>
+<td>Number of attachments</td>
+<td><code>3</code></td>
+</tr>
+<tr>
+<td>ATTACHNAMES</td>
+<td>Semicolon-separated attachment names</td>
+<td><code>contract.pdf; terms.docx</code></td>
+</tr>
+<tr>
+<td>ATTACHPATH</td>
+<td>Path to extracted attachments</td>
+<td><code>ATTACHMENTS/ACME_000001_001.pdf</code></td>
+</tr>
+<tr>
+<td>NATIVEPATH</td>
+<td>Path to native EML file</td>
+<td><code>NATIVES/ACME_000001.eml</code></td>
+</tr>
+<tr>
+<td>TEXTPATH</td>
+<td>Path to extracted text file</td>
+<td><code>TEXT/ACME_000001.txt</code></td>
+</tr>
+<tr>
+<td>CUSTODIAN</td>
+<td>Primary custodian (sender)</td>
+<td><code>john.smith@company.com</code></td>
+</tr>
+<tr>
+<td>FILETYPE</td>
+<td>Document type</td>
+<td><code>Email</code> or <code>Attachment</code></td>
+</tr>
+<tr>
+<td>FILEEXT</td>
+<td>File extension</td>
+<td><code>.eml</code>, <code>.pdf</code>, <code>.docx</code></td>
+</tr>
+<tr>
+<td>FILESIZE</td>
+<td>File size in bytes</td>
+<td><code>45678</code></td>
+</tr>
+<tr>
+<td>MD5HASH</td>
+<td>MD5 hash of native file</td>
+<td><code>d41d8cd98f00b204e9800998ecf8427e</code></td>
+</tr>
+<tr>
+<td>SHA256HASH</td>
+<td>SHA-256 hash of native file</td>
+<td><code>e3b0c44298fc1c149afb...</code></td>
+</tr>
+<tr>
+<td>MESSAGEID</td>
+<td>Email Message-ID header</td>
+<td><code>&lt;abc123@mail.company.com&gt;</code></td>
+</tr>
+<tr>
+<td>INREPLYTO</td>
+<td>In-Reply-To header</td>
+<td><code>&lt;def456@mail.company.com&gt;</code></td>
+</tr>
+<tr>
+<td>REFERENCES</td>
+<td>References header</td>
+<td><code>&lt;ref1@company.com&gt;; &lt;ref2@company.com&gt;</code></td>
+</tr>
+<tr>
+<td>CONVERSATIONID</td>
+<td>Thread/conversation identifier</td>
+<td><code>thread_abc123</code></td>
+</tr>
+<tr>
+<td>IMPORTANCE</td>
+<td>Email importance/priority</td>
+<td><code>Normal</code>, <code>High</code>, <code>Low</code></td>
+</tr>
+<tr>
+<td>SENSITIVITY</td>
+<td>Sensitivity classification</td>
+<td><code>Normal</code>, <code>Personal</code>, <code>Confidential</code></td>
+</tr>
+<tr>
+<td>DIRECTION</td>
+<td>Email direction</td>
+<td><code>Inbound</code>, <code>Outbound</code>, <code>Internal</code></td>
+</tr>
+<tr>
+<td>VERIFIED</td>
+<td>Archive integrity verified</td>
+<td><code>TRUE</code> or <code>FALSE</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="detailed-field-definitions">Detailed Field Definitions<a class="headerlink" href="#detailed-field-definitions" title="Permanent link">#</a></h2>
+<h3 id="document-identification">Document Identification<a class="headerlink" href="#document-identification" title="Permanent link">#</a></h3>
+<h4 id="docid">DOCID<a class="headerlink" href="#docid" title="Permanent link">#</a></h4>
+<p><strong>Type</strong>: String
+<strong>Format</strong>: <code>{PREFIX}_{NUMBER}</code> or <code>{PREFIX}_{NUMBER}_{ATTACH}</code></p>
+<p>The primary unique identifier for each document in the production. For parent emails, this is the Bates number. For attachments, this includes the attachment sequence.</p>
+<p><strong>Examples</strong>:
+- Email: <code>ACME_000001</code>
+- Attachment: <code>ACME_000001_001</code></p>
+<h4 id="begbates-endbates">BEGBATES / ENDBATES<a class="headerlink" href="#begbates-endbates" title="Permanent link">#</a></h4>
+<p><strong>Type</strong>: String
+<strong>Format</strong>: Same as DOCID</p>
+<p>For single-page documents (emails), BEGBATES equals ENDBATES. These fields support multi-page document productions where page ranges are needed.</p>
+<h4 id="begattach-endattach">BEGATTACH / ENDATTACH<a class="headerlink" href="#begattach-endattach" title="Permanent link">#</a></h4>
+<p><strong>Type</strong>: String
+<strong>Format</strong>: Bates number</p>
+<p>Defines the range of attachments for a parent email. BEGATTACH is the parent Bates number; ENDATTACH is the last attachment Bates number.</p>
+<p><strong>Example</strong>:
+- Email with 3 attachments: BEGATTACH=<code>ACME_000001</code>, ENDATTACH=<code>ACME_000001_003</code>
+- Email with no attachments: Both fields equal <code>ACME_000001</code></p>
+<h4 id="parentid">PARENTID<a class="headerlink" href="#parentid" title="Permanent link">#</a></h4>
+<p><strong>Type</strong>: String
+<strong>Format</strong>: Bates number or empty</p>
+<p>For attachments, contains the parent email's Bates number. Empty for parent emails.</p>
+<p><strong>Examples</strong>:
+- Parent email: (empty)
+- Attachment: <code>ACME_000001</code></p>
+<h4 id="attachnum">ATTACHNUM<a class="headerlink" href="#attachnum" title="Permanent link">#</a></h4>
+<p><strong>Type</strong>: String
+<strong>Format</strong>: Zero-padded number or empty</p>
+<p>Sequential number for attachments within a parent email.</p>
+<p><strong>Examples</strong>:
+- Parent email: (empty)
+- First attachment: <code>001</code>
+- Second attachment: <code>002</code></p>
+<h3 id="addressing-fields">Addressing Fields<a class="headerlink" href="#addressing-fields" title="Permanent link">#</a></h3>
+<h4 id="from">FROM<a class="headerlink" href="#from" title="Permanent link">#</a></h4>
+<p><strong>Type</strong>: String
+<strong>Format</strong>: Email address</p>
+<p>The sender's email address, extracted from the From header.</p>
+<p><strong>Example</strong>: <code>"John Smith" &lt;john.smith@company.com&gt;</code> or <code>john.smith@company.com</code></p>
+<h4 id="to">TO<a class="headerlink" href="#to" title="Permanent link">#</a></h4>
+<p><strong>Type</strong>: String
+<strong>Format</strong>: Semicolon-separated email addresses</p>
+<p>All recipients from the To header.</p>
+<p><strong>Example</strong>: <code>jane.doe@company.com; bob.jones@external.com</code></p>
+<h4 id="cc">CC<a class="headerlink" href="#cc" title="Permanent link">#</a></h4>
+<p><strong>Type</strong>: String
+<strong>Format</strong>: Semicolon-separated email addresses</p>
+<p>All CC recipients.</p>
+<h4 id="bcc">BCC<a class="headerlink" href="#bcc" title="Permanent link">#</a></h4>
+<p><strong>Type</strong>: String
+<strong>Format</strong>: Semicolon-separated email addresses</p>
+<p>BCC recipients (when available from journal/envelope data).</p>
+<h3 id="date-fields">Date Fields<a class="headerlink" href="#date-fields" title="Permanent link">#</a></h3>
+<h4 id="datesent">DATESENT<a class="headerlink" href="#datesent" title="Permanent link">#</a></h4>
+<p><strong>Type</strong>: String
+<strong>Format</strong>: Configured date format</p>
+<p>The date and time the email was sent, from the Date header.</p>
+<p><strong>Formats</strong>:
+- ISO 8601: <code>2024-03-15T10:30:00Z</code>
+- US: <code>03/15/2024 10:30:00 AM</code>
+- EU: <code>15/03/2024 10:30:00</code></p>
+<h4 id="datereceived">DATERECEIVED<a class="headerlink" href="#datereceived" title="Permanent link">#</a></h4>
+<p><strong>Type</strong>: String
+<strong>Format</strong>: Configured date format</p>
+<p>The date and time the email was received/archived.</p>
+<h3 id="attachment-information">Attachment Information<a class="headerlink" href="#attachment-information" title="Permanent link">#</a></h3>
+<h4 id="hasattach">HASATTACH<a class="headerlink" href="#hasattach" title="Permanent link">#</a></h4>
+<p><strong>Type</strong>: String
+<strong>Values</strong>: <code>TRUE</code> or <code>FALSE</code></p>
+<p>Indicates whether the email has attachments.</p>
+<h4 id="attachcount">ATTACHCOUNT<a class="headerlink" href="#attachcount" title="Permanent link">#</a></h4>
+<p><strong>Type</strong>: Integer
+<strong>Format</strong>: Numeric</p>
+<p>Number of attachments on the email. <code>0</code> for emails without attachments.</p>
+<h4 id="attachnames">ATTACHNAMES<a class="headerlink" href="#attachnames" title="Permanent link">#</a></h4>
+<p><strong>Type</strong>: String
+<strong>Format</strong>: Semicolon-separated filenames</p>
+<p>List of attachment filenames.</p>
+<p><strong>Example</strong>: <code>Q1_Report.pdf; Financial_Summary.xlsx; Notes.docx</code></p>
+<h3 id="file-paths">File Paths<a class="headerlink" href="#file-paths" title="Permanent link">#</a></h3>
+<h4 id="nativepath">NATIVEPATH<a class="headerlink" href="#nativepath" title="Permanent link">#</a></h4>
+<p><strong>Type</strong>: String
+<strong>Format</strong>: Relative path</p>
+<p>Path to the native file within the export package.</p>
+<p><strong>Examples</strong>:
+- Email: <code>NATIVES/ACME_000001.eml</code>
+- With custodian folders: <code>john.smith@company.com/NATIVES/ACME_000001.eml</code></p>
+<h4 id="textpath">TEXTPATH<a class="headerlink" href="#textpath" title="Permanent link">#</a></h4>
+<p><strong>Type</strong>: String
+<strong>Format</strong>: Relative path</p>
+<p>Path to the extracted text file. Empty if text extraction was not enabled.</p>
+<p><strong>Example</strong>: <code>TEXT/ACME_000001.txt</code></p>
+<h4 id="attachpath">ATTACHPATH<a class="headerlink" href="#attachpath" title="Permanent link">#</a></h4>
+<p><strong>Type</strong>: String
+<strong>Format</strong>: Relative path</p>
+<p>For attachments, path to the extracted attachment file. Empty for parent emails or if attachment extraction was not enabled.</p>
+<p><strong>Example</strong>: <code>ATTACHMENTS/ACME_000001_001.pdf</code></p>
+<h3 id="document-properties">Document Properties<a class="headerlink" href="#document-properties" title="Permanent link">#</a></h3>
+<h4 id="custodian">CUSTODIAN<a class="headerlink" href="#custodian" title="Permanent link">#</a></h4>
+<p><strong>Type</strong>: String
+<strong>Format</strong>: Email address</p>
+<p>The primary custodian for the document. For emails, this is typically the sender's address.</p>
+<h4 id="filetype">FILETYPE<a class="headerlink" href="#filetype" title="Permanent link">#</a></h4>
+<p><strong>Type</strong>: String
+<strong>Values</strong>: <code>Email</code> or <code>Attachment</code></p>
+<p>Indicates whether the record is for a parent email or an attachment.</p>
+<h4 id="fileext">FILEEXT<a class="headerlink" href="#fileext" title="Permanent link">#</a></h4>
+<p><strong>Type</strong>: String
+<strong>Format</strong>: Extension with dot</p>
+<p>The file extension of the native document.</p>
+<p><strong>Examples</strong>: <code>.eml</code>, <code>.pdf</code>, <code>.docx</code>, <code>.xlsx</code></p>
+<h4 id="filesize">FILESIZE<a class="headerlink" href="#filesize" title="Permanent link">#</a></h4>
+<p><strong>Type</strong>: Integer
+<strong>Format</strong>: Bytes</p>
+<p>Size of the native file in bytes.</p>
+<h3 id="hash-values">Hash Values<a class="headerlink" href="#hash-values" title="Permanent link">#</a></h3>
+<h4 id="md5hash">MD5HASH<a class="headerlink" href="#md5hash" title="Permanent link">#</a></h4>
+<p><strong>Type</strong>: String
+<strong>Format</strong>: 32-character hexadecimal</p>
+<p>MD5 hash of the native file for deduplication and integrity verification.</p>
+<p><strong>Example</strong>: <code>d41d8cd98f00b204e9800998ecf8427e</code></p>
+<h4 id="sha256hash">SHA256HASH<a class="headerlink" href="#sha256hash" title="Permanent link">#</a></h4>
+<p><strong>Type</strong>: String
+<strong>Format</strong>: 64-character hexadecimal</p>
+<p>SHA-256 hash of the native file for cryptographic integrity verification.</p>
+<p><strong>Example</strong>: <code>e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855</code></p>
+<h3 id="email-threading">Email Threading<a class="headerlink" href="#email-threading" title="Permanent link">#</a></h3>
+<h4 id="messageid">MESSAGEID<a class="headerlink" href="#messageid" title="Permanent link">#</a></h4>
+<p><strong>Type</strong>: String
+<strong>Format</strong>: RFC 2822 Message-ID</p>
+<p>The unique Message-ID header from the email.</p>
+<p><strong>Example</strong>: <code>&lt;CABx+4AH2M7dKKO-ABC123@mail.gmail.com&gt;</code></p>
+<h4 id="inreplyto">INREPLYTO<a class="headerlink" href="#inreplyto" title="Permanent link">#</a></h4>
+<p><strong>Type</strong>: String
+<strong>Format</strong>: RFC 2822 Message-ID</p>
+<p>The Message-ID this email is replying to.</p>
+<h4 id="references">REFERENCES<a class="headerlink" href="#references" title="Permanent link">#</a></h4>
+<p><strong>Type</strong>: String
+<strong>Format</strong>: Semicolon-separated Message-IDs</p>
+<p>Chain of Message-IDs representing the conversation thread.</p>
+<h4 id="conversationid">CONVERSATIONID<a class="headerlink" href="#conversationid" title="Permanent link">#</a></h4>
+<p><strong>Type</strong>: String
+<strong>Format</strong>: Thread identifier</p>
+<p>Internal conversation/thread identifier for grouping related emails.</p>
+<h3 id="email-metadata">Email Metadata<a class="headerlink" href="#email-metadata" title="Permanent link">#</a></h3>
+<h4 id="importance">IMPORTANCE<a class="headerlink" href="#importance" title="Permanent link">#</a></h4>
+<p><strong>Type</strong>: String
+<strong>Values</strong>: <code>Normal</code>, <code>High</code>, <code>Low</code></p>
+<p>Email priority/importance level from headers.</p>
+<h4 id="sensitivity">SENSITIVITY<a class="headerlink" href="#sensitivity" title="Permanent link">#</a></h4>
+<p><strong>Type</strong>: String
+<strong>Values</strong>: <code>Normal</code>, <code>Personal</code>, <code>Private</code>, <code>Confidential</code></p>
+<p>Email sensitivity classification from headers.</p>
+<h4 id="direction">DIRECTION<a class="headerlink" href="#direction" title="Permanent link">#</a></h4>
+<p><strong>Type</strong>: String
+<strong>Values</strong>: <code>Inbound</code>, <code>Outbound</code>, <code>Internal</code></p>
+<p>Direction of email relative to the organization:
+- <strong>Inbound</strong>: External sender to internal recipient
+- <strong>Outbound</strong>: Internal sender to external recipient
+- <strong>Internal</strong>: Internal sender to internal recipient</p>
+<h4 id="verified">VERIFIED<a class="headerlink" href="#verified" title="Permanent link">#</a></h4>
+<p><strong>Type</strong>: String
+<strong>Values</strong>: <code>TRUE</code> or <code>FALSE</code></p>
+<p>Whether the archived email passed integrity verification (hash check).</p>
+<h2 id="csv-format-example">CSV Format Example<a class="headerlink" href="#csv-format-example" title="Permanent link">#</a></h2>
+<pre><code class="language-csv">DOCID,BEGBATES,ENDBATES,BEGATTACH,ENDATTACH,PARENTID,ATTACHNUM,FROM,TO,CC,BCC,SUBJECT,DATESENT,DATERECEIVED,HASATTACH,ATTACHCOUNT,ATTACHNAMES,ATTACHPATH,NATIVEPATH,TEXTPATH,CUSTODIAN,FILETYPE,FILEEXT,FILESIZE,MD5HASH,SHA256HASH,MESSAGEID,INREPLYTO,REFERENCES,CONVERSATIONID,IMPORTANCE,SENSITIVITY,DIRECTION,VERIFIED
+ACME_000001,ACME_000001,ACME_000001,ACME_000001,ACME_000001_002,,,&quot;john@company.com&quot;,&quot;jane@company.com; bob@external.com&quot;,&quot;legal@company.com&quot;,&quot;&quot;,&quot;RE: Contract Review&quot;,&quot;2024-03-15T10:30:00Z&quot;,&quot;2024-03-15T10:30:05Z&quot;,TRUE,2,&quot;contract.pdf; terms.docx&quot;,&quot;&quot;,&quot;NATIVES/ACME_000001.eml&quot;,&quot;TEXT/ACME_000001.txt&quot;,&quot;john@company.com&quot;,Email,.eml,45678,d41d8cd98f00b204e9800998ecf8427e,e3b0c44298fc1c149afbf4c8996fb924,&quot;&lt;abc123@mail.company.com&gt;&quot;,&quot;&lt;def456@mail.company.com&gt;&quot;,&quot;&lt;ref1@company.com&gt;&quot;,&quot;thread_123&quot;,Normal,Normal,Outbound,TRUE
+ACME_000001_001,ACME_000001_001,ACME_000001_001,,,ACME_000001,001,,,,,&quot;contract.pdf&quot;,,,,,,,&quot;ATTACHMENTS/ACME_000001_001.pdf&quot;,,&quot;john@company.com&quot;,Attachment,.pdf,125000,a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4,f1e2d3c4b5a6f1e2d3c4b5a6f1e2d3c4b5a6f1e2d3c4b5a6f1e2d3c4b5a6f1e2,,,,,,,,
+</code></pre>
+<h2 id="dat-format-example">DAT Format Example<a class="headerlink" href="#dat-format-example" title="Permanent link">#</a></h2>
+<pre><code>þDOCIDþþBEGBATESþþENDBATESþþBEGATTACHþþENDATTACHþþPARENTIDþþATTACHNUMþþFROMþþTOþþCCþþBCCþþSUBJECTþþDATESENTþþDATERECEIVEDþþHASATTACHþþATTACHCOUNTþþATTACHNAMESþþATTACHPATHþþNATIVEPATHþþTEXTPATHþþCUSTODIANþþFILETYPEþþFILEEXTþþFILESIZEþþMD5HASHþþSHA256HASHþþMESSAGEIDþþINREPLYTOþþREFERENCESþþCONVERSATIONIDþþIMPORTANCEþþSENSITIVITYþþDIRECTIONþþVERIFIEDþ
+þACME_000001þþACME_000001þþACME_000001þþACME_000001þþACME_000001_002þþþþþþjohn@company.comþþjane@company.com; bob@external.comþþlegal@company.comþþþþRE: Contract Reviewþþ2024-03-15T10:30:00Zþþ2024-03-15T10:30:05ZþþTRUEþþ2þþcontract.pdf; terms.docxþþþþNATIVES/ACME_000001.emlþþTEXT/ACME_000001.txtþþjohn@company.comþþEmailþþ.emlþþ45678þþd41d8cd98f00b204e9800998ecf8427eþþe3b0c44298fc1c149afbf4c8996fb924þþ&lt;abc123@mail.company.com&gt;þþ&lt;def456@mail.company.com&gt;þþ&lt;ref1@company.com&gt;þþthread_123þþNormalþþNormalþþOutboundþþTRUEþ
+</code></pre>
+<h2 id="import-compatibility">Import Compatibility<a class="headerlink" href="#import-compatibility" title="Permanent link">#</a></h2>
+<h3 id="relativity">Relativity<a class="headerlink" href="#relativity" title="Permanent link">#</a></h3>
+<p>Map fields as follows:
+- DOCID → Control Number
+- BEGBATES → Beg Bates
+- ENDBATES → End Bates
+- FROM → From
+- TO → To
+- SUBJECT → Subject
+- DATESENT → Date Sent
+- NATIVEPATH → Native File Path</p>
+<h3 id="concordance">Concordance<a class="headerlink" href="#concordance" title="Permanent link">#</a></h3>
+<p>The DAT format is directly compatible with Concordance. Use the standard field mapping.</p>
+<h3 id="nuix">NUIX<a class="headerlink" href="#nuix" title="Permanent link">#</a></h3>
+<p>Map fields using NUIX's load file import wizard. SHA256HASH can be used for deduplication.</p>
+<h3 id="logikcull">Logikcull<a class="headerlink" href="#logikcull" title="Permanent link">#</a></h3>
+<p>Use CSV format with automatic field detection or manual mapping.</p>
+<h2 id="special-characters">Special Characters<a class="headerlink" href="#special-characters" title="Permanent link">#</a></h2>
+<h3 id="csv-handling">CSV Handling<a class="headerlink" href="#csv-handling" title="Permanent link">#</a></h3>
+<ul>
+<li>Commas in values are enclosed in double quotes</li>
+<li>Double quotes in values are escaped as <code>""</code></li>
+<li>Newlines in values are preserved within quotes</li>
+</ul>
+<h3 id="dat-handling">DAT Handling<a class="headerlink" href="#dat-handling" title="Permanent link">#</a></h3>
+<ul>
+<li>The delimiter <code>þ</code> (thorn) rarely appears in email content</li>
+<li>Newlines in values are replaced with <code>®</code></li>
+<li>The text qualifier <code>¶</code> wraps multiline fields</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>

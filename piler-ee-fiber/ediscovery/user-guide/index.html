@@ -1,0 +1,885 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://jsuto.github.io/piler-ee-v2/ediscovery/user-guide/">
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.6.20">
+    
+    
+      
+        <title>eDiscovery Export User Guide - piler enterprise 2.x documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.e53b48f4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#ediscovery-export-user-guide" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="piler enterprise 2.x documentation" class="md-header__button md-logo" aria-label="piler enterprise 2.x documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            piler enterprise 2.x documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              eDiscovery Export User Guide
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="piler enterprise 2.x documentation" class="md-nav__button md-logo" aria-label="piler enterprise 2.x documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    piler enterprise 2.x documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://mailpiler.com/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Site
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#getting-started" class="md-nav__link">
+    <span class="md-ellipsis">
+      Getting Started
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Getting Started">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-1-search-for-relevant-emails" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 1: Search for Relevant Emails
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-select-emails-for-export" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 2: Select Emails for Export
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-create-the-export" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 3: Create the Export
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 3: Create the Export">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configure-bates-numbering" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configure Bates Numbering
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#select-export-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      Select Export Options
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#choose-load-file-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      Choose Load File Format
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#select-date-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      Select Date Format
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-start-the-export" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 4: Start the Export
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-5-monitor-progress" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 5: Monitor Progress
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-6-download-the-export" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 6: Download the Export
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#managing-exports" class="md-nav__link">
+    <span class="md-ellipsis">
+      Managing Exports
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Managing Exports">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#viewing-export-history" class="md-nav__link">
+    <span class="md-ellipsis">
+      Viewing Export History
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cancelling-an-export" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cancelling an Export
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deleting-an-export" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deleting an Export
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tracking-bates-numbers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tracking Bates Numbers
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      Best Practices
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Best Practices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#naming-conventions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Naming Conventions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quality-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quality Control
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Documentation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#large-productions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Large Productions
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Troubleshooting
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#export-stuck-at-0" class="md-nav__link">
+    <span class="md-ellipsis">
+      Export Stuck at 0%
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#missing-attachments" class="md-nav__link">
+    <span class="md-ellipsis">
+      Missing Attachments
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#load-file-encoding-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Load File Encoding Issues
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#download-fails" class="md-nav__link">
+    <span class="md-ellipsis">
+      Download Fails
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#support" class="md-nav__link">
+    <span class="md-ellipsis">
+      Support
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="ediscovery-export-user-guide">eDiscovery Export User Guide<a class="headerlink" href="#ediscovery-export-user-guide" title="Permanent link">#</a></h1>
+<p>This guide is designed for legal and compliance professionals who need to produce document exports for litigation, regulatory investigations, or internal reviews.</p>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">#</a></h2>
+<p>Piler's eDiscovery Export creates production-ready packages that include:
+- Bates-numbered documents
+- Industry-standard load files (CSV/DAT)
+- Native email files (EML format)
+- Extracted text files
+- Separated attachments with parent-child linking</p>
+<h2 id="getting-started">Getting Started<a class="headerlink" href="#getting-started" title="Permanent link">#</a></h2>
+<h3 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">#</a></h3>
+<ul>
+<li>Auditor role access to Piler</li>
+<li>Understanding of your matter's Bates numbering requirements</li>
+<li>Knowledge of your review platform's preferred load file format</li>
+</ul>
+<h3 id="step-1-search-for-relevant-emails">Step 1: Search for Relevant Emails<a class="headerlink" href="#step-1-search-for-relevant-emails" title="Permanent link">#</a></h3>
+<ol>
+<li>Log in to Piler with your auditor account</li>
+<li>Use the search interface to find emails relevant to your matter</li>
+<li>Available search criteria:</li>
+<li>Date ranges</li>
+<li>Sender/recipient addresses</li>
+<li>Keywords in subject or body</li>
+<li>Attachment types</li>
+<li>Tags and categories</li>
+</ol>
+<p><strong>Tip</strong>: Save your search queries for reproducibility. This creates an audit trail of your collection methodology.</p>
+<h3 id="step-2-select-emails-for-export">Step 2: Select Emails for Export<a class="headerlink" href="#step-2-select-emails-for-export" title="Permanent link">#</a></h3>
+<ol>
+<li>Review the search results</li>
+<li>Select individual emails by clicking the checkbox on each result</li>
+<li>Or use "Select All" to select all visible results</li>
+<li>The action bar shows the count of selected emails</li>
+</ol>
+<p><strong>Note</strong>: You can run multiple searches and accumulate selections before creating the export.</p>
+<h3 id="step-3-create-the-export">Step 3: Create the Export<a class="headerlink" href="#step-3-create-the-export" title="Permanent link">#</a></h3>
+<ol>
+<li>Click the <strong>briefcase icon</strong> in the action bar</li>
+<li>The eDiscovery Export dialog opens</li>
+</ol>
+<h4 id="configure-bates-numbering">Configure Bates Numbering<a class="headerlink" href="#configure-bates-numbering" title="Permanent link">#</a></h4>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Prefix</strong></td>
+<td>Unique identifier for this production</td>
+<td><code>ACME</code>, <code>SMITH2024</code></td>
+</tr>
+<tr>
+<td><strong>Starting Number</strong></td>
+<td>First number in sequence (leave blank to auto-continue)</td>
+<td><code>1</code>, <code>5001</code></td>
+</tr>
+</tbody>
+</table>
+<p>The system generates Bates numbers in the format: <code>PREFIX_000001</code></p>
+<p><strong>Continuing a Production</strong>: Click on an existing prefix badge to reuse it. The system automatically continues from the last used number.</p>
+<h4 id="select-export-options">Select Export Options<a class="headerlink" href="#select-export-options" title="Permanent link">#</a></h4>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+<th>When to Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Include native EML files</strong></td>
+<td>Original email in EML format</td>
+<td>Always recommended for completeness</td>
+</tr>
+<tr>
+<td><strong>Extract text files</strong></td>
+<td>Plain text version of each email</td>
+<td>Required by most review platforms</td>
+</tr>
+<tr>
+<td><strong>Extract attachments separately</strong></td>
+<td>Attachments as individual files</td>
+<td>When attachments need separate review</td>
+</tr>
+<tr>
+<td><strong>Organize by custodian</strong></td>
+<td>Folder structure by sender</td>
+<td>Large multi-custodian matters</td>
+</tr>
+</tbody>
+</table>
+<h4 id="choose-load-file-format">Choose Load File Format<a class="headerlink" href="#choose-load-file-format" title="Permanent link">#</a></h4>
+<table>
+<thead>
+<tr>
+<th>Format</th>
+<th>Description</th>
+<th>Compatible With</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>CSV</strong></td>
+<td>Standard comma-separated values</td>
+<td>Excel, most review tools</td>
+</tr>
+<tr>
+<td><strong>DAT</strong></td>
+<td>Concordance delimited format</td>
+<td>Relativity, Concordance, LAW</td>
+</tr>
+<tr>
+<td><strong>Both</strong></td>
+<td>Generates both formats</td>
+<td>Maximum compatibility</td>
+</tr>
+</tbody>
+</table>
+<h4 id="select-date-format">Select Date Format<a class="headerlink" href="#select-date-format" title="Permanent link">#</a></h4>
+<table>
+<thead>
+<tr>
+<th>Format</th>
+<th>Example</th>
+<th>Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ISO 8601</strong></td>
+<td><code>2024-03-15T10:30:00Z</code></td>
+<td>International, technical</td>
+</tr>
+<tr>
+<td><strong>US</strong></td>
+<td><code>03/15/2024 10:30:00 AM</code></td>
+<td>US-based matters</td>
+</tr>
+<tr>
+<td><strong>EU</strong></td>
+<td><code>15/03/2024 10:30:00</code></td>
+<td>European matters</td>
+</tr>
+</tbody>
+</table>
+<h3 id="step-4-start-the-export">Step 4: Start the Export<a class="headerlink" href="#step-4-start-the-export" title="Permanent link">#</a></h3>
+<ol>
+<li>Click <strong>Start eDiscovery Export</strong></li>
+<li>The export job is queued and begins processing</li>
+<li>You'll see a confirmation with the Job ID</li>
+</ol>
+<h3 id="step-5-monitor-progress">Step 5: Monitor Progress<a class="headerlink" href="#step-5-monitor-progress" title="Permanent link">#</a></h3>
+<ol>
+<li>Click <strong>eDiscovery Exports</strong> in the secondary action bar</li>
+<li>The drawer shows all your export jobs</li>
+<li>Running exports show a progress bar with percentage</li>
+<li>Auto-refresh updates progress every 3 seconds</li>
+</ol>
+<h3 id="step-6-download-the-export">Step 6: Download the Export<a class="headerlink" href="#step-6-download-the-export" title="Permanent link">#</a></h3>
+<ol>
+<li>When status shows <strong>completed</strong>, click the green <strong>Download</strong> button</li>
+<li>A ZIP file downloads containing:
+   <code>ACME_Production/
+   ├── loadfile.csv           # Or loadfile.dat
+   ├── NATIVES/
+   │   ├── ACME_000001.eml
+   │   ├── ACME_000002.eml
+   │   └── ...
+   ├── TEXT/
+   │   ├── ACME_000001.txt
+   │   ├── ACME_000002.txt
+   │   └── ...
+   └── ATTACHMENTS/           # If enabled
+       ├── ACME_000001_001.pdf
+       ├── ACME_000001_002.docx
+       └── ...</code></li>
+</ol>
+<h2 id="managing-exports">Managing Exports<a class="headerlink" href="#managing-exports" title="Permanent link">#</a></h2>
+<h3 id="viewing-export-history">Viewing Export History<a class="headerlink" href="#viewing-export-history" title="Permanent link">#</a></h3>
+<p>The eDiscovery Exports drawer shows:
+- All exports with status (pending, running, completed, failed, cancelled)
+- Bates prefix and range used
+- Creation date and creator
+- File size when completed</p>
+<h3 id="cancelling-an-export">Cancelling an Export<a class="headerlink" href="#cancelling-an-export" title="Permanent link">#</a></h3>
+<ol>
+<li>Find the running export in the list</li>
+<li>Click the yellow <strong>Cancel</strong> button</li>
+<li>Confirm the cancellation</li>
+<li>Partially processed files are removed</li>
+</ol>
+<h3 id="deleting-an-export">Deleting an Export<a class="headerlink" href="#deleting-an-export" title="Permanent link">#</a></h3>
+<ol>
+<li>Find the completed/failed/cancelled export</li>
+<li>Click the red <strong>Delete</strong> button</li>
+<li>Confirm deletion</li>
+<li>All export files are permanently removed</li>
+</ol>
+<p><strong>Warning</strong>: Deletion is permanent. Download the export before deleting if you need to preserve it.</p>
+<h3 id="tracking-bates-numbers">Tracking Bates Numbers<a class="headerlink" href="#tracking-bates-numbers" title="Permanent link">#</a></h3>
+<p>The "Bates Number Sequences" section shows:
+- All prefixes used in your tenant
+- The last number assigned for each prefix
+- Use this to plan continuation productions</p>
+<h2 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link">#</a></h2>
+<h3 id="naming-conventions">Naming Conventions<a class="headerlink" href="#naming-conventions" title="Permanent link">#</a></h3>
+<ul>
+<li>Use meaningful prefixes: <code>SMITHV_JONES_001</code> not just <code>EXPORT1</code></li>
+<li>Include matter identifiers in prefix</li>
+<li>Document your naming convention in your protocol</li>
+</ul>
+<h3 id="quality-control">Quality Control<a class="headerlink" href="#quality-control" title="Permanent link">#</a></h3>
+<ol>
+<li><strong>Verify counts</strong>: Compare export email count to search results</li>
+<li><strong>Spot check</strong>: Open several native files to verify content</li>
+<li><strong>Load file review</strong>: Import into Excel to verify field population</li>
+<li><strong>Hash verification</strong>: Use the SHA256 hashes in load file for integrity</li>
+</ol>
+<h3 id="documentation">Documentation<a class="headerlink" href="#documentation" title="Permanent link">#</a></h3>
+<p>For defensible collections:
+1. Save your search queries with descriptive names
+2. Document date ranges and search terms used
+3. Record the Bates range for each production
+4. Note any emails excluded and why</p>
+<h3 id="large-productions">Large Productions<a class="headerlink" href="#large-productions" title="Permanent link">#</a></h3>
+<p>For exports over 10,000 emails:
+- Consider breaking into multiple batches by date or custodian
+- Monitor server resources during export
+- Schedule during off-peak hours if possible</p>
+<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">#</a></h2>
+<h3 id="export-stuck-at-0">Export Stuck at 0%<a class="headerlink" href="#export-stuck-at-0" title="Permanent link">#</a></h3>
+<ul>
+<li>Check server connectivity</li>
+<li>Verify storage space is available</li>
+<li>Contact administrator if persists</li>
+</ul>
+<h3 id="missing-attachments">Missing Attachments<a class="headerlink" href="#missing-attachments" title="Permanent link">#</a></h3>
+<ul>
+<li>Ensure "Extract attachments separately" was enabled</li>
+<li>Some attachments may be embedded (inline images)</li>
+<li>Check the <code>ATTACHPATH</code> field in load file</li>
+</ul>
+<h3 id="load-file-encoding-issues">Load File Encoding Issues<a class="headerlink" href="#load-file-encoding-issues" title="Permanent link">#</a></h3>
+<ul>
+<li>CSV uses UTF-8 encoding with BOM</li>
+<li>DAT uses UTF-8 encoding</li>
+<li>Ensure your review tool is configured for UTF-8</li>
+</ul>
+<h3 id="download-fails">Download Fails<a class="headerlink" href="#download-fails" title="Permanent link">#</a></h3>
+<ul>
+<li>Check browser download settings</li>
+<li>Try a different browser</li>
+<li>For very large exports, ensure stable connection</li>
+</ul>
+<h2 id="support">Support<a class="headerlink" href="#support" title="Permanent link">#</a></h2>
+<p>For technical issues:
+1. Note the Job ID from the export
+2. Check the job status and any error messages
+3. Contact your Piler administrator with details</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>

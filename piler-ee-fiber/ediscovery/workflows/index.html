@@ -1,0 +1,1129 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://jsuto.github.io/piler-ee-v2/ediscovery/workflows/">
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.6.20">
+    
+    
+      
+        <title>eDiscovery Example Workflows - piler enterprise 2.x documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.e53b48f4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#ediscovery-example-workflows" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="piler enterprise 2.x documentation" class="md-header__button md-logo" aria-label="piler enterprise 2.x documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            piler enterprise 2.x documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              eDiscovery Example Workflows
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="piler enterprise 2.x documentation" class="md-nav__button md-logo" aria-label="piler enterprise 2.x documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    piler enterprise 2.x documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://mailpiler.com/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Site
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#workflow-1-initial-document-production" class="md-nav__link">
+    <span class="md-ellipsis">
+      Workflow 1: Initial Document Production
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Workflow 1: Initial Document Production">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-define-collection-scope" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 1: Define Collection Scope
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-execute-collection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 2: Execute Collection
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-review-and-select" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 3: Review and Select
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-create-production" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 4: Create Production
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-5-quality-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 5: Quality Control
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-6-document-production" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 6: Document Production
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workflow-2-supplemental-production" class="md-nav__link">
+    <span class="md-ellipsis">
+      Workflow 2: Supplemental Production
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Workflow 2: Supplemental Production">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-check-current-sequence" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 1: Check Current Sequence
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-new-collection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 2: New Collection
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-create-continuation-production" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 3: Create Continuation Production
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-verify-continuity" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 4: Verify Continuity
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workflow-3-multi-custodian-production" class="md-nav__link">
+    <span class="md-ellipsis">
+      Workflow 3: Multi-Custodian Production
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Workflow 3: Multi-Custodian Production">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-plan-custodian-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 1: Plan Custodian Strategy
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-collection-by-custodian" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 2: Collection by Custodian
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-create-organized-export" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 3: Create Organized Export
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workflow-4-rolling-production" class="md-nav__link">
+    <span class="md-ellipsis">
+      Workflow 4: Rolling Production
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Workflow 4: Rolling Production">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-establish-naming-convention" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 1: Establish Naming Convention
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-weekly-production-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 2: Weekly Production Process
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-track-productions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 3: Track Productions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-clawback-procedure" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 4: Clawback Procedure
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workflow-5-regulatory-investigation-response" class="md-nav__link">
+    <span class="md-ellipsis">
+      Workflow 5: Regulatory Investigation Response
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Workflow 5: Regulatory Investigation Response">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-parse-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 1: Parse Requirements
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-configure-for-compliance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 2: Configure for Compliance
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-production-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 3: Production Settings
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-chain-of-custody" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 4: Chain of Custody
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workflow-6-internal-investigation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Workflow 6: Internal Investigation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Workflow 6: Internal Investigation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-secure-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 1: Secure Access
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-targeted-collection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 2: Targeted Collection
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-export-for-review" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 3: Export for Review
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-review-outside-piler" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 4: Review Outside Piler
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-5-retention" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 5: Retention
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workflow-7-legal-hold-preservation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Workflow 7: Legal Hold Preservation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Workflow 7: Legal Hold Preservation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-identify-scope" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 1: Identify Scope
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-create-preservation-export" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 2: Create Preservation Export
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-document-hold" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 3: Document Hold
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-periodic-verification" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 4: Periodic Verification
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workflow-8-cross-border-production" class="md-nav__link">
+    <span class="md-ellipsis">
+      Workflow 8: Cross-Border Production
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Workflow 8: Cross-Border Production">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-privacy-assessment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 1: Privacy Assessment
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-redaction-consideration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 2: Redaction Consideration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-date-format-selection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 3: Date Format Selection
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-transfer-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 4: Transfer Documentation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#best-practices-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Best Practices Summary
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Best Practices Summary">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#before-production" class="md-nav__link">
+    <span class="md-ellipsis">
+      Before Production
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#during-production" class="md-nav__link">
+    <span class="md-ellipsis">
+      During Production
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#after-production" class="md-nav__link">
+    <span class="md-ellipsis">
+      After Production
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quality-control-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quality Control Checklist
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="ediscovery-example-workflows">eDiscovery Example Workflows<a class="headerlink" href="#ediscovery-example-workflows" title="Permanent link">#</a></h1>
+<p>This document provides step-by-step workflows for common eDiscovery scenarios.</p>
+<h2 id="workflow-1-initial-document-production">Workflow 1: Initial Document Production<a class="headerlink" href="#workflow-1-initial-document-production" title="Permanent link">#</a></h2>
+<p><strong>Scenario</strong>: Responding to a litigation hold with first production of relevant documents.</p>
+<h3 id="step-1-define-collection-scope">Step 1: Define Collection Scope<a class="headerlink" href="#step-1-define-collection-scope" title="Permanent link">#</a></h3>
+<p>Work with legal counsel to define:
+- Custodians (email addresses to collect)
+- Date range (relevant time period)
+- Keywords (search terms)
+- Document types (emails, attachments)</p>
+<h3 id="step-2-execute-collection">Step 2: Execute Collection<a class="headerlink" href="#step-2-execute-collection" title="Permanent link">#</a></h3>
+<ol>
+<li>Log in as auditor</li>
+<li>Open Advanced Search (sliders icon)</li>
+<li>Configure search parameters:</li>
+<li><strong>Date range</strong>: Set From/To dates</li>
+<li><strong>Sender/Recipient</strong>: Enter custodian email addresses</li>
+<li><strong>Keywords</strong>: Add relevant search terms</li>
+<li>Click <strong>Search</strong></li>
+<li><strong>Save the search</strong> with a descriptive name (e.g., "Smith_v_Jones_Custodian1_Initial")</li>
+</ol>
+<h3 id="step-3-review-and-select">Step 3: Review and Select<a class="headerlink" href="#step-3-review-and-select" title="Permanent link">#</a></h3>
+<ol>
+<li>Review search results for relevance</li>
+<li>Select all relevant emails using checkboxes</li>
+<li>If needed, run additional searches and add to selection</li>
+</ol>
+<h3 id="step-4-create-production">Step 4: Create Production<a class="headerlink" href="#step-4-create-production" title="Permanent link">#</a></h3>
+<ol>
+<li>Click the <strong>briefcase icon</strong> (eDiscovery Export)</li>
+<li>Configure:</li>
+<li><strong>Prefix</strong>: <code>SMITH001</code> (matter identifier + production number)</li>
+<li><strong>Starting Number</strong>: Leave blank (starts at 1)</li>
+<li><strong>Options</strong>: Enable all (natives, text, attachments)</li>
+<li><strong>Format</strong>: DAT (for Relativity) or CSV</li>
+<li><strong>Date Format</strong>: Match opposing counsel's preference</li>
+<li>Click <strong>Start eDiscovery Export</strong></li>
+</ol>
+<h3 id="step-5-quality-control">Step 5: Quality Control<a class="headerlink" href="#step-5-quality-control" title="Permanent link">#</a></h3>
+<ol>
+<li>Open the eDiscovery Exports drawer</li>
+<li>Wait for completion (monitor progress)</li>
+<li>Download the ZIP file</li>
+<li>Verify:</li>
+<li>Email count matches selection</li>
+<li>Load file opens correctly</li>
+<li>Spot check several native files</li>
+<li>Verify Bates range (e.g., SMITH001_000001 to SMITH001_000150)</li>
+</ol>
+<h3 id="step-6-document-production">Step 6: Document Production<a class="headerlink" href="#step-6-document-production" title="Permanent link">#</a></h3>
+<p>Record in your production log:
+- Production date
+- Bates range: SMITH001_000001 - SMITH001_000150
+- Total documents: 150
+- Search terms used
+- Custodians included</p>
+<hr />
+<h2 id="workflow-2-supplemental-production">Workflow 2: Supplemental Production<a class="headerlink" href="#workflow-2-supplemental-production" title="Permanent link">#</a></h2>
+<p><strong>Scenario</strong>: Producing additional documents using the same Bates prefix to continue numbering.</p>
+<h3 id="step-1-check-current-sequence">Step 1: Check Current Sequence<a class="headerlink" href="#step-1-check-current-sequence" title="Permanent link">#</a></h3>
+<ol>
+<li>Open eDiscovery Exports drawer</li>
+<li>View "Bates Number Sequences" section</li>
+<li>Note the last number for your prefix (e.g., SMITH001: 150)</li>
+</ol>
+<h3 id="step-2-new-collection">Step 2: New Collection<a class="headerlink" href="#step-2-new-collection" title="Permanent link">#</a></h3>
+<ol>
+<li>Execute new searches for additional documents</li>
+<li>Review and select relevant emails</li>
+<li>Ensure no duplicates from previous production</li>
+</ol>
+<h3 id="step-3-create-continuation-production">Step 3: Create Continuation Production<a class="headerlink" href="#step-3-create-continuation-production" title="Permanent link">#</a></h3>
+<ol>
+<li>Click the <strong>briefcase icon</strong></li>
+<li>Configure:</li>
+<li><strong>Prefix</strong>: Click <code>SMITH001</code> badge to reuse prefix</li>
+<li><strong>Starting Number</strong>: Leave blank (auto-continues from 151)</li>
+<li>Keep other options consistent with initial production</li>
+<li>Click <strong>Start eDiscovery Export</strong></li>
+</ol>
+<h3 id="step-4-verify-continuity">Step 4: Verify Continuity<a class="headerlink" href="#step-4-verify-continuity" title="Permanent link">#</a></h3>
+<p>After completion, verify:
+- New range starts at SMITH001_000151
+- No gaps in numbering
+- Consistent formatting with initial production</p>
+<hr />
+<h2 id="workflow-3-multi-custodian-production">Workflow 3: Multi-Custodian Production<a class="headerlink" href="#workflow-3-multi-custodian-production" title="Permanent link">#</a></h2>
+<p><strong>Scenario</strong>: Producing documents from multiple custodians with organized folder structure.</p>
+<h3 id="step-1-plan-custodian-strategy">Step 1: Plan Custodian Strategy<a class="headerlink" href="#step-1-plan-custodian-strategy" title="Permanent link">#</a></h3>
+<p>Decide on approach:
+- <strong>Option A</strong>: Single prefix, organized by custodian folders
+- <strong>Option B</strong>: Separate prefix per custodian (SMITH_JONES, SMITH_DOE)</p>
+<h3 id="step-2-collection-by-custodian">Step 2: Collection by Custodian<a class="headerlink" href="#step-2-collection-by-custodian" title="Permanent link">#</a></h3>
+<p>For each custodian:
+1. Search for that custodian's emails
+2. Save search with custodian name
+3. Select relevant documents</p>
+<h3 id="step-3-create-organized-export">Step 3: Create Organized Export<a class="headerlink" href="#step-3-create-organized-export" title="Permanent link">#</a></h3>
+<p><strong>Option A - Single Export with Custodian Folders:</strong>
+1. Select all custodians' documents
+2. Click briefcase icon
+3. Enable <strong>Organize by custodian</strong>
+4. Use single prefix (e.g., <code>SMITH2024</code>)</p>
+<p>Result structure:</p>
+<pre><code>SMITH2024_Production/
+├── loadfile.csv
+├── john.smith@company.com/
+│   ├── NATIVES/
+│   └── TEXT/
+├── jane.doe@company.com/
+│   ├── NATIVES/
+│   └── TEXT/
+</code></pre>
+<p><strong>Option B - Separate Exports:</strong>
+1. For each custodian, create separate export
+2. Use prefix indicating custodian: <code>SMITH_JONES</code>, <code>SMITH_DOE</code>
+3. Combine productions for delivery</p>
+<hr />
+<h2 id="workflow-4-rolling-production">Workflow 4: Rolling Production<a class="headerlink" href="#workflow-4-rolling-production" title="Permanent link">#</a></h2>
+<p><strong>Scenario</strong>: Producing documents on a regular schedule (weekly/monthly) as review completes.</p>
+<h3 id="step-1-establish-naming-convention">Step 1: Establish Naming Convention<a class="headerlink" href="#step-1-establish-naming-convention" title="Permanent link">#</a></h3>
+<pre><code>{MATTER}_{PRODUCTION_NUMBER}
+Example: ACME_P001, ACME_P002, ACME_P003
+</code></pre>
+<h3 id="step-2-weekly-production-process">Step 2: Weekly Production Process<a class="headerlink" href="#step-2-weekly-production-process" title="Permanent link">#</a></h3>
+<p>Each production cycle:</p>
+<ol>
+<li><strong>Monday</strong>: Run saved searches, review new documents</li>
+<li><strong>Wednesday</strong>: Complete privilege review, finalize selection</li>
+<li><strong>Friday</strong>: Create export with next production number</li>
+</ol>
+<h3 id="step-3-track-productions">Step 3: Track Productions<a class="headerlink" href="#step-3-track-productions" title="Permanent link">#</a></h3>
+<p>Maintain a production log:</p>
+<table>
+<thead>
+<tr>
+<th>Production</th>
+<th>Date</th>
+<th>Bates Range</th>
+<th>Doc Count</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ACME_P001</td>
+<td>2024-03-01</td>
+<td>000001-000500</td>
+<td>500</td>
+<td>Initial production</td>
+</tr>
+<tr>
+<td>ACME_P002</td>
+<td>2024-03-08</td>
+<td>000501-000750</td>
+<td>250</td>
+<td>Week 2</td>
+</tr>
+<tr>
+<td>ACME_P003</td>
+<td>2024-03-15</td>
+<td>000751-001000</td>
+<td>250</td>
+<td>Week 3</td>
+</tr>
+</tbody>
+</table>
+<h3 id="step-4-clawback-procedure">Step 4: Clawback Procedure<a class="headerlink" href="#step-4-clawback-procedure" title="Permanent link">#</a></h3>
+<p>If privileged document produced accidentally:
+1. Document the Bates number
+2. Notify opposing counsel per agreement
+3. Note in production log as clawed back
+4. Do NOT delete from Piler (maintain audit trail)</p>
+<hr />
+<h2 id="workflow-5-regulatory-investigation-response">Workflow 5: Regulatory Investigation Response<a class="headerlink" href="#workflow-5-regulatory-investigation-response" title="Permanent link">#</a></h2>
+<p><strong>Scenario</strong>: Responding to regulatory subpoena with specific requirements.</p>
+<h3 id="step-1-parse-requirements">Step 1: Parse Requirements<a class="headerlink" href="#step-1-parse-requirements" title="Permanent link">#</a></h3>
+<p>Regulatory requests often specify:
+- Specific date ranges
+- Named custodians
+- Particular document types
+- Required metadata fields
+- Delivery format</p>
+<h3 id="step-2-configure-for-compliance">Step 2: Configure for Compliance<a class="headerlink" href="#step-2-configure-for-compliance" title="Permanent link">#</a></h3>
+<p>Common regulatory requirements:</p>
+<p><strong>SEC/FINRA:</strong>
+- Include all metadata
+- Use DAT format
+- SHA-256 hashes required
+- Text extraction required</p>
+<p><strong>DOJ/Antitrust:</strong>
+- Native format required
+- Family relationships preserved
+- Conversation threading</p>
+<h3 id="step-3-production-settings">Step 3: Production Settings<a class="headerlink" href="#step-3-production-settings" title="Permanent link">#</a></h3>
+<ol>
+<li>Enable all export options:</li>
+<li>✓ Include native EML files</li>
+<li>✓ Extract text files</li>
+<li>✓ Extract attachments separately</li>
+<li>Select <strong>Both</strong> (CSV and DAT) for maximum compatibility</li>
+<li>Use <strong>ISO 8601</strong> date format for precision</li>
+</ol>
+<h3 id="step-4-chain-of-custody">Step 4: Chain of Custody<a class="headerlink" href="#step-4-chain-of-custody" title="Permanent link">#</a></h3>
+<p>Document the production process:
+1. Who executed searches (auditor name)
+2. Search parameters used
+3. Date/time of export
+4. Hash values from load file
+5. Delivery method to regulator</p>
+<hr />
+<h2 id="workflow-6-internal-investigation">Workflow 6: Internal Investigation<a class="headerlink" href="#workflow-6-internal-investigation" title="Permanent link">#</a></h2>
+<p><strong>Scenario</strong>: HR or compliance investigation requiring confidential document review.</p>
+<h3 id="step-1-secure-access">Step 1: Secure Access<a class="headerlink" href="#step-1-secure-access" title="Permanent link">#</a></h3>
+<p>Ensure only authorized personnel have auditor access for this matter.</p>
+<h3 id="step-2-targeted-collection">Step 2: Targeted Collection<a class="headerlink" href="#step-2-targeted-collection" title="Permanent link">#</a></h3>
+<ol>
+<li>Search for specific employee's emails</li>
+<li>Include date range of concern</li>
+<li>Consider keywords related to investigation</li>
+</ol>
+<h3 id="step-3-export-for-review">Step 3: Export for Review<a class="headerlink" href="#step-3-export-for-review" title="Permanent link">#</a></h3>
+<ol>
+<li>Create export with investigation-specific prefix</li>
+<li>Use <strong>Organize by custodian</strong> if multiple subjects</li>
+<li>Enable text extraction for keyword searching</li>
+</ol>
+<h3 id="step-4-review-outside-piler">Step 4: Review Outside Piler<a class="headerlink" href="#step-4-review-outside-piler" title="Permanent link">#</a></h3>
+<ol>
+<li>Download export</li>
+<li>Import into review tool or Excel</li>
+<li>Conduct review with appropriate confidentiality</li>
+<li>Document findings</li>
+</ol>
+<h3 id="step-5-retention">Step 5: Retention<a class="headerlink" href="#step-5-retention" title="Permanent link">#</a></h3>
+<p>After investigation:
+- Determine retention requirements
+- Delete export if no longer needed
+- Maintain audit log of investigation</p>
+<hr />
+<h2 id="workflow-7-legal-hold-preservation">Workflow 7: Legal Hold Preservation<a class="headerlink" href="#workflow-7-legal-hold-preservation" title="Permanent link">#</a></h2>
+<p><strong>Scenario</strong>: Implementing litigation hold to preserve potentially relevant documents.</p>
+<h3 id="step-1-identify-scope">Step 1: Identify Scope<a class="headerlink" href="#step-1-identify-scope" title="Permanent link">#</a></h3>
+<p>Define hold parameters:
+- Custodians under hold
+- Date range to preserve
+- Subject matter keywords</p>
+<h3 id="step-2-create-preservation-export">Step 2: Create Preservation Export<a class="headerlink" href="#step-2-create-preservation-export" title="Permanent link">#</a></h3>
+<p>Even if not producing immediately:
+1. Search and select all potentially relevant documents
+2. Create export with hold-specific prefix: <code>HOLD_SMITH_V_JONES</code>
+3. This creates a point-in-time snapshot</p>
+<h3 id="step-3-document-hold">Step 3: Document Hold<a class="headerlink" href="#step-3-document-hold" title="Permanent link">#</a></h3>
+<p>Record:
+- Hold implementation date
+- Custodians notified
+- Bates range preserved
+- Search criteria used</p>
+<h3 id="step-4-periodic-verification">Step 4: Periodic Verification<a class="headerlink" href="#step-4-periodic-verification" title="Permanent link">#</a></h3>
+<p>Quarterly or as needed:
+1. Re-run saved searches
+2. Identify new documents since hold
+3. Create supplemental preservation export</p>
+<hr />
+<h2 id="workflow-8-cross-border-production">Workflow 8: Cross-Border Production<a class="headerlink" href="#workflow-8-cross-border-production" title="Permanent link">#</a></h2>
+<p><strong>Scenario</strong>: Production involving data privacy considerations (GDPR, etc.)</p>
+<h3 id="step-1-privacy-assessment">Step 1: Privacy Assessment<a class="headerlink" href="#step-1-privacy-assessment" title="Permanent link">#</a></h3>
+<p>Before export:
+- Identify custodian locations
+- Determine applicable privacy laws
+- Assess transfer mechanisms needed</p>
+<h3 id="step-2-redaction-consideration">Step 2: Redaction Consideration<a class="headerlink" href="#step-2-redaction-consideration" title="Permanent link">#</a></h3>
+<p>Note: Piler exports full documents. If redaction needed:
+1. Export from Piler
+2. Import to review platform
+3. Apply redactions in review tool
+4. Re-export redacted versions</p>
+<h3 id="step-3-date-format-selection">Step 3: Date Format Selection<a class="headerlink" href="#step-3-date-format-selection" title="Permanent link">#</a></h3>
+<p>Choose format appropriate for recipient jurisdiction:
+- <strong>EU production</strong>: Use EU date format (DD/MM/YYYY)
+- <strong>US production</strong>: Use US date format (MM/DD/YYYY)
+- <strong>International</strong>: Use ISO 8601 (YYYY-MM-DD)</p>
+<h3 id="step-4-transfer-documentation">Step 4: Transfer Documentation<a class="headerlink" href="#step-4-transfer-documentation" title="Permanent link">#</a></h3>
+<p>Document for privacy compliance:
+- Legal basis for transfer
+- Data subjects involved
+- Security measures applied
+- Recipient protections</p>
+<hr />
+<h2 id="best-practices-summary">Best Practices Summary<a class="headerlink" href="#best-practices-summary" title="Permanent link">#</a></h2>
+<h3 id="before-production">Before Production<a class="headerlink" href="#before-production" title="Permanent link">#</a></h3>
+<ul>
+<li>[ ] Define clear naming convention</li>
+<li>[ ] Document search methodology</li>
+<li>[ ] Save all search queries</li>
+<li>[ ] Verify custodian coverage</li>
+</ul>
+<h3 id="during-production">During Production<a class="headerlink" href="#during-production" title="Permanent link">#</a></h3>
+<ul>
+<li>[ ] Use consistent export settings</li>
+<li>[ ] Enable all recommended options</li>
+<li>[ ] Monitor progress for errors</li>
+<li>[ ] Download immediately upon completion</li>
+</ul>
+<h3 id="after-production">After Production<a class="headerlink" href="#after-production" title="Permanent link">#</a></h3>
+<ul>
+<li>[ ] Verify document counts</li>
+<li>[ ] Spot check native files</li>
+<li>[ ] Validate load file format</li>
+<li>[ ] Record Bates ranges</li>
+<li>[ ] Update production log</li>
+<li>[ ] Secure delivery to recipient</li>
+</ul>
+<h3 id="quality-control-checklist">Quality Control Checklist<a class="headerlink" href="#quality-control-checklist" title="Permanent link">#</a></h3>
+<ul>
+<li>[ ] Bates numbers sequential with no gaps</li>
+<li>[ ] All selected documents exported</li>
+<li>[ ] Attachments linked to parents</li>
+<li>[ ] Dates formatted correctly</li>
+<li>[ ] Hash values present</li>
+<li>[ ] Native files openable</li>
+<li>[ ] Text files readable</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>
