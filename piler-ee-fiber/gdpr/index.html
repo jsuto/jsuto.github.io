@@ -419,6 +419,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#usage-data-collection-for-licensing-and-billing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Usage Data Collection for Licensing and Billing
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1113,6 +1122,8 @@
 <li>separation of operational logs from email content,</li>
 <li>configuration options that restrict access and functionality to authorized users only.</li>
 </ul>
+<h3 id="usage-data-collection-for-licensing-and-billing">Usage Data Collection for Licensing and Billing<a class="headerlink" href="#usage-data-collection-for-licensing-and-billing" title="Permanent link">#</a></h3>
+<p>Piler Enterprise may transmit aggregated usage statistics to our billing servers to support license compliance and billing obligations. Only <strong>domain-level statistics</strong> (such as domain names, user counts, and email counts) are transmitted; <strong>no email content, subjects, senders, recipients, or message-level data</strong> are ever sent. All transmissions are <strong>encrypted via TLS/HTTPS</strong> to ensure data security. The lawful basis for this processing is the <strong>performance of the contract (Article 6(1)(b) GDPR)</strong>. This telemetry supports operational and billing purposes without exposing personal data, and controllers should document this processing in their Records of Processing Activities.</p>
 <h2 id="data-minimization-and-retention-management">Data minimization and retention management<a class="headerlink" href="#data-minimization-and-retention-management" title="Permanent link">#</a></h2>
 <p>Under GDPR Article 5(1)(c) and (e), personal data must be adequate, relevant, limited to what is necessary, and retained only for as long as required for the specified purpose.</p>
 <h3 id="retention-policies">Retention policies<a class="headerlink" href="#retention-policies" title="Permanent link">#</a></h3>
@@ -1314,7 +1325,7 @@ However, this right is <strong>not absolute</strong>.</p>
 <h4 id="1-encryption-in-transit-and-at-rest">1. Encryption in transit and at rest<a class="headerlink" href="#1-encryption-in-transit-and-at-rest" title="Permanent link">#</a></h4>
 <ul>
 <li>Email ingestion is protected using <strong>TLS encryption</strong> during SMTP transmission</li>
-<li>External mail collection via POP3 and IMAP is supported <strong>exclusively over TLS</strong></li>
+<li>External mail collection via POP3 and IMAP supports encrypted connections using TLS and is intended to be used with encryption enabled. Support for unencrypted (plaintext) connections is configuration-dependent and should only be enabled following a documented risk assessment by the controller.</li>
 <li>All archived emails are encrypted <strong>at rest</strong> using strong symmetric encryption (AES-256)</li>
 </ul>
 <p>These measures protect personal data against interception, disclosure, or manipulation during transmission and storage.</p>
