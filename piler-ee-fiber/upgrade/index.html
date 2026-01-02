@@ -344,8 +344,16 @@ chmod 750 /var/piler/astore/
    mariadb --defaults-file=/etc/piler/.my.cnf piler &lt; $i
 done
 </code></pre>
-<p>Run manticore migrations for each tenant:</p>
-<pre><code>sed 's/TENANTID/piler/g' /usr/share/piler/migrations/manticore/001_migrate_manticore_audit_tables.sql | mariadb -h0 -P9306
+<p>Run manticore migrations for each tenant:
+In case of a multi-tenant deployment, be sure to use the tenant id</p>
+<pre><code>for i in /usr/share/piler/migrations/manticore/*.sql; do
+   sed 's/TENANTID/piler/g' &quot;$i&quot; | mariadb -h0 -P9306
+done
+</code></pre>
+<p>For a multi-tenant deployment, run the mysql migrations for all piler databases, also
+run the manticore migrations for all tenant ids as well, and replace "piler" in the sed
+command with the tenant id, eg.</p>
+<pre><code>sed 's/TENANTID/example001/g' ....
 </code></pre>
 <h3 id="update-the-passwords">Update the passwords<a class="headerlink" href="#update-the-passwords" title="Permanent link">#</a></h3>
 <p>Piler uses the bcrypt password hashing algorithm, so the passwords in the local database must be fixed.</p>
