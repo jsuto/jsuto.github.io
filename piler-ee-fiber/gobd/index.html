@@ -1,0 +1,1207 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://jsuto.github.io/piler-ee-v2/gobd/">
+      
+      
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.6.20">
+    
+    
+      
+        <title>GoBD Compliance for Email Archiving - piler enterprise 2.x documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.e53b48f4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#gobd-compliance-for-email-archiving" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="piler enterprise 2.x documentation" class="md-header__button md-logo" aria-label="piler enterprise 2.x documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            piler enterprise 2.x documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              GoBD Compliance for Email Archiving
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="piler enterprise 2.x documentation" class="md-nav__button md-logo" aria-label="piler enterprise 2.x documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    piler enterprise 2.x documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://mailpiler.com/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Site
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-gobd" class="md-nav__link">
+    <span class="md-ellipsis">
+      What is GoBD?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#legal-basis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Legal basis
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Legal basis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#retention-periods" class="md-nav__link">
+    <span class="md-ellipsis">
+      Retention periods
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#which-emails-must-be-archived" class="md-nav__link">
+    <span class="md-ellipsis">
+      Which emails must be archived?
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Which emails must be archived?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tax-relevant-emails-10-years" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tax-relevant emails (10 years)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#commercially-relevant-emails-6-years" class="md-nav__link">
+    <span class="md-ellipsis">
+      Commercially relevant emails (6 years)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#emails-that-do-not-require-archiving" class="md-nav__link">
+    <span class="md-ellipsis">
+      Emails that do NOT require archiving
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gobd-requirements-and-piler-compliance" class="md-nav__link">
+    <span class="md-ellipsis">
+      GoBD requirements and Piler compliance
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#technical-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Technical implementation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Technical implementation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-immutability-unveranderbarkeit" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Immutability (Unveränderbarkeit)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-completeness-vollstandigkeit" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Completeness (Vollständigkeit)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-organization-and-retrievability-ordnung" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Organization and retrievability (Ordnung)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-traceability-nachvollziehbarkeit" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Traceability (Nachvollziehbarkeit)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-machine-readability-maschinelle-auswertbarkeit" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Machine readability (Maschinelle Auswertbarkeit)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-retention-period-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Retention period management
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2025-gobd-amendment-e-invoicing-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      2025 GoBD amendment: E-invoicing requirements
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2025 GoBD amendment: E-invoicing requirements">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#key-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key requirements
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#procedural-documentation-verfahrensdokumentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Procedural documentation (Verfahrensdokumentation)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Procedural documentation (Verfahrensdokumentation)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#required-elements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Required elements
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deployment-recommendations-for-gobd-compliance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deployment recommendations for GoBD compliance
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Deployment recommendations for GoBD compliance">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#minimum-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Minimum requirements
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enhanced-compliance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Enhanced compliance
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#auditor-access-for-tax-inspections" class="md-nav__link">
+    <span class="md-ellipsis">
+      Auditor access for tax inspections
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Auditor access for tax inspections">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#auditor-role-capabilities" class="md-nav__link">
+    <span class="md-ellipsis">
+      Auditor role capabilities
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creating-auditor-access-for-tax-inspection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Creating auditor access for tax inspection
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary-gobd-compliance-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary: GoBD compliance checklist
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Related documentation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      References
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="gobd-compliance-for-email-archiving">GoBD Compliance for Email Archiving<a class="headerlink" href="#gobd-compliance-for-email-archiving" title="Permanent link">#</a></h1>
+<p>This documentation applies to Piler enterprise edition 2.1.0+</p>
+<p>Revision #1</p>
+<p>Publication date: 2026-JAN-05</p>
+<blockquote>
+<p><strong>Legal notice</strong></p>
+<p>This documentation describes how <strong>piler enterprise</strong> supports compliance with the German GoBD requirements from a technical and organizational perspective.</p>
+<p>It does <strong>not constitute legal advice</strong> and does not replace the organization's obligation to assess its own legal requirements, risks, and compliance measures.</p>
+<p>Organizations remain solely responsible for:</p>
+<ul>
+<li>determining which emails are tax-relevant or commercially relevant,</li>
+<li>configuring appropriate retention periods,</li>
+<li>ensuring proper access controls and audit trails,</li>
+<li>maintaining overall compliance with German tax and commercial law.</li>
+</ul>
+<p>piler enterprise provides technical means to support, but not substitute, regulatory and legal decision-making.</p>
+</blockquote>
+<h2 id="what-is-gobd">What is GoBD?<a class="headerlink" href="#what-is-gobd" title="Permanent link">#</a></h2>
+<p><strong>GoBD</strong> (Grundsätze zur ordnungsmäßigen Führung und Aufbewahrung von Büchern, Aufzeichnungen und Unterlagen in elektronischer Form sowie zum Datenzugriff) is a German administrative regulation issued by the Federal Ministry of Finance.</p>
+<p>It defines requirements for:</p>
+<ul>
+<li>Electronic bookkeeping and record-keeping</li>
+<li>Retention of tax-relevant documents in electronic form</li>
+<li>Data access rights for tax authorities during audits</li>
+</ul>
+<p>GoBD applies to all businesses subject to German tax law, regardless of size. Non-compliance can result in:</p>
+<ul>
+<li>Rejection of bookkeeping by tax authorities</li>
+<li>Estimated tax assessments</li>
+<li>Fines and penalties</li>
+<li>Increased audit scrutiny</li>
+</ul>
+<hr />
+<h2 id="legal-basis">Legal basis<a class="headerlink" href="#legal-basis" title="Permanent link">#</a></h2>
+<p>The GoBD requirements are derived from several German laws:</p>
+<table>
+<thead>
+<tr>
+<th>Law</th>
+<th>Requirement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>§ 147 AO</strong> (Abgabenordnung)</td>
+<td>Retention of tax-relevant documents</td>
+</tr>
+<tr>
+<td><strong>§ 257 HGB</strong> (Handelsgesetzbuch)</td>
+<td>Retention of commercial correspondence</td>
+</tr>
+<tr>
+<td><strong>§ 14b UStG</strong></td>
+<td>Retention of invoices for VAT purposes</td>
+</tr>
+<tr>
+<td><strong>GoBD</strong> (BMF-Schreiben)</td>
+<td>Technical implementation requirements</td>
+</tr>
+</tbody>
+</table>
+<h3 id="retention-periods">Retention periods<a class="headerlink" href="#retention-periods" title="Permanent link">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>Document type</th>
+<th>Retention period</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tax-relevant documents (invoices, contracts, financial records)</td>
+<td><strong>10 years</strong></td>
+</tr>
+<tr>
+<td>Commercial correspondence (offers, order confirmations, general business letters)</td>
+<td><strong>6 years</strong></td>
+</tr>
+</tbody>
+</table>
+<p>The retention period begins at the end of the calendar year in which the document was created or received.</p>
+<hr />
+<h2 id="which-emails-must-be-archived">Which emails must be archived?<a class="headerlink" href="#which-emails-must-be-archived" title="Permanent link">#</a></h2>
+<p>Under GoBD, the following email types require archiving:</p>
+<h3 id="tax-relevant-emails-10-years">Tax-relevant emails (10 years)<a class="headerlink" href="#tax-relevant-emails-10-years" title="Permanent link">#</a></h3>
+<ul>
+<li>Invoices (incoming and outgoing)</li>
+<li>Invoice corrections and credit notes</li>
+<li>Contracts with financial implications</li>
+<li>Payment confirmations and reminders</li>
+<li>Tax declarations and correspondence with tax authorities</li>
+<li>Financial statements and accounting documents</li>
+</ul>
+<h3 id="commercially-relevant-emails-6-years">Commercially relevant emails (6 years)<a class="headerlink" href="#commercially-relevant-emails-6-years" title="Permanent link">#</a></h3>
+<ul>
+<li>Offers and quotations</li>
+<li>Order confirmations</li>
+<li>Delivery notes and shipping confirmations</li>
+<li>General business correspondence</li>
+<li>Customer and supplier communications with commercial significance</li>
+</ul>
+<h3 id="emails-that-do-not-require-archiving">Emails that do NOT require archiving<a class="headerlink" href="#emails-that-do-not-require-archiving" title="Permanent link">#</a></h3>
+<ul>
+<li>Private correspondence (if permitted by company policy)</li>
+<li>Spam and advertising</li>
+<li>Newsletters without business relevance</li>
+<li>Internal informal communications without commercial significance</li>
+</ul>
+<hr />
+<h2 id="gobd-requirements-and-piler-compliance">GoBD requirements and Piler compliance<a class="headerlink" href="#gobd-requirements-and-piler-compliance" title="Permanent link">#</a></h2>
+<p>The following table maps GoBD requirements to Piler enterprise capabilities:</p>
+<table>
+<thead>
+<tr>
+<th>GoBD requirement</th>
+<th>Description</th>
+<th>Piler enterprise support</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Unveränderbarkeit</strong> (Immutability)</td>
+<td>Documents must not be modifiable after archiving</td>
+<td>✓ Emails encrypted at rest with AES-256; stored in original format; SHA-256 hash verification on retrieval</td>
+</tr>
+<tr>
+<td><strong>Vollständigkeit</strong> (Completeness)</td>
+<td>All relevant documents must be captured</td>
+<td>✓ Automatic capture via SMTP journaling; no manual intervention required</td>
+</tr>
+<tr>
+<td><strong>Ordnung</strong> (Organization)</td>
+<td>Documents must be systematically organized and retrievable</td>
+<td>✓ Full-text search; metadata indexing; folder/category organization</td>
+</tr>
+<tr>
+<td><strong>Zeitgerechtheit</strong> (Timeliness)</td>
+<td>Documents must be archived promptly</td>
+<td>✓ Real-time archiving as emails are received</td>
+</tr>
+<tr>
+<td><strong>Nachvollziehbarkeit</strong> (Traceability)</td>
+<td>All changes must be logged and traceable</td>
+<td>✓ Comprehensive audit logs; access tracking; SIEM integration</td>
+</tr>
+<tr>
+<td><strong>Maschinelle Auswertbarkeit</strong> (Machine readability)</td>
+<td>Data must be searchable and exportable</td>
+<td>✓ Full-text search; metadata export; eDiscovery capabilities</td>
+</tr>
+<tr>
+<td><strong>Aufbewahrungsfristen</strong> (Retention periods)</td>
+<td>Configurable retention per document type</td>
+<td>✓ Flexible retention policies per mailbox, domain, or category</td>
+</tr>
+<tr>
+<td><strong>Datenzugriff</strong> (Data access)</td>
+<td>Tax authorities must be able to access data during audits</td>
+<td>✓ Export in standard formats; auditor role with controlled access</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="technical-implementation">Technical implementation<a class="headerlink" href="#technical-implementation" title="Permanent link">#</a></h2>
+<h3 id="1-immutability-unveranderbarkeit">1. Immutability (Unveränderbarkeit)<a class="headerlink" href="#1-immutability-unveranderbarkeit" title="Permanent link">#</a></h3>
+<p>GoBD requires that archived documents cannot be modified, deleted, or replaced without leaving a trace.</p>
+<p><strong>How Piler ensures immutability:</strong></p>
+<ul>
+<li>Emails are stored in their <strong>original format</strong> (EML) immediately upon receipt</li>
+<li>All stored emails are <strong>encrypted at rest</strong> using AES-256</li>
+<li>A <strong>SHA-256 hash</strong> is calculated and stored for each message</li>
+<li>Hash verification occurs on retrieval to detect any tampering</li>
+<li><strong>Audit logs</strong> record all access and administrative actions</li>
+<li>Optional: Store on <strong>WORM-compatible storage</strong> (S3 Object Lock) for enhanced protection</li>
+<li>Optional: <strong>TSA timestamps</strong> provide cryptographically verifiable proof of archival time</li>
+</ul>
+<p><strong>Configuration recommendation:</strong></p>
+<p>For maximum GoBD compliance, enable:</p>
+<pre><code>TSA_ENABLED=true
+TSA_URL=https://freetsa.org/tsr
+</code></pre>
+<p>This provides independent timestamp verification for archived emails.</p>
+<hr />
+<h3 id="2-completeness-vollstandigkeit">2. Completeness (Vollständigkeit)<a class="headerlink" href="#2-completeness-vollstandigkeit" title="Permanent link">#</a></h3>
+<p>All tax-relevant and commercially relevant emails must be captured completely.</p>
+<p><strong>How Piler ensures completeness:</strong></p>
+<ul>
+<li><strong>Journal transport rule</strong> on mail server captures all emails</li>
+<li><strong>SMTP-based archiving</strong> captures emails in real-time</li>
+<li><strong>Sender and recipient</strong> metadata preserved</li>
+<li><strong>Attachments</strong> archived with parent email</li>
+<li><strong>Headers</strong> preserved in full</li>
+<li>No email content is modified during archiving</li>
+</ul>
+<p><strong>Recommended mail server configuration:</strong></p>
+<p>Configure your mail server to send a journal copy of all emails to the Piler SMTP daemon. This ensures complete capture without relying on client-side forwarding.</p>
+<hr />
+<h3 id="3-organization-and-retrievability-ordnung">3. Organization and retrievability (Ordnung)<a class="headerlink" href="#3-organization-and-retrievability-ordnung" title="Permanent link">#</a></h3>
+<p>Archived documents must be systematically organized and efficiently retrievable.</p>
+<p><strong>How Piler supports organization:</strong></p>
+<ul>
+<li><strong>Full-text search</strong> across email bodies, subjects, and attachments</li>
+<li><strong>Metadata search</strong> by sender, recipient, date range, size</li>
+<li><strong>Category/folder system</strong> for manual classification</li>
+<li><strong>Attachment type filtering</strong> (PDF, Office documents, etc.)</li>
+<li><strong>Saved searches</strong> for recurring queries</li>
+<li><strong>Tag system</strong> for custom classification</li>
+</ul>
+<p><strong>Search capabilities for tax audits:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Search type</th>
+<th>Capability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Date range</td>
+<td>Find all emails within a specific period</td>
+</tr>
+<tr>
+<td>Sender/recipient</td>
+<td>Find all correspondence with a specific party</td>
+</tr>
+<tr>
+<td>Keyword</td>
+<td>Full-text search across content and attachments</td>
+</tr>
+<tr>
+<td>Attachment type</td>
+<td>Find all invoices (PDF), contracts (DOCX), etc.</td>
+</tr>
+<tr>
+<td>Combined queries</td>
+<td>Complex searches combining multiple criteria</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="4-traceability-nachvollziehbarkeit">4. Traceability (Nachvollziehbarkeit)<a class="headerlink" href="#4-traceability-nachvollziehbarkeit" title="Permanent link">#</a></h3>
+<p>All processing and access to archived documents must be logged.</p>
+<p><strong>Piler audit logging includes:</strong></p>
+<ul>
+<li><strong>Authentication events</strong>: Login attempts (successful and failed), logout, session management</li>
+<li><strong>Access events</strong>: Which user viewed which email, when, from which IP address</li>
+<li><strong>Search events</strong>: What searches were performed and by whom</li>
+<li><strong>Export events</strong>: What data was exported and by whom</li>
+<li><strong>Administrative events</strong>: Configuration changes, user management, policy changes</li>
+<li><strong>Deletion events</strong>: If permitted, what was deleted and by whom (with approval workflow)</li>
+</ul>
+<p><strong>Audit log protection:</strong></p>
+<ul>
+<li>Audit logs are stored separately from email content</li>
+<li>Logs can be forwarded to external <strong>SIEM systems</strong> (Splunk, Sumo Logic, Syslog)</li>
+<li>External log storage prevents tampering by local administrators</li>
+</ul>
+<hr />
+<h3 id="5-machine-readability-maschinelle-auswertbarkeit">5. Machine readability (Maschinelle Auswertbarkeit)<a class="headerlink" href="#5-machine-readability-maschinelle-auswertbarkeit" title="Permanent link">#</a></h3>
+<p>Tax authorities may request data in machine-readable formats during audits.</p>
+<p><strong>Piler export capabilities:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Format</th>
+<th>Use case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>EML</strong></td>
+<td>Original email format; standard and portable</td>
+</tr>
+<tr>
+<td><strong>MBOX</strong></td>
+<td>Multiple emails in single file; Unix standard</td>
+</tr>
+<tr>
+<td><strong>PDF</strong></td>
+<td>Printed representation with metadata</td>
+</tr>
+<tr>
+<td><strong>CSV</strong></td>
+<td>Metadata export for spreadsheet analysis</td>
+</tr>
+<tr>
+<td><strong>PST</strong></td>
+<td>Microsoft Outlook format (via third-party conversion)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>GDPdU/GoBD data access:</strong></p>
+<p>For tax audits, Piler supports:</p>
+<ul>
+<li><strong>Z1 access</strong>: Direct system access for auditors (via auditor role)</li>
+<li><strong>Z2 access</strong>: Indirect access through reports and exports</li>
+<li><strong>Z3 access</strong>: Data carrier provision (export to external media)</li>
+</ul>
+<p>The <strong>auditor role</strong> in Piler provides controlled read-only access to archived emails without modification capabilities.</p>
+<hr />
+<h3 id="6-retention-period-management">6. Retention period management<a class="headerlink" href="#6-retention-period-management" title="Permanent link">#</a></h3>
+<p>GoBD requires retention of 6 or 10 years depending on document type.</p>
+<p><strong>Piler retention features:</strong></p>
+<ul>
+<li><strong>Retention policies</strong> configurable per domain, mailbox, or category</li>
+<li><strong>Automated purging</strong> after retention period expires</li>
+<li><strong>Legal hold</strong> prevents deletion even after retention period</li>
+<li><strong>Retention reports</strong> show what will be deleted and when</li>
+</ul>
+<p><strong>Recommended configuration:</strong></p>
+<pre><code># Default retention for commercial correspondence
+RETENTION_DAYS_DEFAULT=2192  # 6 years
+
+# Extended retention for invoices/financial documents
+# Configure per category or mailbox as needed
+</code></pre>
+<p><strong>Important:</strong> Ensure invoices and tax-relevant documents are categorized for 10-year retention, while general correspondence uses 6-year retention.</p>
+<hr />
+<h2 id="2025-gobd-amendment-e-invoicing-requirements">2025 GoBD amendment: E-invoicing requirements<a class="headerlink" href="#2025-gobd-amendment-e-invoicing-requirements" title="Permanent link">#</a></h2>
+<p>As of January 2025, Germany mandates <strong>e-invoicing</strong> for B2B transactions. The July 2025 GoBD amendment clarifies archiving requirements:</p>
+<h3 id="key-requirements">Key requirements<a class="headerlink" href="#key-requirements" title="Permanent link">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>Requirement</th>
+<th>Description</th>
+<th>Piler support</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Original format retention</strong></td>
+<td>E-invoices must be stored in the format received</td>
+<td>✓ Emails stored in original EML format with attachments</td>
+</tr>
+<tr>
+<td><strong>XML preservation</strong></td>
+<td>For structured invoices (ZUGFeRD, XRechnung), XML component is legally binding</td>
+<td>✓ Attachments preserved in original format</td>
+</tr>
+<tr>
+<td><strong>No format conversion required</strong></td>
+<td>If PDF can be generated from XML, separate PDF storage not required</td>
+<td>✓ Original attachments always preserved</td>
+</tr>
+<tr>
+<td><strong>Hybrid format handling</strong></td>
+<td>ZUGFeRD invoices contain both PDF and embedded XML</td>
+<td>✓ Full attachment preservation</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Piler automatically complies</strong> with e-invoicing requirements because:</p>
+<ul>
+<li>All email attachments are stored in their original format</li>
+<li>No conversion or modification occurs during archiving</li>
+<li>XML, PDF, and hybrid formats are all preserved as received</li>
+</ul>
+<hr />
+<h2 id="procedural-documentation-verfahrensdokumentation">Procedural documentation (Verfahrensdokumentation)<a class="headerlink" href="#procedural-documentation-verfahrensdokumentation" title="Permanent link">#</a></h2>
+<p>GoBD requires organizations to maintain <strong>procedural documentation</strong> describing their archiving system. This documentation must cover:</p>
+<h3 id="required-elements">Required elements<a class="headerlink" href="#required-elements" title="Permanent link">#</a></h3>
+<ol>
+<li><strong>System description</strong></li>
+<li>Software used (Piler enterprise)</li>
+<li>Hardware infrastructure</li>
+<li>
+<p>Storage locations and backup procedures</p>
+</li>
+<li>
+<p><strong>Process description</strong></p>
+</li>
+<li>How emails are captured (journal transport rules)</li>
+<li>How emails are classified (automatic vs. manual)</li>
+<li>How retention periods are applied</li>
+<li>
+<p>How access is controlled</p>
+</li>
+<li>
+<p><strong>Internal control system (IKS)</strong></p>
+</li>
+<li>Access control procedures</li>
+<li>Audit log monitoring</li>
+<li>Regular compliance reviews</li>
+<li>
+<p>Incident response procedures</p>
+</li>
+<li>
+<p><strong>User documentation</strong></p>
+</li>
+<li>Training materials</li>
+<li>Operating procedures</li>
+<li>Responsibility assignments</li>
+</ol>
+<p><strong>Piler can support</strong> your procedural documentation by providing:</p>
+<ul>
+<li>System configuration exports</li>
+<li>Audit log reports</li>
+<li>User and role configuration reports</li>
+<li>Retention policy documentation</li>
+</ul>
+<hr />
+<h2 id="deployment-recommendations-for-gobd-compliance">Deployment recommendations for GoBD compliance<a class="headerlink" href="#deployment-recommendations-for-gobd-compliance" title="Permanent link">#</a></h2>
+<h3 id="minimum-requirements">Minimum requirements<a class="headerlink" href="#minimum-requirements" title="Permanent link">#</a></h3>
+<ol>
+<li><strong>Enable comprehensive archiving</strong></li>
+<li>Configure journal transport rule on mail server</li>
+<li>
+<p>Ensure all incoming and outgoing emails are captured</p>
+</li>
+<li>
+<p><strong>Configure retention policies</strong></p>
+</li>
+<li>10 years for invoices and financial documents</li>
+<li>
+<p>6 years for general commercial correspondence</p>
+</li>
+<li>
+<p><strong>Enable audit logging</strong></p>
+</li>
+<li>All access must be logged</li>
+<li>
+<p>Forward logs to external SIEM for tamper protection</p>
+</li>
+<li>
+<p><strong>Restrict deletion capabilities</strong></p>
+</li>
+<li>Only authorized roles (e.g., auditor, compliance officer) should be able to delete</li>
+<li>
+<p>Deletion should require approval workflow</p>
+</li>
+<li>
+<p><strong>Regular backups</strong></p>
+</li>
+<li>Follow 3-2-1 backup rule</li>
+<li>Test restore procedures regularly</li>
+</ol>
+<h3 id="enhanced-compliance">Enhanced compliance<a class="headerlink" href="#enhanced-compliance" title="Permanent link">#</a></h3>
+<p>For organizations requiring highest assurance:</p>
+<ol>
+<li><strong>Enable TSA timestamps</strong></li>
+<li>Cryptographic proof of archival time</li>
+<li>
+<p>Independent third-party verification</p>
+</li>
+<li>
+<p><strong>Use WORM storage</strong></p>
+</li>
+<li>S3 Object Lock or equivalent</li>
+<li>
+<p>Physical immutability at storage level</p>
+</li>
+<li>
+<p><strong>External audit log storage</strong></p>
+</li>
+<li>SIEM integration (Splunk, Sumo Logic)</li>
+<li>
+<p>Prevents local administrator tampering</p>
+</li>
+<li>
+<p><strong>Annual compliance audits</strong></p>
+</li>
+<li>Review configuration against GoBD requirements</li>
+<li>Update procedural documentation</li>
+</ol>
+<hr />
+<h2 id="auditor-access-for-tax-inspections">Auditor access for tax inspections<a class="headerlink" href="#auditor-access-for-tax-inspections" title="Permanent link">#</a></h2>
+<p>During tax audits, authorities may request access to archived emails. Piler supports this through the <strong>auditor role</strong>:</p>
+<h3 id="auditor-role-capabilities">Auditor role capabilities<a class="headerlink" href="#auditor-role-capabilities" title="Permanent link">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>Capability</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Search all emails</strong></td>
+<td>Full access to archived content within defined scope</td>
+</tr>
+<tr>
+<td><strong>View emails</strong></td>
+<td>Read email content and attachments</td>
+</tr>
+<tr>
+<td><strong>Export emails</strong></td>
+<td>Download emails in standard formats</td>
+</tr>
+<tr>
+<td><strong>View audit logs</strong></td>
+<td>Review access history</td>
+</tr>
+<tr>
+<td><strong>No modification</strong></td>
+<td>Cannot delete, modify, or alter archived content</td>
+</tr>
+</tbody>
+</table>
+<h3 id="creating-auditor-access-for-tax-inspection">Creating auditor access for tax inspection<a class="headerlink" href="#creating-auditor-access-for-tax-inspection" title="Permanent link">#</a></h3>
+<ol>
+<li>Create a user account with auditor role</li>
+<li>Define scope (date range, domains, mailboxes)</li>
+<li>Provide credentials to tax authority representative</li>
+<li>Monitor access via audit logs</li>
+<li>Disable account after audit completion</li>
+</ol>
+<p>All auditor access is fully logged for accountability.</p>
+<hr />
+<h2 id="summary-gobd-compliance-checklist">Summary: GoBD compliance checklist<a class="headerlink" href="#summary-gobd-compliance-checklist" title="Permanent link">#</a></h2>
+<table>
+<thead>
+<tr>
+<th>Requirement</th>
+<th>Implementation</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Immutability</td>
+<td>AES-256 encryption, SHA-256 hashes, audit logs</td>
+<td>✓ Built-in</td>
+</tr>
+<tr>
+<td>Completeness</td>
+<td>Journal transport rule, SMTP archiving</td>
+<td>✓ Configuration required</td>
+</tr>
+<tr>
+<td>Organization</td>
+<td>Full-text search, metadata indexing, categories</td>
+<td>✓ Built-in</td>
+</tr>
+<tr>
+<td>Timeliness</td>
+<td>Real-time archiving</td>
+<td>✓ Built-in</td>
+</tr>
+<tr>
+<td>Traceability</td>
+<td>Comprehensive audit logging, SIEM integration</td>
+<td>✓ Built-in</td>
+</tr>
+<tr>
+<td>Machine readability</td>
+<td>EML, MBOX, CSV, PDF export</td>
+<td>✓ Built-in</td>
+</tr>
+<tr>
+<td>Retention periods</td>
+<td>Configurable retention policies, automated purging</td>
+<td>✓ Configuration required</td>
+</tr>
+<tr>
+<td>Data access</td>
+<td>Auditor role, controlled exports</td>
+<td>✓ Built-in</td>
+</tr>
+<tr>
+<td>Procedural documentation</td>
+<td>Customer responsibility, Piler provides supporting data</td>
+<td>○ Customer task</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Legend:</strong> ✓ = Supported, ○ = Customer responsibility</p>
+<hr />
+<h2 id="related-documentation">Related documentation<a class="headerlink" href="#related-documentation" title="Permanent link">#</a></h2>
+<ul>
+<li><a href="../gdpr/">GDPR Compliance</a> - EU data protection requirements</li>
+<li><a href="../compliance/">Compliance Overview</a> - General compliance capabilities</li>
+<li><a href="../siem/">SIEM Integration</a> - Audit log forwarding</li>
+<li><a href="../fiber-ui-config-options/">Retention Policies</a> - Configuration options</li>
+<li><a href="../ediscovery/">eDiscovery</a> - Export and legal hold features</li>
+</ul>
+<hr />
+<h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">#</a></h2>
+<ul>
+<li><a href="https://www.bundesfinanzministerium.de/Content/DE/Downloads/BMF_Schreiben/Weitere_Steuerthemen/Abgabenordnung/2019-11-28-GoBD.html">GoBD (BMF-Schreiben vom 28.11.2019)</a> - Official GoBD document</li>
+<li><a href="https://www.gesetze-im-internet.de/ao_1977/__147.html">§ 147 AO</a> - Tax code retention requirements</li>
+<li><a href="https://www.gesetze-im-internet.de/hgb/__257.html">§ 257 HGB</a> - Commercial code retention requirements</li>
+<li><a href="https://www.bundesfinanzministerium.de/">GoBD 2025 Amendment</a> - E-invoicing clarifications</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>
