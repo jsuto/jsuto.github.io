@@ -282,37 +282,47 @@
 - Encryption keys may reside locally; separation depends on deployment choice.</p>
 <hr />
 <h2 id="hipaa-health-information-phi">HIPAA (Health Information / PHI)<a class="headerlink" href="#hipaa-health-information-phi" title="Permanent link">#</a></h2>
-<p><strong>Capabilities:</strong>
-- Emails and attachments can be encrypted at rest (AES-256) and optionally in transit (TLS for remote database connections).
-- Role-based access control separates administrators, auditors, and other users.
-- Access and export actions are fully logged.
-- On-premise deployment supported.</p>
-<p><strong>Notes / Caveats:</strong>
-- Default deployments often colocate MySQL and archive; TLS encryption is recommended but optional in this topology.
-- PHI protection relies on operational configuration: audit logs, TLS, encryption key management, and retention policies.
-- No Business Associate Agreement (BAA) is provided; separate agreements must be arranged if required.</p>
+<p><strong>Capabilities:</strong></p>
+<ul>
+<li>Emails and attachments can be encrypted at rest (AES-256) and optionally in transit (TLS for remote database connections).</li>
+<li>Role-based access control separates administrators, auditors, and other users.</li>
+<li>Access and export actions are fully logged.</li>
+<li>On-premise deployment supported.</li>
+</ul>
+<p><strong>Notes / Caveats:</strong></p>
+<ul>
+<li>Default deployments often colocate MySQL and archive; TLS encryption is recommended but optional in this topology.</li>
+<li>PHI protection relies on operational configuration: audit logs, TLS, encryption key management, and retention policies.</li>
+<li>No Business Associate Agreement (BAA) is provided; separate agreements must be arranged if required.</li>
+</ul>
 <hr />
 <h2 id="sec-rule-17a-4">SEC Rule 17a-4<a class="headerlink" href="#sec-rule-17a-4" title="Permanent link">#</a></h2>
-<p><strong>Capabilities:</strong>
-- Emails can be stored on WORM-compatible object storage (e.g., S3 Object Lock) if enabled.
-- SHA-256 hashes of all messages are stored in metadata tables; verified on retrieval.
-- Optional TSA verification aggregates message hashes for independent, cryptographically verifiable timestamps.
-- Audit logs record all administrative and user actions; optionally forwarded to external SIEM or log management systems.
-- eDiscovery export allows searches by date, sender/recipient, keywords, and supports hash verification.
-- Configurable retention policies prevent application-level deletion; enforcement depends on storage choice and configuration.</p>
+<p><strong>Capabilities:</strong></p>
+<ul>
+<li>Emails can be stored on WORM-compatible object storage (e.g., S3 Object Lock) if enabled.</li>
+<li>SHA-256 hashes of all messages are stored in metadata tables; verified on retrieval.</li>
+<li>Optional TSA verification aggregates message hashes for independent, cryptographically verifiable timestamps.</li>
+<li>Audit logs record all administrative and user actions; optionally forwarded to external SIEM or log management systems.</li>
+<li>eDiscovery export allows searches by date, sender/recipient, keywords, and supports hash verification.</li>
+<li>Configurable retention policies prevent application-level deletion; enforcement depends on storage choice and configuration.</li>
+</ul>
 <p><strong>Notes / Caveats:</strong>
 - Tamper-evidence and WORM functionality depend on correct configuration (object locking, TSA cron jobs, SIEM externalization).
 - A malicious administrator with full privileges could bypass local controls.
 - Full SEC 17a-4 compliance requires external immutable storage and independent audit/log retention.</p>
 <hr />
 <h2 id="industry-security-principles">Industry Security Principles<a class="headerlink" href="#industry-security-principles" title="Permanent link">#</a></h2>
-<p><strong>Capabilities:</strong>
-- Developed following secure coding practices, including OWASP Top 10 guidelines.
-- Security reviews conducted regularly (code scans, dependency checks, configuration audits).
-- Optional external monitoring and logging (SIEM) supports incident detection and investigation.</p>
-<p><strong>Notes / Caveats:</strong>
-- Security effectiveness relies on operational configuration and administrative practices.
-- Internal controls cannot fully prevent malicious administrators from bypassing local safeguards.</p>
+<p><strong>Capabilities:</strong></p>
+<ul>
+<li>Developed following secure coding practices, including OWASP Top 10 guidelines.</li>
+<li>Security reviews conducted regularly (code scans, dependency checks, configuration audits).</li>
+<li>Optional external monitoring and logging (SIEM) supports incident detection and investigation.</li>
+</ul>
+<p><strong>Notes / Caveats:</strong></p>
+<ul>
+<li>Security effectiveness relies on operational configuration and administrative practices.</li>
+<li>Internal controls cannot fully prevent malicious administrators from bypassing local safeguards.</li>
+</ul>
 <hr />
 <h2 id="general-guidance">General Guidance<a class="headerlink" href="#general-guidance" title="Permanent link">#</a></h2>
 <ul>
