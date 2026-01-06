@@ -271,15 +271,19 @@
 <p>This document provides a truthful and detailed overview of Piler Enterprise’s capabilities related to regulatory compliance, security standards, and operational safeguards. All features are accurate as implemented. Final compliance depends on deployment configuration, operational practices, and customer environment.</p>
 <hr />
 <h2 id="gdpr-data-protection">GDPR / Data Protection<a class="headerlink" href="#gdpr-data-protection" title="Permanent link">#</a></h2>
-<p><strong>Capabilities:</strong>
-- Configurable retention periods per mailbox or data type.
-- Facilitates data subject access requests (DSAR) via eDiscovery search and export.
-- Supports right-to-erasure requests.
-- Access logging for auditing purposes.</p>
-<p><strong>Notes / Caveats:</strong>
-- User IDs and email addresses are treated differently; GDPR obligations must be interpreted contextually.
-- Audit logs provide evidence of access but cannot prevent malicious insiders from performing actions with sufficient privileges.
-- Encryption keys may reside locally; separation depends on deployment choice.</p>
+<p><strong>Capabilities:</strong></p>
+<ul>
+<li>Configurable retention periods per mailbox or data type.</li>
+<li>Facilitates data subject access requests (DSAR) via eDiscovery search and export.</li>
+<li>Supports right-to-erasure requests.</li>
+<li>Access logging for auditing purposes.</li>
+</ul>
+<p><strong>Notes / Caveats:</strong></p>
+<ul>
+<li>User IDs and email addresses are treated differently; GDPR obligations must be interpreted contextually.</li>
+<li>Audit logs provide evidence of access but cannot prevent malicious insiders from performing actions with sufficient privileges.</li>
+<li>Encryption keys may reside locally; separation depends on deployment choice.</li>
+</ul>
 <hr />
 <h2 id="hipaa-health-information-phi">HIPAA (Health Information / PHI)<a class="headerlink" href="#hipaa-health-information-phi" title="Permanent link">#</a></h2>
 <p><strong>Capabilities:</strong></p>
@@ -306,10 +310,12 @@
 <li>eDiscovery export allows searches by date, sender/recipient, keywords, and supports hash verification.</li>
 <li>Configurable retention policies prevent application-level deletion; enforcement depends on storage choice and configuration.</li>
 </ul>
-<p><strong>Notes / Caveats:</strong>
-- Tamper-evidence and WORM functionality depend on correct configuration (object locking, TSA cron jobs, SIEM externalization).
-- A malicious administrator with full privileges could bypass local controls.
-- Full SEC 17a-4 compliance requires external immutable storage and independent audit/log retention.</p>
+<p><strong>Notes / Caveats:</strong></p>
+<ul>
+<li>Tamper-evidence and WORM functionality depend on correct configuration (object locking, TSA cron jobs, SIEM externalization).</li>
+<li>A malicious administrator with full privileges could bypass local controls.</li>
+<li>Full SEC 17a-4 compliance requires external immutable storage and independent audit/log retention.</li>
+</ul>
 <hr />
 <h2 id="industry-security-principles">Industry Security Principles<a class="headerlink" href="#industry-security-principles" title="Permanent link">#</a></h2>
 <p><strong>Capabilities:</strong></p>
