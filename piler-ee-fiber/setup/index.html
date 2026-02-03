@@ -390,14 +390,14 @@ Each worker node shall have its own unique server id (eg. 00, 01, 02, ...) that 
 <p>Run install.sh just as shown above. Add these extra settings to /var/piler/.env:</p>
 <pre><code>MULTINODES=true
 NODE_TYPE=worker
-JWT_SECRET=fi5w6x5sYPiY6llG8NxE2uMfFPlGxgCxHIjKh33iYQW4am75KZPgL0D03XiJOUfGFkOmlrM
+JWT_SECRET=fi5w6x5sYPiY6llG8NxE2uMfFPlGxgCxHIjKh33iYQW4am75KZPgL0D03XiJOUfGFkOm
 </code></pre>
 <p>The JWT secret shall be 40+ random characters. All nodes shall use the same JWT secret.</p>
 <h3 id="installing-the-frontend-node">Installing the frontend node<a class="headerlink" href="#installing-the-frontend-node" title="Permanent link">#</a></h3>
 <p>Run install.sh just as shown above. Add these extra settings to /var/piler/.env:</p>
 <pre><code>MULTINODES=true
 WORKERS=http://worker0.example.com:3000,http://worker1.example.com:3000
-JWT_SECRET=fi5w6x5sYPiY6llG8NxE2uMfFPlGxgCxHIjKh33iYQW4am75KZPgL0D03XiJOUfGFkOmlrM
+JWT_SECRET=fi5w6x5sYPiY6llG8NxE2uMfFPlGxgCxHIjKh33iYQW4am75KZPgL0D03XiJOUfGFkOm
 </code></pre>
 <p>Notice that the JWT secret is the same as on the worker nodes.</p>
 <p>Stop and disable the following services:</p>
