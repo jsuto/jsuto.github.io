@@ -288,6 +288,57 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#installing-on-multiple-linux-nodes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installing on multiple Linux nodes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Installing on multiple Linux nodes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#installing-the-worker-nodes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installing the worker nodes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#installing-the-frontend-node" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installing the frontend node
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#installing-the-mx-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installing the MX server
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#security-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Security considerations
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -306,8 +357,8 @@
 
 <h1 id="installing-piler-enterprise-edition">Installing piler enterprise edition<a class="headerlink" href="#installing-piler-enterprise-edition" title="Permanent link">#</a></h1>
 <p>This documentation applies to Piler enterprise edition 2.1.0+</p>
-<p>Revision #2</p>
-<p>Publication date: 2025-DEC-06</p>
+<p>Revision #3</p>
+<p>Publication date: 2026-FEB-03</p>
 <h2 id="installing-on-a-single-node-using-docker-compose">Installing on a single node using docker compose<a class="headerlink" href="#installing-on-a-single-node-using-docker-compose" title="Permanent link">#</a></h2>
 <p>There's a <a href="https://github.com/jsuto/piler-examples/tree/master/examples/v2.1/single-node">docker compose stack</a> that
 deploys all the necessary components. Follow the instructions in the README.</p>
@@ -327,7 +378,49 @@ sudo ./install.sh
 <p>Copy the license file to /etc/piler/license.jwt, then reboot the host,
 and verify that all services come up properly.</p>
 <h3 id="centosredhatoracle-linux-specific-notes">Centos/Redhat/Oracle Linux specific notes<a class="headerlink" href="#centosredhatoracle-linux-specific-notes" title="Permanent link">#</a></h3>
-<p>SELinux is enabled by default. Please either disable it, or configure it properly.</p>
+<p>SELinux needs to be disabled.</p>
+<h2 id="installing-on-multiple-linux-nodes">Installing on multiple Linux nodes<a class="headerlink" href="#installing-on-multiple-linux-nodes" title="Permanent link">#</a></h2>
+<p>In this setup you'll have 1 frontend node and 2 worker nodes. It's recommended to
+have an MX server that receives emails to be archived, and distributes them among
+the worker nodes.</p>
+<p>The frontend node runs only the UI (it also needs mysql, manticore and redis). The worker nodes run all components.
+Each worker node shall have its own unique server id (eg. 00, 01, 02, ...)</p>
+<p>The worker nodes hostnames are worker0.example.com and worker1.example.com</p>
+<h3 id="installing-the-worker-nodes">Installing the worker nodes<a class="headerlink" href="#installing-the-worker-nodes" title="Permanent link">#</a></h3>
+<p>Run install.sh just as shown above. Add these extra settings to /var/piler/.env:</p>
+<pre><code>MULTINODES=true
+NODE_TYPE=worker
+JWT_SECRET=fi5w6x5sYPiY6llG8NxE2uMfFPlGxgCxHIjKh33iYQW4am75KZPgL0D03XiJOUfGFkOmlrMEZUFZKTcWOWy6
+</code></pre>
+<p>The JWT secret shall be 40+ random characters. All nodes shall use the same JWT secret.</p>
+<h3 id="installing-the-frontend-node">Installing the frontend node<a class="headerlink" href="#installing-the-frontend-node" title="Permanent link">#</a></h3>
+<p>Run install.sh just as shown above. Add these extra settings to /var/piler/.env:</p>
+<pre><code>MULTINODES=true
+WORKERS=http://worker0.example.com:3000,http://worker1.example.com:3000
+JWT_SECRET=fi5w6x5sYPiY6llG8NxE2uMfFPlGxgCxHIjKh33iYQW4am75KZPgL0D03XiJOUfGFkOmlrMEZUFZKTcWOWy6
+</code></pre>
+<p>Notice that the JWT secret is the same as on the worker nodes.</p>
+<p>Stop and disable the following services:</p>
+<ul>
+<li>piler</li>
+<li>piler-smtp</li>
+<li>scanner</li>
+<li>tika</li>
+</ul>
+<pre><code>systemctl stop piler
+systemctl disable piler
+....
+</code></pre>
+<h3 id="installing-the-mx-server">Installing the MX server<a class="headerlink" href="#installing-the-mx-server" title="Permanent link">#</a></h3>
+<p>You may use postfix, etc. as the MX server.</p>
+<h3 id="security-considerations">Security considerations<a class="headerlink" href="#security-considerations" title="Permanent link">#</a></h3>
+<ul>
+<li>the worker nodes need to access mysql on the frontend node</li>
+<li>the frontend node needs to access port 9312 on the worker nodes</li>
+<li>the UI port (3000) of the worker nodes shall be accessed only from the frontend node</li>
+<li>the SMTP port (25) of the worker nodes shall be accessed only from the MX server</li>
+<li>you need a reverse proxy like traefik or nginx on the frontend node to provide https access</li>
+</ul>
 
 
 
