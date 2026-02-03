@@ -384,7 +384,7 @@ and verify that all services come up properly.</p>
 have an MX server that receives emails to be archived, and distributes them among
 the worker nodes.</p>
 <p>The frontend node runs only the UI (it also needs mysql, manticore and redis). The worker nodes run all components.
-Each worker node shall have its own unique server id (eg. 00, 01, 02, ...)</p>
+Each worker node shall have its own unique server id (eg. 00, 01, 02, ...) that comes from the license file.</p>
 <p>The worker nodes hostnames are worker0.example.com and worker1.example.com</p>
 <h3 id="installing-the-worker-nodes">Installing the worker nodes<a class="headerlink" href="#installing-the-worker-nodes" title="Permanent link">#</a></h3>
 <p>Run install.sh just as shown above. Add these extra settings to /var/piler/.env:</p>
@@ -412,7 +412,8 @@ systemctl disable piler
 ....
 </code></pre>
 <h3 id="installing-the-mx-server">Installing the MX server<a class="headerlink" href="#installing-the-mx-server" title="Permanent link">#</a></h3>
-<p>You may use postfix, etc. as the MX server.</p>
+<p>You may use postfix, etc. as the MX server. See <a href="https://github.com/jsuto/piler-examples/tree/master/examples/postfix-m">the examples repo</a> for
+a working setup.</p>
 <h3 id="security-considerations">Security considerations<a class="headerlink" href="#security-considerations" title="Permanent link">#</a></h3>
 <ul>
 <li>the worker nodes need to access mysql on the frontend node</li>
