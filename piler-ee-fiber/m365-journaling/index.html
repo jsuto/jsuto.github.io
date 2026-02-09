@@ -1,0 +1,701 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://jsuto.github.io/piler-ee-v2/m365-journaling/">
+      
+      
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.6.20">
+    
+    
+      
+        <title>Setting up Microsoft 365 Journaling for Piler - piler enterprise 2.x documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.e53b48f4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#setting-up-microsoft-365-journaling-for-piler" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="piler enterprise 2.x documentation" class="md-header__button md-logo" aria-label="piler enterprise 2.x documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            piler enterprise 2.x documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Setting up Microsoft 365 Journaling for Piler
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="piler enterprise 2.x documentation" class="md-nav__button md-logo" aria-label="piler enterprise 2.x documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    piler enterprise 2.x documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://mailpiler.com/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Site
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-it-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      How it works
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="How it works">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#single-node-deployment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Single-node deployment
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multi-node-deployment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Multi-node deployment
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-1-dns-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 1: DNS setup
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-2-create-a-journal-transport-rule-in-exchange-online" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 2: Create a journal transport rule in Exchange Online
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 2: Create a journal transport rule in Exchange Online">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-exchange-admin-center-web-ui" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using Exchange Admin Center (web UI)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-powershell" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using PowerShell
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-3-verify-emails-are-being-archived" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 3: Verify emails are being archived
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#multi-tenant-setup-for-msps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Multi-tenant setup (for MSPs)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Multi-tenant setup (for MSPs)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#addressing-scheme" class="md-nav__link">
+    <span class="md-ellipsis">
+      Addressing scheme
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#postfix-routing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Postfix routing
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#per-tenant-journal-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      Per-tenant journal rules
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Troubleshooting
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#emails-not-arriving-in-the-archive" class="md-nav__link">
+    <span class="md-ellipsis">
+      Emails not arriving in the archive
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#duplicate-emails-in-the-archive" class="md-nav__link">
+    <span class="md-ellipsis">
+      Duplicate emails in the archive
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#m365-connector-spf-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      M365 connector / SPF issues
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#testing-the-smtp-path-manually" class="md-nav__link">
+    <span class="md-ellipsis">
+      Testing the SMTP path manually
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="setting-up-microsoft-365-journaling-for-piler">Setting up Microsoft 365 Journaling for Piler<a class="headerlink" href="#setting-up-microsoft-365-journaling-for-piler" title="Permanent link">#</a></h1>
+<p>This documentation applies to Piler enterprise edition 2.1.0</p>
+<p>Revision #1</p>
+<p>Publication date: 2026-FEB-09</p>
+<p>Microsoft 365 (Exchange Online) can be configured to send a copy of every email to Piler in real-time using journal transport rules. This is the recommended method for ongoing email archiving. For one-time migration of historical emails, see <a href="../import-emails/#import-from-microsoft-365">Import from Microsoft 365</a>.</p>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">#</a></h2>
+<p>There are two ways to archive M365 emails with Piler:</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Use case</th>
+<th>How it works</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Journaling (this guide)</strong></td>
+<td>Ongoing real-time archiving</td>
+<td>M365 sends a copy of every email as it's sent/received</td>
+</tr>
+<tr>
+<td><strong>Graph API import</strong></td>
+<td>One-time historical migration</td>
+<td>Script downloads existing emails via Microsoft Graph API</td>
+</tr>
+</tbody>
+</table>
+<p>You can use both: import historical emails first, then enable journaling for everything going forward.</p>
+<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">#</a></h2>
+<ul>
+<li>A running Piler instance with the SMTP daemon (<code>piler-smtp</code>) accessible on port 25</li>
+<li>A Microsoft 365 tenant with Exchange Online</li>
+<li>Exchange administrator role in your M365 tenant</li>
+<li>DNS MX record for your journal domain pointing to the archive server</li>
+</ul>
+<h2 id="how-it-works">How it works<a class="headerlink" href="#how-it-works" title="Permanent link">#</a></h2>
+<h3 id="single-node-deployment">Single-node deployment<a class="headerlink" href="#single-node-deployment" title="Permanent link">#</a></h3>
+<p>In a single-node setup, M365 delivers journal emails directly to <code>piler-smtp</code>. No separate MX relay is needed.</p>
+<pre><code>M365 tenant                    Archive server
+┌──────────────┐              ┌────────────┐      ┌───────┐
+│ Exchange     │── journal ──&gt;│ piler-smtp │─────&gt;│ Piler │
+│ Online       │   (SMTP)     │ (port 25)  │      │       │
+└──────────────┘              └────────────┘      └───────┘
+</code></pre>
+<h3 id="multi-node-deployment">Multi-node deployment<a class="headerlink" href="#multi-node-deployment" title="Permanent link">#</a></h3>
+<p>If you run multiple worker nodes, an MX relay (e.g. postfix) distributes journal emails across them. See the <a href="https://github.com/jsuto/piler-examples/tree/master/examples/postfix-mx" target="_blank">postfix examples</a> for a working setup.</p>
+<pre><code>M365 tenant                    Your infrastructure
+┌──────────────┐              ┌─────────┐      ┌────────────────┐
+│ Exchange     │── journal ──&gt;│ Postfix │─────&gt;│ piler-smtp (1) │
+│ Online       │   (SMTP)     │ (MX)    │─────&gt;│ piler-smtp (2) │
+└──────────────┘              └─────────┘      └────────────────┘
+</code></pre>
+<p>When a user sends or receives an email in M365, the journal transport rule sends a BCC copy to your designated journal address (e.g. <code>journal@archive.example.com</code>). The <code>piler-smtp</code> daemon receives it, processes, and archives the email.</p>
+<h2 id="step-1-dns-setup">Step 1: DNS setup<a class="headerlink" href="#step-1-dns-setup" title="Permanent link">#</a></h2>
+<ol>
+<li>
+<p>Choose a journal recipient address, e.g. <code>journal@archive.example.com</code></p>
+</li>
+<li>
+<p>Create a DNS MX record for <code>archive.example.com</code> pointing to your archive server (single-node) or your MX relay (multi-node)</p>
+</li>
+</ol>
+<h2 id="step-2-create-a-journal-transport-rule-in-exchange-online">Step 2: Create a journal transport rule in Exchange Online<a class="headerlink" href="#step-2-create-a-journal-transport-rule-in-exchange-online" title="Permanent link">#</a></h2>
+<h3 id="using-exchange-admin-center-web-ui">Using Exchange Admin Center (web UI)<a class="headerlink" href="#using-exchange-admin-center-web-ui" title="Permanent link">#</a></h3>
+<ol>
+<li>
+<p>Sign in to the <a href="https://admin.exchange.microsoft.com" target="_blank">Exchange Admin Center</a></p>
+</li>
+<li>
+<p>Go to <strong>Mail flow</strong> &gt; <strong>Rules</strong></p>
+</li>
+<li>
+<p>Click <strong>Add a rule</strong> &gt; <strong>Create a new rule</strong></p>
+</li>
+<li>
+<p>Configure the rule:</p>
+<ul>
+<li><strong>Name</strong>: <code>Piler Email Archiving</code></li>
+<li><strong>Apply this rule if</strong>: <code>[Apply to all messages]</code> — select "The sender" &gt; "is internal or external" &gt; "Inside or outside the organization"</li>
+<li><strong>Do the following</strong>: Select "BCC the message to..." and enter your journal address, e.g. <code>journal@archive.example.com</code></li>
+</ul>
+</li>
+<li>
+<p>Click <strong>Next</strong>, review the settings, and <strong>Save</strong></p>
+</li>
+<li>
+<p>Make sure the rule is <strong>enabled</strong> (toggle it on if needed)</p>
+</li>
+</ol>
+<h3 id="using-powershell">Using PowerShell<a class="headerlink" href="#using-powershell" title="Permanent link">#</a></h3>
+<p>If you prefer PowerShell, connect to Exchange Online and run:</p>
+<pre><code class="language-powershell">Connect-ExchangeOnline
+
+New-TransportRule -Name &quot;Piler Email Archiving&quot; `
+  -FromScope &quot;InOrganization&quot; `
+  -BccMessageTo &quot;journal@archive.example.com&quot;
+
+New-TransportRule -Name &quot;Piler Email Archiving Inbound&quot; `
+  -FromScope &quot;NotInOrganization&quot; `
+  -SentToScope &quot;InOrganization&quot; `
+  -BccMessageTo &quot;journal@archive.example.com&quot;
+</code></pre>
+<p>The first rule captures outbound and internal emails. The second rule captures inbound emails from external senders.</p>
+<h2 id="step-3-verify-emails-are-being-archived">Step 3: Verify emails are being archived<a class="headerlink" href="#step-3-verify-emails-are-being-archived" title="Permanent link">#</a></h2>
+<ol>
+<li>
+<p>Send a test email from an M365 mailbox to an external address (or between two M365 users)</p>
+</li>
+<li>
+<p>Wait 1-2 minutes for the journal rule to trigger</p>
+</li>
+<li>
+<p>Check the piler-smtp logs for the incoming message:</p>
+</li>
+</ol>
+<pre><code>journalctl -u piler-smtp -f
+</code></pre>
+<p>You should see the journal email being received and processed.</p>
+<ol>
+<li>Log in to the Piler web UI and search for the test email. It should appear in the archive.</li>
+</ol>
+<h2 id="multi-tenant-setup-for-msps">Multi-tenant setup (for MSPs)<a class="headerlink" href="#multi-tenant-setup-for-msps" title="Permanent link">#</a></h2>
+<p>If you manage multiple M365 tenants with a multi-tenant Piler deployment, each tenant needs its own journal rule pointing to a tenant-specific address.
+The tenant-specific address is <tenant id>@archive.example.com.</p>
+<h3 id="addressing-scheme">Addressing scheme<a class="headerlink" href="#addressing-scheme" title="Permanent link">#</a></h3>
+<p>Use a per-tenant journal address, for example:</p>
+<table>
+<thead>
+<tr>
+<th>M365 tenant</th>
+<th>Journal address</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Client A</td>
+<td><code>clienta@archive.example.com</code></td>
+</tr>
+<tr>
+<td>Client B</td>
+<td><code>clientb@archive.example.com</code></td>
+</tr>
+<tr>
+<td>Client C</td>
+<td><code>clientc@archive.example.com</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="postfix-routing">Postfix routing<a class="headerlink" href="#postfix-routing" title="Permanent link">#</a></h3>
+<p>Configure postfix to route each tenant's journal emails. All journal addresses go to the same <code>piler-smtp</code> instance — Piler handles tenant separation internally based on the recipient domains configured per tenant.</p>
+<h3 id="per-tenant-journal-rules">Per-tenant journal rules<a class="headerlink" href="#per-tenant-journal-rules" title="Permanent link">#</a></h3>
+<p>In each client's M365 tenant, create the transport rule (Step 2) using their specific journal address. This keeps each tenant's email stream identifiable.</p>
+<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">#</a></h2>
+<h3 id="emails-not-arriving-in-the-archive">Emails not arriving in the archive<a class="headerlink" href="#emails-not-arriving-in-the-archive" title="Permanent link">#</a></h3>
+<ul>
+<li><strong>Check DNS</strong>: Verify the MX record for your journal domain resolves correctly: <code>dig MX archive.example.com</code></li>
+<li><strong>Check firewall</strong>: Ensure port 25 is open between M365 (outbound SMTP) and your archive server</li>
+<li><strong>Check piler-smtp logs</strong>: <code>journalctl -u piler-smtp -f</code> — look for incoming connections and processing</li>
+<li><strong>Check postfix logs</strong> (multi-node only): <code>journalctl -u postfix -f</code> — look for connection attempts from M365</li>
+<li><strong>M365 delivery delay</strong>: Journal rules may take a few minutes to activate after creation. Send another test email after 5-10 minutes.</li>
+</ul>
+<h3 id="duplicate-emails-in-the-archive">Duplicate emails in the archive<a class="headerlink" href="#duplicate-emails-in-the-archive" title="Permanent link">#</a></h3>
+<ul>
+<li>If you see duplicates, check that you don't have overlapping rules (e.g. both a BCC rule and a journal rule for the same scope)</li>
+<li>Piler deduplicates by message-id, so exact duplicates are automatically handled. If you see near-duplicates, check your rule scope.</li>
+</ul>
+<h3 id="m365-connector-spf-issues">M365 connector / SPF issues<a class="headerlink" href="#m365-connector-spf-issues" title="Permanent link">#</a></h3>
+<p>If your server rejects journal emails from M365:</p>
+<ul>
+<li>Ensure <code>piler-smtp</code> is configured to accept connections from M365's IP ranges</li>
+<li>Or create an inbound connector in M365 that routes journal emails through a specific IP range you trust</li>
+</ul>
+<h3 id="testing-the-smtp-path-manually">Testing the SMTP path manually<a class="headerlink" href="#testing-the-smtp-path-manually" title="Permanent link">#</a></h3>
+<p>To verify <code>piler-smtp</code> is working independently of M365:</p>
+<pre><code>echo &quot;Subject: test&quot; | sendmail -f test@example.com journal@archive.example.com
+</code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>
