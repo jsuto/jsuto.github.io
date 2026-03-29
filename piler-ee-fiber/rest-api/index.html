@@ -269,6 +269,13 @@
 <p>Publication date: 2026-JAN-01</p>
 <p>Piler enterprise support a comprehensive OpenAPI 3.0 with interactive Swagger UI.</p>
 <p>The full OpenAPI 3.0 spec, and the interactive docs is available at <code>/api/docs</code>, see the <a href="https://demo.mailpiler.com/api/docs/index.html">demo site</a> as an example.</p>
+<p>You may use curl to get an access token:</p>
+<pre><code>ACCESS_TOKEN=&quot;$( curl -s -X POST \
+    -H &quot;Host: ${host}&quot; \
+    -H &quot;Content-Type: application/json&quot; \
+    -d &quot;{\&quot;username\&quot;:\&quot;&lt;your username&gt;\&quot;, \&quot;password\&quot;:\&quot;&lt;your password&gt;\&quot;}&quot; \
+    &quot;https://archive.example.com/auth/login&quot; | jq -r '.access_token' )&quot;
+</code></pre>
 
 
 
