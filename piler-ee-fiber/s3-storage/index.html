@@ -347,7 +347,8 @@ S3_REGION=us-east-1
 S3_REGION=us-east-1
 </code></pre>
 <h2 id="update-the-ui-config">Update the UI config<a class="headerlink" href="#update-the-ui-config" title="Permanent link">#</a></h2>
-<p>Put the S3 configuration to the UI env file as well. This is for a minio installation on port 9000 with no TLS configured:</p>
+<p>Put the S3 configuration to the UI env file (/var/piler/.env) as well. Note that the piler daemon also reads config from this file.
+This is for a minio installation on port 9000 with no TLS configured:</p>
 <pre><code>RETRIEVER_METHOD=s3
 S3_ENDPOINT=minio:9000
 S3_ACCESS_KEY=root
