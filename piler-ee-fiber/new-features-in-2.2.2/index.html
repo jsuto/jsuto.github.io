@@ -8,7 +8,7 @@
       
       
       
-        <link rel="canonical" href="https://jsuto.github.io/piler-ee-v2/migration/">
+        <link rel="canonical" href="https://jsuto.github.io/piler-ee-v2/new-features-in-2.2.2/">
       
       
       
@@ -18,7 +18,7 @@
     
     
       
-        <title>Migration Overview - piler enterprise 2.x documentation</title>
+        <title>What's new since 2.1.0 - piler enterprise 2.x documentation</title>
       
     
     
@@ -60,7 +60,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#migration-overview" class="md-skip">
+        <a href="#whats-new-since-210" class="md-skip">
           Skip to content
         </a>
       
@@ -96,7 +96,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Migration Overview
+              What's new since 2.1.0
             
           </span>
         </div>
@@ -251,96 +251,126 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#overview" class="md-nav__link">
+  <a href="#unified-archiving-for-slack-and-microsoft-teams" class="md-nav__link">
     <span class="md-ellipsis">
-      Overview
+      Unified archiving for Slack and Microsoft Teams
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#supported-migration-sources" class="md-nav__link">
+  <a href="#gdpr-right-to-erasure" class="md-nav__link">
     <span class="md-ellipsis">
-      Supported Migration Sources
+      GDPR Right to Erasure
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#general-migration-process" class="md-nav__link">
+  <a href="#passkey-authentication" class="md-nav__link">
     <span class="md-ellipsis">
-      General Migration Process
+      Passkey authentication
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#import-tool" class="md-nav__link">
+  <a href="#find-similar-messages" class="md-nav__link">
     <span class="md-ellipsis">
-      Import Tool
+      Find similar messages
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#before-you-begin" class="md-nav__link">
+  <a href="#multi-master-node-high-availability" class="md-nav__link">
     <span class="md-ellipsis">
-      Before You Begin
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Before You Begin">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#storage-requirements" class="md-nav__link">
-    <span class="md-ellipsis">
-      Storage Requirements
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#network-transfer" class="md-nav__link">
-    <span class="md-ellipsis">
-      Network Transfer
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#permissions" class="md-nav__link">
-    <span class="md-ellipsis">
-      Permissions
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#post-migration-verification" class="md-nav__link">
-    <span class="md-ellipsis">
-      Post-Migration Verification
+      Multi-master-node high availability
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#need-help" class="md-nav__link">
+  <a href="#resumable-imap-import" class="md-nav__link">
     <span class="md-ellipsis">
-      Need Help?
+      Resumable IMAP import
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pending-conversations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pending conversations
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#siem-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      SIEM integration
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nis2-compliance-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      NIS2 compliance documentation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#open-xchange-ox-webmail-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Open-Xchange (OX) webmail integration
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#msp-customization-hooks" class="md-nav__link">
+    <span class="md-ellipsis">
+      MSP customization hooks
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#attachment-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      Attachment search
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flexible-s3-compatible-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Flexible S3-compatible storage
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#expanded-purge-controls" class="md-nav__link">
+    <span class="md-ellipsis">
+      Expanded purge controls
     </span>
   </a>
   
@@ -362,101 +392,61 @@
 
 
 
-<h1 id="migration-overview">Migration Overview<a class="headerlink" href="#migration-overview" title="Permanent link">#</a></h1>
-<p>This documentation applies to Piler enterprise edition 2.1.0</p>
+<h1 id="whats-new-since-210">What's new since 2.1.0<a class="headerlink" href="#whats-new-since-210" title="Permanent link">#</a></h1>
+<p>This documentation covers everything new in Piler enterprise edition from
+2.1.0 through 2.2.2. For the detailed, release-by-release engineering
+changelog (including maintenance releases and dependency updates), see the
+<a href="../changelog/">Changelog</a>.</p>
 <p>Revision #1</p>
-<p>Publication date: 2025-DEC-12</p>
-<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">#</a></h2>
-<p>Piler can import emails from any email archiving solution that exports to standard formats (EML, MBOX). This section provides step-by-step guides for migrating from popular competitors.</p>
-<h2 id="supported-migration-sources">Supported Migration Sources<a class="headerlink" href="#supported-migration-sources" title="Permanent link">#</a></h2>
-<table>
-<thead>
-<tr>
-<th>Source</th>
-<th>Export Format</th>
-<th>Complexity</th>
-<th>Guide</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>MailStore</td>
-<td>EML</td>
-<td>Easy</td>
-<td><a href="mailstore/">MailStore Migration</a></td>
-</tr>
-<tr>
-<td>MailArchiva</td>
-<td>EML, MBOX</td>
-<td>Easy</td>
-<td><a href="mailarchiva/">MailArchiva Migration</a></td>
-</tr>
-<tr>
-<td>Barracuda Message Archiver</td>
-<td>ZIP (EML)</td>
-<td>Medium</td>
-<td><a href="barracuda/">Barracuda Migration</a></td>
-</tr>
-<tr>
-<td>Any EML/MBOX source</td>
-<td>EML, MBOX</td>
-<td>Easy</td>
-<td><a href="../import-emails/">Import Emails</a></td>
-</tr>
-</tbody>
-</table>
-<h2 id="general-migration-process">General Migration Process<a class="headerlink" href="#general-migration-process" title="Permanent link">#</a></h2>
-<p>All migrations follow the same basic workflow:</p>
-<ol>
-<li><strong>Export</strong> - Extract emails from the source archive in EML or MBOX format</li>
-<li><strong>Transfer</strong> - Move exported files to the Piler server</li>
-<li><strong>Import</strong> - Use <code>pilerimport</code> to archive the emails</li>
-</ol>
-<h2 id="import-tool">Import Tool<a class="headerlink" href="#import-tool" title="Permanent link">#</a></h2>
-<p>The <code>pilerimport</code> tool handles all imports:</p>
-<pre><code>pilerimport -dir /path/to/exported/emails -tenantid &lt;tenant&gt; -workers 8 -progress
-</code></pre>
-<p>Key options:</p>
-<ul>
-<li><code>-dir</code> - Directory containing exported EML files (recursive)</li>
-<li><code>-mbox</code> - Single MBOX file to import</li>
-<li><code>-tenantid</code> - Target tenant ID</li>
-<li><code>-workers</code> - Parallel processing threads (default: 4, recommended: 8-16)</li>
-<li><code>-progress</code> - Show progress bar</li>
-<li><code>-remove</code> - Delete files after successful import</li>
-</ul>
-<p>See <a href="../import-emails/">Import Emails</a> for complete documentation.</p>
-<h2 id="before-you-begin">Before You Begin<a class="headerlink" href="#before-you-begin" title="Permanent link">#</a></h2>
-<h3 id="storage-requirements">Storage Requirements<a class="headerlink" href="#storage-requirements" title="Permanent link">#</a></h3>
-<p>Ensure the Piler server has sufficient disk space:</p>
-<ul>
-<li>Exported data size + 20% overhead for indexes</li>
-<li>Example: 500GB export needs ~600GB free space</li>
-</ul>
-<h3 id="network-transfer">Network Transfer<a class="headerlink" href="#network-transfer" title="Permanent link">#</a></h3>
-<p>For large archives, consider:</p>
-<ul>
-<li><strong>rsync</strong> - Resumable transfers, handles interruptions</li>
-<li><strong>USB/external drive</strong> - Fastest for multi-TB archives</li>
-<li><strong>Secure copy (scp)</strong> - For remote transfers</li>
-</ul>
-<p>Example rsync:</p>
-<pre><code class="language-bash">rsync -avz --progress /source/export/ piler-server:/var/piler/import/
-</code></pre>
-<h3 id="permissions">Permissions<a class="headerlink" href="#permissions" title="Permanent link">#</a></h3>
-<p>Ensure the import directory is readable by the piler user:</p>
-<pre><code class="language-bash">chown -R piler:piler /var/piler/import/
-</code></pre>
-<h2 id="post-migration-verification">Post-Migration Verification<a class="headerlink" href="#post-migration-verification" title="Permanent link">#</a></h2>
-<p>After import completes:</p>
-<ol>
-<li>Check import statistics (success/failed counts)</li>
-<li>Search for recent and old emails to verify date range coverage</li>
-<li>Spot-check attachments open correctly</li>
-<li>Verify user access permissions work as expected</li>
-</ol>
-<h2 id="need-help">Need Help?<a class="headerlink" href="#need-help" title="Permanent link">#</a></h2>
-<p>For migration assistance, contact <a href="https://mailpiler.com/support/">support</a>.</p>
+<p>Publication date: 2026-SEP-27</p>
+<h2 id="unified-archiving-for-slack-and-microsoft-teams">Unified archiving for Slack and Microsoft Teams<a class="headerlink" href="#unified-archiving-for-slack-and-microsoft-teams" title="Permanent link">#</a></h2>
+<p>Archive Slack and Microsoft Teams conversations alongside email in the
+same searchable, compliant archive - with dedicated collectors for each
+platform and matching UI/API support.</p>
+<h2 id="gdpr-right-to-erasure">GDPR Right to Erasure<a class="headerlink" href="#gdpr-right-to-erasure" title="Permanent link">#</a></h2>
+<p>A multi-node-aware implementation of the GDPR's Article 17 right to
+erasure, so erasure requests are honored consistently across every node
+in a multi-node deployment.</p>
+<h2 id="passkey-authentication">Passkey authentication<a class="headerlink" href="#passkey-authentication" title="Permanent link">#</a></h2>
+<p>Sign in with passkeys (WebAuthn) instead of, or alongside, passwords -
+phishing-resistant authentication with no shared secret to steal.</p>
+<h2 id="find-similar-messages">Find similar messages<a class="headerlink" href="#find-similar-messages" title="Permanent link">#</a></h2>
+<p>A new KNN vector search over message content surfaces similar messages
+directly from the message view, complementing full-text and semantic
+search.</p>
+<h2 id="multi-master-node-high-availability">Multi-master-node high availability<a class="headerlink" href="#multi-master-node-high-availability" title="Permanent link">#</a></h2>
+<p>The archive can now run with multiple master nodes instead of a single
+master, removing that node as a single point of failure in multi-node
+deployments.</p>
+<h2 id="resumable-imap-import">Resumable IMAP import<a class="headerlink" href="#resumable-imap-import" title="Permanent link">#</a></h2>
+<p>Large IMAP import jobs now checkpoint their progress, so an interrupted
+import picks up where it left off instead of starting over.</p>
+<h2 id="pending-conversations">Pending conversations<a class="headerlink" href="#pending-conversations" title="Permanent link">#</a></h2>
+<p>A dedicated badge and drawer surface messages that are awaiting a reply,
+so nothing important gets missed in a busy mailbox.</p>
+<h2 id="siem-integration">SIEM integration<a class="headerlink" href="#siem-integration" title="Permanent link">#</a></h2>
+<p>Ship archive events to your SIEM, including native Sumo Logic support.</p>
+<h2 id="nis2-compliance-documentation">NIS2 compliance documentation<a class="headerlink" href="#nis2-compliance-documentation" title="Permanent link">#</a></h2>
+<p>Documentation covering how Piler's archiving and access controls map to
+the EU's NIS2 directive requirements.</p>
+<h2 id="open-xchange-ox-webmail-integration">Open-Xchange (OX) webmail integration<a class="headerlink" href="#open-xchange-ox-webmail-integration" title="Permanent link">#</a></h2>
+<p>Tighter integration with OX webmail: matching theme, language, and
+timezone, plus iframe embedding support.</p>
+<h2 id="msp-customization-hooks">MSP customization hooks<a class="headerlink" href="#msp-customization-hooks" title="Permanent link">#</a></h2>
+<p>Stable HTML hooks and CSS identifiers throughout the UI, so managed
+service providers can apply their own branding and customizations without
+patching Piler itself.</p>
+<h2 id="attachment-search">Attachment search<a class="headerlink" href="#attachment-search" title="Permanent link">#</a></h2>
+<p>Search archived attachments directly, not just message bodies and
+subjects.</p>
+<h2 id="flexible-s3-compatible-storage">Flexible S3-compatible storage<a class="headerlink" href="#flexible-s3-compatible-storage" title="Permanent link">#</a></h2>
+<p>New tuning options for S3-compatible backends - skip re-uploading objects
+that already exist across nodes, and control multipart upload part size,
+for better performance on constrained or high-latency storage backends.</p>
+<h2 id="expanded-purge-controls">Expanded purge controls<a class="headerlink" href="#expanded-purge-controls" title="Permanent link">#</a></h2>
+<p>Restore from a specific prior purge run, and purge is now multi-node
+aware, so retention policies apply consistently across every node in a
+deployment.</p>
 
 
 

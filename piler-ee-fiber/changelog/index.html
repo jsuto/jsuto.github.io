@@ -1,0 +1,1022 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://jsuto.github.io/piler-ee-v2/changelog/">
+      
+      
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.4">
+    
+    
+      
+        <title>Changelog - piler enterprise 2.x documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.8608ea7d.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#changelog" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="piler enterprise 2.x documentation" class="md-header__button md-logo" aria-label="piler enterprise 2.x documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            piler enterprise 2.x documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Changelog
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="piler enterprise 2.x documentation" class="md-nav__button md-logo" aria-label="piler enterprise 2.x documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    piler enterprise 2.x documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://mailpiler.com/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Site
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#scanner-130-2026-09-27" class="md-nav__link">
+    <span class="md-ellipsis">
+      Scanner 1.3.0 - 2026-09-27
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Scanner 1.3.0 - 2026-09-27">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#changed" class="md-nav__link">
+    <span class="md-ellipsis">
+      Changed
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#222-2026-09-22" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2.2 - 2026-09-22
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2.2 - 2026-09-22">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#security" class="md-nav__link">
+    <span class="md-ellipsis">
+      Security
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#added" class="md-nav__link">
+    <span class="md-ellipsis">
+      Added
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#changed_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Changed
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fixed" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fixed
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#221-2026-09-06" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2.1 - 2026-09-06
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2.1 - 2026-09-06">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#security_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Security
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#added_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Added
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#changed_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Changed
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fixed_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fixed
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#220-2026-08-16" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2.0 - 2026-08-16
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2.0 - 2026-08-16">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#changed_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Changed
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#added_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Added
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fixed_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fixed
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#215-2026-07-26" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1.5 - 2026-07-26
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1.5 - 2026-07-26">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#security_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Security
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#added_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Added
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#changed_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Changed
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fixed_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fixed
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dependencies
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#214-2026-06-09" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1.4 - 2026-06-09
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1.4 - 2026-06-09">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#added_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Added
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#changed_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Changed
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fixed_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fixed
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dependencies_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dependencies
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#213-2026-04-09" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1.3 - 2026-04-09
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1.3 - 2026-04-09">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#added_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Added
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#changed_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      Changed
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fixed_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fixed
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dependencies_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dependencies
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#212-2026-03-15" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1.2 - 2026-03-15
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1.2 - 2026-03-15">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#security_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Security
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#added_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      Added
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#changed_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      Changed
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fixed_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fixed
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dependencies_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dependencies
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#211-2025-12-13" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1.1 - 2025-12-13
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1.1 - 2025-12-13">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#added_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      Added
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#changed_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      Changed
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dependencies_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dependencies
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="changelog">Changelog<a class="headerlink" href="#changelog" title="Permanent link">#</a></h1>
+<p>All notable changes to Piler Enterprise Edition, starting from 2.1.0.</p>
+<p>For a marketing-oriented summary of major feature releases, see
+<a href="../new-features-in-2.0.0/">New features in 2.0.0</a> and
+<a href="../new-features-in-2.1.0/">New features in 2.1.0</a>. This page is the
+detailed, engineering-level counterpart - it also tracks maintenance
+releases and dependency/security updates that those pages don't cover.</p>
+<p>The Scanner add-on (ML phishing detection, semantic search, PII detection,
+categorization) is versioned and released independently of the main
+application below.</p>
+<h2 id="scanner-130-2026-09-27">Scanner 1.3.0 - 2026-09-27<a class="headerlink" href="#scanner-130-2026-09-27" title="Permanent link">#</a></h2>
+<h3 id="changed">Changed<a class="headerlink" href="#changed" title="Permanent link">#</a></h3>
+<ul>
+<li>The ML phishing detector no longer depends on a native runtime library
+  or CGO - it's now a fully static, dependency-free Go binary. This makes
+  the scanner image smaller, faster to build, and easier to deploy across
+  architectures.</li>
+<li>Retrained the phishing-detection model on a substantially larger and
+  more diverse set of examples. Internal testing shows a meaningful
+  reduction in false positives (legitimate email incorrectly flagged)
+  versus the previous model, with no loss in detection rate.</li>
+<li>Simplified the scanner's Docker image build to a prebuilt-binary copy,
+  matching the main application image's build process.</li>
+</ul>
+<h2 id="222-2026-09-22">2.2.2 - 2026-09-22<a class="headerlink" href="#222-2026-09-22" title="Permanent link">#</a></h2>
+<h3 id="security">Security<a class="headerlink" href="#security" title="Permanent link">#</a></h3>
+<ul>
+<li>Upgraded <code>grpc</code> and <code>go.opentelemetry.io/otel</code> to address
+  <strong>CVE-2026-84304</strong> and related CVEs</li>
+</ul>
+<h3 id="added">Added<a class="headerlink" href="#added" title="Permanent link">#</a></h3>
+<ul>
+<li>Per-message delete action in the preview pane</li>
+<li>Stable HTML customization hooks (<code>data-*</code> attributes) for MSP frontend
+  integration</li>
+<li>Multi-node support for user email purge</li>
+</ul>
+<h3 id="changed_1">Changed<a class="headerlink" href="#changed_1" title="Permanent link">#</a></h3>
+<ul>
+<li><code>piler-ui</code> Docker image build simplified to a prebuilt-binary copy
+  (matches the pattern later applied to the scanner image)</li>
+<li>Manticore search engine upgraded to 29.9.0</li>
+<li>Message selection: Ctrl/Cmd+click for single-message selection,
+  Shift+click for range selection</li>
+</ul>
+<h3 id="fixed">Fixed<a class="headerlink" href="#fixed" title="Permanent link">#</a></h3>
+<ul>
+<li>Table content clipping in dashboard cards</li>
+<li>Bogus sort order in multinode search results</li>
+<li>Regular users seeing 0 search results in multinode mode</li>
+<li>Timezone validation failing on Alpine runtime images (IANA tzdata now
+  embedded rather than relying on the host OS)</li>
+<li>Unmounted Vue templates briefly flashing placeholder content (<code>v-cloak</code>)</li>
+<li>Trailing boundary CRLF in attachment MIME parts incorrectly flagged as
+  invalid</li>
+<li>False-positive attachment size mismatch logging for base64-encoded
+  attachments</li>
+<li>S3 promotion window returning an empty <code>200</code> instead of <code>503</code></li>
+</ul>
+<h2 id="221-2026-09-06">2.2.1 - 2026-09-06<a class="headerlink" href="#221-2026-09-06" title="Permanent link">#</a></h2>
+<h3 id="security_1">Security<a class="headerlink" href="#security_1" title="Permanent link">#</a></h3>
+<ul>
+<li>Upgraded <code>nanoid</code> to 3.3.18 to fix <strong>CVE-2026-67213</strong> (high severity)</li>
+</ul>
+<h3 id="added_1">Added<a class="headerlink" href="#added_1" title="Permanent link">#</a></h3>
+<ul>
+<li><code>S3_SKIP_EXISTING_OBJECTS</code> to skip re-uploading objects already present
+  across nodes</li>
+<li><code>S3_PART_SIZE_MB</code> and <code>S3_DISABLE_MULTIPART</code> knobs for <code>s3uploader</code></li>
+<li><code>purge --restore-id</code> for restoring a specific prior purge run;
+  <code>PACKAGES.md</code> documenting package build/signing</li>
+</ul>
+<h3 id="changed_2">Changed<a class="headerlink" href="#changed_2" title="Permanent link">#</a></h3>
+<ul>
+<li>Dockerfiles upgraded to <code>alpine:3.24</code>; audit log table gained stable CSS
+  identifiers for MSP customization</li>
+<li><code>RPM_RELEASE</code> override for RPM packaging; fixed <code>dpkg-sig</code> removal on
+  package updates</li>
+</ul>
+<h3 id="fixed_1">Fixed<a class="headerlink" href="#fixed_1" title="Permanent link">#</a></h3>
+<ul>
+<li>Fixed a tenant-configuration bug that could cause scheduled purges to
+  be skipped</li>
+<li>Nested-multipart attachments misindexed in <code>pilerimport</code>; mismatched
+  download objects now caught explicitly</li>
+<li>Five distinct archiving bugs: duplicate detection, purge tombstone
+  handling, <code>From</code> header overflow, <code>enable_purge</code> flag handling, and an
+  attachment-processing race condition</li>
+<li>Purge command: tombstone restore, recipient preservation, dry-run loop
+  behavior, missing-env-var warning</li>
+</ul>
+<h2 id="220-2026-08-16">2.2.0 - 2026-08-16<a class="headerlink" href="#220-2026-08-16" title="Permanent link">#</a></h2>
+<h3 id="changed_3">Changed<a class="headerlink" href="#changed_3" title="Permanent link">#</a></h3>
+<ul>
+<li><strong>Semantic search embeddings</strong>: replaced in-process ONNX embedding
+  generation with calls to an external, OpenAI-compatible HTTP endpoint
+  (<code>SEMANTIC_SEARCH_ENDPOINT_URL</code>); <code>piler-ui</code> image switched to an
+  Alpine base as a result (no longer needs ONNX Runtime/CGO)</li>
+</ul>
+<h3 id="added_2">Added<a class="headerlink" href="#added_2" title="Permanent link">#</a></h3>
+<ul>
+<li>OX (Open-Xchange) webmail integration: theme, language, timezone, and
+  iframe CSS synchronization</li>
+</ul>
+<h3 id="fixed_2">Fixed<a class="headerlink" href="#fixed_2" title="Permanent link">#</a></h3>
+<ul>
+<li>Session cookie expiry handled incorrectly in some flows; <code>dompurify</code>
+  upgraded alongside the fix</li>
+<li>Multi-tenant provisioning; tenant GUI URL not hot-reloading after change</li>
+<li>OAuth2 configs being rebuilt per-request instead of cached in
+  multi-tenant mode</li>
+<li>Health page's "received messages" chart rendering incorrectly</li>
+</ul>
+<h2 id="215-2026-07-26">2.1.5 - 2026-07-26<a class="headerlink" href="#215-2026-07-26" title="Permanent link">#</a></h2>
+<h3 id="security_2">Security<a class="headerlink" href="#security_2" title="Permanent link">#</a></h3>
+<ul>
+<li><code>grpc</code> bumped to v1.82.1 to fix security vulnerabilities</li>
+<li><code>gofiber</code> and <code>golang.org/x/net</code> upgraded (security-motivated)</li>
+<li><code>dompurify</code> 3.4.11 → 3.4.12</li>
+</ul>
+<h3 id="added_3">Added<a class="headerlink" href="#added_3" title="Permanent link">#</a></h3>
+<ul>
+<li>Pending conversations: badge in search results plus a dedicated drawer
+  for messages awaiting a reply</li>
+<li>Attachment indexing gated on <code>TIKA_URL</code> being configured, rather than
+  always-on</li>
+<li>Explicit Dependabot workflow for automated dependency PRs</li>
+<li>Standby-node support for import jobs; multi-node import handling</li>
+<li>Theme and accent-color support carried over from EAM authentication</li>
+</ul>
+<h3 id="changed_4">Changed<a class="headerlink" href="#changed_4" title="Permanent link">#</a></h3>
+<ul>
+<li>Build tooling switched from the previous bundler to <strong>Vite</strong> (and bumped
+  several times through the 6.4→8.1 series as issues were found); iframe
+  session cookie set to <code>SameSite=None</code> for embedding scenarios; listens
+  for a <code>postMessage</code> theme-change event from a parent iframe</li>
+<li>Import job handling simplified</li>
+</ul>
+<h3 id="fixed_3">Fixed<a class="headerlink" href="#fixed_3" title="Permanent link">#</a></h3>
+<ul>
+<li>Email direction now computed per-message from the local domain table,
+  rather than a possibly-stale cached value</li>
+<li><code>c.IP()</code> captured before entering a goroutine in
+  <code>ZipAndStreamDownloadRemote</code> (was reading a request-scoped value after
+  the request had already returned)</li>
+<li>Multi-node export; mobile screen layout issues; vendor CSS handling
+  under the Vite build; header parser edge case; several import/migration
+  fixes; purge logging</li>
+</ul>
+<h3 id="dependencies">Dependencies<a class="headerlink" href="#dependencies" title="Permanent link">#</a></h3>
+<ul>
+<li>Routine bumps: <code>vue</code> 3.5.38→3.5.39, <code>postcss</code> 8.5.16→8.5.23, <code>axios</code>
+  1.18.0→1.18.1, <code>@vitejs/plugin-vue</code> 5.2.4→6.0.7, plus a batch of GitHub
+  Actions version bumps (<code>actions/checkout</code>, <code>actions/setup-go</code>,
+  <code>actions/setup-python</code>, <code>actions/upload-artifact</code>,
+  <code>actions/download-artifact</code>, <code>docker/setup-buildx-action</code>,
+  <code>docker/setup-qemu-action</code>, <code>docker/login-action</code>,
+  <code>docker/metadata-action</code>, <code>softprops/action-gh-release</code>)</li>
+</ul>
+<h2 id="214-2026-06-09">2.1.4 - 2026-06-09<a class="headerlink" href="#214-2026-06-09" title="Permanent link">#</a></h2>
+<h3 id="added_4">Added<a class="headerlink" href="#added_4" title="Permanent link">#</a></h3>
+<ul>
+<li>Standalone importer web app (<code>cmd/import</code> UI)</li>
+<li><code>ANALYTICS_ENABLED</code> environment variable</li>
+<li>Rate limiting on authentication endpoints (security hardening)</li>
+</ul>
+<h3 id="changed_5">Changed<a class="headerlink" href="#changed_5" title="Permanent link">#</a></h3>
+<ul>
+<li>All config keys now registered with <code>viper</code> regardless of whether a
+  default is empty, so they can still be overridden via environment
+  variables</li>
+</ul>
+<h3 id="fixed_4">Fixed<a class="headerlink" href="#fixed_4" title="Permanent link">#</a></h3>
+<ul>
+<li>Microsoft 365 journal processing</li>
+<li>LDAP authentication edge case</li>
+<li>Header/footer branding logo display</li>
+<li><code>serverId</code> evaluation lacking a safety check</li>
+<li>Import job responses missing the <code>id</code> field on creation</li>
+<li>Purge endpoint failing on already-deleted emails</li>
+<li>Background job SQL queries</li>
+<li>Extremely long <code>Message-ID</code>/attachment filenames not handled correctly</li>
+<li><code>chown</code> command incorrect in package install scripts</li>
+</ul>
+<h3 id="dependencies_1">Dependencies<a class="headerlink" href="#dependencies_1" title="Permanent link">#</a></h3>
+<ul>
+<li><code>gofiber/fiber</code> 2.52.12 → 2.52.13 (main app and <code>contrib/external-jwt-shared-secret</code>)</li>
+<li><code>Azure/go-ntlmssp</code> bumped</li>
+</ul>
+<h2 id="213-2026-04-09">2.1.3 - 2026-04-09<a class="headerlink" href="#213-2026-04-09" title="Permanent link">#</a></h2>
+<h3 id="added_5">Added<a class="headerlink" href="#added_5" title="Permanent link">#</a></h3>
+<ul>
+<li><code>SHOW_IMPORT_MENU</code> configuration option</li>
+<li>NIS2 compliance documentation</li>
+</ul>
+<h3 id="changed_6">Changed<a class="headerlink" href="#changed_6" title="Permanent link">#</a></h3>
+<ul>
+<li>Manticore upgraded to 25.0.0 in tests and the installer</li>
+</ul>
+<h3 id="fixed_5">Fixed<a class="headerlink" href="#fixed_5" title="Permanent link">#</a></h3>
+<ul>
+<li>Swagger/OpenAPI docs generation</li>
+</ul>
+<h3 id="dependencies_2">Dependencies<a class="headerlink" href="#dependencies_2" title="Permanent link">#</a></h3>
+<ul>
+<li><code>go.opentelemetry.io/otel/sdk</code> 1.40.0 → 1.43.0</li>
+<li><code>russellhaering/goxmldsig</code> 1.4.0 → 1.6.0</li>
+<li><code>google.golang.org/grpc</code> 1.72.1 → 1.79.3</li>
+</ul>
+<h2 id="212-2026-03-15">2.1.2 - 2026-03-15<a class="headerlink" href="#212-2026-03-15" title="Permanent link">#</a></h2>
+<p>The largest release in this window - unified archiving for chat platforms,
+GDPR right-to-erasure, passkey authentication, multi-master-node HA, and a
+round of <code>gosec</code>-driven security hardening.</p>
+<h3 id="security_3">Security<a class="headerlink" href="#security_3" title="Permanent link">#</a></h3>
+<ul>
+<li>Passkey (WebAuthn) authentication support added</li>
+<li><code>gosec</code> static-analysis fixes applied across <code>reindex</code>, <code>imapimport</code>,
+  <code>pilerimport</code>, and <code>s3uploader</code></li>
+<li>TLS support added for the MySQL connection</li>
+<li>Added additional iframe-embedding security headers</li>
+<li>Sensitive SIEM connection details no longer appear in logs</li>
+</ul>
+<h3 id="added_6">Added<a class="headerlink" href="#added_6" title="Permanent link">#</a></h3>
+<ul>
+<li><strong>Slack and Microsoft Teams collectors</strong>: initial unified-archiving
+  support for chat platforms, including a parallelized Slack collector and
+  dedicated UI/API components</li>
+<li><strong>GDPR Right to Erasure</strong>: multi-node-aware implementation</li>
+<li><strong>Find similar messages</strong>: KNN vector search over message embeddings</li>
+<li>Multi-master-node support (previously single-master architecture)</li>
+<li>IMAP import checkpoint/resume support: connection details and progress
+  are persisted so long-running imports can resume after an interruption</li>
+<li>Swagger/OpenAPI documentation for the admin API</li>
+<li>Attachment search, with flat mode made the default</li>
+<li><code>SEMANTIC_SEARCH_ONNX_THREADS</code> configuration option</li>
+<li>SIEM Sumo Logic support</li>
+</ul>
+<h3 id="changed_7">Changed<a class="headerlink" href="#changed_7" title="Permanent link">#</a></h3>
+<ul>
+<li>Metadata/attachment inserts now use a database transaction</li>
+<li>ediscovery exports now emit an audit log entry</li>
+<li>Purge performance improvements</li>
+</ul>
+<h3 id="fixed_6">Fixed<a class="headerlink" href="#fixed_6" title="Permanent link">#</a></h3>
+<ul>
+<li>Deb packaging issue; API auth edge case; cron entry handling; various
+  migration/import fixes</li>
+</ul>
+<h3 id="dependencies_3">Dependencies<a class="headerlink" href="#dependencies_3" title="Permanent link">#</a></h3>
+<ul>
+<li><code>gofiber/fiber</code> bumped in <code>contrib/external-jwt-shared-secret</code>;
+  <code>go.opentelemetry.io/otel/sdk</code> 1.36.0 → 1.40.0; <code>gofiber/fiber</code>
+  2.52.11 → 2.52.12; <code>filippo.io/edwards25519</code> 1.1.0 → 1.1.1</li>
+</ul>
+<h2 id="211-2025-12-13">2.1.1 - 2025-12-13<a class="headerlink" href="#211-2025-12-13" title="Permanent link">#</a></h2>
+<h3 id="added_7">Added<a class="headerlink" href="#added_7" title="Permanent link">#</a></h3>
+<ul>
+<li>SIEM support</li>
+<li><code>install.sh</code> bare-metal installer script</li>
+</ul>
+<h3 id="changed_8">Changed<a class="headerlink" href="#changed_8" title="Permanent link">#</a></h3>
+<ul>
+<li>Microsoft Teams collector updates</li>
+</ul>
+<h3 id="dependencies_4">Dependencies<a class="headerlink" href="#dependencies_4" title="Permanent link">#</a></h3>
+<ul>
+<li><code>gofiber/utils</code> bumped to 1.2.0</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.f1b6f286.min.js"></script>
+      
+    
+  </body>
+</html>
