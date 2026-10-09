@@ -470,6 +470,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#which-settings-for-which-mail-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Which settings for which mail flow
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#trade-offs-and-limitations" class="md-nav__link">
     <span class="md-ellipsis">
       Trade-offs and limitations
@@ -791,11 +800,43 @@ the duplicate differs from the archived message, its envelope recipients are not
 <h3 id="what-to-expect_1">What to expect<a class="headerlink" href="#what-to-expect_1" title="Permanent link">#</a></h3>
 <ul>
 <li><strong>More than one entry for a Message-ID.</strong> An auditor's search returns each of them. A user finds the ones they are a recipient of. In the thread view each is an entry of its own.</li>
+<li><strong>Auditors see which entries belong together.</strong> When an auditor opens an email, the other archived emails with its <code>Message-ID</code> are listed as <strong>Related copies</strong> under the <code>From</code> line, each with its date and size, and a click opens it. In a multi-node setup the list has the copies on all the nodes. If the list could not be put together completely (a node did not answer, or there are more than 100 on a node), it says so. Other roles are not shown this list.</li>
 <li><strong>Each entry stands for itself.</strong> It has its own recipients, envelope sender and retention, and it's purged on its own. A legal hold on a recipient holds the entries that recipient is on: a hold on a distribution-list member holds the copy that member got, and not the original, unless the sender or a recipient of the original is under hold as well.</li>
 <li><strong>More storage if a gateway changes the body for every recipient.</strong> With a link or a disclaimer of their own for each recipient, such an email is stored once for each of them. The attachments are still stored once. This is why the setting is off by default: check what your gateway does before enabling it.</li>
 <li><strong>In a multi-node setup</strong> each node looks at its own archive. The same email arriving on two nodes is archived on both, with or without this setting.</li>
 <li><strong>An email that is the same but late</strong> is not affected by this setting: if it arrives after the merge window, it's dropped with its recipients.</li>
 </ul>
+<h2 id="which-settings-for-which-mail-flow">Which settings for which mail flow<a class="headerlink" href="#which-settings-for-which-mail-flow" title="Permanent link">#</a></h2>
+<p>How your mail server hands an email with several recipients to the archive decides which settings you need. All three cases need <code>enable_envelope_sidecar=1</code> in <code>piler-smtp</code> and the recipients encoded in the archive address.</p>
+<table>
+<thead>
+<tr>
+<th>How the email arrives</th>
+<th>Result</th>
+<th>Settings</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>One copy for all the recipients</strong> (one SMTP transaction)</td>
+<td>One archived email with all the recipients</td>
+<td>Nothing more</td>
+</tr>
+<tr>
+<td><strong>One copy for each recipient, the copies are the same</strong> (other <code>Received</code> headers are fine)</td>
+<td>One archived email. The first copy is stored, the others are duplicates and their recipients are added to it, also if the copies arrive at the same moment</td>
+<td><code>ENVELOPE_MERGE_WINDOW_HOURS</code> (default 24): raise it only if a copy may be delivered later than that. Leave <code>ARCHIVE_MESSAGE_VARIANTS</code> off</td>
+</tr>
+<tr>
+<td><strong>One copy for each recipient, with the same <code>Message-ID</code> but different bodies</strong> (e.g. links rewritten for each recipient)</td>
+<td>By default: one archived email, the other copies are dropped with their recipients. With <code>ARCHIVE_MESSAGE_VARIANTS=true</code>: one archived email for each copy, each with its recipient</td>
+<td><code>ARCHIVE_MESSAGE_VARIANTS=true</code> for the piler daemon</td>
+</tr>
+</tbody>
+</table>
+<p>In the third case each recipient finds the copy they got, auditors see the copies listed as related copies, and the body is stored once for each copy (the attachments once).</p>
+<p>In a multi-node setup each node decides for itself: the copies of an email only end up as one archived email if they reach the same node. <code>ARCHIVE_MESSAGE_VARIANTS</code> has to be set on every worker node.</p>
+<p>If you don't know which case is yours, compare the bodies of two copies of the same email as your mail server sends them to the archive.</p>
 <h2 id="trade-offs-and-limitations">Trade-offs and limitations<a class="headerlink" href="#trade-offs-and-limitations" title="Permanent link">#</a></h2>
 <p>The rules above are deliberately strict. An archive that adds a recipient to an email too easily gives access to the wrong person, or records a recipient the email never had. The price is that in some cases a real recipient is not added.</p>
 <p><strong>A copy that was modified on the way is not recognized.</strong> If something changes the body or the headers listed above between two copies (a mailing list footer, a disclaimer added by a gateway, a <code>[SPAM]</code> tag in the subject, a re-encoded body), the later copy is a different email as far as piler can tell. Its envelope recipients are not added. Make sure such modifications happen either before the email is copied to the archive for every recipient, or not at all. With <code>ARCHIVE_MESSAGE_VARIANTS=true</code> such a copy is archived as an email of its own instead, see <a href="#emails-with-the-same-message-id-but-different-content">above</a>.</p>
