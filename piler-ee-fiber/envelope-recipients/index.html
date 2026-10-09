@@ -18,7 +18,7 @@
     
     
       
-        <title>Archiving envelope (Bcc) recipients - piler enterprise 2.x documentation</title>
+        <title>Archiving envelope (Bcc) recipients and the envelope sender - piler enterprise 2.x documentation</title>
       
     
     
@@ -60,7 +60,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#archiving-envelope-bcc-recipients" class="md-skip">
+        <a href="#archiving-envelope-bcc-recipients-and-the-envelope-sender" class="md-skip">
           Skip to content
         </a>
       
@@ -96,7 +96,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Archiving envelope (Bcc) recipients
+              Archiving envelope (Bcc) recipients and the envelope sender
             
           </span>
         </div>
@@ -353,6 +353,30 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#the-envelope-sender" class="md-nav__link">
+    <span class="md-ellipsis">
+      The envelope sender
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The envelope sender">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#searching-by-the-envelope-sender" class="md-nav__link">
+    <span class="md-ellipsis">
+      Searching by the envelope sender
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#the-same-email-arriving-more-than-once" class="md-nav__link">
     <span class="md-ellipsis">
       The same email arriving more than once
@@ -428,12 +452,13 @@
 
 
 
-<h1 id="archiving-envelope-bcc-recipients">Archiving envelope (Bcc) recipients<a class="headerlink" href="#archiving-envelope-bcc-recipients" title="Permanent link">#</a></h1>
+<h1 id="archiving-envelope-bcc-recipients-and-the-envelope-sender">Archiving envelope (Bcc) recipients and the envelope sender<a class="headerlink" href="#archiving-envelope-bcc-recipients-and-the-envelope-sender" title="Permanent link">#</a></h1>
 <p>This documentation applies to Piler enterprise edition releases 2.2.3+</p>
 <p>Revision #1</p>
 <p>Publication date: 2026-OCT-06</p>
 <p>A Bcc recipient is not in the <code>To</code> or <code>Cc</code> header of an email, only in the SMTP envelope. An archive that reads the recipients from the message alone doesn't know about them, so a Bcc recipient can't find the email in the archive.</p>
-<p>Piler solves this with <strong>envelope files</strong>: <code>piler-smtp</code> writes the envelope recipients of an email to a small file next to it, and the piler daemon archives them as recipients of the email. The email itself is stored exactly as it arrived.</p>
+<p>Piler solves this with <strong>envelope files</strong>: <code>piler-smtp</code> writes the envelope of an email (its sender and its recipients) to a small file next to it, and the piler daemon archives the recipients as recipients of the email. The email itself is stored exactly as it arrived.</p>
+<p>The envelope file also has the envelope sender of the email, which auditors can see, see <a href="#the-envelope-sender">The envelope sender</a>.</p>
 <p>This page explains how to set it up, what to expect, and the trade-offs behind the design.</p>
 <h2 id="how-it-works">How it works<a class="headerlink" href="#how-it-works" title="Permanent link">#</a></h2>
 <pre><code>Mail server                     Archive server
@@ -455,22 +480,24 @@ RCPT TO:&lt;customer1+anna=customer1.com@archive.example.com&gt;
 RCPT TO:&lt;customer1+ben=customer1.com@archive.example.com&gt;
 </code></pre>
 <p>The archive local part (the tenant name in a multi-tenant deployment) ends at the first <code>+</code>, and the last <code>=</code> stands for the <code>@</code> of the original recipient.</p>
-<p>A plain archive address (<code>customer1@archive.example.com</code>) still works as before, it just carries no envelope recipient.</p>
+<p>A plain archive address (<code>customer1@archive.example.com</code>) still works as before, it just carries no envelope recipient. The email still gets an envelope file, with its envelope sender.</p>
 <h3 id="the-envelope-file">The envelope file<a class="headerlink" href="#the-envelope-file" title="Permanent link">#</a></h3>
-<p><code>piler-smtp</code> writes one envelope file per email and tenant in the worker directory, holding the recipients of that tenant only:</p>
+<p><code>piler-smtp</code> writes one envelope file per email and tenant in the worker directory, holding the envelope sender and the recipients of that tenant only:</p>
 <pre><code>0/customer1-&lt;filename&gt;        the email, exactly as received
-0/customer1-&lt;filename&gt;.env    the envelope recipients
+0/customer1-&lt;filename&gt;.env    the envelope sender and recipients
 </code></pre>
 <pre><code>v1
+from boss@customer1.com
 rcpt anna@customer1.com
 rcpt ben@customer1.com
 </code></pre>
+<p>Every email has an envelope file, as every email has an envelope sender. The <code>rcpt</code> lines are only there for the recipients encoded in the archive address.</p>
 <p>The file is in place before the email shows up in the worker directory. If it can't be written, <code>piler-smtp</code> rejects the email with a <code>451</code> response, so the mail server retries it. The piler daemon removes the envelope file with the email once it's archived.</p>
 <h2 id="setup">Setup<a class="headerlink" href="#setup" title="Permanent link">#</a></h2>
 <p>Do the steps in this order. If the mail server starts sending encoded addresses before <code>piler-smtp</code> accepts them, they are rejected with <code>451 invalid tenant</code> until it does.</p>
 <h3 id="1-upgrade-piler-smtp-piler-and-run-the-migrations">1. Upgrade piler-smtp, piler and run the migrations<a class="headerlink" href="#1-upgrade-piler-smtp-piler-and-run-the-migrations" title="Permanent link">#</a></h3>
 <p>You need piler-smtp 1.1.4 to support the envelope sidecar.</p>
-<p>Envelope files need a piler daemon that knows about them, support added in version 2.2.3. After upgrading, run the SQL migrations as described in <a href="../upgrade/">the upgrade guide</a>. Migration <code>027_bodydigest.sql</code> creates a new, empty table; it's instant on an archive of any size.</p>
+<p>Envelope files need a piler daemon that knows about them, support added in version 2.2.3. After upgrading, run the SQL migrations as described in <a href="../upgrade/">the upgrade guide</a>. Migration <code>027_message_identity.sql</code> creates a new, empty table; it's instant on an archive of any size.</p>
 <h3 id="2-restrict-access-to-piler-smtp">2. Restrict access to piler-smtp<a class="headerlink" href="#2-restrict-access-to-piler-smtp" title="Permanent link">#</a></h3>
 <p><strong>This is a requirement, not a recommendation.</strong> By default <code>piler-smtp</code> accepts email from anyone. With envelope files enabled it must only be reachable by your own mail servers (or those of your provider, e.g. Google Workspace or Microsoft 365).</p>
 <p>Whoever can talk to <code>piler-smtp</code> directly chooses both the email and its envelope recipients. Piler has no way to tell if such recipients are real, it trusts what the mail server says.</p>
@@ -490,6 +517,7 @@ smtp_access_list=1
 enable_envelope_sidecar=1
 </code></pre>
 <p>Restart <code>piler-smtp</code>. The default is <code>0</code>: encoded addresses are not accepted, and no envelope files are written.</p>
+<p>This one setting covers both the envelope recipients and the envelope sender.</p>
 <h3 id="4-configure-the-mail-server">4. Configure the mail server<a class="headerlink" href="#4-configure-the-mail-server" title="Permanent link">#</a></h3>
 <p>Example for Postfix. A <code>recipient_bcc_maps</code> lookup is evaluated for each envelope recipient, Bcc recipients included, so it can do the encoding:</p>
 <pre><code># /etc/postfix/main.cf
@@ -504,7 +532,7 @@ sender_bcc_maps = pcre:/etc/postfix/bcc_sender_map
 /^(.+)@customer1\.com$/ customer1@archive.example.com
 /^(.+)@customer2\.com$/ customer2@archive.example.com
 </code></pre>
-<p><code>sender_bcc_maps</code> keeps the plain archive address. It's what archives the outgoing emails, and the sender is in the <code>From</code> header anyway.</p>
+<p><code>sender_bcc_maps</code> keeps the plain archive address. It's what archives the outgoing emails.</p>
 <p>Both maps are needed, each covers emails the other one misses:</p>
 <table>
 <thead>
@@ -556,6 +584,33 @@ sender_bcc_maps = pcre:/etc/postfix/bcc_sender_map
 <li><strong>Invalid addresses are skipped.</strong> An envelope recipient that is not a <code>local@domain</code> address is ignored, with a warning in the log.</li>
 <li><strong>An unreadable envelope file stops the email.</strong> The email is moved to the error directory together with its envelope file, rather than archived without its recipients.</li>
 </ul>
+<h2 id="the-envelope-sender">The envelope sender<a class="headerlink" href="#the-envelope-sender" title="Permanent link">#</a></h2>
+<p>The sender in the <code>From</code> header of an email and the sender in the SMTP envelope (<code>MAIL FROM</code>) are often not the same. Bulk mail and forwarded mail have another envelope sender, and so does an email with a forged <code>From</code> header. In a phishing or spoofing investigation it's the envelope sender that tells where an email came from.</p>
+<p>With envelope files enabled, piler stores the envelope sender of each email, and shows it to <strong>auditors</strong> in the message view, under the <code>From</code> line. No other role sees it.</p>
+<ul>
+<li><strong>A warning is shown if it differs.</strong> If the envelope sender is not the address in the <code>From</code> header, the line has a warning next to it. That is normal for newsletters, mailing lists and forwarded mail, so it's a pointer for the auditor, not a verdict.</li>
+<li><strong>A bounce</strong> has an empty envelope sender, shown as "empty (bounce)". The warning is shown for it too.</li>
+<li><strong>It's only a record.</strong> It is what the sending server claimed, nothing verified it. It doesn't decide who can see an email, and the exclusion and retention rules don't use it.</li>
+<li><strong>Unusual characters are replaced.</strong> Only printable ASCII is stored. Any other byte in the envelope sender is stored as <code>?</code>, so an address like <code>boss??@example.com</code> means the original had characters that are not ASCII.</li>
+<li><strong>It's that of the first copy.</strong> If the same email arrives more than once, the envelope sender of the first copy is kept.</li>
+<li><strong>Emails archived before the upgrade have none</strong>, and no line is shown for them.</li>
+</ul>
+<h3 id="searching-by-the-envelope-sender">Searching by the envelope sender<a class="headerlink" href="#searching-by-the-envelope-sender" title="Permanent link">#</a></h3>
+<p>Auditors can find emails by their envelope sender:</p>
+<ul>
+<li>in the advanced search, with the <strong>Envelope sender</strong> field;</li>
+<li>in the search box, with the <code>mailfrom:</code> label, e.g. <code>mailfrom:bounces@lists.example.org subject:invoice</code>. The label can be anywhere in the search, e.g. <code>invoice mailfrom:bounces@lists.example.org</code>.</li>
+</ul>
+<p>It can be combined with the other search terms and filters. A few things to know:</p>
+<ul>
+<li><strong>The whole address has to be given.</strong> It's an exact match (upper and lower case don't matter), there are no wildcards and no search by domain.</li>
+<li><strong><code>mailfrom:&lt;&gt;</code> finds the bounces</strong>, the emails with an empty envelope sender.</li>
+<li><strong>Only emails archived with envelope files are found.</strong> Older emails have no envelope sender on record.</li>
+<li><strong>For an envelope sender with very many emails, the 10000 most recently archived ones are searched</strong>, within the date range of the search. If there are more, the search says so: narrow the date range to search the others.</li>
+<li><strong>In a multi-node setup</strong> the master node asks every worker node for the emails of the envelope sender, the 10000 most recent ones on each. All nodes have to run a version with this feature: the search reports an error, rather than incomplete results, if a worker can't answer.</li>
+<li>Other roles can't search by the envelope sender, such a search finds nothing for them.</li>
+</ul>
+<p>What piler stores is the <code>MAIL FROM</code> of the transaction with <code>piler-smtp</code>. Postfix keeps the envelope sender of the original email for the copies its bcc maps make. A relay that sends the archive copy with a return path of its own has to pass the original one on. With journaling (e.g. Microsoft 365) it's the address of the journaling system, not of the original sender.</p>
 <h2 id="the-same-email-arriving-more-than-once">The same email arriving more than once<a class="headerlink" href="#the-same-email-arriving-more-than-once" title="Permanent link">#</a></h2>
 <p>Piler archives an email once, its <code>Message-ID</code> identifies it. With envelope recipients the same email often arrives several times, each time with other recipients:</p>
 <ul>
@@ -640,7 +695,7 @@ the duplicate differs from the archived message, its envelope recipients are not
 <p><strong>Rejected copies are not kept.</strong> A copy whose recipients are not added is removed like any other duplicate. The warning in the log is the only trace, so watch for it after enabling the feature.</p>
 <p><strong>An email can be sent again within the merge window.</strong> Someone who has an email can send it again unchanged, to an address of their choice, while the merge window is open. That address is then recorded as a recipient of the original email. The sender of such a copy learns nothing new, they already had the email, and they could have forwarded it. But the archive then lists a recipient the original sender did not address. The merge window limits this to the first day, it does not prevent it.</p>
 <p><strong>Emails with an invalid or missing <code>Date</code> header.</strong> Piler then takes the date from the first <code>Received</code> header, which differs between copies. For these emails only a byte for byte identical copy adds its recipients.</p>
-<p><strong>Emails archived before the upgrade.</strong> For an email archived before migration <code>027_bodydigest.sql</code> was run, only a byte for byte identical copy adds its recipients. Copies arrive shortly after each other, so this only matters for the first hours after the upgrade.</p>
+<p><strong>Emails archived before the upgrade.</strong> For an email archived before migration <code>027_message_identity.sql</code> was run, only a byte for byte identical copy adds its recipients. Copies arrive shortly after each other, so this only matters for the first hours after the upgrade.</p>
 <p><strong>Direction and retention are those of the first copy.</strong> A later copy with an external recipient doesn't turn an internal email into an outgoing one, and a retention rule that would only match a later recipient doesn't apply. The recipients added later are not counted in the sender and recipient statistics either.</p>
 <p><strong>Storage.</strong> Piler keeps a 32 byte digest for each archived email to recognize its copies, about 6-7 GB for 100 million emails. It's removed when the email is purged.</p>
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">#</a></h2>
