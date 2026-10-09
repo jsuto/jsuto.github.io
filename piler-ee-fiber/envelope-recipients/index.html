@@ -419,6 +419,57 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#emails-with-the-same-message-id-but-different-content" class="md-nav__link">
+    <span class="md-ellipsis">
+      Emails with the same Message-ID but different content
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Emails with the same Message-ID but different content">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#enabling-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      Enabling it
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-happens-to-an-email-with-an-archived-message-id" class="md-nav__link">
+    <span class="md-ellipsis">
+      What happens to an email with an archived Message-ID
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#emails-archived-before-the-upgrade" class="md-nav__link">
+    <span class="md-ellipsis">
+      Emails archived before the upgrade
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-to-expect_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      What to expect
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#trade-offs-and-limitations" class="md-nav__link">
     <span class="md-ellipsis">
       Trade-offs and limitations
@@ -675,7 +726,7 @@ sender_bcc_maps = pcre:/etc/postfix/bcc_sender_map
 </tr>
 <tr>
 <td>has the same <code>Message-ID</code>, but is a different email</td>
-<td>Dropped as a duplicate, its recipients are <strong>not</strong> added</td>
+<td>Dropped as a duplicate, its recipients are <strong>not</strong> added. With <code>ARCHIVE_MESSAGE_VARIANTS=true</code> it's archived as an email of its own instead, see <a href="#emails-with-the-same-message-id-but-different-content">below</a></td>
 </tr>
 <tr>
 <td>has no envelope file</td>
@@ -688,9 +739,66 @@ sender_bcc_maps = pcre:/etc/postfix/bcc_sender_map
 the duplicate differs from the archived message, its envelope recipients are not added
 </code></pre>
 <p>The later copy itself is never stored. The archive keeps the first copy of an email.</p>
+<h2 id="emails-with-the-same-message-id-but-different-content">Emails with the same Message-ID but different content<a class="headerlink" href="#emails-with-the-same-message-id-but-different-content" title="Permanent link">#</a></h2>
+<p>By default piler identifies an email by its <code>Message-ID</code>: once an email is archived, any later one with the same <code>Message-ID</code> is a duplicate and is dropped, also if its content is different.</p>
+<p>That is not always what you want. Some mail gateways change an email on its way: they rewrite the links in it, or add a disclaimer. If one copy of an email is archived before such a change and another one after it, the two have the same <code>Message-ID</code> and different bodies. The second one is dropped, and with it the recipients that only came with it, for example the members of a distribution list that is expanded late.</p>
+<p>With <code>ARCHIVE_MESSAGE_VARIANTS=true</code> piler identifies an email by its <code>Message-ID</code> <strong>and its content</strong>. An email that has the <code>Message-ID</code> of an archived one but different content is archived as an email of its own, with its own recipients.</p>
+<h3 id="enabling-it">Enabling it<a class="headerlink" href="#enabling-it" title="Permanent link">#</a></h3>
+<p><code>ARCHIVE_MESSAGE_VARIANTS</code> is an environment variable of the <strong>piler daemon</strong>. The default is <code>false</code>.</p>
+<pre><code>ARCHIVE_MESSAGE_VARIANTS=true
+</code></pre>
+<ul>
+<li><strong>Only the piler daemon reads it.</strong> It applies to the emails that arrive through <code>piler-smtp</code>. The command line tools ignore it: <code>pilerimport</code> always treats an email with an archived <code>Message-ID</code> as a duplicate, so an import or a re-import never creates a second entry.</li>
+<li><strong>In a multi-node setup</strong> set it for the piler daemon of every worker node.</li>
+<li><strong>It's one setting for the daemon</strong>, not for a tenant: it applies to all the tenants the daemon processes.</li>
+<li>It needs the database migrations of 2.2.3 (<code>027_message_identity.sql</code>). Without them the setting has no effect, and the piler daemon logs a warning.</li>
+</ul>
+<h3 id="what-happens-to-an-email-with-an-archived-message-id">What happens to an email with an archived Message-ID<a class="headerlink" href="#what-happens-to-an-email-with-an-archived-message-id" title="Permanent link">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>The email...</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>is the same as an archived one (see <a href="#1-the-copy-really-is-the-same-email">above</a>)</td>
+<td>A duplicate. Its envelope recipients are added to that archived email, within the merge window</td>
+</tr>
+<tr>
+<td>has different content</td>
+<td>Archived as an email of its own</td>
+</tr>
+<tr>
+<td>has different content, and the archived one is from before the upgrade to 2.2.3</td>
+<td>A duplicate, dropped. See below</td>
+</tr>
+<tr>
+<td>is byte for byte the same as a purged one whose metadata was kept</td>
+<td>The purged email is restored</td>
+</tr>
+<tr>
+<td>has no <code>Message-ID</code></td>
+<td>Not affected. Piler gives such an email an id made from its content</td>
+</tr>
+</tbody>
+</table>
+<p>There is no limit on the number of emails with the same <code>Message-ID</code>.</p>
+<h3 id="emails-archived-before-the-upgrade">Emails archived before the upgrade<a class="headerlink" href="#emails-archived-before-the-upgrade" title="Permanent link">#</a></h3>
+<p>An email archived before the upgrade to 2.2.3 <strong>never gets a second entry</strong>. Piler has no record of the content of such an email to compare with, so it can't tell if a later one with its <code>Message-ID</code> is the same email with other headers or a different one. It treats it as a duplicate, as before.</p>
+<p>This matters for migrations: sending or importing emails again over an archive that already has them can't double them.</p>
+<h3 id="what-to-expect_1">What to expect<a class="headerlink" href="#what-to-expect_1" title="Permanent link">#</a></h3>
+<ul>
+<li><strong>More than one entry for a Message-ID.</strong> An auditor's search returns each of them. A user finds the ones they are a recipient of. In the thread view each is an entry of its own.</li>
+<li><strong>Each entry stands for itself.</strong> It has its own recipients, envelope sender and retention, and it's purged on its own. A legal hold on a recipient holds the entries that recipient is on: a hold on a distribution-list member holds the copy that member got, and not the original, unless the sender or a recipient of the original is under hold as well.</li>
+<li><strong>More storage if a gateway changes the body for every recipient.</strong> With a link or a disclaimer of their own for each recipient, such an email is stored once for each of them. The attachments are still stored once. This is why the setting is off by default: check what your gateway does before enabling it.</li>
+<li><strong>In a multi-node setup</strong> each node looks at its own archive. The same email arriving on two nodes is archived on both, with or without this setting.</li>
+<li><strong>An email that is the same but late</strong> is not affected by this setting: if it arrives after the merge window, it's dropped with its recipients.</li>
+</ul>
 <h2 id="trade-offs-and-limitations">Trade-offs and limitations<a class="headerlink" href="#trade-offs-and-limitations" title="Permanent link">#</a></h2>
 <p>The rules above are deliberately strict. An archive that adds a recipient to an email too easily gives access to the wrong person, or records a recipient the email never had. The price is that in some cases a real recipient is not added.</p>
-<p><strong>A copy that was modified on the way is not recognized.</strong> If something changes the body or the headers listed above between two copies (a mailing list footer, a disclaimer added by a gateway, a <code>[SPAM]</code> tag in the subject, a re-encoded body), the later copy is a different email as far as piler can tell. Its envelope recipients are not added. Make sure such modifications happen either before the email is copied to the archive for every recipient, or not at all.</p>
+<p><strong>A copy that was modified on the way is not recognized.</strong> If something changes the body or the headers listed above between two copies (a mailing list footer, a disclaimer added by a gateway, a <code>[SPAM]</code> tag in the subject, a re-encoded body), the later copy is a different email as far as piler can tell. Its envelope recipients are not added. Make sure such modifications happen either before the email is copied to the archive for every recipient, or not at all. With <code>ARCHIVE_MESSAGE_VARIANTS=true</code> such a copy is archived as an email of its own instead, see <a href="#emails-with-the-same-message-id-but-different-content">above</a>.</p>
 <p><strong>A copy that arrives after the merge window is not merged.</strong> If your mail server may hold a copy for longer than a day, raise <code>ENVELOPE_MERGE_WINDOW_HOURS</code>. A longer window is more forgiving for late deliveries and gives more room for the replay described below.</p>
 <p><strong>Rejected copies are not kept.</strong> A copy whose recipients are not added is removed like any other duplicate. The warning in the log is the only trace, so watch for it after enabling the feature.</p>
 <p><strong>An email can be sent again within the merge window.</strong> Someone who has an email can send it again unchanged, to an address of their choice, while the merge window is open. That address is then recorded as a recipient of the original email. The sender of such a copy learns nothing new, they already had the email, and they could have forwarded it. But the archive then lists a recipient the original sender did not address. The merge window limits this to the first day, it does not prevent it.</p>
