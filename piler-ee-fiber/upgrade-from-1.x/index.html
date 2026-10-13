@@ -257,6 +257,30 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Prerequisites">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#real-time-index" class="md-nav__link">
+    <span class="md-ellipsis">
+      Real time index
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dynamic-indexes-when-using-a-multi-tenant-deployment" class="md-nav__link">
+    <span class="md-ellipsis">
+      dynamic indexes when using a multi-tenant deployment
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -273,6 +297,15 @@
   <a href="#fix-permissions" class="md-nav__link">
     <span class="md-ellipsis">
       Fix permissions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stop-the-legacy-piler-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      Stop the legacy piler components
     </span>
   </a>
   
@@ -323,6 +356,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#copy-the-license-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      Copy the license file
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -345,19 +387,33 @@
 
 
 <h1 id="upgrading">Upgrading<a class="headerlink" href="#upgrading" title="Permanent link">#</a></h1>
-<p>This documentation applies to Piler enterprise edition 1.8.4</p>
+<p>This documentation applies to Piler enterprise edition 2.2.4</p>
 <p>Revision #1</p>
 <p>Publication date: 2026-OCT-13</p>
 <p>This document describes how to upgrade from 1.8.4 to the latest 2.x version of piler enterprise.</p>
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">#</a></h2>
-<ul>
-<li>real time index</li>
-<li>dynamic indexes when using a multi-tenant deployment</li>
-</ul>
+<h3 id="real-time-index">Real time index<a class="headerlink" href="#real-time-index" title="Permanent link">#</a></h3>
+<p>Check with this command</p>
+<pre><code>mariadb -h0 -P9306 &lt;&lt;&lt; 'show tables'
+Table   Type
+piler   rt
+piler_audit1    rt
+piler_cat1  percolate
+piler_note1 rt
+piler_tag1  rt
+</code></pre>
+<h3 id="dynamic-indexes-when-using-a-multi-tenant-deployment">dynamic indexes when using a multi-tenant deployment<a class="headerlink" href="#dynamic-indexes-when-using-a-multi-tenant-deployment" title="Permanent link">#</a></h3>
+<p>You have the /etc/piler/MANTICORE_DYNAMIC file</p>
 <h2 id="upgrade-steps">Upgrade steps<a class="headerlink" href="#upgrade-steps" title="Permanent link">#</a></h2>
 <h3 id="fix-permissions">Fix permissions<a class="headerlink" href="#fix-permissions" title="Permanent link">#</a></h3>
 <pre><code>chmod 750 /var/piler/store/
 chmod 750 /var/piler/astore/
+</code></pre>
+<h3 id="stop-the-legacy-piler-components">Stop the legacy piler components<a class="headerlink" href="#stop-the-legacy-piler-components" title="Permanent link">#</a></h3>
+<pre><code>systemctl stop piler
+systemctl stop piler-smtp
+systemctl stop nginx
+systemctl stop php8.3-fpm
 </code></pre>
 <h3 id="install-piler-2x">Install piler 2.x<a class="headerlink" href="#install-piler-2x" title="Permanent link">#</a></h3>
 <pre><code>curl -fsSL https://packages.mailpiler.com/piler-ee.gpg | gpg --dearmor -o /etc/apt/trusted.gpg.d/piler-ee.gpg
@@ -387,7 +443,7 @@ REDIS_ADDR=localhost:6379
 LANGUAGES=de,en,es,fr,zh
 
 LOG_LEVEL=INFO
-NOREPLY_EMAIL=no-reply@archive.example.com
+NOREPLY_EMAIL_ADDRESS=no-reply@archive.example.com
 
 DATE_FORMAT=YYYY/MM/DD
 TIMEZONE=Europe/Budapest
@@ -408,9 +464,8 @@ SCANNER_THREADS=2
 SEMANTIC_SEARCH_ENABLED=false
 
 # Run the below command to generate an encrypt key for imap import passwords
-# and replace the below key
 # &lt; /dev/urandom tr -dc 'A-Za-z0-9' | head -c 32
-IMAP_ENCRYPT_KEY=FmLGHDQShy6XjJvkctCBqED9T0QYJmZf
+IMAP_ENCRYPT_KEY=&lt;generate me&gt;
 </code></pre>
 <h3 id="run-the-migrations">Run the migrations<a class="headerlink" href="#run-the-migrations" title="Permanent link">#</a></h3>
 <p>Run mysql migrations on each piler related mysql database:</p>
@@ -431,9 +486,12 @@ command with the tenant id, eg.</p>
 </code></pre>
 <h3 id="update-the-passwords">Update the passwords<a class="headerlink" href="#update-the-passwords" title="Permanent link">#</a></h3>
 <p>Piler uses the bcrypt password hashing algorithm, so the passwords in the local database must be fixed.</p>
-<p>The below statement updates the built-in admin user's password to <em>pilerrocks</em></p>
+<p>The below statement updates the built-in admin user's password to <em>pilerrocks</em>
+After that let the admin reset other local users' passwords.</p>
 <pre><code>mariadb --defaults-file=/etc/piler/.my.cnf piler &lt;&lt;&lt; 'update user set password=&quot;$2y$10$dEzUkJcI824suvEp4p.87u5IT7JitTzpMiMkBtOo7/RZvCYO5b8tC&quot; where uid=1'
 </code></pre>
+<h3 id="copy-the-license-file">Copy the license file<a class="headerlink" href="#copy-the-license-file" title="Permanent link">#</a></h3>
+<p>Copy your license file to /etc/piler/license.jwt</p>
 
 
 
