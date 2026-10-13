@@ -1806,90 +1806,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#semantic_search_enabled" class="md-nav__link">
+  <a href="#semantic_search_" class="md-nav__link">
     <span class="md-ellipsis">
-      SEMANTIC_SEARCH_ENABLED
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#semantic_search_dimensions" class="md-nav__link">
-    <span class="md-ellipsis">
-      SEMANTIC_SEARCH_DIMENSIONS
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#semantic_search_max_tokens" class="md-nav__link">
-    <span class="md-ellipsis">
-      SEMANTIC_SEARCH_MAX_TOKENS
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#semantic_search_score_threshold" class="md-nav__link">
-    <span class="md-ellipsis">
-      SEMANTIC_SEARCH_SCORE_THRESHOLD
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#semantic_search_knn_ef" class="md-nav__link">
-    <span class="md-ellipsis">
-      SEMANTIC_SEARCH_KNN_EF
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#semantic_search_endpoint_url" class="md-nav__link">
-    <span class="md-ellipsis">
-      SEMANTIC_SEARCH_ENDPOINT_URL
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#semantic_search_endpoint_model" class="md-nav__link">
-    <span class="md-ellipsis">
-      SEMANTIC_SEARCH_ENDPOINT_MODEL
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#semantic_search_endpoint_api_key" class="md-nav__link">
-    <span class="md-ellipsis">
-      SEMANTIC_SEARCH_ENDPOINT_API_KEY
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#semantic_search_doc_prefix" class="md-nav__link">
-    <span class="md-ellipsis">
-      SEMANTIC_SEARCH_DOC_PREFIX
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#semantic_search_query_prefix" class="md-nav__link">
-    <span class="md-ellipsis">
-      SEMANTIC_SEARCH_QUERY_PREFIX
+      SEMANTIC_SEARCH_*
     </span>
   </a>
   
@@ -3042,45 +2961,8 @@ object-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'none';
 <p>Default value: <code>0.5</code></p>
 <p>Description: Confidence threshold (0.0-1.0) above which a message is flagged as phishing.</p>
 <hr />
-<h3 id="semantic_search_enabled">SEMANTIC_SEARCH_ENABLED<a class="headerlink" href="#semantic_search_enabled" title="Permanent link">#</a></h3>
-<p>Default value: <code>false</code></p>
-<p>Description: Globally enable AI-powered semantic search (required for embedding generation and hybrid search). Requires the <code>sutoj/piler-ui:semantic</code> image. See the Semantic Search section of CLAUDE.md / project docs.</p>
-<hr />
-<h3 id="semantic_search_dimensions">SEMANTIC_SEARCH_DIMENSIONS<a class="headerlink" href="#semantic_search_dimensions" title="Permanent link">#</a></h3>
-<p>Default value: <code>384</code></p>
-<p>Description: Dimensionality of the embedding vectors (must match the embedding model, e.g. 384 for all-MiniLM-L6-v2).</p>
-<hr />
-<h3 id="semantic_search_max_tokens">SEMANTIC_SEARCH_MAX_TOKENS<a class="headerlink" href="#semantic_search_max_tokens" title="Permanent link">#</a></h3>
-<p>Default value: <code>1000</code></p>
-<p>Description: Maximum number of tokens from a message (subject + body) used to generate its embedding.</p>
-<hr />
-<h3 id="semantic_search_score_threshold">SEMANTIC_SEARCH_SCORE_THRESHOLD<a class="headerlink" href="#semantic_search_score_threshold" title="Permanent link">#</a></h3>
-<p>Default value: <code>0.65</code></p>
-<p>Description: Cosine-distance score threshold (0.0-1.0) for semantic search results; lower is stricter (more relevant, fewer results).</p>
-<hr />
-<h3 id="semantic_search_knn_ef">SEMANTIC_SEARCH_KNN_EF<a class="headerlink" href="#semantic_search_knn_ef" title="Permanent link">#</a></h3>
-<p>Default value: <code>100</code></p>
-<p>Description: HNSW query-time <code>ef</code> parameter controlling semantic search quality vs. speed trade-off; higher is more accurate but slower.</p>
-<hr />
-<h3 id="semantic_search_endpoint_url">SEMANTIC_SEARCH_ENDPOINT_URL<a class="headerlink" href="#semantic_search_endpoint_url" title="Permanent link">#</a></h3>
-<p>Default value: <code>""</code></p>
-<p>Description: URL of the OpenAI-compatible embeddings endpoint used to generate vectors (e.g. <code>http://ollama:11434/v1/embeddings</code>). Required for semantic search.</p>
-<hr />
-<h3 id="semantic_search_endpoint_model">SEMANTIC_SEARCH_ENDPOINT_MODEL<a class="headerlink" href="#semantic_search_endpoint_model" title="Permanent link">#</a></h3>
-<p>Default value: <code>""</code></p>
-<p>Description: Model name sent in the request body to the embeddings endpoint.</p>
-<hr />
-<h3 id="semantic_search_endpoint_api_key">SEMANTIC_SEARCH_ENDPOINT_API_KEY<a class="headerlink" href="#semantic_search_endpoint_api_key" title="Permanent link">#</a></h3>
-<p>Default value: <code>""</code></p>
-<p>Description: Bearer token for the embeddings endpoint; leave empty for unauthenticated servers.</p>
-<hr />
-<h3 id="semantic_search_doc_prefix">SEMANTIC_SEARCH_DOC_PREFIX<a class="headerlink" href="#semantic_search_doc_prefix" title="Permanent link">#</a></h3>
-<p>Default value: <code>""</code></p>
-<p>Description: Text prepended to email content before indexing, required by asymmetric embedding models (e.g. multilingual-e5's <code>"passage: "</code>). Leave empty for symmetric models (BGE-M3, all-MiniLM, etc.).</p>
-<hr />
-<h3 id="semantic_search_query_prefix">SEMANTIC_SEARCH_QUERY_PREFIX<a class="headerlink" href="#semantic_search_query_prefix" title="Permanent link">#</a></h3>
-<p>Default value: <code>""</code></p>
-<p>Description: Text prepended to search queries at query time, required by asymmetric embedding models (e.g. multilingual-e5's <code>"query: "</code>). Leave empty for symmetric models.</p>
+<h3 id="semantic_search_">SEMANTIC_SEARCH_*<a class="headerlink" href="#semantic_search_" title="Permanent link">#</a></h3>
+<p>The semantic search settings are described on the <a href="../semantic-search/">Semantic search</a> page.</p>
 <hr />
 <h3 id="capacity_warning_threshold_gb">CAPACITY_WARNING_THRESHOLD_GB<a class="headerlink" href="#capacity_warning_threshold_gb" title="Permanent link">#</a></h3>
 <p>Default value: <code>1024</code> (1 TB)</p>
