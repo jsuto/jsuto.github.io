@@ -1382,6 +1382,21 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="ENABLE_DELETE_FOR_USERS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#removal-settings-in-a-multi-node-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Removal settings in a multi-node setup
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -2834,7 +2849,16 @@ the storage, eg. view, download, attachments (requests per second).</p>
 <hr />
 <h3 id="enable_delete_for_users">ENABLE_DELETE_FOR_USERS<a class="headerlink" href="#enable_delete_for_users" title="Permanent link">#</a></h3>
 <p>Default value: <code>false</code></p>
-<p>Description: Allow non-admin users (not just admins/data officers) to delete their own messages, when <code>ENABLE_DELETE</code> is also enabled.</p>
+<p>Description: Allow non-admin users (not just admins/data officers) to delete their own messages, when <code>ENABLE_DELETE</code> is also enabled. A user can only ask for the removal of the messages they are the sender or a recipient of, and the request always has to be approved by a data officer, whatever <code>NEED_TO_APPROVE_DELETE</code> is.</p>
+<h4 id="removal-settings-in-a-multi-node-setup">Removal settings in a multi-node setup<a class="headerlink" href="#removal-settings-in-a-multi-node-setup" title="Permanent link">#</a></h4>
+<p>Set <code>ENABLE_DELETE</code>, <code>NEED_TO_APPROVE_DELETE</code> and <code>ENABLE_DELETE_FOR_USERS</code> to the same values on the master <strong>and on every worker</strong>.</p>
+<p>The messages are on the workers, so the master passes each step on to the worker that has the message:</p>
+<ul>
+<li>A removal request is recorded on the worker of the message, then on the master. The worker applies its own settings to it: if removal is not enabled there, the request fails with an error.</li>
+<li>While a request is pending, the data officer can open the message to review it.</li>
+<li>The decision of the data officer (approve or reject) is carried out by the worker of the message, then recorded on the master. If the worker can't be reached, the request stays pending.</li>
+</ul>
+<p>A data officer can only approve or reject a message that has a pending removal request.</p>
 <hr />
 <h3 id="app_trace_name">APP_TRACE_NAME<a class="headerlink" href="#app_trace_name" title="Permanent link">#</a></h3>
 <p>Default value: <code>""</code></p>
