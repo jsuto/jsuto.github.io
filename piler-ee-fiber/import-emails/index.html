@@ -276,6 +276,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Import local emails">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bcc-recipients-of-migrated-mail" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bcc recipients of migrated mail
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -440,15 +457,19 @@
 
 
 <h1 id="import-emails">Import emails<a class="headerlink" href="#import-emails" title="Permanent link">#</a></h1>
-<p>This documentation applies to Piler enterprise edition 2.1.0</p>
-<p>Revision #2</p>
-<p>Publication date: 2026-JAN-05</p>
+<p>This documentation applies to Piler enterprise edition 2.1.0 (envelope files and <code>-add-recipients</code>: 2.2.4+)</p>
+<p>Revision #3</p>
+<p>Publication date: 2026-OCT-16</p>
 <h2 id="import-local-emails">Import local emails<a class="headerlink" href="#import-local-emails" title="Permanent link">#</a></h2>
 <pre><code>Usage: pilerimport [options]
 
 Options:
+  -add-recipients
+        Don't import: add the recipients of the envelope file next to each email (&lt;email&gt;.env) to the archived copy of the email, however long ago it was archived
   -dir string
         Process all files in directory (recursively)
+  -dry-run
+        With -add-recipients: report what would be added, change nothing
   -eml string
         Process a single EML file
   -mbox string
@@ -467,7 +488,15 @@ Examples:
   pilerimport -dir /path/to/emails -tenantid fictive -workers 8
   pilerimport -mbox archive.mbox -tenantid fictive -workers 4 -progress
   pilerimport -dir /path/to/emails -remove -workers 4 -progress
+  pilerimport -dir /path/to/emails -add-recipients -dry-run
 </code></pre>
+<h3 id="bcc-recipients-of-migrated-mail">Bcc recipients of migrated mail<a class="headerlink" href="#bcc-recipients-of-migrated-mail" title="Permanent link">#</a></h3>
+<p>A Bcc recipient is in no header of an EML file, so it can't find the email after the import. If you know the recipients of each email, put them in an envelope file next to the EML (<code>message.eml.env</code> for <code>message.eml</code>):</p>
+<pre><code>v1
+rcpt anna@customer1.com
+rcpt ben@customer1.com
+</code></pre>
+<p>pilerimport archives these recipients like the <code>To</code> and <code>Cc</code> ones. For emails that are already imported, <code>-add-recipients</code> adds them without importing the emails again. See <a href="../envelope-recipients/#migrated-mail-pilerimport">Migrated mail</a> for the details, and the audit log entries it writes.</p>
 <h2 id="import-from-an-imap-server">Import from an IMAP server<a class="headerlink" href="#import-from-an-imap-server" title="Permanent link">#</a></h2>
 <pre><code>Usage of imapfetch:
   -batchsize int

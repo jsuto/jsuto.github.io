@@ -540,6 +540,34 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#migrated-mail-pilerimport" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Migrated mail (pilerimport)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Migrated mail (pilerimport)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#adding-the-recipients-to-mail-imported-earlier" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Adding the recipients to mail imported earlier
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#trade-offs-and-limitations" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -579,12 +607,13 @@
 
 
 <h1 id="archiving-envelope-bcc-recipients-and-the-envelope-sender">Archiving envelope (Bcc) recipients and the envelope sender<a class="headerlink" href="#archiving-envelope-bcc-recipients-and-the-envelope-sender" title="Permanent link">#</a></h1>
-<p>This documentation applies to Piler enterprise edition releases 2.2.3+</p>
-<p>Revision #1</p>
-<p>Publication date: 2026-OCT-06</p>
+<p>This documentation applies to Piler enterprise edition releases 2.2.3+ (envelope files in pilerimport: 2.2.4+)</p>
+<p>Revision #2</p>
+<p>Publication date: 2026-OCT-16</p>
 <p>A Bcc recipient is not in the <code>To</code> or <code>Cc</code> header of an email, only in the SMTP envelope. An archive that reads the recipients from the message alone doesn't know about them, so a Bcc recipient can't find the email in the archive.</p>
 <p>Piler solves this with <strong>envelope files</strong>: <code>piler-smtp</code> writes the envelope of an email (its sender and its recipients) to a small file next to it, and the piler daemon archives the recipients as recipients of the email. The email itself is stored exactly as it arrived.</p>
 <p>The envelope file also has the envelope sender of the email, which auditors can see, see <a href="#the-envelope-sender">The envelope sender</a>.</p>
+<p>For migrated mail, <code>pilerimport</code> reads the same envelope files placed next to the imported EML files, and can add the recipients to mail imported earlier, see <a href="#migrated-mail-pilerimport">Migrated mail</a>.</p>
 <p>This page explains how to set it up, what to expect, and the trade-offs behind the design.</p>
 <h2 id="how-it-works">How it works<a class="headerlink" href="#how-it-works" title="Permanent link">#</a></h2>
 <pre><code>Mail server                     Archive server
@@ -778,6 +807,7 @@ sender_bcc_maps = pcre:/etc/postfix/bcc_sender_map
 </tr>
 </tbody>
 </table>
+<p>The window applies to copies arriving by SMTP, and to duplicates in a normal <code>pilerimport</code> run. <code>pilerimport -add-recipients</code> has no window, see <a href="#migrated-mail-pilerimport">Migrated mail</a>.</p>
 <h3 id="what-happens-in-each-case">What happens in each case<a class="headerlink" href="#what-happens-in-each-case" title="Permanent link">#</a></h3>
 <table>
 <thead>
@@ -903,6 +933,62 @@ the duplicate differs from the archived message, its envelope recipients are not
 <p>In the third case each recipient finds the copy they got, auditors see the copies listed as related copies, and the body is stored once for each copy (the attachments once).</p>
 <p>In a multi-node setup each node decides for itself: the copies of an email only end up as one archived email if they reach the same node. <code>ARCHIVE_MESSAGE_VARIANTS</code> has to be set on every worker node.</p>
 <p>If you don't know which case is yours, compare the bodies of two copies of the same email as your mail server sends them to the archive.</p>
+<h2 id="migrated-mail-pilerimport">Migrated mail (pilerimport)<a class="headerlink" href="#migrated-mail-pilerimport" title="Permanent link">#</a></h2>
+<p>When you migrate an archive (e.g. from Mimecast or MailArchiva) with <code>pilerimport</code>, the Bcc recipients are in no header of the EML files either. If you know the mailboxes of each message, write them to an envelope file next to the EML, in the same format piler-smtp writes:</p>
+<pre><code>emails/message1.eml
+emails/message1.eml.env
+</code></pre>
+<pre><code>v1
+rcpt anna@customer1.com
+rcpt ben@customer1.com
+</code></pre>
+<p>The <code>from</code> line is optional. Then import as usual:</p>
+<pre><code>pilerimport -dir emails -tenantid customer1 -workers 8
+</code></pre>
+<p>The recipients of the envelope file are archived like the <code>To</code> and <code>Cc</code> recipients. <code>-dir</code> skips the <code>.env</code> files, and <code>-remove</code> removes them together with their EML. An EML without an envelope file is imported with its header recipients, as before.</p>
+<p><strong>Upgrading from 2.2.3 or earlier:</strong> don't put <code>.env</code> files in an import directory before upgrading <code>pilerimport</code>: earlier versions import them as emails.</p>
+<h3 id="adding-the-recipients-to-mail-imported-earlier">Adding the recipients to mail imported earlier<a class="headerlink" href="#adding-the-recipients-to-mail-imported-earlier" title="Permanent link">#</a></h3>
+<p>If the mail is already imported without its Bcc recipients, importing it again doesn't help: the emails are duplicates, and the archived emails were archived long before the <a href="#2-the-copy-arrives-in-time">merge window</a>. Use <code>-add-recipients</code> instead: it imports and stores nothing, it only adds the recipients of the envelope files to the archived emails.</p>
+<p>First see what would happen, nothing is changed:</p>
+<pre><code>pilerimport -dir emails -tenantid customer1 -add-recipients -dry-run
+</code></pre>
+<p>Then run it:</p>
+<pre><code>pilerimport -dir emails -tenantid customer1 -add-recipients -workers 8
+</code></pre>
+<p>The summary counts each EML:</p>
+<table>
+<thead>
+<tr>
+<th>Result</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Messages updated</td>
+<td>the archived email got recipients</td>
+</tr>
+<tr>
+<td>Already complete</td>
+<td>it had all the recipients already</td>
+</tr>
+<tr>
+<td>Not archived</td>
+<td>no archived email has its Message-ID</td>
+</tr>
+<tr>
+<td>Not a copy</td>
+<td>archived emails have its Message-ID, but none is the same email: nothing is added</td>
+</tr>
+<tr>
+<td>No envelope file</td>
+<td>the EML has no envelope file, or no valid recipient in it</td>
+</tr>
+</tbody>
+</table>
+<p>There is no time window here: the files come from you, not from the network, so nobody can send an email again to become its recipient. But the <a href="#1-the-copy-really-is-the-same-email">first rule</a> still applies: an archived email only gets recipients from an EML that is the same email. For emails imported before migration <code>027_message_identity.sql</code>, only a byte for byte identical file is the same email. Use the files you imported, not a new export from the old archive: an export may differ in line endings or header order, and then the result is "not a copy".</p>
+<p><strong>Audit trail.</strong> Every email that gets recipients has an entry in the audit log, with the action <code>recipients</code>, the user who ran pilerimport (<code>&lt;login&gt;@&lt;host&gt; (pilerimport)</code>), the file and the recipients added. The entry is written before the recipients are added. If it can't be written, nothing is added and pilerimport stops, so no mailbox gets access to archived mail without a trace.</p>
+<p><strong>What is not changed.</strong> The direction, the retention date and the exclusion rules of the email are not evaluated again, as with the copies above.</p>
 <h2 id="trade-offs-and-limitations">Trade-offs and limitations<a class="headerlink" href="#trade-offs-and-limitations" title="Permanent link">#</a></h2>
 <p>The rules above are deliberately strict. An archive that adds a recipient to an email too easily gives access to the wrong person, or records a recipient the email never had. The price is that in some cases a real recipient is not added.</p>
 <p><strong>A copy that was modified on the way is not recognized.</strong> If something changes the body or the headers listed above between two copies (a mailing list footer, a disclaimer added by a gateway, a <code>[SPAM]</code> tag in the subject, a re-encoded body), the later copy is a different email as far as piler can tell. Its envelope recipients are not added. Make sure such modifications happen either before the email is copied to the archive for every recipient, or not at all. With <code>ARCHIVE_MESSAGE_VARIANTS=true</code> such a copy is archived as an email of its own instead, see <a href="#emails-with-the-same-message-id-but-different-content">above</a>.</p>
