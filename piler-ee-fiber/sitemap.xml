@@ -192,4 +192,12 @@
          <loc>https://jsuto.github.io/piler-ee-v2/migration/mailstore/</loc>
          <lastmod>2026-10-17</lastmod>
     </url>
+    <url>
+         <loc>https://jsuto.github.io/piler-ee-v2/smtp-servers/</loc>
+         <lastmod>2026-10-17</lastmod>
+    </url>
+    <url>
+         <loc>https://jsuto.github.io/piler-ee-v2/smtp-servers/axigen/</loc>
+         <lastmod>2026-10-17</lastmod>
+    </url>
 </urlset>

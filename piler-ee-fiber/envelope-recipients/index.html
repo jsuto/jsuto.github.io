@@ -674,6 +674,7 @@ enable_envelope_sidecar=1
 <p>Restart <code>piler-smtp</code>. The default is <code>0</code>: encoded addresses are not accepted, and no envelope files are written.</p>
 <p>This one setting covers both the envelope recipients and the envelope sender.</p>
 <h3 id="4-configure-the-mail-server">4. Configure the mail server<a class="headerlink" href="#4-configure-the-mail-server" title="Permanent link">#</a></h3>
+<p>For other mail servers see <a href="../smtp-servers/">Mail server integration</a>, e.g. <a href="../smtp-servers/axigen/">Axigen</a>.</p>
 <p>Example for Postfix. A <code>recipient_bcc_maps</code> lookup is evaluated for each envelope recipient, Bcc recipients included, so it can do the encoding:</p>
 <pre><code># /etc/postfix/main.cf
 recipient_bcc_maps = pcre:/etc/postfix/bcc_recipient_map
