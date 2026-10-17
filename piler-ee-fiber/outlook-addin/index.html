@@ -402,6 +402,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#showing-the-piler-icon-on-every-message" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Showing the Piler icon on every message
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#signing-in" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -611,6 +622,14 @@ WHERE tenant_id = 'customer1';
 <li><strong>Classic Outlook for Windows and Outlook for Mac</strong>: click <strong>Piler Archive</strong> on the <strong>Home</strong> ribbon.</li>
 </ul>
 <p>The add-in is only offered for messages you are reading, not in the compose window.</p>
+<h3 id="showing-the-piler-icon-on-every-message">Showing the Piler icon on every message<a class="headerlink" href="#showing-the-piler-icon-on-every-message" title="Permanent link">#</a></h3>
+<p>In Outlook on the web and new Outlook for Windows, the add-in is under the <strong>Apps</strong> button by default. To have the Piler icon right next to <em>Forward</em> on every message:</p>
+<ol>
+<li>Open a message, and click <strong>…</strong> (More actions) in its action bar, next to the <strong>Apps</strong> button.</li>
+<li>Click <strong>Customize actions</strong>.</li>
+<li>Under <strong>Add-ins</strong>, tick <strong>Piler Archive</strong>, and click <strong>Save</strong>.</li>
+</ol>
+<p>One click on the icon then opens the pane. Each user sets this for their own mailbox; the manifest can't do it for them.</p>
 <h3 id="signing-in">Signing in<a class="headerlink" href="#signing-in" title="Permanent link">#</a></h3>
 <p>Click <strong>Sign in</strong>. A window opens with the usual piler login page, where you sign in as in the web UI, with any login method of your archive (local, LDAP, IMAP, SSO, passkey, two-factor authentication). The window closes by itself afterwards.</p>
 <p>The add-in stays signed in for 15 minutes. After that, it asks you to sign in again. If your piler session is still valid, the sign-in window just closes without asking for your password.</p>
@@ -669,7 +688,7 @@ WHERE tenant_id = 'customer1';
 <p><strong>The add-in does not appear in Outlook</strong></p>
 <ul>
 <li>Open a received message: the add-in is not offered in the message list or in the compose window.</li>
-<li>In Outlook on the web, look under the <strong>Apps</strong> button.</li>
+<li>In Outlook on the web, look under the <strong>Apps</strong> button, or pin the icon, see <a href="#showing-the-piler-icon-on-every-message">Showing the Piler icon on every message</a>.</li>
 <li>After an organisation-wide deployment, wait up to 24 hours.</li>
 <li>Check that <code>https://&lt;piler host&gt;/outlook/manifest.xml</code> downloads. A 404 means the add-in is not enabled for that host.</li>
 </ul>
