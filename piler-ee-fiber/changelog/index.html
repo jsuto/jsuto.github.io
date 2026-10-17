@@ -329,34 +329,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#scanner-130-2026-09-27" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Scanner 1.3.0 - 2026-09-27
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Scanner 1.3.0 - 2026-09-27">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#changed_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Changed
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#222-2026-09-22" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -391,7 +363,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#changed_2" class="md-nav__link">
+  <a href="#changed_1" class="md-nav__link">
     <span class="md-ellipsis">
       
         Changed
@@ -452,7 +424,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#changed_3" class="md-nav__link">
+  <a href="#changed_2" class="md-nav__link">
     <span class="md-ellipsis">
       
         Changed
@@ -491,7 +463,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#changed_4" class="md-nav__link">
+  <a href="#changed_3" class="md-nav__link">
     <span class="md-ellipsis">
       
         Changed
@@ -563,7 +535,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#changed_5" class="md-nav__link">
+  <a href="#changed_4" class="md-nav__link">
     <span class="md-ellipsis">
       
         Changed
@@ -624,7 +596,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#changed_6" class="md-nav__link">
+  <a href="#changed_5" class="md-nav__link">
     <span class="md-ellipsis">
       
         Changed
@@ -685,7 +657,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#changed_7" class="md-nav__link">
+  <a href="#changed_6" class="md-nav__link">
     <span class="md-ellipsis">
       
         Changed
@@ -757,7 +729,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#changed_8" class="md-nav__link">
+  <a href="#changed_7" class="md-nav__link">
     <span class="md-ellipsis">
       
         Changed
@@ -818,7 +790,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#changed_9" class="md-nav__link">
+  <a href="#changed_8" class="md-nav__link">
     <span class="md-ellipsis">
       
         Changed
@@ -863,9 +835,9 @@
 
 <h1 id="changelog">Changelog<a class="headerlink" href="#changelog" title="Permanent link">#</a></h1>
 <p>All notable changes to Piler Enterprise Edition, starting from 2.1.0.</p>
-<p>The Scanner add-on (ML phishing detection, semantic search, PII detection,
-categorization) is versioned and released independently of the main
-application below.</p>
+<p>piler-smtp and the Scanner add-on are versioned and released
+independently, see the <a href="../changelog-piler-smtp/">piler-smtp changelog</a> and
+the <a href="../changelog-scanner/">Scanner changelog</a>.</p>
 <h2 id="224-2026-10-17">2.2.4 - 2026-10-17<a class="headerlink" href="#224-2026-10-17" title="Permanent link">#</a></h2>
 <p>2.2.3 was not released; its changes are included here.</p>
 <h3 id="added">Added<a class="headerlink" href="#added" title="Permanent link">#</a></h3>
@@ -952,20 +924,6 @@ application below.</p>
   obsolete 1.x configuration files behind, blocking the piler-smtp
   installation.</li>
 </ul>
-<h2 id="scanner-130-2026-09-27">Scanner 1.3.0 - 2026-09-27<a class="headerlink" href="#scanner-130-2026-09-27" title="Permanent link">#</a></h2>
-<h3 id="changed_1">Changed<a class="headerlink" href="#changed_1" title="Permanent link">#</a></h3>
-<ul>
-<li>The ML phishing detector no longer depends on a native runtime library
-  or CGO - it's now a fully static, dependency-free Go binary. This makes
-  the scanner image smaller, faster to build, and easier to deploy across
-  architectures.</li>
-<li>Retrained the phishing-detection model on a substantially larger and
-  more diverse set of examples. Internal testing shows a meaningful
-  reduction in false positives (legitimate email incorrectly flagged)
-  versus the previous model, with no loss in detection rate.</li>
-<li>Simplified the scanner's Docker image build to a prebuilt-binary copy,
-  matching the main application image's build process.</li>
-</ul>
 <h2 id="222-2026-09-22">2.2.2 - 2026-09-22<a class="headerlink" href="#222-2026-09-22" title="Permanent link">#</a></h2>
 <h3 id="security_1">Security<a class="headerlink" href="#security_1" title="Permanent link">#</a></h3>
 <ul>
@@ -979,7 +937,7 @@ application below.</p>
   integration</li>
 <li>Multi-node support for user email purge</li>
 </ul>
-<h3 id="changed_2">Changed<a class="headerlink" href="#changed_2" title="Permanent link">#</a></h3>
+<h3 id="changed_1">Changed<a class="headerlink" href="#changed_1" title="Permanent link">#</a></h3>
 <ul>
 <li><code>piler-ui</code> Docker image build simplified to a prebuilt-binary copy
   (matches the pattern later applied to the scanner image)</li>
@@ -1014,7 +972,7 @@ application below.</p>
 <li><code>purge --restore-id</code> for restoring a specific prior purge run;
   <code>PACKAGES.md</code> documenting package build/signing</li>
 </ul>
-<h3 id="changed_3">Changed<a class="headerlink" href="#changed_3" title="Permanent link">#</a></h3>
+<h3 id="changed_2">Changed<a class="headerlink" href="#changed_2" title="Permanent link">#</a></h3>
 <ul>
 <li>Dockerfiles upgraded to <code>alpine:3.24</code>; audit log table gained stable CSS
   identifiers for MSP customization</li>
@@ -1034,7 +992,7 @@ application below.</p>
   behavior, missing-env-var warning</li>
 </ul>
 <h2 id="220-2026-08-16">2.2.0 - 2026-08-16<a class="headerlink" href="#220-2026-08-16" title="Permanent link">#</a></h2>
-<h3 id="changed_4">Changed<a class="headerlink" href="#changed_4" title="Permanent link">#</a></h3>
+<h3 id="changed_3">Changed<a class="headerlink" href="#changed_3" title="Permanent link">#</a></h3>
 <ul>
 <li><strong>Semantic search embeddings</strong>: replaced in-process ONNX embedding
   generation with calls to an external, OpenAI-compatible HTTP endpoint
@@ -1072,7 +1030,7 @@ application below.</p>
 <li>Standby-node support for import jobs; multi-node import handling</li>
 <li>Theme and accent-color support carried over from EAM authentication</li>
 </ul>
-<h3 id="changed_5">Changed<a class="headerlink" href="#changed_5" title="Permanent link">#</a></h3>
+<h3 id="changed_4">Changed<a class="headerlink" href="#changed_4" title="Permanent link">#</a></h3>
 <ul>
 <li>Build tooling switched from the previous bundler to <strong>Vite</strong> (and bumped
   several times through the 6.4→8.1 series as issues were found); iframe
@@ -1108,7 +1066,7 @@ application below.</p>
 <li><code>ANALYTICS_ENABLED</code> environment variable</li>
 <li>Rate limiting on authentication endpoints (security hardening)</li>
 </ul>
-<h3 id="changed_6">Changed<a class="headerlink" href="#changed_6" title="Permanent link">#</a></h3>
+<h3 id="changed_5">Changed<a class="headerlink" href="#changed_5" title="Permanent link">#</a></h3>
 <ul>
 <li>All config keys now registered with <code>viper</code> regardless of whether a
   default is empty, so they can still be overridden via environment
@@ -1137,7 +1095,7 @@ application below.</p>
 <li><code>SHOW_IMPORT_MENU</code> configuration option</li>
 <li>NIS2 compliance documentation</li>
 </ul>
-<h3 id="changed_7">Changed<a class="headerlink" href="#changed_7" title="Permanent link">#</a></h3>
+<h3 id="changed_6">Changed<a class="headerlink" href="#changed_6" title="Permanent link">#</a></h3>
 <ul>
 <li>Manticore upgraded to 25.0.0 in tests and the installer</li>
 </ul>
@@ -1179,7 +1137,7 @@ round of <code>gosec</code>-driven security hardening.</p>
 <li><code>SEMANTIC_SEARCH_ONNX_THREADS</code> configuration option</li>
 <li>SIEM Sumo Logic support</li>
 </ul>
-<h3 id="changed_8">Changed<a class="headerlink" href="#changed_8" title="Permanent link">#</a></h3>
+<h3 id="changed_7">Changed<a class="headerlink" href="#changed_7" title="Permanent link">#</a></h3>
 <ul>
 <li>Metadata/attachment inserts now use a database transaction</li>
 <li>ediscovery exports now emit an audit log entry</li>
@@ -1202,7 +1160,7 @@ round of <code>gosec</code>-driven security hardening.</p>
 <li>SIEM support</li>
 <li><code>install.sh</code> bare-metal installer script</li>
 </ul>
-<h3 id="changed_9">Changed<a class="headerlink" href="#changed_9" title="Permanent link">#</a></h3>
+<h3 id="changed_8">Changed<a class="headerlink" href="#changed_8" title="Permanent link">#</a></h3>
 <ul>
 <li>Microsoft Teams collector updates</li>
 </ul>
