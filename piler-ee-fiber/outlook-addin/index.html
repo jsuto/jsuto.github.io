@@ -413,17 +413,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#is-this-message-archived" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Is this message archived?
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#searching" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -524,14 +513,13 @@
 
 <h1 id="outlook-add-in">Outlook add-in<a class="headerlink" href="#outlook-add-in" title="Permanent link">#</a></h1>
 <p>This documentation applies to Piler enterprise edition releases 2.2.4+</p>
-<p>Revision #1</p>
-<p>Publication date: 2026-OCT-16</p>
+<p>Revision #2</p>
+<p>Publication date: 2026-OCT-17</p>
 <p>The Piler Archive add-in brings the archive into Outlook. Users can check whether the message they are reading is archived, search the archive, read archived messages and restore them to their mailbox, without leaving Outlook.</p>
 <p>The add-in is served by piler-ui itself, so there is nothing to install on the archive server besides enabling it. It's off by default.</p>
 <h2 id="what-it-does">What it does<a class="headerlink" href="#what-it-does" title="Permanent link">#</a></h2>
-<p>The add-in opens as a pane on the right side of Outlook, next to the message being read:</p>
+<p>The add-in opens as a pane on the right side of Outlook:</p>
 <ul>
-<li><strong>This message</strong>: looks up the selected message in the archive by its Message-ID, and shows whether it's archived.</li>
 <li><strong>Search</strong>: keyword search in the archive, like the search box of the web UI. An empty search lists the latest messages. The hits are listed 20 at a time, and the next 20 load as you scroll down.</li>
 <li><strong>Preview</strong>: click a hit to see its subject, sender, date and the beginning of its text. <strong>← Back</strong> returns to the hits.</li>
 <li><strong>Open full message</strong>: opens the whole message in a large window, with its headers, body and attachments.</li>
@@ -575,7 +563,6 @@
 <ul>
 <li>piler-ui must be reachable over <strong>HTTPS</strong> by the users' Outlook, with a certificate their browsers trust. Office doesn't load add-ins over plain http.</li>
 <li><code>JWT_SECRET</code> must be set: the add-in authenticates with short-lived API tokens.</li>
-<li>The "This message" lookup is not available on the master node of a multi-node setup. Search, preview and restore work there.</li>
 </ul>
 <h2 id="enabling-the-add-in">Enabling the add-in<a class="headerlink" href="#enabling-the-add-in" title="Permanent link">#</a></h2>
 <p>Add to the piler-ui configuration (e.g. <code>/etc/piler/piler-ui.env</code>), then restart piler-ui:</p>
@@ -624,18 +611,10 @@ WHERE tenant_id = 'customer1';
 <li><strong>Classic Outlook for Windows and Outlook for Mac</strong>: click <strong>Piler Archive</strong> on the <strong>Home</strong> ribbon.</li>
 </ul>
 <p>The add-in is only offered for messages you are reading, not in the compose window.</p>
-<p>To keep the pane open while moving between messages, click the pin icon at the top of the pane. The "This message" check then follows the selected message.</p>
 <h3 id="signing-in">Signing in<a class="headerlink" href="#signing-in" title="Permanent link">#</a></h3>
 <p>Click <strong>Sign in</strong>. A window opens with the usual piler login page, where you sign in as in the web UI, with any login method of your archive (local, LDAP, IMAP, SSO, passkey, two-factor authentication). The window closes by itself afterwards.</p>
 <p>The add-in stays signed in for 15 minutes. After that, it asks you to sign in again. If your piler session is still valid, the sign-in window just closes without asking for your password.</p>
 <p><strong>Sign out</strong> in the top right corner of the pane signs the add-in out.</p>
-<h3 id="is-this-message-archived">Is this message archived?<a class="headerlink" href="#is-this-message-archived" title="Permanent link">#</a></h3>
-<p>The <strong>This message</strong> box shows whether the selected message is in the archive:</p>
-<ul>
-<li><strong>Archived ✓</strong>: the message is archived. <strong>Show archived copy</strong> opens the preview of the archived copy.</li>
-<li><strong>Not found in the archive</strong>: the message is not archived (yet), or it's archived but you are not allowed to see it.</li>
-</ul>
-<p>The lookup uses the Message-ID header of the message, so it only finds the archived copy when it has the same Message-ID as the one in your mailbox.</p>
 <h3 id="searching">Searching<a class="headerlink" href="#searching" title="Permanent link">#</a></h3>
 <p>Type the search terms, and click <strong>Search</strong>. Leave the field empty to list the latest messages. The search works like the simple search of the web UI.</p>
 <p>Scroll down to load more hits, 20 at a time.</p>
@@ -680,6 +659,7 @@ WHERE tenant_id = 'customer1';
 <h2 id="security">Security<a class="headerlink" href="#security" title="Permanent link">#</a></h2>
 <ul>
 <li>The add-in pane never gets the piler session cookie. After signing in, the sign-in window hands it an API token of the signed in user, valid for 15 minutes. Only piler's own pages can request such a token. Issuing a token is written to the audit log.</li>
+<li>The add-in asks Outlook for the lowest permission (<code>Restricted</code>): it doesn't read the messages of your mailbox, and sends nothing about them to piler.</li>
 <li>Every request of the add-in goes through the same permission checks as the web UI, and viewing a message is audited the same way.</li>
 <li>Only the Outlook origins in <code>OUTLOOK_ADDIN_FRAME_ANCESTORS</code> may show the add-in pages. The rest of the web UI still can't be embedded in other sites.</li>
 <li>In Outlook on the web the sign-in window is a popup that reports back to the add-in pane. To make that possible, piler relaxes the <code>Cross-Origin-Opener-Policy</code> header of the login pages, but only while a sign-in started from the add-in is in progress (at most 10 minutes, in that browser). Regular logins keep the strict header. Set <code>OUTLOOK_ADDIN_RELAX_LOGIN_COOP=false</code> to switch this off, if your users only use desktop Outlook clients.</li>
@@ -701,8 +681,6 @@ WHERE tenant_id = 'customer1';
 </ul>
 <p><strong>Sign in or Open full message does nothing</strong></p>
 <p>Both open a popup window. Allow popups for the Outlook site in the browser.</p>
-<p><strong>"Not found in the archive" for an archived message</strong></p>
-<p>The archived copy must have the same Message-ID as the message in the mailbox, and you must be allowed to see it in the web UI. On the master node of a multi-node setup, the lookup is not available.</p>
 <h2 id="limitations">Limitations<a class="headerlink" href="#limitations" title="Permanent link">#</a></h2>
 <ul>
 <li>English only.</li>
