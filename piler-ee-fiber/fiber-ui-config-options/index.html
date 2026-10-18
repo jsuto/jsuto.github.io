@@ -2762,9 +2762,26 @@
 <p>Default value: <code>direct</code></p>
 <p>Description: Defines how archived emails are retrieved. Options:</p>
 <ul>
-<li><code>direct</code>: Read directly from storage</li>
-<li><code>socket</code>: Use a UNIX domain socket connection</li>
+<li><code>direct</code>: Read directly from storage. piler-ui only needs read access, and
+  the store should be read-only for it, even though it runs as the same
+  <code>piler</code> user as the piler daemon:<ul>
+<li>Docker: mount the store volumes into the piler-ui container with <code>:ro</code>.</li>
+<li>Host installation: the <code>piler-ui.service</code> systemd unit has
+  <code>ReadOnlyPaths=/var/piler/store /var/piler/astore ...</code>. systemd mounts
+  these directories read-only for piler-ui only, while the piler daemon
+  writes them. It applies when piler-ui is started by systemd. If you
+  store the emails elsewhere (<code>PILER_STORE_DIR</code>, <code>PILER_ASTORE_DIR</code>), add
+  those directories to <code>ReadOnlyPaths=</code> of piler-ui with a drop-in
+  (<code>systemctl edit piler-ui</code>), and to <code>ReadWritePaths=</code> of the piler
+  daemon (<code>systemctl edit piler</code>): its unit allows writes only to the
+  directories listed there.</li>
+</ul>
+</li>
 <li><code>s3</code>: Retrieve from Amazon S3 or compatible storage</li>
+<li><code>socket</code>: Use the retrieverd daemon through a UNIX domain socket.
+  <strong>Not recommended for new installations, and it will be phased out in a
+  future release.</strong> Existing installations should move to <code>direct</code> with a
+  read-only store, or to <code>s3</code>.</li>
 </ul>
 <hr />
 <h3 id="log_level">LOG_LEVEL<a class="headerlink" href="#log_level" title="Permanent link">#</a></h3>
@@ -2797,7 +2814,8 @@
 <hr />
 <h3 id="retriever_socket">RETRIEVER_SOCKET<a class="headerlink" href="#retriever_socket" title="Permanent link">#</a></h3>
 <p>Default value: <code>/var/piler/sockets/retriever.sock</code></p>
-<p>Description: Path to the UNIX domain socket used when <code>RETRIEVER_METHOD=socket</code>.</p>
+<p>Description: Path to the UNIX domain socket used when <code>RETRIEVER_METHOD=socket</code>
+(retrieverd, not recommended and to be phased out, see <code>RETRIEVER_METHOD</code>).</p>
 <hr />
 <h3 id="mysql_user">MYSQL_USER<a class="headerlink" href="#mysql_user" title="Permanent link">#</a></h3>
 <p>Default value: <code>piler</code></p>
