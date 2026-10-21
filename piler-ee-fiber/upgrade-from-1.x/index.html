@@ -429,9 +429,9 @@
 
 
 <h1 id="upgrading">Upgrading<a class="headerlink" href="#upgrading" title="Permanent link">#</a></h1>
-<p>This documentation applies to Piler enterprise edition 2.2.4</p>
-<p>Revision #2</p>
-<p>Publication date: 2026-OCT-13</p>
+<p>This documentation applies to Piler enterprise edition 2.2.5</p>
+<p>Revision #3</p>
+<p>Publication date: 2026-OCT-21</p>
 <p>This document describes how to upgrade from 1.8.4 to the latest 2.x version of piler enterprise.</p>
 <p>It applies to <strong>single node, no-tenant deployments</strong> only, ie. a single host
 running all piler components with the single <code>piler</code> database.</p>
@@ -526,6 +526,13 @@ done
 </code></pre>
 <p>Both loops stop at the first failing migration. Fix the reported error, then
 run the loop again, the migrations are safe to run more than once.</p>
+<p>Add the participants column to the index. Piler 2.x refuses to start without
+it:</p>
+<pre><code>/usr/libexec/piler/add-participants-column.sh 0 --all
+</code></pre>
+<p>It's enough to run it once, but it's safe to run it again: it does nothing if
+the index has the column already. See <a href="../upgrade/#add-the-participants-column-225">Upgrading</a>
+for the details.</p>
 <h3 id="update-the-passwords">Update the passwords<a class="headerlink" href="#update-the-passwords" title="Permanent link">#</a></h3>
 <p>Piler uses the bcrypt password hashing algorithm, so the passwords in the local database must be fixed.</p>
 <p>The below statement updates the built-in admin user's password to <em>pilerrocks</em>.

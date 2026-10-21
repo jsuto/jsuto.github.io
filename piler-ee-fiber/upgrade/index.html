@@ -290,6 +290,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#add-the-participants-column-225" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Add the participants column (2.2.5)
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -313,9 +324,9 @@
 
 
 <h1 id="upgrading">Upgrading<a class="headerlink" href="#upgrading" title="Permanent link">#</a></h1>
-<p>This documentation applies to Piler enterprise edition 2.2.4</p>
-<p>Revision #3</p>
-<p>Publication date: 2026-OCT-13</p>
+<p>This documentation applies to Piler enterprise edition 2.2.5</p>
+<p>Revision #4</p>
+<p>Publication date: 2026-OCT-21</p>
 <h2 id="upgrade-steps">Upgrade steps<a class="headerlink" href="#upgrade-steps" title="Permanent link">#</a></h2>
 <h3 id="run-the-migrations">Run the migrations<a class="headerlink" href="#run-the-migrations" title="Permanent link">#</a></h3>
 <p>Run mysql migrations on each piler related mysql database:</p>
@@ -334,6 +345,36 @@ run the manticore migrations for all tenant ids as well, and replace "piler" in 
 command with the tenant id, eg.</p>
 <pre><code>sed 's/TENANTID/example001/g' ....
 </code></pre>
+<h3 id="add-the-participants-column-225">Add the participants column (2.2.5)<a class="headerlink" href="#add-the-participants-column-225" title="Permanent link">#</a></h3>
+<p>Piler 2.2.5 adds the <code>participants</code> attribute to the index. piler, piler-ui,
+pilerimport and reindex check it at startup, and refuse to start until the
+column is there. The package upgrade stops the piler services, so back up
+the Manticore data, then run the script before starting them again:</p>
+<pre><code>/usr/libexec/piler/add-participants-column.sh 0 --all
+</code></pre>
+<p>The first argument is the Manticore host (<code>0</code> is the local host). <code>--all</code>
+means the <code>piler</code> index and the index of every tenant in the
+<code>tenant_settings</code> table, so the same command works for single-tenant and
+multi-tenant deployments.</p>
+<p>It's enough to run it once, but it's safe to run it again: it adds the
+column only to the indexes that don't have it yet, and leaves the others
+alone.</p>
+<p>An index can't be searched while the column is added. Only the attribute
+files are rewritten, not the full-text index, but on a large index it may
+take a while, so do it in a maintenance window.</p>
+<p>With Docker there's nothing to do: the piler-ee container runs the script at
+every start.</p>
+<p>In a multinode setup upgrade the workers first, and run the script on every
+worker, not on the master: the tables of the master are distributed. Start
+piler-ui on the master only when all the workers have the column, otherwise
+it refuses to start.</p>
+<p>Optionally fill the attribute of the messages archived before the upgrade:</p>
+<pre><code>reindex -tenantid piler -start 1 -stop &lt;max metadata id&gt; -participants -progress
+</code></pre>
+<p>It reads the addresses from the database, not the messages, can run while
+piler is archiving and users are searching, and can be interrupted and run
+again. Without it the messages archived before the upgrade are searched the
+same way as before.</p>
 
 
 
