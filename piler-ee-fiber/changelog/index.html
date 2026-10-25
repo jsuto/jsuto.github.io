@@ -920,9 +920,19 @@ With S3 storage, also see
 <li><code>purge</code> (installed setuid) ignores the caller's environment and
   <code>PILER_ENV_FILE</code> when run by another user, like pilerimport, and reads
   its settings from <code>/var/piler/.env</code> only.</li>
+<li>pilerimport (installed setuid) creates the temporary files of the <code>-mbox</code>
+  and <code>-pst</code> imports with random names that no other user can take over.</li>
 </ul>
 <h3 id="added">Added<a class="headerlink" href="#added" title="Permanent link">#</a></h3>
 <ul>
+<li><code>pilerimport -pst</code>: imports PST files (Outlook, Exchange and Microsoft
+  365 exports, Enterprise Vault exports) directly, without a conversion
+  step. All mail is archived, sent mail with the SMTP addresses of its
+  sender and recipients (Bcc included), S/MIME emails as they were sent;
+  appointments, contacts and other non-mail items are counted and skipped.
+  <code>-x500-map</code> replaces the Exchange addresses of internal mail with SMTP
+  addresses from Active Directory, <code>-skip-deleted</code> skips Deleted Items.
+  See <a href="../import-emails/#import-pst-files">Import PST files</a>.</li>
 <li><code>purge -orphans</code>: reports the stored <code>.m</code> files of a tenant that no
   message refers to, in the local store or the S3 bucket, e.g. the files
   duplicates left behind before 2.2.4. With <code>-remove</code> it removes them, only
@@ -949,9 +959,15 @@ With S3 storage, also see
   phased out; piler-ui logs a warning when it's used. The store is
   read-only for piler-ui anyway.</li>
 <li>Upgraded frontend dependencies (Vite, follow-redirects).</li>
+<li>pilerimport lists the reason of each failure in its summary.</li>
+<li>Built with Go 1.27.3; golang.org/x/crypto, net, sync, sys, term, text and
+  tools updated.</li>
 </ul>
 <h3 id="fixed">Fixed<a class="headerlink" href="#fixed" title="Permanent link">#</a></h3>
 <ul>
+<li>An email whose Date header was before 1970 or after 2106 couldn't be
+  archived. Such a date is now handled like an unparseable one: the time of
+  the Received header is used, else the time of archiving.</li>
 <li>With <code>KEEP_PURGED_METADATA</code>, importing a purged message again replaced
   its recipients with those of the new copy, so the earlier ones were lost,
   including the Bcc recipients from envelope files. The recipients are now
