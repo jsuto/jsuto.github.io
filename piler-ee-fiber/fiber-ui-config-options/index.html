@@ -1892,17 +1892,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#s3_use_subdirs" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        S3_USE_SUBDIRS
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#s3_retry_max_attempts" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3377,11 +3366,11 @@ object-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'none';
 <hr />
 <h3 id="s3_bucket_prefix">S3_BUCKET_PREFIX<a class="headerlink" href="#s3_bucket_prefix" title="Permanent link">#</a></h3>
 <p>Default value: <code>""</code></p>
-<p>Description: Prefix applied to S3 buckets.</p>
-<hr />
-<h3 id="s3_use_subdirs">S3_USE_SUBDIRS<a class="headerlink" href="#s3_use_subdirs" title="Permanent link">#</a></h3>
-<p>Default value: <code>true</code></p>
-<p>Description: Store objects in subdirectories within the S3 bucket.</p>
+<p>Description: Prefix of the bucket names. The bucket of a tenant is
+<code>S3_BUCKET_PREFIX</code> + tenant id, e.g. <code>someprefix.</code> gives <code>someprefix.piler</code>
+on a single-tenant install. s3uploader uploads to that bucket from 2.2.5,
+and reads the setting from <code>/var/piler/.env</code> too, see
+<a href="../upgrade/#s3-storage-settings-225">S3 storage settings</a>.</p>
 <hr />
 <h3 id="s3_retry_max_attempts">S3_RETRY_MAX_ATTEMPTS<a class="headerlink" href="#s3_retry_max_attempts" title="Permanent link">#</a></h3>
 <p>Default value: <code>3</code></p>

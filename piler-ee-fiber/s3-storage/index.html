@@ -279,17 +279,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#update-the-ui-config" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Update the UI config
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#enable-the-the-piler-s3-service" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -335,7 +324,9 @@ Note that you should decide where to store the email files before starting archi
 <p>When using S3 storage the piler daemon writes all files to /var/piler/s3 directory. Then a piler service processes these files, and upload them to the S3 store.</p>
 <p>Piler will upload all files for a given tenant to a single bucket only.</p>
 <h2 id="enable-the-s3-storage">Enable the S3 storage<a class="headerlink" href="#enable-the-s3-storage" title="Permanent link">#</a></h2>
-<p>To enable using an S3 store, set the following in /var/piler/.env-s3:</p>
+<p>To enable using an S3 store, set the following in /var/piler/.env. piler,
+piler-ui, the piler-s3 service (s3uploader), purge, reindex and pilerexport
+all read their settings from this file:</p>
 <pre><code>S3_ENDPOINT=your-s3-host.domain.com:9000
 S3_ACCESS_KEY=youraccesskey
 S3_SECRET_KEY=yoursecretkey
@@ -343,13 +334,22 @@ S3_USE_SSL=true
 S3_REGION=us-east-1
 S3_WORKERS=10
 S3_BUCKET_PREFIX=
+RETRIEVER_METHOD=s3
 </code></pre>
+<p><code>RETRIEVER_METHOD=s3</code> makes piler-ui read the emails from the S3 store.
+S3_WORKERS is the number of parallel uploads of s3uploader.</p>
 <p>S3_ENDPOINT should be the S3 hostname and port. Eg. Minio uses port 9000. For Wasabi, it might be s3.us-west-1.wasabisys.com.</p>
 <p>Set <code>S3_USE_SSL=false</code> if your S3 host does NOT support TLS.</p>
 <p>By default S3_BUCKET_PREFIX is empty. If you need to specify one, then make sure it conforms to domain names.</p>
 <p>Notes: you must NOT use the dash (-) character, however you may use a trailing dot, eg.</p>
 <pre><code>S3_BUCKET_PREFIX=someprefix.
 </code></pre>
+<p>The bucket of a tenant is <code>S3_BUCKET_PREFIX</code> + tenant id: s3uploader
+uploads to that bucket, and piler-ui, purge, reindex and pilerexport read
+from it. <code>S3_PREFIX</code> (a key prefix inside the bucket) is not supported,
+s3uploader refuses to start with it.</p>
+<p>Before 2.2.5 the piler-s3 service read <code>/var/piler/.env-s3</code>. If you upgrade
+from an earlier version, see <a href="../upgrade/#s3-storage-settings-225">S3 storage settings</a>.</p>
 <p>S3 settings for oracle cloud:</p>
 <pre><code>S3_ENDPOINT=frnsjgsfvvgl.compat.objectstorage.eu-frankfurt-1.oraclecloud.com
 S3_REGION=eu-frankfurt-1
@@ -365,16 +365,6 @@ S3_REGION=us-east-1
 </code></pre>
 <p>S3 settings for Hetzner object store at fsn1 location:</p>
 <pre><code>S3_ENDPOINT=&lt;your hetzner id&gt;.fsn1.your-objectstorage.com
-S3_REGION=us-east-1
-</code></pre>
-<h2 id="update-the-ui-config">Update the UI config<a class="headerlink" href="#update-the-ui-config" title="Permanent link">#</a></h2>
-<p>Put the S3 configuration to the UI env file (/var/piler/.env) as well. Note that the piler daemon also reads config from this file.
-This is for a minio installation on port 9000 with no TLS configured:</p>
-<pre><code>RETRIEVER_METHOD=s3
-S3_ENDPOINT=minio:9000
-S3_ACCESS_KEY=root
-S3_SECRET_KEY=example156
-S3_USE_SSL=false
 S3_REGION=us-east-1
 </code></pre>
 <h2 id="enable-the-the-piler-s3-service">Enable the the piler-s3 service<a class="headerlink" href="#enable-the-the-piler-s3-service" title="Permanent link">#</a></h2>

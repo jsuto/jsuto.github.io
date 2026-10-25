@@ -301,6 +301,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#s3-storage-settings-225" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        S3 storage settings (2.2.5)
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -375,6 +386,82 @@ it refuses to start.</p>
 piler is archiving and users are searching, and can be interrupted and run
 again. Without it the messages archived before the upgrade are searched the
 same way as before.</p>
+<h3 id="s3-storage-settings-225">S3 storage settings (2.2.5)<a class="headerlink" href="#s3-storage-settings-225" title="Permanent link">#</a></h3>
+<p>Only for S3 storage (<code>RETRIEVER_METHOD=s3</code>).</p>
+<p><strong>s3uploader reads <code>/var/piler/.env</code>.</strong> Before 2.2.5 the piler-s3 service
+read its settings from <code>/var/piler/.env-s3</code>, a second copy of the S3
+settings that are in <code>/var/piler/.env</code> anyway (piler, piler-ui, purge,
+reindex and pilerexport read them from there). From 2.2.5 it reads
+<code>/var/piler/.env</code> like the others, and <code>.env-s3</code> is not read any more.
+Before starting piler-s3 after the upgrade:</p>
+<ol>
+<li>Move the settings only s3uploader uses from <code>.env-s3</code> to <code>.env</code>, if you
+   have any: <code>S3_WORKERS</code>, <code>S3_SCAN_INTERVAL</code>, <code>S3_SKIP_EXISTING_OBJECTS</code>,
+   <code>S3_UPLOAD_MAX_RETRIES</code>, <code>S3_UPLOAD_RETRY_DELAY</code>, <code>S3_UPLOAD_TIMEOUT</code>,
+   <code>S3_FILE_STABILITY_DELAY</code>, <code>S3_VERIFY_AFTER_UPLOAD</code>, <code>S3_PART_SIZE_MB</code>,
+   <code>S3_DISABLE_MULTIPART</code>, <code>PILER_S3_DIR</code>. Without them the defaults apply.</li>
+<li>s3uploader now uses the credentials in <code>.env</code>. They need write access to
+   the buckets (purge needs to delete with them already). If <code>.env-s3</code> had
+   other credentials for uploading, use those in <code>.env</code>.</li>
+<li>Don't move <code>S3_BUCKET_PREFIX</code> or <code>S3_PREFIX</code>, see below.</li>
+<li>Remove <code>/var/piler/.env-s3</code>. s3uploader logs a warning while it exists.</li>
+</ol>
+<p><strong>The bucket.</strong> piler-ui, purge, reindex and pilerexport read the emails of
+a tenant from the bucket <code>S3_BUCKET_PREFIX</code> + tenant id. Before 2.2.5
+s3uploader ignored <code>S3_BUCKET_PREFIX</code> and always uploaded to the bucket
+named after the tenant id (<code>piler</code> on a single-tenant install). With
+<code>S3_PREFIX</code> set it also put the objects under that key prefix, where
+nothing reads them. From 2.2.5 s3uploader uploads to <code>S3_BUCKET_PREFIX</code> +
+tenant id too, and refuses to start with <code>S3_PREFIX</code> set.</p>
+<p>With <code>S3_BUCKET_PREFIX</code> empty in <code>/var/piler/.env</code> and no <code>S3_PREFIX</code> in
+either file, the default, there's nothing more to do. Otherwise:</p>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Before 2.2.5</th>
+<th>What to do</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>S3_BUCKET_PREFIX</code> set in <code>.env</code></td>
+<td>The uploaded emails could not be read</td>
+<td>Either remove <code>S3_BUCKET_PREFIX</code>, or copy the objects to the prefixed bucket, see below</td>
+</tr>
+<tr>
+<td><code>S3_BUCKET_PREFIX</code> set in <code>.env-s3</code> only</td>
+<td>Ignored, everything used the tenant bucket</td>
+<td>Nothing, it's not read any more</td>
+</tr>
+<tr>
+<td><code>S3_PREFIX</code> set in <code>.env-s3</code> (or <code>.env</code>)</td>
+<td>The uploaded emails could not be read</td>
+<td>Copy the objects out of the key prefix, see below. Make sure <code>.env</code> has no <code>S3_PREFIX</code></td>
+</tr>
+</tbody>
+</table>
+<p>Removing <code>S3_BUCKET_PREFIX</code> is the simplest: the objects are already in the
+tenant bucket, nothing has to be copied. Keep the prefix only if the buckets
+must have the prefixed names.</p>
+<p>To copy the objects, first do the steps above and start piler-s3, so the
+new emails already go to the right place. The key of an object is the same,
+without the <code>S3_PREFIX</code> part: <code>&lt;2 characters&gt;/&lt;file name&gt;</code>. Then copy, for
+each tenant id (<code>piler</code> on a single-tenant install), e.g. with the AWS CLI:</p>
+<pre><code># S3_BUCKET_PREFIX was ignored: from the tenant bucket to the prefixed one
+aws s3 mb s3://&lt;S3_BUCKET_PREFIX&gt;&lt;tenant id&gt;
+aws s3 sync s3://&lt;tenant id&gt;/ s3://&lt;S3_BUCKET_PREFIX&gt;&lt;tenant id&gt;/
+
+# S3_PREFIX was set: from under the key prefix to the top of the bucket
+aws s3 sync s3://&lt;tenant id&gt;/&lt;S3_PREFIX&gt;/ s3://&lt;S3_BUCKET_PREFIX&gt;&lt;tenant id&gt;/
+</code></pre>
+<p>Add <code>--endpoint-url https://&lt;S3_ENDPOINT&gt;</code> for a store other than AWS. With
+the MinIO client it's <code>mc mirror</code> with the same source and target. <code>sync</code>
+can be run again: it copies only what's missing. <code>aws s3 mb</code> fails if the
+bucket exists already, that's fine.</p>
+<p>Open a few emails archived before the upgrade in piler-ui to check them.
+Delete the old objects only after that, and after your backups have the
+new bucket.</p>
 
 
 

@@ -437,6 +437,56 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Import PST files">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-archived" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What is archived
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exchange-addresses" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exchange addresses
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#converting-pst-files-to-eml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Converting PST files to EML
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -457,9 +507,9 @@
 
 
 <h1 id="import-emails">Import emails<a class="headerlink" href="#import-emails" title="Permanent link">#</a></h1>
-<p>This documentation applies to Piler enterprise edition 2.1.0 (envelope files and <code>-add-recipients</code>: 2.2.4+)</p>
-<p>Revision #3</p>
-<p>Publication date: 2026-OCT-16</p>
+<p>This documentation applies to Piler enterprise edition 2.1.0 (envelope files and <code>-add-recipients</code>: 2.2.4+, PST files: 2.2.5+)</p>
+<p>Revision #4</p>
+<p>Publication date: 2026-OCT-25</p>
 <h2 id="import-local-emails">Import local emails<a class="headerlink" href="#import-local-emails" title="Permanent link">#</a></h2>
 <pre><code>Usage: pilerimport [options]
 
@@ -476,17 +526,24 @@ Options:
         Process an mbox file (extracts all messages)
   -progress
         Show progress bar (suppresses info logs)
+  -pst string
+        Process a PST file (Outlook, Enterprise Vault export): its mail, not appointments, contacts...
   -remove
         Remove file after successful processing
+  -skip-deleted
+        With -pst: don't archive the items of Deleted Items
   -tenantid string
         Tenant ID (overrides TENANT_ID env var)
   -workers int
         Number of parallel workers (default 4)
+  -x500-map string
+        With -pst: CSV file of legacyExchangeDN,mail to replace Exchange X.500 addresses with SMTP addresses
 
 Examples:
   pilerimport -eml message.eml -tenantid fictive
   pilerimport -dir /path/to/emails -tenantid fictive -workers 8
   pilerimport -mbox archive.mbox -tenantid fictive -workers 4 -progress
+  pilerimport -pst mailbox.pst -x500-map dn-to-mail.csv -workers 4 -progress
   pilerimport -dir /path/to/emails -remove -workers 4 -progress
   pilerimport -dir /path/to/emails -add-recipients -dry-run
 </code></pre>
@@ -641,8 +698,81 @@ drwxr-xr-x 2 piler piler 4096 May 30 09:29 'test folder 1'/
 <pre><code>pilerimport -dir emails -remove
 </code></pre>
 <h2 id="import-pst-files">Import PST files<a class="headerlink" href="#import-pst-files" title="Permanent link">#</a></h2>
-<p>PST files are not supported directly. First you need to extract the individual emails as RFC-2822 formatted eml files, and then pilerimport can process them.
-Probably it's best done on a Windows computer.</p>
+<p>From 2.2.5 pilerimport imports PST files (Outlook data files) directly, no
+conversion step is needed. This works with PST files exported from classic
+Outlook, Exchange or Microsoft 365, and with Enterprise Vault exports, in
+both the current (Unicode) and the old (ANSI, Outlook 97-2002) format.</p>
+<pre><code>pilerimport -pst mailbox.pst -workers 4 -progress
+</code></pre>
+<p>Installed setuid, pilerimport reads the PST as the piler user, so make it
+readable for piler first:</p>
+<pre><code>chown piler:piler mailbox.pst
+</code></pre>
+<h3 id="what-is-archived">What is archived<a class="headerlink" href="#what-is-archived" title="Permanent link">#</a></h3>
+<ul>
+<li>All mail, including Sent Items, Drafts and meeting requests</li>
+<li>Received mail with its original headers</li>
+<li>Sent mail and drafts with headers built from the PST: the sender and the
+  recipients with their SMTP addresses, Bcc recipients included, so the
+  sender's copy of a Bcc'd email can be found by every recipient</li>
+<li>The plain text and HTML bodies (rich text bodies are converted),
+  attachments with their file names and types, inline images, and
+  messages forwarded as attachments</li>
+<li>S/MIME signed and encrypted emails as they were sent, so signatures stay
+  verifiable</li>
+</ul>
+<p>Appointments, contacts, tasks, notes and Enterprise Vault shortcuts are not
+email: they are counted and skipped. With <code>-skip-deleted</code> the items of the
+Deleted Items folder are skipped too.</p>
+<p>Importing the same PST file again archives nothing new, its emails are
+duplicates. <code>-remove</code> doesn't work with <code>-pst</code>: a PST has items that are not
+archived, so pilerimport never removes it.</p>
+<h3 id="exchange-addresses">Exchange addresses<a class="headerlink" href="#exchange-addresses" title="Permanent link">#</a></h3>
+<p>Email sent within an Exchange organization may have no SMTP address in the
+PST for internal senders and recipients, only an Exchange address like
+<code>/O=EXAMPLE/OU=EXCHANGE ADMINISTRATIVE GROUP (FYDIBOHF23SPDLT)/CN=RECIPIENTS/CN=...</code>.
+A regular user doesn't see those emails, since their address is not in
+them. Export the Exchange addresses of the users with their SMTP addresses
+from Active Directory:</p>
+<pre><code class="language-powershell">Get-ADUser -Filter * -Properties legacyExchangeDN,mail |
+  Select-Object legacyExchangeDN,mail | Export-Csv dn-to-mail.csv
+</code></pre>
+<p>and give the file to pilerimport:</p>
+<pre><code>pilerimport -pst mailbox.pst -x500-map dn-to-mail.csv -workers 4 -progress
+</code></pre>
+<p>pilerimport replaces the Exchange addresses with the SMTP addresses before
+archiving the emails. If users had other Exchange addresses earlier (the
+<code>X500:</code> entries of their <code>proxyAddresses</code>), add them to the file as further
+rows with the same SMTP address. A file that can't be read stops pilerimport
+before it archives anything.</p>
+<h3 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">#</a></h3>
+<p>At the end pilerimport prints what it did with the items of the PST:</p>
+<pre><code>=== Import Summary ===
+Tenant ID:       piler
+Total files:     2178
+Successful:      2165
+Duplicates:      13
+Excluded:        0
+Failed:          0
+PST items:       2271
+Not mail:        93 (appointments, contacts, tasks...; skipped)
+EV shortcuts:    0 (skipped)
+X.500 replaced:  412 addresses
+Database:        piler
+Manticore Index: piler
+</code></pre>
+<p>Attachments that can't be archived (attachments by reference, OLE objects)
+are counted and logged; their email is archived without them.</p>
+<h3 id="converting-pst-files-to-eml">Converting PST files to EML<a class="headerlink" href="#converting-pst-files-to-eml" title="Permanent link">#</a></h3>
+<p>To convert PST files to EML files without importing them, for example to
+check them first or to import them elsewhere, use the
+<a href="https://github.com/jsuto/go-pst/releases">pst2eml</a> tool. It's the converter
+pilerimport uses, as a standalone program for Linux, Windows and macOS:</p>
+<pre><code>pst2eml -o out/ mailbox.pst
+pilerimport -dir out/
+</code></pre>
+<p>Without the <code>-x500-map</code> step, this suits PST files of received mail and
+of organizations without Exchange.</p>
 
 
 
