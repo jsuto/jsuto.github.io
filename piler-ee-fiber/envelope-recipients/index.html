@@ -607,7 +607,7 @@
 
 
 <h1 id="archiving-envelope-bcc-recipients-and-the-envelope-sender">Archiving envelope (Bcc) recipients and the envelope sender<a class="headerlink" href="#archiving-envelope-bcc-recipients-and-the-envelope-sender" title="Permanent link">#</a></h1>
-<p>This documentation applies to Piler enterprise edition releases 2.2.3+ (envelope files in pilerimport: 2.2.4+)</p>
+<p>This documentation applies to Piler enterprise edition releases 2.2.4+</p>
 <p>Revision #2</p>
 <p>Publication date: 2026-OCT-16</p>
 <p>A Bcc recipient is not in the <code>To</code> or <code>Cc</code> header of an email, only in the SMTP envelope. An archive that reads the recipients from the message alone doesn't know about them, so a Bcc recipient can't find the email in the archive.</p>
@@ -652,7 +652,7 @@ rcpt ben@customer1.com
 <p>Do the steps in this order. If the mail server starts sending encoded addresses before <code>piler-smtp</code> accepts them, they are rejected with <code>451 invalid tenant</code> until it does.</p>
 <h3 id="1-upgrade-piler-smtp-piler-and-run-the-migrations">1. Upgrade piler-smtp, piler and run the migrations<a class="headerlink" href="#1-upgrade-piler-smtp-piler-and-run-the-migrations" title="Permanent link">#</a></h3>
 <p>You need piler-smtp 1.1.4 to support the envelope sidecar.</p>
-<p>Envelope files need a piler daemon that knows about them, support added in version 2.2.3. After upgrading, run the SQL migrations as described in <a href="../upgrade/">the upgrade guide</a>. Migration <code>027_message_identity.sql</code> creates a new, empty table; it's instant on an archive of any size.</p>
+<p>Envelope files need a piler daemon that knows about them, support added in version 2.2.4. After upgrading, run the SQL migrations as described in <a href="../upgrade/">the upgrade guide</a>. Migration <code>027_message_identity.sql</code> creates a new, empty table; it's instant on an archive of any size.</p>
 <h3 id="2-restrict-access-to-piler-smtp">2. Restrict access to piler-smtp<a class="headerlink" href="#2-restrict-access-to-piler-smtp" title="Permanent link">#</a></h3>
 <p><strong>This is a requirement, not a recommendation.</strong> By default <code>piler-smtp</code> accepts email from anyone. With envelope files enabled it must only be reachable by your own mail servers (or those of your provider, e.g. Google Workspace or Microsoft 365).</p>
 <p>Whoever can talk to <code>piler-smtp</code> directly chooses both the email and its envelope recipients. Piler has no way to tell if such recipients are real, it trusts what the mail server says.</p>
@@ -850,14 +850,15 @@ the duplicate differs from the archived message, its envelope recipients are not
 <p>That is not always what you want. Some mail gateways change an email on its way: they rewrite the links in it, or add a disclaimer. If one copy of an email is archived before such a change and another one after it, the two have the same <code>Message-ID</code> and different bodies. The second one is dropped, and with it the recipients that only came with it, for example the members of a distribution list that is expanded late.</p>
 <p>With <code>ARCHIVE_MESSAGE_VARIANTS=true</code> piler identifies an email by its <code>Message-ID</code> <strong>and its content</strong>. An email that has the <code>Message-ID</code> of an archived one but different content is archived as an email of its own, with its own recipients.</p>
 <h3 id="enabling-it">Enabling it<a class="headerlink" href="#enabling-it" title="Permanent link">#</a></h3>
-<p><code>ARCHIVE_MESSAGE_VARIANTS</code> is an environment variable of the <strong>piler daemon</strong>. The default is <code>false</code>.</p>
+<p><code>ARCHIVE_MESSAGE_VARIANTS</code> is an environment variable of the <strong>piler daemon</strong> and of <strong>pilerimport</strong>. The default is <code>false</code>.</p>
 <pre><code>ARCHIVE_MESSAGE_VARIANTS=true
 </code></pre>
 <ul>
-<li><strong>Only the piler daemon reads it.</strong> It applies to the emails that arrive through <code>piler-smtp</code>. The command line tools ignore it: <code>pilerimport</code> always treats an email with an archived <code>Message-ID</code> as a duplicate, so an import or a re-import never creates a second entry.</li>
+<li><strong>The piler daemon and pilerimport read it.</strong> The daemon applies it to the emails that arrive through <code>piler-smtp</code>, pilerimport to the imported EML files. Without it, <code>pilerimport</code> treats an email with an archived <code>Message-ID</code> as a duplicate, like the daemon.</li>
+<li><strong>Re-imports:</strong> with the setting, an EML that differs from the archived email (see <a href="#1-the-copy-really-is-the-same-email">above</a>) is archived as an email of its own, also when it's a new export of the same email from another system, e.g. with other line endings or header order. Emails archived before the upgrade to 2.2.4 are never doubled, see below. Import a new export over an archive that already has the emails without the setting, or with the files you imported the first time.</li>
 <li><strong>In a multi-node setup</strong> set it for the piler daemon of every worker node.</li>
 <li><strong>It's one setting for the daemon</strong>, not for a tenant: it applies to all the tenants the daemon processes.</li>
-<li>It needs the database migrations of 2.2.3 (<code>027_message_identity.sql</code>). Without them the setting has no effect, and the piler daemon logs a warning.</li>
+<li>It needs the database migrations of 2.2.4 (<code>027_message_identity.sql</code>). Without them the setting has no effect, and the piler daemon logs a warning.</li>
 </ul>
 <h3 id="what-happens-to-an-email-with-an-archived-message-id">What happens to an email with an archived Message-ID<a class="headerlink" href="#what-happens-to-an-email-with-an-archived-message-id" title="Permanent link">#</a></h3>
 <table>
@@ -877,7 +878,7 @@ the duplicate differs from the archived message, its envelope recipients are not
 <td>Archived as an email of its own</td>
 </tr>
 <tr>
-<td>has different content, and the archived one is from before the upgrade to 2.2.3</td>
+<td>has different content, and the archived one is from before the upgrade to 2.2.4</td>
 <td>A duplicate, dropped. See below</td>
 </tr>
 <tr>
@@ -892,7 +893,7 @@ the duplicate differs from the archived message, its envelope recipients are not
 </table>
 <p>There is no limit on the number of emails with the same <code>Message-ID</code>.</p>
 <h3 id="emails-archived-before-the-upgrade">Emails archived before the upgrade<a class="headerlink" href="#emails-archived-before-the-upgrade" title="Permanent link">#</a></h3>
-<p>An email archived before the upgrade to 2.2.3 <strong>never gets a second entry</strong>. Piler has no record of the content of such an email to compare with, so it can't tell if a later one with its <code>Message-ID</code> is the same email with other headers or a different one. It treats it as a duplicate, as before.</p>
+<p>An email archived before the upgrade to 2.2.4 <strong>never gets a second entry</strong>. Piler has no record of the content of such an email to compare with, so it can't tell if a later one with its <code>Message-ID</code> is the same email with other headers or a different one. It treats it as a duplicate, as before.</p>
 <p>This matters for migrations: sending or importing emails again over an archive that already has them can't double them.</p>
 <h3 id="what-to-expect_1">What to expect<a class="headerlink" href="#what-to-expect_1" title="Permanent link">#</a></h3>
 <ul>
@@ -947,7 +948,7 @@ rcpt ben@customer1.com
 <pre><code>pilerimport -dir emails -tenantid customer1 -workers 8
 </code></pre>
 <p>The recipients of the envelope file are archived like the <code>To</code> and <code>Cc</code> recipients. <code>-dir</code> skips the <code>.env</code> files, and <code>-remove</code> removes them together with their EML. An EML without an envelope file is imported with its header recipients, as before.</p>
-<p><strong>Upgrading from 2.2.3 or earlier:</strong> don't put <code>.env</code> files in an import directory before upgrading <code>pilerimport</code>: earlier versions import them as emails.</p>
+<p><strong>Upgrading from 2.2.2 or earlier:</strong> don't put <code>.env</code> files in an import directory before upgrading <code>pilerimport</code>: earlier versions import them as emails.</p>
 <h3 id="adding-the-recipients-to-mail-imported-earlier">Adding the recipients to mail imported earlier<a class="headerlink" href="#adding-the-recipients-to-mail-imported-earlier" title="Permanent link">#</a></h3>
 <p>If the mail is already imported without its Bcc recipients, importing it again doesn't help: the emails are duplicates, and the archived emails were archived long before the <a href="#2-the-copy-arrives-in-time">merge window</a>. Use <code>-add-recipients</code> instead: it imports and stores nothing, it only adds the recipients of the envelope files to the archived emails.</p>
 <p>First see what would happen, nothing is changed:</p>

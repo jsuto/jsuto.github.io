@@ -1,0 +1,530 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://jsuto.github.io/piler-ee-v2/hosting/onboarding/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>Hosting: onboarding a tenant - piler enterprise 2.x documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#hosting-onboarding-a-tenant" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="piler enterprise 2.x documentation" class="md-header__button md-logo" aria-label="piler enterprise 2.x documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            piler enterprise 2.x documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Hosting: onboarding a tenant
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="piler enterprise 2.x documentation" class="md-nav__button md-logo" aria-label="piler enterprise 2.x documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    piler enterprise 2.x documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://mailpiler.com/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Site
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#before-you-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Before you start
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-hostname-and-certificate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Hostname and certificate
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Storage
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-create-the-tenant" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Create the tenant
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-look-and-login" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Look and login
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-email-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Email flow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-history" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. History
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-go-live" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Go live
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="hosting-onboarding-a-tenant">Hosting: onboarding a tenant<a class="headerlink" href="#hosting-onboarding-a-tenant" title="Permanent link">#</a></h1>
+<p>This documentation applies to Piler enterprise edition 2.2.5+</p>
+<p>Revision #1</p>
+<p>Publication date: 2026-OCT-25</p>
+<p>A checklist for a new customer, from DNS to the first archived email. The
+commands follow the
+<a href="https://github.com/jsuto/piler-examples/tree/master/examples/v2.2/multinode-multitenant">multi-node example</a>;
+on a single node, the steps marked <em>multi-node</em> don't apply.</p>
+<h2 id="before-you-start">Before you start<a class="headerlink" href="#before-you-start" title="Permanent link">#</a></h2>
+<p>Agree with the customer:</p>
+<ul>
+<li>the tenant id: <strong>3-64 lower-case letters, digits and <code>_</code></strong>, e.g.
+  <code>customer1</code> (it becomes a database, an index and a bucket name). With
+  S3 storage (also for Teams or Slack) no <code>_</code>: the bucket is
+  <code>S3_BUCKET_PREFIX</code> + tenant id (Teams: <code>TEAMS_S3_BUCKET_PREFIX</code> +
+  <code>teams-</code> + tenant id), at most 63 characters, and bucket names can't
+  have <code>_</code></li>
+<li>the email domains to archive</li>
+<li>the hostname of their archive, e.g. <code>customer1.archive.example.com</code></li>
+<li>the retention period</li>
+<li>how the users log in: local accounts, LDAP / Active Directory, Entra ID,
+  Google Workspace, IMAP</li>
+<li>how the email gets to Piler: journaling from Microsoft 365, or a copy of
+  every email from their mail server</li>
+<li>the historical email to import, if any</li>
+</ul>
+<h2 id="1-hostname-and-certificate">1. Hostname and certificate<a class="headerlink" href="#1-hostname-and-certificate" title="Permanent link">#</a></h2>
+<ul>
+<li>Point the tenant's hostname at the master (the reverse proxy in front
+  of piler-ui).</li>
+<li>Get a certificate for it. In the example, add a router for the
+  hostname to Traefik's <code>traefik-dynamic.yaml</code> (it gets its own Let's
+  Encrypt certificate), or use a wildcard certificate for all tenants.</li>
+</ul>
+<h2 id="2-storage">2. Storage<a class="headerlink" href="#2-storage" title="Permanent link">#</a></h2>
+<ul>
+<li>With S3 storage, <strong>create the bucket</strong> <code>S3_BUCKET_PREFIX</code> + tenant id,
+  e.g. <code>customer1</code>. Piler doesn't create buckets: until the bucket
+  exists, the tenant's emails can't be uploaded (see
+  <a href="../../s3-storage/">S3 storage</a>).</li>
+</ul>
+<h2 id="3-create-the-tenant">3. Create the tenant<a class="headerlink" href="#3-create-the-tenant" title="Permanent link">#</a></h2>
+<p>On the master, add the tenant in <strong>Admin &gt; Tenant &gt; Tenant</strong>: tenant id,
+domain, hostname (<code>gui_url</code>), archive address, retention, the tenant
+admin's password. Or with the REST API:</p>
+<pre><code>curl -X POST -H &quot;Authorization: Bearer $TOKEN&quot; -H &quot;Content-Type: application/json&quot; \
+   -d '{&quot;tenant_id&quot;:&quot;customer1&quot;, &quot;domain&quot;:&quot;customer1.com&quot;,
+        &quot;gui_url&quot;:&quot;customer1.archive.example.com&quot;,
+        &quot;archive_address&quot;:&quot;customer1@worker0.example.com&quot;,
+        &quot;admin_password&quot;:&quot;&lt;password&gt;&quot;, &quot;retention_days&quot;:3650,
+        &quot;enable_purge&quot;:1, &quot;settings_json&quot;:&quot;{}&quot;}' \
+   https://archive.example.com/api/v1/admin/tenant/add
+</code></pre>
+<ul>
+<li><em>Multi-node</em>: add the same tenant (same id, domain and hostname) on
+  <strong>every worker</strong> too, through the worker's piler-ui on the private
+  network (<code>http://worker0.example.internal:3000/api/v1/admin/tenant/add</code>).</li>
+<li>The databases, indexes and directories are created by cron within 15
+  minutes on each node, or at once with
+  <code>docker compose exec piler su piler -c /usr/libexec/piler/create-tenant.sh</code>.</li>
+<li>Add the customer's other domains under <strong>Admin &gt; Domain</strong>, mapped to
+  the tenant's domain.</li>
+</ul>
+<h2 id="4-look-and-login">4. Look and login<a class="headerlink" href="#4-look-and-login" title="Permanent link">#</a></h2>
+<ul>
+<li>Optional: the tenant's logo and colors, <strong>Admin &gt; Branding</strong>.</li>
+<li>Set up the login: <a href="../../ldap/">LDAP</a>, <a href="../../azure-ad-auth/">Entra ID</a>,
+  <a href="../../google-workspace-auth/">Google Workspace</a>, or local accounts.</li>
+<li>Create the auditors. The tenant's <code>admin@local</code> administers the tenant
+  but can't search email; auditors search everything, users their own
+  email (see <a href="../../roles/">roles</a> and <a href="../../permissions/">permissions</a>).</li>
+</ul>
+<h2 id="5-email-flow">5. Email flow<a class="headerlink" href="#5-email-flow" title="Permanent link">#</a></h2>
+<ul>
+<li>The archive address is <code>&lt;tenant id&gt;@&lt;worker hostname&gt;</code>: piler-smtp on a
+  worker accepts only recipients at the hostname of its license. With
+  several workers, spread the email among them (several MX records or a
+  relay), each to its own worker's address.</li>
+<li>Set up the journaling: <a href="../../m365-journaling/">Microsoft 365</a>, or a copy
+  of every email from their <a href="../../smtp-servers/">mail server</a>.
+  <a href="../../envelope-recipients/">Envelope recipients</a> keep the Bcc
+  recipients.</li>
+<li>Allow the customer's mail servers to reach port 25 of the workers, and
+  nobody else (firewall or <code>smtp_access_list</code>).</li>
+<li>Send a test email, and find it as an auditor.</li>
+</ul>
+<h2 id="6-history">6. History<a class="headerlink" href="#6-history" title="Permanent link">#</a></h2>
+<ul>
+<li>Import the earlier email: PST, EML, mbox or an IMAP mailbox, see
+  <a href="../../import-emails/">import</a> and the
+  <a href="../../migration/">migration guides</a>. Run the import on a worker.</li>
+</ul>
+<h2 id="7-go-live">7. Go live<a class="headerlink" href="#7-go-live" title="Permanent link">#</a></h2>
+<ul>
+<li>Check the tenant in <a href="../monitoring/">monitoring</a>: its received count
+  grows, and the "journaling stopped" alert covers it.</li>
+<li>Hand over: the archive's address, the tenant admin's login, the
+  <a href="../../user-guide/">user guide</a>.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+    
+  </body>
+</html>
