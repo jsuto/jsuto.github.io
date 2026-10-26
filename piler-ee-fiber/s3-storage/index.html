@@ -279,6 +279,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#buckets-and-permissions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Buckets and permissions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#enable-the-the-piler-s3-service" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -348,6 +359,49 @@ S3_WORKERS is the number of parallel uploads of s3uploader.</p>
 uploads to that bucket, and piler-ui, purge, reindex and pilerexport read
 from it. <code>S3_PREFIX</code> (a key prefix inside the bucket) is not supported,
 s3uploader refuses to start with it.</p>
+<h2 id="buckets-and-permissions">Buckets and permissions<a class="headerlink" href="#buckets-and-permissions" title="Permanent link">#</a></h2>
+<p>Piler doesn't create buckets. Create the bucket of a tenant
+(<code>S3_BUCKET_PREFIX</code> + tenant id) before the tenant receives email, with
+the policy, encryption, versioning or object lock you need.</p>
+<p>s3uploader doesn't check the bucket before uploading; the upload of a file
+to a missing bucket fails, and the file goes to the error directory
+(<code>/var/piler/error</code>) at once. The log names the bucket ("the bucket does
+not exist, create it"); access denied and invalid keys are logged the same
+way. Once the problem is fixed, move the files back to be uploaded:</p>
+<pre><code>mv /var/piler/error/&lt;tenant id&gt;-* /var/piler/s3/0/
+</code></pre>
+<p>Until a file is uploaded, its email is found by the search, but it can't be
+opened: piler-ui reads the emails from S3 only. A file normally stays in
+<code>/var/piler/s3</code> for seconds (<code>S3_SCAN_INTERVAL</code>, 10 seconds by default),
+a few minutes at most while s3uploader retries a network or S3 server
+error. Older files mean that s3uploader isn't running or can't upload.</p>
+<p>The S3 permissions the piler tools need on the tenant buckets:</p>
+<table>
+<thead>
+<tr>
+<th>Permission</th>
+<th>Used by</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>s3:PutObject</code></td>
+<td>s3uploader</td>
+</tr>
+<tr>
+<td><code>s3:GetObject</code></td>
+<td>piler-ui, pilerexport, reindex; s3uploader with <code>S3_SKIP_EXISTING_OBJECTS</code> or <code>S3_VERIFY_AFTER_UPLOAD</code></td>
+</tr>
+<tr>
+<td><code>s3:DeleteObject</code></td>
+<td>purge</td>
+</tr>
+<tr>
+<td><code>s3:ListBucket</code></td>
+<td><code>purge -orphans</code>, the S3 statistics; optional for <code>S3_SKIP_EXISTING_OBJECTS</code> (without it a missing object is a 403, and the file is uploaded)</td>
+</tr>
+</tbody>
+</table>
 <p>Before 2.2.5 the piler-s3 service read <code>/var/piler/.env-s3</code>. If you upgrade
 from an earlier version, see <a href="../upgrade/#s3-storage-settings-225">S3 storage settings</a>.</p>
 <p>S3 settings for oracle cloud:</p>

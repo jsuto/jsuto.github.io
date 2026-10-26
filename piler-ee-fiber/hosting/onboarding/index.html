@@ -409,9 +409,10 @@ on a single node, the steps marked <em>multi-node</em> don't apply.</p>
 <h2 id="2-storage">2. Storage<a class="headerlink" href="#2-storage" title="Permanent link">#</a></h2>
 <ul>
 <li>With S3 storage, <strong>create the bucket</strong> <code>S3_BUCKET_PREFIX</code> + tenant id,
-  e.g. <code>customer1</code>. Piler doesn't create buckets: until the bucket
-  exists, the tenant's emails can't be uploaded (see
-  <a href="../../s3-storage/">S3 storage</a>).</li>
+  e.g. <code>customer1</code>, before the tenant receives email. Piler doesn't create
+  buckets: the tenant's emails sent before go to the error directory, to
+  be moved back by hand (see
+  <a href="../../s3-storage/#buckets-and-permissions">buckets and permissions</a>).</li>
 </ul>
 <h2 id="3-create-the-tenant">3. Create the tenant<a class="headerlink" href="#3-create-the-tenant" title="Permanent link">#</a></h2>
 <p>On the master, add the tenant in <strong>Admin &gt; Tenant &gt; Tenant</strong>: tenant id,
