@@ -319,8 +319,8 @@
 
 <h1 id="hosting-monitoring">Hosting: monitoring<a class="headerlink" href="#hosting-monitoring" title="Permanent link">#</a></h1>
 <p>This documentation applies to Piler enterprise edition 2.2.6+</p>
-<p>Revision #1</p>
-<p>Publication date: 2026-OCT-25</p>
+<p>Revision #2</p>
+<p>Publication date: 2026-OCT-27</p>
 <p>piler-ui exposes its metrics in the Prometheus text format at <code>/metrics</code>,
 and a health check at <code>/healthz</code> (<code>503</code> when MariaDB, Manticore or Redis is
 down). Any monitoring system that reads Prometheus metrics can use them:
@@ -357,6 +357,21 @@ other address is refused.</p>
 <td>A customer's journaling rule or the path to piler-smtp broke: their email is missing from the archive. The most important alert for a hoster.</td>
 </tr>
 <tr>
+<td>No email is stuck</td>
+<td><code>piler_archive_messages_total{result="error"}</code>, <code>piler_error_dir_files</code></td>
+<td>An email the piler daemon can't archive goes to the error directory: it's not in the archive until it's processed again</td>
+</tr>
+<tr>
+<td>The daemon keeps up</td>
+<td><code>piler_queue_files</code>, the rate of <code>piler_archive_messages_total</code></td>
+<td>Emails waiting while the daemon processes none: it's stopped, or MariaDB or Manticore is down</td>
+</tr>
+<tr>
+<td>S3 uploads keep up</td>
+<td><code>piler_s3_uploads_total{result="error"}</code>, <code>piler_s3_queue_oldest_age_seconds</code></td>
+<td>Until the upload an email is only on the node's local disk, and the archive can't read it</td>
+</tr>
+<tr>
 <td>Archive and index size per tenant</td>
 <td><code>piler_tenant_stored_bytes</code>, <code>piler_index_disk_bytes</code></td>
 <td>Capacity planning and <a href="../billing/">billing</a></td>
@@ -383,6 +398,9 @@ other address is refused.</p>
 </tr>
 </tbody>
 </table>
+<p>The piler daemon and s3uploader write their metrics to the Redis of
+<code>REDIS_ADDR</code>, and piler-ui serves them with its own: on a multi-node
+deployment each worker's piler-ui has those of its node.</p>
 <p>A tenant with little email may be quiet for hours: set the "journaling
 stopped" window per tenant if needed.</p>
 <h2 id="logs">Logs<a class="headerlink" href="#logs" title="Permanent link">#</a></h2>

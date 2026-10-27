@@ -319,8 +319,8 @@
 
 <h1 id="hosting-offboarding-a-tenant">Hosting: offboarding a tenant<a class="headerlink" href="#hosting-offboarding-a-tenant" title="Permanent link">#</a></h1>
 <p>This documentation applies to Piler enterprise edition 2.2.5+</p>
-<p>Revision #1</p>
-<p>Publication date: 2026-OCT-25</p>
+<p>Revision #2</p>
+<p>Publication date: 2026-OCT-27</p>
 <p>When a customer leaves: hand over their archive, then delete their data.
 Agree on both in your contract, e.g. how long the archive is kept after the
 end of the contract, and in what format it's handed over.</p>
@@ -357,8 +357,13 @@ custody, if the customer needs one for a legal matter.</p>
 archive stays</strong> until you delete it. Do this once the export has been
 handed over and the agreed retention after the contract has passed. It
 can't be undone; your backups keep the data until they expire.</p>
-<p>On <strong>every node</strong> (the master and each worker, or the single node), in its
-<code>piler</code> container:</p>
+<p>The <a href="https://github.com/jsuto/piler-examples/tree/master/examples/tenant-purge">purge-tenant.sh</a>
+script does the steps below on a node, with safety checks: it refuses while
+a legal hold is open (also the master's, on a worker), or while the email
+still arrives, and without <code>--execute</code> it only shows what it would delete.
+Run it on every node, the workers first, then the master.</p>
+<p>By hand: on <strong>every node</strong> (the master and each worker, or the single
+node), in its <code>piler</code> container:</p>
 <pre><code>T=customer1
 
 # The tenant's database
