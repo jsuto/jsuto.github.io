@@ -291,6 +291,39 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#quotas-225" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quotas (2.2.5)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#metrics-through-a-reverse-proxy-225" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Metrics through a reverse proxy (2.2.5)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docker-the-error-directory-volume-225" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Docker: the error directory volume (2.2.5)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#add-the-participants-column-225" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -306,6 +339,17 @@
     <span class="md-ellipsis">
       
         S3 storage settings (2.2.5)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-billing-server-url-225" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The billing server URL (2.2.5)
       
     </span>
   </a>
@@ -336,8 +380,8 @@
 
 <h1 id="upgrading">Upgrading<a class="headerlink" href="#upgrading" title="Permanent link">#</a></h1>
 <p>This documentation applies to Piler enterprise edition 2.2.5</p>
-<p>Revision #4</p>
-<p>Publication date: 2026-OCT-21</p>
+<p>Revision #5</p>
+<p>Publication date: 2026-OCT-27</p>
 <h2 id="upgrade-steps">Upgrade steps<a class="headerlink" href="#upgrade-steps" title="Permanent link">#</a></h2>
 <h3 id="run-the-migrations">Run the migrations<a class="headerlink" href="#run-the-migrations" title="Permanent link">#</a></h3>
 <p>Run mysql migrations on each piler related mysql database:</p>
@@ -356,6 +400,61 @@ run the manticore migrations for all tenant ids as well, and replace "piler" in 
 command with the tenant id, eg.</p>
 <pre><code>sed 's/TENANTID/example001/g' ....
 </code></pre>
+<h3 id="quotas-225">Quotas (2.2.5)<a class="headerlink" href="#quotas-225" title="Permanent link">#</a></h3>
+<p>Multi-tenant deployments only.</p>
+<ul>
+<li><strong>The user count is the active users.</strong> <code>user_count</code>, the number the user
+  quota applies to, is now the addresses of the tenant's domains that
+  received email in the last 90 days; before, it was every address that
+  ever received email. It drops for tenants with former employees: check
+  the user quotas on the quota dashboard after the upgrade. Every address
+  is still listed as <code>archived_user_count</code>. See
+  <a href="../hosting/billing/">billing</a>.</li>
+<li><strong>Imported mail:</strong> from 2.2.5 pilerimport counts the date of each email.
+  The addresses of mail imported before the upgrade count with the time of
+  the import, so they stay active up to 90 days after the import.</li>
+<li><strong>Multi-node: upgrade the workers before the master.</strong> The master asks
+  the workers for their active and archived addresses. An older worker
+  sends only every address it has: the master counts all of them as
+  active, and logs a warning, until the worker is upgraded.</li>
+<li><strong>The usage is at most 15 minutes old.</strong> The quota dashboard and
+  <code>/api/v1/admin/quota/all</code> show the usage the master collects every
+  <code>QUOTA_SNAPSHOT_INTERVAL</code> (default 15 minutes), with the time it was
+  collected; a new tenant is "pending" until the next collection. Billing
+  scripts reading <code>quota/all</code> get the same numbers.</li>
+<li><strong>Several masters:</strong> set <code>LEADER_ELECTION_ENABLED=true</code> on all of them,
+  with the same Redis. Otherwise each collects the usage of every tenant
+  and sends the quota warning emails. See
+  <a href="../hosting/#several-master-nodes">several master nodes</a>.</li>
+<li>The quota warning emails are sent by the master only (the leader with
+  several masters), not by the workers.</li>
+<li><strong>Billing API tokens:</strong> run the SQL migrations on the master's <code>piler</code>
+  database (<code>028_api_token.sql</code> creates the <code>api_token</code> table). Billing
+  scripts that log in with the admin's password can switch to an API
+  token, see <a href="../hosting/billing/#the-billing-api">billing</a>.</li>
+</ul>
+<h3 id="metrics-through-a-reverse-proxy-225">Metrics through a reverse proxy (2.2.5)<a class="headerlink" href="#metrics-through-a-reverse-proxy-225" title="Permanent link">#</a></h3>
+<p><code>/metrics</code> and <code>/healthz</code> answer only the addresses in <code>ALLOWED_CIDRS</code>. A
+request through a reverse proxy now counts only if the proxy is in
+<code>TRUSTED_PROXIES</code>, and then the client is the address in its
+<code>PROXY_HEADER</code> (default <code>X-Forwarded-For</code>); a forwarded request from any
+other address is refused. A scraper connecting to piler-ui directly isn't
+affected. If yours goes through a proxy, add the proxy to
+<code>TRUSTED_PROXIES</code>, or better, scrape piler-ui directly. See
+<a href="../hosting/monitoring/">Hosting: monitoring</a>.</p>
+<h3 id="docker-the-error-directory-volume-225">Docker: the error directory volume (2.2.5)<a class="headerlink" href="#docker-the-error-directory-volume-225" title="Permanent link">#</a></h3>
+<p>The Docker examples mount the error directory (<code>/var/piler/error</code>, the
+emails piler couldn't archive and the files s3uploader couldn't upload) as
+the <code>piler_error</code> volume, in the piler and the s3uploader containers.
+Before, it was in the containers, and lost when they were recreated.</p>
+<p>If you take the new <code>docker-compose.yaml</code>, before the upgrade check that
+the directory is empty, move what's there back for processing, then
+create the volume, otherwise the containers don't start:</p>
+<pre><code>docker compose exec piler ls /var/piler/error
+docker compose exec s3uploader ls /var/piler/error
+docker volume create piler_error
+</code></pre>
+<p>On a multi-node deployment do it on every worker.</p>
 <h3 id="add-the-participants-column-225">Add the participants column (2.2.5)<a class="headerlink" href="#add-the-participants-column-225" title="Permanent link">#</a></h3>
 <p>Piler 2.2.5 adds the <code>participants</code> attribute to the index. piler, piler-ui,
 pilerimport and reindex check it at startup, and refuse to start until the
@@ -462,6 +561,13 @@ bucket exists already, that's fine.</p>
 <p>Open a few emails archived before the upgrade in piler-ui to check them.
 Delete the old objects only after that, and after your backups have the
 new bucket.</p>
+<h3 id="the-billing-server-url-225">The billing server URL (2.2.5)<a class="headerlink" href="#the-billing-server-url-225" title="Permanent link">#</a></h3>
+<p>From 2.2.5 there is one billing server, and the default <code>BILLING_SERVER_URL</code>
+is <code>https://billing.mailpiler.com</code>. If you set <code>BILLING_SERVER_URL</code> by hand
+to <code>https://billing1.mailpiler.com,https://billing2.mailpiler.com</code> (the old
+default), replace it with <code>https://billing.mailpiler.com</code>, or remove the
+setting. The old names still reach the same server, so nothing breaks
+meanwhile, but a failed report is then sent to the same server twice.</p>
 
 
 

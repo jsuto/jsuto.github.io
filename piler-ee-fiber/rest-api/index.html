@@ -261,6 +261,25 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#billing-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Billing API
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -278,8 +297,8 @@
 
 <h1 id="rest-api">REST API<a class="headerlink" href="#rest-api" title="Permanent link">#</a></h1>
 <p>This documentation applies to Piler enterprise edition 2.1.0+</p>
-<p>Revision #1</p>
-<p>Publication date: 2026-JAN-01</p>
+<p>Revision #2</p>
+<p>Publication date: 2026-OCT-28</p>
 <p>Piler enterprise support a comprehensive OpenAPI 3.0 with interactive Swagger UI.</p>
 <p>The full OpenAPI 3.0 spec, and the interactive docs is available at <code>/api/docs</code>, see the <a href="https://demo.mailpiler.com/api/docs/index.html">demo site</a> as an example.</p>
 <p>You may use curl to get an access token:</p>
@@ -288,6 +307,13 @@
     -d &quot;{\&quot;username\&quot;:\&quot;&lt;your username&gt;\&quot;, \&quot;password\&quot;:\&quot;&lt;your password&gt;\&quot;}&quot; \
     &quot;https://archive.example.com/auth/login&quot; | jq -r '.access_token' )&quot;
 </code></pre>
+<h2 id="billing-api">Billing API<a class="headerlink" href="#billing-api" title="Permanent link">#</a></h2>
+<p>From 2.2.5, billing scripts use a read-only API token instead of a login:
+<code>/api/v1/billing/quota</code> and <code>/api/v1/billing/quota/monthly/&lt;tenant id&gt;</code>,
+with <code>Authorization: Bearer plr_...</code>. The token is created on the master
+in <strong>Admin &gt; Tenant &gt; API tokens</strong> and works on these two endpoints only.
+See <a href="../hosting/billing/#the-billing-api">Hosting: usage reports for billing</a>
+for the curl examples.</p>
 
 
 

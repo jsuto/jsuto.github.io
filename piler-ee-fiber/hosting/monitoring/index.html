@@ -290,6 +290,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#quotas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quotas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#logs" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -318,8 +329,8 @@
 
 
 <h1 id="hosting-monitoring">Hosting: monitoring<a class="headerlink" href="#hosting-monitoring" title="Permanent link">#</a></h1>
-<p>This documentation applies to Piler enterprise edition 2.2.6+</p>
-<p>Revision #2</p>
+<p>This documentation applies to Piler enterprise edition 2.2.5+</p>
+<p>Revision #3</p>
 <p>Publication date: 2026-OCT-27</p>
 <p>piler-ui exposes its metrics in the Prometheus text format at <code>/metrics</code>,
 and a health check at <code>/healthz</code> (<code>503</code> when MariaDB, Manticore or Redis is
@@ -334,7 +345,7 @@ setup with Alloy and a dashboard.</p>
 <li>A single node: its piler-ui (port 3000).</li>
 <li>Multi-node: the master's piler-ui, and <strong>every worker's piler-ui</strong> on the
   private network. The per-tenant metrics come from the workers, where the
-  emails and indexes are.</li>
+  emails and indexes are, the quota metrics from the master.</li>
 </ul>
 <p><code>/metrics</code> and <code>/healthz</code> answer only the addresses in <code>ALLOWED_CIDRS</code>: add
 your scraper's. Scrape piler-ui directly: a request through a reverse proxy
@@ -377,6 +388,11 @@ other address is refused.</p>
 <td>Capacity planning and <a href="../billing/">billing</a></td>
 </tr>
 <tr>
+<td>Tenants within their quotas</td>
+<td><code>piler_tenant_quota_used / piler_tenant_quota_limit</code></td>
+<td>Over 1: raise the quota or bill the overage. See below</td>
+</tr>
+<tr>
 <td>piler-ui answers</td>
 <td><code>up</code> of the scrape</td>
 <td></td>
@@ -403,6 +419,42 @@ other address is refused.</p>
 deployment each worker's piler-ui has those of its node.</p>
 <p>A tenant with little email may be quiet for hours: set the "journaling
 stopped" window per tenant if needed.</p>
+<h2 id="quotas">Quotas<a class="headerlink" href="#quotas" title="Permanent link">#</a></h2>
+<p>The master's piler-ui (a single node's) has the quotas of every tenant from
+the <a href="../../fiber-ui-config-options/#quota_snapshot_interval">quota snapshot</a>,
+collected every 15 minutes:</p>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>piler_tenant_quota_used{tenant,quota}</code></td>
+<td>The usage: <code>quota="storage"</code> in bytes, <code>"emails"</code>, <code>"users"</code> (active users, see <a href="../billing/">billing</a>)</td>
+</tr>
+<tr>
+<td><code>piler_tenant_quota_limit{tenant,quota}</code></td>
+<td>The quota, only those set: an unlimited quota has no series</td>
+</tr>
+<tr>
+<td><code>piler_tenant_quota_age_seconds{tenant}</code></td>
+<td>Age of the tenant's usage</td>
+</tr>
+<tr>
+<td><code>piler_quota_snapshot_age_seconds</code></td>
+<td>Age of the snapshot</td>
+</tr>
+</tbody>
+</table>
+<p>When a worker doesn't answer the master, the usage of the others is too
+low, and a quota alert would resolve while the worker is down: the metrics
+keep the tenant's last usage collected from every worker, and its age
+grows. The example alerts: a tenant over a quota or over 90% of it for an
+hour, the snapshot or a tenant's usage over an hour old. With several
+masters each serves the same values.</p>
 <h2 id="logs">Logs<a class="headerlink" href="#logs" title="Permanent link">#</a></h2>
 <p>The containers log to stdout in JSON: collect them with your log system
 (the Grafana Cloud example sends them to Loki). piler logs every archived

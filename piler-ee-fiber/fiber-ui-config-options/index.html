@@ -1991,6 +1991,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#quota_snapshot_interval" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        QUOTA_SNAPSHOT_INTERVAL
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#metrics_aggregator_delay" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2961,7 +2972,7 @@ the storage, eg. view, download, attachments (requests per second).</p>
 <hr />
 <h3 id="leader_election_enabled">LEADER_ELECTION_ENABLED<a class="headerlink" href="#leader_election_enabled" title="Permanent link">#</a></h3>
 <p>Default value: <code>false</code></p>
-<p>Description: Enable Redis-based leader election, used to coordinate scheduled/background jobs in multi-master deployments so only one node runs them at a time.</p>
+<p>Description: Enable Redis-based leader election, used to coordinate scheduled/background jobs in multi-master deployments so only one node runs them at a time. Required with several master nodes (piler-ui behind a load balancer): without it each of them runs the billing report, the quota snapshot and warning emails and the Teams retention purge. All the masters must use the same Redis and <code>LEADER_REDIS_KEY</code>. See <a href="../hosting/#several-master-nodes">several master nodes</a>.</p>
 <hr />
 <h3 id="leader_redis_key">LEADER_REDIS_KEY<a class="headerlink" href="#leader_redis_key" title="Permanent link">#</a></h3>
 <p>Default value: <code>piler:leader</code></p>
@@ -3389,8 +3400,8 @@ and reads the setting from <code>/var/piler/.env</code> too, see
 <p>Description: Defines CIDR blocks allowed to access the <code>/metrics</code> and <code>/healthz</code> endpoints.</p>
 <hr />
 <h3 id="billing_server_url">BILLING_SERVER_URL<a class="headerlink" href="#billing_server_url" title="Permanent link">#</a></h3>
-<p>Default value: <code>https://billing1.mailpiler.com,https://billing2.mailpiler.com</code></p>
-<p>Description: Comma-separated list of billing/telemetry server URLs that encrypted usage reports are POSTed to.</p>
+<p>Default value: <code>https://billing.mailpiler.com</code></p>
+<p>Description: Comma-separated list of billing/telemetry server URLs that encrypted usage reports are POSTed to. Before 2.2.5 the default was <code>https://billing1.mailpiler.com,https://billing2.mailpiler.com</code>; both names now reach billing.mailpiler.com.</p>
 <hr />
 <h3 id="aftter_start_report_delay">AFTTER_START_REPORT_DELAY<a class="headerlink" href="#aftter_start_report_delay" title="Permanent link">#</a></h3>
 <p>Default value: <code>600s</code></p>
@@ -3406,7 +3417,11 @@ and reads the setting from <code>/var/piler/.env</code> too, see
 <hr />
 <h3 id="quota_notification_interval">QUOTA_NOTIFICATION_INTERVAL<a class="headerlink" href="#quota_notification_interval" title="Permanent link">#</a></h3>
 <p>Default value: <code>86400s</code></p>
-<p>Description: Interval at which the quota-notification background worker checks and sends storage/usage quota notifications.</p>
+<p>Description: Interval at which the quota-notification background worker checks and sends storage/usage quota notifications. From 2.2.5 it runs on the master only (the leader with several masters), with the usage of the quota snapshot (see <code>QUOTA_SNAPSHOT_INTERVAL</code>). When a worker didn't answer, the email says the usage is incomplete and may be higher.</p>
+<hr />
+<h3 id="quota_snapshot_interval">QUOTA_SNAPSHOT_INTERVAL<a class="headerlink" href="#quota_snapshot_interval" title="Permanent link">#</a></h3>
+<p>Default value: <code>900s</code></p>
+<p>Description: Multi-tenant mode, from 2.2.5: how often piler-ui collects the quota usage of every tenant for the quota dashboard, the quota banner of the admin pages and <code>/api/v1/admin/quota/all</code>. On a multi-node deployment it runs on the master and asks every worker, so they show usage at most this old instead of asking the workers on every page load. Minimum <code>60s</code>.</p>
 <hr />
 <h3 id="metrics_aggregator_delay">METRICS_AGGREGATOR_DELAY<a class="headerlink" href="#metrics_aggregator_delay" title="Permanent link">#</a></h3>
 <p>Default value: <code>60s</code></p>

@@ -347,8 +347,8 @@
 
 <h1 id="large-deployments-architecture-and-high-availability">Large deployments: architecture and high availability<a class="headerlink" href="#large-deployments-architecture-and-high-availability" title="Permanent link">#</a></h1>
 <p>This documentation applies to Piler enterprise edition 2.2.4+</p>
-<p>Revision #1</p>
-<p>Publication date: 2026-OCT-18</p>
+<p>Revision #2</p>
+<p>Publication date: 2026-OCT-27</p>
 <p>The recommended architecture of a site in a large, multi-node Piler
 deployment: tens of thousands of users or more, usually many tenants. For a
 second site, see <a href="../disaster-recovery/">disaster recovery</a>.</p>
@@ -379,7 +379,9 @@ second site, see <a href="../disaster-recovery/">disaster recovery</a>.</p>
 <li><strong>UI nodes</strong> run the web UI and the REST API. They query the workers for
   search results and messages, so users see one archive. Several UI nodes
   run behind a load balancer; background jobs run on one of them at a time,
-  chosen automatically (leader election).</li>
+  chosen by leader election, which must be turned on with several UI nodes
+  (<code>LEADER_ELECTION_ENABLED=true</code> on each of them, see
+  <a href="../../hosting/#several-master-nodes">several master nodes</a>).</li>
 <li><strong>MX relay</strong> (optional, needs no Piler license): spreads the emails from
   your mail server among the workers. Your mail server can also send to the
   workers directly, e.g. with several MX records.</li>

@@ -279,13 +279,41 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#the-rest-api" class="md-nav__link">
+  <a href="#the-billing-api" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The REST API
+        The billing API
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="The billing API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-a-token" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Create a token
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#call-the-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Call the API
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -319,26 +347,81 @@
 
 <h1 id="hosting-usage-reports-for-billing">Hosting: usage reports for billing<a class="headerlink" href="#hosting-usage-reports-for-billing" title="Permanent link">#</a></h1>
 <p>This documentation applies to Piler enterprise edition 2.2.5+</p>
-<p>Revision #1</p>
-<p>Publication date: 2026-OCT-25</p>
+<p>Revision #4</p>
+<p>Publication date: 2026-OCT-28</p>
 <p>Piler's license doesn't depend on your tenants' size, but your prices may:
 by the stored size, the number of mailboxes or the emails archived. Three
 ways to get the numbers per tenant.</p>
 <h2 id="the-quota-dashboard">The quota dashboard<a class="headerlink" href="#the-quota-dashboard" title="Permanent link">#</a></h2>
 <p>On the master, as the admin: <strong>Admin &gt; Tenant &gt; Quotas</strong> lists every tenant
-with its storage, emails and mailboxes, and <strong>Export CSV</strong> downloads them.
+with its storage, emails and active users, and <strong>Export CSV</strong> downloads them.
 The same page sets per-tenant quotas with warning emails. On a multi-node
 deployment the master collects the numbers from the workers.</p>
-<h2 id="the-rest-api">The REST API<a class="headerlink" href="#the-rest-api" title="Permanent link">#</a></h2>
-<p>For a script that feeds your billing system, the same data is at
-<code>GET /api/v1/admin/quota/all</code>, with a token of the master's admin:</p>
-<pre><code>TOKEN=$(curl -s -X POST -H &quot;Content-Type: application/json&quot; \
-   -d '{&quot;username&quot;:&quot;admin@local&quot;,&quot;password&quot;:&quot;&lt;password&gt;&quot;}' \
-   https://archive.example.com/auth/login | jq -r .access_token)
+<p>From 2.2.5 the numbers are collected every 15 minutes
+(<a href="../../fiber-ui-config-options/#quota_snapshot_interval">QUOTA_SNAPSHOT_INTERVAL</a>),
+and the page shows when. The admin pages show a banner when a tenant is at
+or above the warning threshold of a quota.</p>
+<h2 id="the-billing-api">The billing API<a class="headerlink" href="#the-billing-api" title="Permanent link">#</a></h2>
+<p>For a script that feeds your billing system. From 2.2.5 it uses an API
+token, not the admin's password: the script can read the quotas and
+nothing else, the admin can use TOTP, and changing the admin's password
+doesn't break billing.</p>
+<h3 id="create-a-token">Create a token<a class="headerlink" href="#create-a-token" title="Permanent link">#</a></h3>
+<p>On the master, as the admin: <strong>Admin &gt; Tenant &gt; API tokens &gt; New API
+token</strong>.</p>
+<ul>
+<li><strong>Name</strong>: what uses the token, e.g. <code>billing script</code>.</li>
+<li><strong>Expires in (days)</strong>: 0 for a token that doesn't expire.</li>
+<li><strong>Allowed addresses</strong> (optional): comma separated IP addresses or CIDRs
+  of the billing server, e.g. <code>192.0.2.10, 198.51.100.0/24</code>. Behind a
+  reverse proxy the client address is taken from the proxy's header only
+  if the proxy is in <code>TRUSTED_PROXIES</code>, as for <code>/metrics</code>.</li>
+</ul>
+<p>The token (<code>plr_...</code>) is shown once: copy it to the script's secret store.
+Piler keeps only its hash. The page lists the tokens with their last use;
+<strong>Revoke</strong> stops one at once. To rotate a token, create the new one,
+switch the script to it, then revoke the old one. Creating and revoking a
+token are in the audit log.</p>
+<p>The token is read-only: it works on the two endpoints below, with GET,
+and nowhere else, not even on the admin API. It's refused with the
+browser's session cookie.</p>
+<h3 id="call-the-api">Call the API<a class="headerlink" href="#call-the-api" title="Permanent link">#</a></h3>
+<p>All tenants, with their usage and quotas:</p>
+<pre><code>TOKEN='plr_...'
 
-curl -s -H &quot;Authorization: Bearer $TOKEN&quot; https://archive.example.com/api/v1/admin/quota/all \
-   | jq -r '.[] | [.tenant_id, .storage_used_gb, .email_count, .user_count] | @csv'
+curl -s -H &quot;Authorization: Bearer $TOKEN&quot; \
+   https://archive.example.com/api/v1/billing/quota
 </code></pre>
+<p>The same as a CSV, one line per tenant:</p>
+<pre><code>curl -s -H &quot;Authorization: Bearer $TOKEN&quot; \
+   https://archive.example.com/api/v1/billing/quota \
+   | jq -r '.[] | [.tenant_id, .storage_used_gb, .email_count, .user_count, .collected_at] | @csv'
+</code></pre>
+<pre><code>&quot;acme&quot;,45.67,123456,25,&quot;2026-10-28T08:00:00Z&quot;
+&quot;example&quot;,3.2,8800,4,&quot;2026-10-28T08:00:00Z&quot;
+</code></pre>
+<p>The emails received and the bytes stored per month of a tenant
+(<code>months</code>: default 12, at most 36):</p>
+<pre><code>curl -s -H &quot;Authorization: Bearer $TOKEN&quot; \
+   &quot;https://archive.example.com/api/v1/billing/quota/monthly/acme?months=3&quot;
+</code></pre>
+<pre><code>{
+  &quot;tenant_id&quot;: &quot;acme&quot;,
+  &quot;months&quot;: 3,
+  &quot;stats&quot;: [
+    {&quot;month&quot;: &quot;202610&quot;, &quot;emails_received&quot;: 4120, &quot;storage_bytes&quot;: 1342177280, &quot;storage_gb&quot;: 1.25},
+    {&quot;month&quot;: &quot;202609&quot;, &quot;emails_received&quot;: 3980, &quot;storage_bytes&quot;: 1288490188, &quot;storage_gb&quot;: 1.2},
+    {&quot;month&quot;: &quot;202608&quot;, &quot;emails_received&quot;: 3655, &quot;storage_bytes&quot;: 1181116006, &quot;storage_gb&quot;: 1.1}
+  ]
+}
+</code></pre>
+<p><code>/api/v1/billing/quota</code> returns the collected numbers, at most 15 minutes
+old (<a href="../../fiber-ui-config-options/#quota_snapshot_interval">QUOTA_SNAPSHOT_INTERVAL</a>),
+with <code>collected_at</code> per tenant: polling it is cheap, it doesn't ask the
+workers. Check <code>status</code> too: <code>pending</code> is a tenant added since the last
+collection, <code>unknown</code> one whose usage couldn't be collected, and
+<code>failed_workers</code> the number of workers that didn't answer, when the usage
+is a lower bound.</p>
 <table>
 <thead>
 <tr>
@@ -357,25 +440,68 @@ curl -s -H &quot;Authorization: Bearer $TOKEN&quot; https://archive.example.com/
 </tr>
 <tr>
 <td><code>user_count</code></td>
-<td>Mailboxes of the tenant's domains that received archived email</td>
+<td>Active users: addresses of the tenant's domains that received archived email in the last 90 days</td>
+</tr>
+<tr>
+<td><code>archived_user_count</code></td>
+<td>Every address of the tenant's domains that ever received archived email, former employees included (from 2.2.5)</td>
 </tr>
 </tbody>
 </table>
-<p><code>GET /api/v1/admin/quota/monthly/&lt;tenant id&gt;?months=12</code> gives the emails
-received and the bytes stored per month, for usage-based prices. See the
-<a href="../../rest-api/">REST API</a> for the details.</p>
+<p>If a call fails:</p>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>401</td>
+<td>No token, an unknown, revoked or expired one, or sent with a session cookie</td>
+</tr>
+<tr>
+<td>403</td>
+<td>Not from an allowed address</td>
+</tr>
+<tr>
+<td>405</td>
+<td>Not a GET request</td>
+</tr>
+<tr>
+<td>400</td>
+<td>Not a valid tenant id (monthly usage)</td>
+</tr>
+</tbody>
+</table>
+<p>The API tokens need the <code>api_token</code> table: run the SQL migrations on the
+master's <code>piler</code> database when upgrading to 2.2.5, see
+<a href="../../upgrade/#run-the-migrations">Run the migrations</a>.</p>
+<p>Before 2.2.5 the same data was at <code>/api/v1/admin/quota/all</code> and
+<code>/api/v1/admin/quota/monthly/&lt;tenant id&gt;</code>, with the token of the master
+admin's login. These still work for the admin, but a billing script
+should use an API token. See the <a href="../../rest-api/">REST API</a> for the
+details.</p>
 <p>Two things to know:</p>
 <ul>
 <li>For tenants with a retention period, <code>storage_used_gb</code> grows past what is
   stored now, as purged email is still counted. For the current size, use
   the metrics below.</li>
-<li>On a multi-node deployment, <code>user_count</code> adds up the workers' counts: a
-  mailbox that received email on several workers is counted on each. With
-  the email spread among the workers, count the mailboxes on one worker, or
-  from the customer's directory.</li>
+<li>From 2.2.5, <code>user_count</code> is the active users, with the user quota
+  applying to them; before, it was every address that ever received
+  email. An archive keeps the mail of the people who left: their mail is
+  in the storage, it's not a user. A mailbox counts as active as long as it
+  receives email, spam and newsletters included, so have the MTA reject
+  email to deleted mailboxes. pilerimport counts the date of each email,
+  not the time of the import, so importing a customer's old mail doesn't
+  make its former employees active (before 2.2.5 the import time counted).</li>
+<li>On a multi-node deployment, from 2.2.5 the master counts a mailbox that
+  received email on several workers once, and active if it's active on any
+  of them. Before, it added up the workers' counts.</li>
 </ul>
 <h2 id="metrics">Metrics<a class="headerlink" href="#metrics" title="Permanent link">#</a></h2>
-<p>From 2.2.6, piler-ui's <code>/metrics</code> has the current numbers per tenant, for
+<p>From 2.2.5, piler-ui's <code>/metrics</code> has the current numbers per tenant, for
 your monitoring system to keep a history of (see <a href="../monitoring/">monitoring</a>):</p>
 <table>
 <thead>

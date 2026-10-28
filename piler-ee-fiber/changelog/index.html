@@ -268,15 +268,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#225-2026-10-23" class="md-nav__link">
+  <a href="#225-unreleased" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2.2.5 - 2026-10-23
+        2.2.5 - unreleased
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="2.2.5 - 2026-10-23">
+    <nav class="md-nav" aria-label="2.2.5 - unreleased">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -899,7 +899,7 @@
 <p>piler-smtp and the Scanner add-on are versioned and released
 independently, see the <a href="../changelog-piler-smtp/">piler-smtp changelog</a> and
 the <a href="../changelog-scanner/">Scanner changelog</a>.</p>
-<h2 id="225-2026-10-23">2.2.5 - 2026-10-23<a class="headerlink" href="#225-2026-10-23" title="Permanent link">#</a></h2>
+<h2 id="225-unreleased">2.2.5 - unreleased<a class="headerlink" href="#225-unreleased" title="Permanent link">#</a></h2>
 <p><strong>Upgrade step:</strong> the index needs the new <code>participants</code> column, otherwise
 piler, piler-ui, pilerimport and reindex refuse to start. Docker
 deployments get it automatically; on a native install run the script once
@@ -908,6 +908,16 @@ after the package upgrade, see
 With S3 storage, also see
 <a href="../upgrade/#s3-storage-settings-225">S3 storage settings</a>: s3uploader reads
 <code>/var/piler/.env</code> instead of <code>/var/piler/.env-s3</code>.</p>
+<p><strong>Upgrade notes:</strong> the quota user count is now the active users (email in
+the last 90 days), so it drops for tenants with former employees: check
+the user quotas. On a multi-node deployment upgrade the workers before the
+master; with several masters set <code>LEADER_ELECTION_ENABLED=true</code>. A
+<code>/metrics</code> scrape through a reverse proxy needs the proxy in
+<code>TRUSTED_PROXIES</code>. The Docker examples keep the error directory in a
+<code>piler_error</code> volume, create it before the upgrade. See
+<a href="../upgrade/#quotas-225">Quotas</a>,
+<a href="../upgrade/#metrics-through-a-reverse-proxy-225">Metrics through a reverse proxy</a> and
+<a href="../upgrade/#docker-the-error-directory-volume-225">Docker: the error directory volume</a>.</p>
 <h3 id="security">Security<a class="headerlink" href="#security" title="Permanent link">#</a></h3>
 <ul>
 <li>A regular user's search could count, and list in the top results, the
@@ -922,6 +932,23 @@ With S3 storage, also see
   its settings from <code>/var/piler/.env</code> only.</li>
 <li>pilerimport (installed setuid) creates the temporary files of the <code>-mbox</code>
   and <code>-pst</code> imports with random names that no other user can take over.</li>
+<li>The admin of any tenant could use the tenant API (<code>/api/v1/admin/tenant/*</code>):
+  set the admin password of another tenant, enable its purge, or add a
+  tenant. It's only for the admin of the master tenant (<code>piler</code>) now, and
+  an update applies to the tenant it names in the database.</li>
+<li><code>/metrics</code> and <code>/healthz</code> took the client address from the request's own
+  <code>X-Forwarded-For</code> or <code>X-Real-IP</code> header, so anyone reaching piler-ui,
+  through the reverse proxy too, could read them. The header counts only
+  from a proxy in <code>TRUSTED_PROXIES</code> now (only <code>PROXY_HEADER</code>), and a
+  forwarded request from any other address is refused.</li>
+<li>The query and the filters of a category rule went into the Manticore
+  statement unescaped: a quote broke the rule, and an admin could inject a
+  statement. The id of a category update or removal must be a number.</li>
+<li>The messages of the admin pages are shown as text, not HTML.</li>
+<li>The quota API used the tenant id of the master admin's requests
+  (<code>/api/v1/admin/quota?tenant_id=</code>, <code>/quota/monthly/&lt;tenant id&gt;</code>)
+  unchecked in its database queries and in the requests to the workers.
+  An invalid tenant id is refused now.</li>
 </ul>
 <h3 id="added">Added<a class="headerlink" href="#added" title="Permanent link">#</a></h3>
 <ul>
@@ -940,6 +967,35 @@ With S3 storage, also see
   (default 24h, at least 4h) are left alone, and nothing is removed unless
   some of the stored files are found in the database, so a wrong database
   or server id can't empty the store.</li>
+<li><strong>Tenant metrics</strong> on <code>/metrics</code> (single node and the workers): per
+  tenant the received and purged messages, the original and stored size of
+  the archive, and the documents, disk and RAM size of its index. For
+  billing, capacity planning, and an alert when a tenant's email stops
+  arriving.</li>
+<li><strong>Archiving pipeline metrics</strong>: the piler daemon and s3uploader report
+  the archived, duplicate, discarded and failed emails, the queue and the
+  error directory, and the S3 uploads and their backlog, served by
+  piler-ui's <code>/metrics</code>.</li>
+<li><strong>Quota metrics</strong> on the master's <code>/metrics</code> (a single node's): the usage
+  and the quotas of every tenant, and their age. When a worker doesn't
+  answer, the last usage collected from every worker is kept, so an alert
+  doesn't resolve on usage that is too low.</li>
+<li>Alert rules with tests, a Prometheus and a Grafana Cloud setup and a
+  dashboard: see <a href="../hosting/monitoring/">Hosting: monitoring</a> and the
+  <a href="https://github.com/jsuto/piler-examples/tree/master/examples/monitoring">monitoring example</a>.</li>
+<li><strong>Quota banner</strong>: the admin of the master tenant sees the tenants at or
+  above a quota warning threshold on the admin pages, with a link to the
+  quota dashboard.</li>
+<li><strong>Billing API</strong>: read-only API tokens for billing scripts, created and
+  revoked by the admin of the master tenant (<strong>Admin &gt; Tenant &gt; API
+  tokens</strong>), optionally limited to some addresses and with an expiry.
+  They're accepted on <code>/api/v1/billing/quota</code> and
+  <code>/api/v1/billing/quota/monthly/&lt;tenant id&gt;</code> only, so a script no longer
+  needs the admin's password. See
+  <a href="../hosting/billing/#the-billing-api">Hosting: usage reports for billing</a>.</li>
+<li><code>archived_user_count</code> in the quota API, the dashboard, the CSV export and
+  the warning email: every address that ever received archived email,
+  former employees included.</li>
 </ul>
 <h3 id="changed">Changed<a class="headerlink" href="#changed" title="Permanent link">#</a></h3>
 <ul>
@@ -962,6 +1018,42 @@ With S3 storage, also see
 <li>pilerimport lists the reason of each failure in its summary.</li>
 <li>Built with Go 1.27.3; golang.org/x/crypto, net, sync, sys, term, text and
   tools updated.</li>
+<li>The quota <code>user_count</code> is the active users: the addresses of the
+  tenant's domains that received email in the last 90 days, the window of
+  the billing report. Before, it was every address that ever received
+  email. pilerimport counts the date of each email, not the time of the
+  import, so importing old mail doesn't make former employees active. See
+  <a href="../hosting/billing/">billing</a>.</li>
+<li>The quota dashboard and <code>/api/v1/admin/quota/all</code> show the usage
+  collected every <code>QUOTA_SNAPSHOT_INTERVAL</code> (default 15 minutes) by the
+  master, the leader with several masters, with the time it was collected.
+  On a multi-node deployment the dashboard took 20-30 seconds or more with
+  hundreds of tenants: it asked every worker for every tenant on each load.
+  The tenants and their quotas are read at once, a new tenant is "pending"
+  until the next collection.</li>
+<li>The quota warning emails are sent by the master only, from the collected
+  usage. Each quota has its own level, the subject names the worst one,
+  and the email says when a worker didn't answer and the usage may be
+  higher.</li>
+<li>A new tenant id must be 3-64 lower-case letters, digits or <code>_</code> (without
+  <code>_</code> with S3 storage, as it's part of the bucket names). An id with
+  upper-case letters was accepted, but the tenant was never provisioned.</li>
+<li>The usage report to the Piler billing server has the full count of
+  active users of each tenant (single-tenant: the installation), the same
+  count as the quota <code>user_count</code>. Before, it had only the top 20 domains
+  with 10 or more active users. Every tenant sends a report, also with no
+  active users. A tenant without domains (besides <code>local</code>) is not counted:
+  its report has no user count, and piler-ui logs a warning.</li>
+<li>One billing server: the default <code>BILLING_SERVER_URL</code> is
+  <code>https://billing.mailpiler.com</code> (it was billing1 and billing2). The old
+  names reach the same server, see <a href="../upgrade/">upgrade</a>.</li>
+<li>The usage report to the Piler billing server includes the license file,
+  so the billing server can verify where the report comes from. It holds
+  no personal data: the customer name, server id, features and expiry.</li>
+<li>s3uploader doesn't check the bucket before the upload, so the S3 policy
+  doesn't need <code>s3:ListBucket</code>. Throttling and S3 server errors are retried
+  (they went to the error directory); the log says what to fix for a
+  missing bucket, a denied access or invalid keys.</li>
 </ul>
 <h3 id="fixed">Fixed<a class="headerlink" href="#fixed" title="Permanent link">#</a></h3>
 <ul>
@@ -983,6 +1075,27 @@ With S3 storage, also see
 <li>piler-ui couldn't read any message when <code>PILER_STORE_DIR</code> had no trailing
   slash (e.g. <code>/srv/piler/store</code>), and its disk metric always read
   <code>/var/piler/store</code>.</li>
+<li>The quota storage usage didn't subtract the purged email, so it only
+  grew for tenants with a retention period.</li>
+<li>Multi-node: the quota user count added up the workers' counts, counting a
+  mailbox that received email on several workers more than once. The
+  master counts each address once now.</li>
+<li>Multi-node: a worker that failed to answer the quota request counted as
+  zero usage, and a tenant with no worker answering was listed as "ok".
+  The usage now says how many workers didn't answer, and such a tenant is
+  "unknown".</li>
+<li>The quota warning email said EXCEEDED on the storage line when only the
+  user quota was exceeded, and computed "exceeded by" from the storage (a
+  negative number of GB).</li>
+<li>Docker multi-node workers: the hourly sync of the master's tables failed
+  on every worker (the master's Manticore host was missing for cron), and
+  without it the retention, exclusion and legal hold rules weren't synced
+  either. A quote in a category stopped the sync for the remaining tenants.</li>
+<li>A category update with a query Manticore couldn't parse removed the
+  category's rule, while the response said it worked. The old rule stays
+  now, and the response is an error.</li>
+<li>The admin pages didn't show the server's error message when the title of
+  the error had a translation.</li>
 </ul>
 <h2 id="224-2026-10-17">2.2.4 - 2026-10-17<a class="headerlink" href="#224-2026-10-17" title="Permanent link">#</a></h2>
 <p>2.2.3 was not released; its changes are included here.</p>

@@ -287,6 +287,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="The reference deployment">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#several-master-nodes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Several master nodes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -319,8 +336,8 @@
 
 <h1 id="hosting-piler-for-your-customers">Hosting Piler for your customers<a class="headerlink" href="#hosting-piler-for-your-customers" title="Permanent link">#</a></h1>
 <p>This documentation applies to Piler enterprise edition 2.2.5+</p>
-<p>Revision #1</p>
-<p>Publication date: 2026-OCT-25</p>
+<p>Revision #2</p>
+<p>Publication date: 2026-OCT-27</p>
 <p>How a hosting provider or MSP runs Piler for many customers: one multi-tenant
 deployment, a tenant per customer, each with its own hostname, users and
 archive.</p>
@@ -364,6 +381,23 @@ archive and index the emails, stored in S3-compatible object storage:</p>
 <li>A smaller start: the <a href="https://github.com/jsuto/piler-examples/tree/master/examples/v2.2/single-node">single-node example</a>
   with a multi-tenant license, moving to more nodes as the tenants grow</li>
 </ul>
+<h3 id="several-master-nodes">Several master nodes<a class="headerlink" href="#several-master-nodes" title="Permanent link">#</a></h3>
+<p>Several master nodes (piler-ui) behind a load balancer need leader
+election. Set on every master:</p>
+<pre><code>LEADER_ELECTION_ENABLED=true
+</code></pre>
+<p>They must use the same Redis (they need it for the sessions anyway) and the
+same <code>LEADER_REDIS_KEY</code> (default <code>piler:leader</code>). One master, the leader,
+runs the background jobs: the billing report, the
+<a href="billing/">quota numbers</a> collected every 15 minutes (from 2.2.5), the quota warning
+emails, the Teams retention purge. If it stops, another master takes over
+within about 35 seconds (<code>LEADER_LOCK_TTL</code> 30s, <code>LEADER_RETRY_INTERVAL</code>
+5s).</p>
+<p>Without it, which is the default, every master runs every job: your
+tenants may get the quota warning email from each master, each master
+sends the billing report and asks every worker for the quota of every
+tenant, and the Teams purges run at the same time.</p>
+<p>With a single master, leave it off.</p>
 <h2 id="running-it">Running it<a class="headerlink" href="#running-it" title="Permanent link">#</a></h2>
 <ol>
 <li><a href="sizing/">Sizing</a>: storage per tenant, tenants per server</li>
