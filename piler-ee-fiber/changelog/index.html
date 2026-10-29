@@ -8,7 +8,7 @@
       
       
       
-        <link rel="canonical" href="https://jsuto.github.io/piler-ee-v2/changelog/">
+        <link rel="canonical" href="https://docs.mailpiler.com/piler-ee-fiber/changelog/">
       
       
       
@@ -899,6 +899,11 @@
 <p>piler-smtp and the Scanner add-on are versioned and released
 independently, see the <a href="../changelog-piler-smtp/">piler-smtp changelog</a> and
 the <a href="../changelog-scanner/">Scanner changelog</a>.</p>
+<p>To follow the releases in a feed reader, subscribe to
+<a href="https://docs.mailpiler.com/piler-ee-fiber/releases.xml">releases.xml</a> (every
+release of piler-ee, piler-smtp and the Scanner) or
+<a href="https://docs.mailpiler.com/piler-ee-fiber/security.xml">security.xml</a> (only
+the releases with security fixes, which have a Security section).</p>
 <h2 id="225-unreleased">2.2.5 - unreleased<a class="headerlink" href="#225-unreleased" title="Permanent link">#</a></h2>
 <p><strong>Upgrade step:</strong> the index needs the new <code>participants</code> column, otherwise
 piler, piler-ui, pilerimport and reindex refuse to start. Docker
@@ -949,9 +954,20 @@ master; with several masters set <code>LEADER_ELECTION_ENABLED=true</code>. A
   (<code>/api/v1/admin/quota?tenant_id=</code>, <code>/quota/monthly/&lt;tenant id&gt;</code>)
   unchecked in its database queries and in the requests to the workers.
   An invalid tenant id is refused now.</li>
+<li>A token login (<code>POST /auth/login</code>) stored the user's secrets with the
+  refresh session in the <code>refresh_session</code> table: the TOTP secret and
+  backup codes, the IMAP password, the access token and the CSRF token.
+  The session has only what a refresh needs now. Migration 029 and
+  piler-ui (daily, in every tenant database) remove the secrets from the
+  sessions stored earlier, and delete the expired sessions, which were
+  kept until the user's next login. See
+  <a href="../upgrade/#refresh-sessions-225">Refresh sessions</a>.</li>
 </ul>
 <h3 id="added">Added<a class="headerlink" href="#added" title="Permanent link">#</a></h3>
 <ul>
+<li><code>recreate-distributed-tables.sh</code> (multinode master): recreates the
+  distributed tables of the tenants after adding a worker, instead of the
+  manual procedure. It never drops a table that isn't distributed.</li>
 <li><code>pilerimport -pst</code>: imports PST files (Outlook, Exchange and Microsoft
   365 exports, Enterprise Vault exports) directly, without a conversion
   step. All mail is archived, sent mail with the SMTP addresses of its
@@ -986,6 +1002,10 @@ master; with several masters set <code>LEADER_ELECTION_ENABLED=true</code>. A
 <li><strong>Quota banner</strong>: the admin of the master tenant sees the tenants at or
   above a quota warning threshold on the admin pages, with a link to the
   quota dashboard.</li>
+<li><strong>Tenant quota banner</strong>: per tenant, the admin of the master tenant can
+  show the tenant's own admin a banner when the tenant is at or above the
+  warning threshold of a quota ("Show the quota banner to the tenant's
+  admin" in the quota editor, off by default).</li>
 <li><strong>Billing API</strong>: read-only API tokens for billing scripts, created and
   revoked by the admin of the master tenant (<strong>Admin &gt; Tenant &gt; API
   tokens</strong>), optionally limited to some addresses and with an expiry.
@@ -1057,6 +1077,17 @@ master; with several masters set <code>LEADER_ELECTION_ENABLED=true</code>. A
 </ul>
 <h3 id="fixed">Fixed<a class="headerlink" href="#fixed" title="Permanent link">#</a></h3>
 <ul>
+<li>Adding or saving a tenant with an invalid <code>settings_json</code> failed with
+  "Failed to update tenant"; now the message says it must be a JSON
+  object. A <code>tenant/update</code> API call without <code>settings_json</code> keeps the
+  stored settings (send <code>{}</code> to clear them).</li>
+<li>The installer (<code>install.sh</code>) of a multinode master created the
+  distributed tables of the default tenant under a wrong name.</li>
+<li>Saving a tenant in the Tenants editor undid the changes made since the
+  editor was opened on another page (another tab): the tenant quota banner,
+  the Teams and Slack retention, and the DLP alerts set by the tenant's
+  own admin. Now these are kept; if the editor changed the same settings,
+  nothing is saved and the editor asks to redo the changes.</li>
 <li>An email whose Date header was before 1970 or after 2106 couldn't be
   archived. Such a date is now handled like an unparseable one: the time of
   the Received header is used, else the time of archiving.</li>

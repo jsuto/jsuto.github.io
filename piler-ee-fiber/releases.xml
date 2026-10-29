@@ -1,0 +1,535 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Piler releases</title>
+    <link>https://docs.mailpiler.com/piler-ee-fiber/changelog/</link>
+    <description>Releases of piler-ee, piler-smtp and the Scanner</description>
+    <atom:link href="https://docs.mailpiler.com/piler-ee-fiber/releases.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>Scanner 1.3.1</title>
+      <link>https://docs.mailpiler.com/piler-ee-fiber/changelog-scanner/#131-2026-10-23</link>
+      <guid isPermaLink="true">https://docs.mailpiler.com/piler-ee-fiber/changelog-scanner/#131-2026-10-23</guid>
+      <pubDate>Fri, 23 Oct 2026 00:00:00 +0000</pubDate>
+      <description>&lt;h3&gt;Fixed&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;The scanner ignored &lt;code&gt;PILER_STORE_DIR&lt;/code&gt; and &lt;code&gt;PILER_ASTORE_DIR&lt;/code&gt; when it read
+  the emails from the store directly: it always used
+  &lt;code&gt;/var/piler/store/&amp;lt;server id&amp;gt;&lt;/code&gt;, and looked for the attachments in the
+  wrong directory. It uses the configured directories now.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;PILER_STORE_DIR&lt;/code&gt; without a trailing slash (e.g. &lt;code&gt;/srv/piler/store&lt;/code&gt;)
+  gave a wrong store path, and no email could be read.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;SEMANTIC_SEARCH_MAX_TOKENS&lt;/code&gt; limited the email body in bytes, not
+  characters, so a Hebrew or Cyrillic email got about half the text of an
+  English one, and the cut could split a character. Emails embedded
+  earlier keep their embeddings until they are embedded again, e.g. by
+  running the scanner with &lt;code&gt;-backfill&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Changed&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;The scanner logs a warning when it reads the emails through retrieverd
+  (&lt;code&gt;RETRIEVER_METHOD=socket&lt;/code&gt;), which is not recommended and will be phased
+  out.&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    <item>
+      <title>[Security] piler-smtp 1.1.7</title>
+      <link>https://docs.mailpiler.com/piler-ee-fiber/changelog-piler-smtp/#117-2026-10-18</link>
+      <guid isPermaLink="true">https://docs.mailpiler.com/piler-ee-fiber/changelog-piler-smtp/#117-2026-10-18</guid>
+      <pubDate>Sun, 18 Oct 2026 00:00:00 +0000</pubDate>
+      <description>&lt;h3&gt;Security&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Improved verification of the licensed hostname.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Fixed&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;In multi-tenant mode, a recipient piler-smtp rejects gets a permanent
+  error (550) instead of a temporary one, so the sending server doesn't
+  keep retrying it.&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    <item>
+      <title>[Security] piler-ee 2.2.4</title>
+      <link>https://docs.mailpiler.com/piler-ee-fiber/changelog/#224-2026-10-17</link>
+      <guid isPermaLink="true">https://docs.mailpiler.com/piler-ee-fiber/changelog/#224-2026-10-17</guid>
+      <pubDate>Sat, 17 Oct 2026 00:00:00 +0000</pubDate>
+      <description>&lt;p&gt;2.2.3 was not released; its changes are included here.&lt;/p&gt;
+&lt;h3&gt;Added&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Outlook add-in&lt;/strong&gt; (off by default, &lt;code&gt;OUTLOOK_ADDIN_ENABLED&lt;/code&gt;): search the
+  archive, preview a message, read the full message and restore it to the
+  mailbox from Outlook on the web, new Outlook for Windows, classic Outlook
+  and Outlook for Mac. Served by piler-ui itself; the add-in asks Outlook
+  for the lowest permission and reads nothing of the mailbox. See
+  &lt;a href="https://docs.mailpiler.com/piler-ee-fiber/outlook-addin/"&gt;Outlook add-in&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Bcc recipients from the SMTP envelope&lt;/strong&gt;: piler-smtp can write the
+  envelope of each email to an envelope file (&lt;code&gt;enable_envelope_sidecar&lt;/code&gt;),
+  and the envelope recipients are archived like the &lt;code&gt;To&lt;/code&gt; and &lt;code&gt;Cc&lt;/code&gt; ones, so
+  a Bcc recipient finds the email. A copy of an email delivered in another
+  SMTP transaction adds its recipients to the archived email
+  (&lt;code&gt;ENVELOPE_MERGE_WINDOW_HOURS&lt;/code&gt;). See
+  &lt;a href="https://docs.mailpiler.com/piler-ee-fiber/envelope-recipients/"&gt;Envelope recipients&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Envelope sender&lt;/strong&gt;: recorded for each email; auditors see it in the
+  message view, with a warning when it differs from the &lt;code&gt;From&lt;/code&gt; header, and
+  can search by it (&lt;code&gt;mailfrom:&lt;/code&gt;, "Envelope sender" field).&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;EXTRA_RECIPIENTS_HEADER&lt;/code&gt;: archive the addresses of a header added by the
+  MTA or the journaling setup (e.g. &lt;code&gt;X-Envelope-To&lt;/code&gt;) as recipients.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ARCHIVE_MESSAGE_VARIANTS&lt;/code&gt;: a message with the Message-ID of an archived
+  one but different content is archived as a message of its own instead of
+  being dropped as a duplicate. Auditors see the other messages with the
+  same Message-ID as related copies, also across the nodes of a multi-node
+  setup.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;pilerimport and Bcc recipients of migrated mail&lt;/strong&gt;: an envelope file
+  next to an EML (&lt;code&gt;message.eml.env&lt;/code&gt;) adds its recipients; &lt;code&gt;-add-recipients&lt;/code&gt;
+  (with &lt;code&gt;-dry-run&lt;/code&gt;) adds them to mail imported earlier, without importing
+  it again. Every message that gets recipients has an audit log entry,
+  also sent to the SIEM when SIEM export is enabled.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;POST /api/v1/message/lookup&lt;/code&gt;: find an archived message by its
+  Message-ID, also on the master of a multi-node setup.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Security&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Per-message access checks extended to exports, similar messages,
+  related attachments, bulk removal and message categories, matching the
+  checks of search and the message view.&lt;/li&gt;
+&lt;li&gt;API access tokens carry the user's category and group restrictions, so
+  API clients and multi-node workers see the same messages as the web UI.&lt;/li&gt;
+&lt;li&gt;AI thread summaries only include, and only share between users, the
+  messages of the thread the user may see.&lt;/li&gt;
+&lt;li&gt;A removed message (by the user, a data officer or a GDPR erasure) stays
+  out of the search until it's purged, also when a copy of it arrives
+  again or pilerimport processes it.&lt;/li&gt;
+&lt;li&gt;pilerimport installed setuid takes its configuration only from its
+  protected configuration file, not from the caller's environment.&lt;/li&gt;
+&lt;li&gt;API requests with a Bearer token no longer create a server-side session.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Changed&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;pilerimport honours &lt;code&gt;ARCHIVE_MESSAGE_VARIANTS&lt;/code&gt; and &lt;code&gt;SPAM_HEADER_LINE&lt;/code&gt;
+  like the piler daemon.&lt;/li&gt;
+&lt;li&gt;The "Top Attachment Types" analytics widget is labelled as a cumulative
+  total of all archived attachments.&lt;/li&gt;
+&lt;li&gt;More &lt;code&gt;data-*&lt;/code&gt; customization hooks on the Search and Audit Log pages;
+  accessibility and HTML markup fixes.&lt;/li&gt;
+&lt;li&gt;Upgraded frontend dependencies (Vue, axios, DOMPurify).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Fixed&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Duplicates left an orphaned encrypted message file in the store (and in
+  the S3 bucket); new duplicates no longer do.&lt;/li&gt;
+&lt;li&gt;A message whose search index write failed stayed archived but
+  unsearchable; a later copy of it now restores its index entry.&lt;/li&gt;
+&lt;li&gt;Copies of a message arriving at the same moment could both be archived.&lt;/li&gt;
+&lt;li&gt;Ingest deadlocks between the analytics sync and concurrent archiving
+  (e.g. pilerimport failing with "Deadlock found").&lt;/li&gt;
+&lt;li&gt;Emails whose &lt;code&gt;To&lt;/code&gt; header lists several addresses inside one pair of
+  angle brackets ended up in the error directory; an unusable address in
+  &lt;code&gt;To&lt;/code&gt;/&lt;code&gt;Cc&lt;/code&gt; is now skipped and logged instead of failing the email.&lt;/li&gt;
+&lt;li&gt;IMAP logins with Mailcow lost the user's local group addresses.&lt;/li&gt;
+&lt;li&gt;Multi-node: removal requests and the data officer's approval or
+  rejection now take effect on the worker that has the message; restore
+  and the message view report the worker's errors instead of returning an
+  empty or wrong result.&lt;/li&gt;
+&lt;li&gt;The thread indicator could be missing for regular users in long threads.&lt;/li&gt;
+&lt;li&gt;A purged message answers "the message has been purged" instead of an
+  error.&lt;/li&gt;
+&lt;li&gt;Upgrading from 1.x: migration 005 failed with "Illegal mix of
+  collations" on some MariaDB versions, and the deb package left the
+  obsolete 1.x configuration files behind, blocking the piler-smtp
+  installation.&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    <item>
+      <title>piler-smtp 1.1.6</title>
+      <link>https://docs.mailpiler.com/piler-ee-fiber/changelog-piler-smtp/#116-2026-10-17</link>
+      <guid isPermaLink="true">https://docs.mailpiler.com/piler-ee-fiber/changelog-piler-smtp/#116-2026-10-17</guid>
+      <pubDate>Sat, 17 Oct 2026 00:00:00 +0000</pubDate>
+      <description>&lt;h3&gt;Fixed&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;An archive address encoded again by the mail server is no longer
+  recorded as an envelope recipient. This happens when the mail server's
+  archiving rules also run for the archive copies they added (seen with
+  Axigen Acceptance &amp;amp; Routing rules). The address is logged, and the email
+  is still archived with its other recipients.&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    <item>
+      <title>piler-smtp 1.1.5</title>
+      <link>https://docs.mailpiler.com/piler-ee-fiber/changelog-piler-smtp/#115-2026-10-13</link>
+      <guid isPermaLink="true">https://docs.mailpiler.com/piler-ee-fiber/changelog-piler-smtp/#115-2026-10-13</guid>
+      <pubDate>Tue, 13 Oct 2026 00:00:00 +0000</pubDate>
+      <description>&lt;h3&gt;Fixed&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;The ownership of &lt;code&gt;/var/piler&lt;/code&gt; set by the deb package's post-install
+  script.&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    <item>
+      <title>[Security] piler-smtp 1.1.4</title>
+      <link>https://docs.mailpiler.com/piler-ee-fiber/changelog-piler-smtp/#114-2026-10-07</link>
+      <guid isPermaLink="true">https://docs.mailpiler.com/piler-ee-fiber/changelog-piler-smtp/#114-2026-10-07</guid>
+      <pubDate>Wed, 07 Oct 2026 00:00:00 +0000</pubDate>
+      <description>&lt;h3&gt;Added&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Envelope files&lt;/strong&gt; (&lt;code&gt;enable_envelope_sidecar&lt;/code&gt;, off by default): the
+  envelope of each email is written to a &lt;code&gt;.env&lt;/code&gt; file next to it, with the
+  envelope sender and the envelope recipients encoded in the archive
+  address (&lt;code&gt;&amp;lt;tenant&amp;gt;+&amp;lt;local part&amp;gt;=&amp;lt;domain&amp;gt;@&amp;lt;archive host&amp;gt;&lt;/code&gt;), so that Bcc
+  recipients can be archived. See
+  &lt;a href="https://docs.mailpiler.com/piler-ee-fiber/envelope-recipients/"&gt;Envelope recipients&lt;/a&gt;. Needs Piler Enterprise
+  2.2.4 or later.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Security&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Hardened the SMTP input handling: limits on lines without a line ending,
+  correct handling of BDAT chunks (with &lt;code&gt;enable_chunking=1&lt;/code&gt;), bare LF line
+  endings and NUL bytes in the message.&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    <item>
+      <title>Scanner 1.3.0</title>
+      <link>https://docs.mailpiler.com/piler-ee-fiber/changelog-scanner/#130-2026-09-27</link>
+      <guid isPermaLink="true">https://docs.mailpiler.com/piler-ee-fiber/changelog-scanner/#130-2026-09-27</guid>
+      <pubDate>Sun, 27 Sep 2026 00:00:00 +0000</pubDate>
+      <description>&lt;h3&gt;Changed&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;The ML phishing detector no longer depends on a native runtime library
+  or CGO - it's now a fully static, dependency-free Go binary. This makes
+  the scanner image smaller, faster to build, and easier to deploy across
+  architectures.&lt;/li&gt;
+&lt;li&gt;Retrained the phishing-detection model on a substantially larger and
+  more diverse set of examples. Internal testing shows a meaningful
+  reduction in false positives (legitimate email incorrectly flagged)
+  versus the previous model, with no loss in detection rate.&lt;/li&gt;
+&lt;li&gt;Simplified the scanner's Docker image build to a prebuilt-binary copy,
+  matching the main application image's build process.&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    <item>
+      <title>[Security] piler-ee 2.2.2</title>
+      <link>https://docs.mailpiler.com/piler-ee-fiber/changelog/#222-2026-09-22</link>
+      <guid isPermaLink="true">https://docs.mailpiler.com/piler-ee-fiber/changelog/#222-2026-09-22</guid>
+      <pubDate>Tue, 22 Sep 2026 00:00:00 +0000</pubDate>
+      <description>&lt;h3&gt;Security&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Upgraded &lt;code&gt;grpc&lt;/code&gt; and &lt;code&gt;go.opentelemetry.io/otel&lt;/code&gt; to address
+  &lt;strong&gt;CVE-2026-84304&lt;/strong&gt; and related CVEs&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Added&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Per-message delete action in the preview pane&lt;/li&gt;
+&lt;li&gt;Stable HTML customization hooks (&lt;code&gt;data-*&lt;/code&gt; attributes) for MSP frontend
+  integration&lt;/li&gt;
+&lt;li&gt;Multi-node support for user email purge&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Changed&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;piler-ui&lt;/code&gt; Docker image build simplified to a prebuilt-binary copy
+  (matches the pattern later applied to the scanner image)&lt;/li&gt;
+&lt;li&gt;Manticore search engine upgraded to 29.9.0&lt;/li&gt;
+&lt;li&gt;Message selection: Ctrl/Cmd+click for single-message selection,
+  Shift+click for range selection&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Fixed&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Table content clipping in dashboard cards&lt;/li&gt;
+&lt;li&gt;Bogus sort order in multinode search results&lt;/li&gt;
+&lt;li&gt;Regular users seeing 0 search results in multinode mode&lt;/li&gt;
+&lt;li&gt;Timezone validation failing on Alpine runtime images (IANA tzdata now
+  embedded rather than relying on the host OS)&lt;/li&gt;
+&lt;li&gt;Unmounted Vue templates briefly flashing placeholder content (&lt;code&gt;v-cloak&lt;/code&gt;)&lt;/li&gt;
+&lt;li&gt;Trailing boundary CRLF in attachment MIME parts incorrectly flagged as
+  invalid&lt;/li&gt;
+&lt;li&gt;False-positive attachment size mismatch logging for base64-encoded
+  attachments&lt;/li&gt;
+&lt;li&gt;S3 promotion window returning an empty &lt;code&gt;200&lt;/code&gt; instead of &lt;code&gt;503&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    <item>
+      <title>[Security] piler-ee 2.2.1</title>
+      <link>https://docs.mailpiler.com/piler-ee-fiber/changelog/#221-2026-09-06</link>
+      <guid isPermaLink="true">https://docs.mailpiler.com/piler-ee-fiber/changelog/#221-2026-09-06</guid>
+      <pubDate>Sun, 06 Sep 2026 00:00:00 +0000</pubDate>
+      <description>&lt;h3&gt;Security&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Upgraded &lt;code&gt;nanoid&lt;/code&gt; to 3.3.18 to fix &lt;strong&gt;CVE-2026-67213&lt;/strong&gt; (high severity)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Added&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;S3_SKIP_EXISTING_OBJECTS&lt;/code&gt; to skip re-uploading objects already present
+  across nodes&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;S3_PART_SIZE_MB&lt;/code&gt; and &lt;code&gt;S3_DISABLE_MULTIPART&lt;/code&gt; knobs for &lt;code&gt;s3uploader&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;purge --restore-id&lt;/code&gt; for restoring a specific prior purge run;
+  &lt;code&gt;PACKAGES.md&lt;/code&gt; documenting package build/signing&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Changed&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Dockerfiles upgraded to &lt;code&gt;alpine:3.24&lt;/code&gt;; audit log table gained stable CSS
+  identifiers for MSP customization&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;RPM_RELEASE&lt;/code&gt; override for RPM packaging; fixed &lt;code&gt;dpkg-sig&lt;/code&gt; removal on
+  package updates&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Fixed&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Fixed a tenant-configuration bug that could cause scheduled purges to
+  be skipped&lt;/li&gt;
+&lt;li&gt;Nested-multipart attachments misindexed in &lt;code&gt;pilerimport&lt;/code&gt;; mismatched
+  download objects now caught explicitly&lt;/li&gt;
+&lt;li&gt;Five distinct archiving bugs: duplicate detection, purge tombstone
+  handling, &lt;code&gt;From&lt;/code&gt; header overflow, &lt;code&gt;enable_purge&lt;/code&gt; flag handling, and an
+  attachment-processing race condition&lt;/li&gt;
+&lt;li&gt;Purge command: tombstone restore, recipient preservation, dry-run loop
+  behavior, missing-env-var warning&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    <item>
+      <title>piler-smtp 1.1.3</title>
+      <link>https://docs.mailpiler.com/piler-ee-fiber/changelog-piler-smtp/#113-2026-09-01</link>
+      <guid isPermaLink="true">https://docs.mailpiler.com/piler-ee-fiber/changelog-piler-smtp/#113-2026-09-01</guid>
+      <pubDate>Tue, 01 Sep 2026 00:00:00 +0000</pubDate>
+      <description>&lt;h3&gt;Added&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Packages for Ubuntu 26.04.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Fixed&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;A deadline for every connection that sending a byte now and then can't
+  extend, and a limit on the connections from one IP address, so one
+  client can no longer keep others from connecting.&lt;/li&gt;
+&lt;li&gt;With &lt;code&gt;smtp_access_list=1&lt;/code&gt;, an empty or unreadable access list now
+  rejects every client instead of allowing all of them.&lt;/li&gt;
+&lt;li&gt;Package dependencies.&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    <item>
+      <title>piler-ee 2.2.0</title>
+      <link>https://docs.mailpiler.com/piler-ee-fiber/changelog/#220-2026-08-16</link>
+      <guid isPermaLink="true">https://docs.mailpiler.com/piler-ee-fiber/changelog/#220-2026-08-16</guid>
+      <pubDate>Sun, 16 Aug 2026 00:00:00 +0000</pubDate>
+      <description>&lt;h3&gt;Changed&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Semantic search embeddings&lt;/strong&gt;: replaced in-process ONNX embedding
+  generation with calls to an external, OpenAI-compatible HTTP endpoint
+  (&lt;code&gt;SEMANTIC_SEARCH_ENDPOINT_URL&lt;/code&gt;); &lt;code&gt;piler-ui&lt;/code&gt; image switched to an
+  Alpine base as a result (no longer needs ONNX Runtime/CGO)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Added&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;OX (Open-Xchange) webmail integration: theme, language, timezone, and
+  iframe CSS synchronization&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Fixed&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Session cookie expiry handled incorrectly in some flows; &lt;code&gt;dompurify&lt;/code&gt;
+  upgraded alongside the fix&lt;/li&gt;
+&lt;li&gt;Multi-tenant provisioning; tenant GUI URL not hot-reloading after change&lt;/li&gt;
+&lt;li&gt;OAuth2 configs being rebuilt per-request instead of cached in
+  multi-tenant mode&lt;/li&gt;
+&lt;li&gt;Health page's "received messages" chart rendering incorrectly&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    <item>
+      <title>Scanner 1.2.0</title>
+      <link>https://docs.mailpiler.com/piler-ee-fiber/changelog-scanner/#120-2026-08-16</link>
+      <guid isPermaLink="true">https://docs.mailpiler.com/piler-ee-fiber/changelog-scanner/#120-2026-08-16</guid>
+      <pubDate>Sun, 16 Aug 2026 00:00:00 +0000</pubDate>
+      <description>&lt;h3&gt;Changed&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Semantic search embeddings&lt;/strong&gt; are computed by an external,
+  OpenAI-compatible endpoint (&lt;code&gt;SEMANTIC_SEARCH_ENDPOINT_URL&lt;/code&gt;, e.g. Ollama)
+  instead of in-process ONNX models. The model is your choice; see
+  &lt;a href="https://docs.mailpiler.com/piler-ee-fiber/semantic-search/"&gt;Semantic search&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    <item>
+      <title>[Security] piler-ee 2.1.5</title>
+      <link>https://docs.mailpiler.com/piler-ee-fiber/changelog/#215-2026-07-26</link>
+      <guid isPermaLink="true">https://docs.mailpiler.com/piler-ee-fiber/changelog/#215-2026-07-26</guid>
+      <pubDate>Sun, 26 Jul 2026 00:00:00 +0000</pubDate>
+      <description>&lt;h3&gt;Security&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;grpc&lt;/code&gt; bumped to v1.82.1 to fix security vulnerabilities&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;gofiber&lt;/code&gt; and &lt;code&gt;golang.org/x/net&lt;/code&gt; upgraded (security-motivated)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;dompurify&lt;/code&gt; 3.4.11 → 3.4.12&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Added&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Pending conversations: badge in search results plus a dedicated drawer
+  for messages awaiting a reply&lt;/li&gt;
+&lt;li&gt;Attachment indexing gated on &lt;code&gt;TIKA_URL&lt;/code&gt; being configured, rather than
+  always-on&lt;/li&gt;
+&lt;li&gt;Explicit Dependabot workflow for automated dependency PRs&lt;/li&gt;
+&lt;li&gt;Standby-node support for import jobs; multi-node import handling&lt;/li&gt;
+&lt;li&gt;Theme and accent-color support carried over from EAM authentication&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Changed&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Build tooling switched from the previous bundler to &lt;strong&gt;Vite&lt;/strong&gt; (and bumped
+  several times through the 6.4→8.1 series as issues were found); iframe
+  session cookie set to &lt;code&gt;SameSite=None&lt;/code&gt; for embedding scenarios; listens
+  for a &lt;code&gt;postMessage&lt;/code&gt; theme-change event from a parent iframe&lt;/li&gt;
+&lt;li&gt;Import job handling simplified&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Fixed&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Email direction now computed per-message from the local domain table,
+  rather than a possibly-stale cached value&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;c.IP()&lt;/code&gt; captured before entering a goroutine in
+  &lt;code&gt;ZipAndStreamDownloadRemote&lt;/code&gt; (was reading a request-scoped value after
+  the request had already returned)&lt;/li&gt;
+&lt;li&gt;Multi-node export; mobile screen layout issues; vendor CSS handling
+  under the Vite build; header parser edge case; several import/migration
+  fixes; purge logging&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Dependencies&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Routine bumps: &lt;code&gt;vue&lt;/code&gt; 3.5.38→3.5.39, &lt;code&gt;postcss&lt;/code&gt; 8.5.16→8.5.23, &lt;code&gt;axios&lt;/code&gt;
+  1.18.0→1.18.1, &lt;code&gt;@vitejs/plugin-vue&lt;/code&gt; 5.2.4→6.0.7, plus a batch of GitHub
+  Actions version bumps (&lt;code&gt;actions/checkout&lt;/code&gt;, &lt;code&gt;actions/setup-go&lt;/code&gt;,
+  &lt;code&gt;actions/setup-python&lt;/code&gt;, &lt;code&gt;actions/upload-artifact&lt;/code&gt;,
+  &lt;code&gt;actions/download-artifact&lt;/code&gt;, &lt;code&gt;docker/setup-buildx-action&lt;/code&gt;,
+  &lt;code&gt;docker/setup-qemu-action&lt;/code&gt;, &lt;code&gt;docker/login-action&lt;/code&gt;,
+  &lt;code&gt;docker/metadata-action&lt;/code&gt;, &lt;code&gt;softprops/action-gh-release&lt;/code&gt;)&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    <item>
+      <title>piler-ee 2.1.4</title>
+      <link>https://docs.mailpiler.com/piler-ee-fiber/changelog/#214-2026-06-09</link>
+      <guid isPermaLink="true">https://docs.mailpiler.com/piler-ee-fiber/changelog/#214-2026-06-09</guid>
+      <pubDate>Tue, 09 Jun 2026 00:00:00 +0000</pubDate>
+      <description>&lt;h3&gt;Added&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Standalone importer web app (&lt;code&gt;cmd/import&lt;/code&gt; UI)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ANALYTICS_ENABLED&lt;/code&gt; environment variable&lt;/li&gt;
+&lt;li&gt;Rate limiting on authentication endpoints (security hardening)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Changed&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;All config keys now registered with &lt;code&gt;viper&lt;/code&gt; regardless of whether a
+  default is empty, so they can still be overridden via environment
+  variables&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Fixed&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Microsoft 365 journal processing&lt;/li&gt;
+&lt;li&gt;LDAP authentication edge case&lt;/li&gt;
+&lt;li&gt;Header/footer branding logo display&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;serverId&lt;/code&gt; evaluation lacking a safety check&lt;/li&gt;
+&lt;li&gt;Import job responses missing the &lt;code&gt;id&lt;/code&gt; field on creation&lt;/li&gt;
+&lt;li&gt;Purge endpoint failing on already-deleted emails&lt;/li&gt;
+&lt;li&gt;Background job SQL queries&lt;/li&gt;
+&lt;li&gt;Extremely long &lt;code&gt;Message-ID&lt;/code&gt;/attachment filenames not handled correctly&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;chown&lt;/code&gt; command incorrect in package install scripts&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Dependencies&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;gofiber/fiber&lt;/code&gt; 2.52.12 → 2.52.13 (main app and &lt;code&gt;contrib/external-jwt-shared-secret&lt;/code&gt;)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Azure/go-ntlmssp&lt;/code&gt; bumped&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    <item>
+      <title>piler-ee 2.1.3</title>
+      <link>https://docs.mailpiler.com/piler-ee-fiber/changelog/#213-2026-04-09</link>
+      <guid isPermaLink="true">https://docs.mailpiler.com/piler-ee-fiber/changelog/#213-2026-04-09</guid>
+      <pubDate>Thu, 09 Apr 2026 00:00:00 +0000</pubDate>
+      <description>&lt;h3&gt;Added&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;SHOW_IMPORT_MENU&lt;/code&gt; configuration option&lt;/li&gt;
+&lt;li&gt;NIS2 compliance documentation&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Changed&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Manticore upgraded to 25.0.0 in tests and the installer&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Fixed&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Swagger/OpenAPI docs generation&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Dependencies&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;go.opentelemetry.io/otel/sdk&lt;/code&gt; 1.40.0 → 1.43.0&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;russellhaering/goxmldsig&lt;/code&gt; 1.4.0 → 1.6.0&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;google.golang.org/grpc&lt;/code&gt; 1.72.1 → 1.79.3&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    <item>
+      <title>[Security] piler-ee 2.1.2</title>
+      <link>https://docs.mailpiler.com/piler-ee-fiber/changelog/#212-2026-03-15</link>
+      <guid isPermaLink="true">https://docs.mailpiler.com/piler-ee-fiber/changelog/#212-2026-03-15</guid>
+      <pubDate>Sun, 15 Mar 2026 00:00:00 +0000</pubDate>
+      <description>&lt;p&gt;The largest release in this window - unified archiving for chat platforms,
+GDPR right-to-erasure, passkey authentication, multi-master-node HA, and a
+round of &lt;code&gt;gosec&lt;/code&gt;-driven security hardening.&lt;/p&gt;
+&lt;h3&gt;Security&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Passkey (WebAuthn) authentication support added&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;gosec&lt;/code&gt; static-analysis fixes applied across &lt;code&gt;reindex&lt;/code&gt;, &lt;code&gt;imapimport&lt;/code&gt;,
+  &lt;code&gt;pilerimport&lt;/code&gt;, and &lt;code&gt;s3uploader&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;TLS support added for the MySQL connection&lt;/li&gt;
+&lt;li&gt;Added additional iframe-embedding security headers&lt;/li&gt;
+&lt;li&gt;Sensitive SIEM connection details no longer appear in logs&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Added&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Slack and Microsoft Teams collectors&lt;/strong&gt;: initial unified-archiving
+  support for chat platforms, including a parallelized Slack collector and
+  dedicated UI/API components&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;GDPR Right to Erasure&lt;/strong&gt;: multi-node-aware implementation&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Find similar messages&lt;/strong&gt;: KNN vector search over message embeddings&lt;/li&gt;
+&lt;li&gt;Multi-master-node support (previously single-master architecture)&lt;/li&gt;
+&lt;li&gt;IMAP import checkpoint/resume support: connection details and progress
+  are persisted so long-running imports can resume after an interruption&lt;/li&gt;
+&lt;li&gt;Swagger/OpenAPI documentation for the admin API&lt;/li&gt;
+&lt;li&gt;Attachment search, with flat mode made the default&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;SEMANTIC_SEARCH_ONNX_THREADS&lt;/code&gt; configuration option&lt;/li&gt;
+&lt;li&gt;SIEM Sumo Logic support&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Changed&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Metadata/attachment inserts now use a database transaction&lt;/li&gt;
+&lt;li&gt;ediscovery exports now emit an audit log entry&lt;/li&gt;
+&lt;li&gt;Purge performance improvements&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Fixed&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Deb packaging issue; API auth edge case; cron entry handling; various
+  migration/import fixes&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Dependencies&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;gofiber/fiber&lt;/code&gt; bumped in &lt;code&gt;contrib/external-jwt-shared-secret&lt;/code&gt;;
+  &lt;code&gt;go.opentelemetry.io/otel/sdk&lt;/code&gt; 1.36.0 → 1.40.0; &lt;code&gt;gofiber/fiber&lt;/code&gt;
+  2.52.11 → 2.52.12; &lt;code&gt;filippo.io/edwards25519&lt;/code&gt; 1.1.0 → 1.1.1&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    <item>
+      <title>piler-smtp 1.1.2</title>
+      <link>https://docs.mailpiler.com/piler-ee-fiber/changelog-piler-smtp/#112-2026-01-12</link>
+      <guid isPermaLink="true">https://docs.mailpiler.com/piler-ee-fiber/changelog-piler-smtp/#112-2026-01-12</guid>
+      <pubDate>Mon, 12 Jan 2026 00:00:00 +0000</pubDate>
+      <description>&lt;h3&gt;Fixed&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Session handling.&lt;/li&gt;
+&lt;li&gt;arm64 deb package build.&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    <item>
+      <title>piler-ee 2.1.1</title>
+      <link>https://docs.mailpiler.com/piler-ee-fiber/changelog/#211-2025-12-13</link>
+      <guid isPermaLink="true">https://docs.mailpiler.com/piler-ee-fiber/changelog/#211-2025-12-13</guid>
+      <pubDate>Sat, 13 Dec 2025 00:00:00 +0000</pubDate>
+      <description>&lt;h3&gt;Added&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;SIEM support&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;install.sh&lt;/code&gt; bare-metal installer script&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Changed&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Microsoft Teams collector updates&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Dependencies&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;gofiber/utils&lt;/code&gt; bumped to 1.2.0&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+  </channel>
+</rss>

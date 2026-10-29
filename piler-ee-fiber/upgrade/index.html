@@ -8,7 +8,7 @@
       
       
       
-        <link rel="canonical" href="https://jsuto.github.io/piler-ee-v2/upgrade/">
+        <link rel="canonical" href="https://docs.mailpiler.com/piler-ee-fiber/upgrade/">
       
       
       
@@ -356,6 +356,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#refresh-sessions-225" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Refresh sessions (2.2.5)
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -568,6 +579,17 @@ to <code>https://billing1.mailpiler.com,https://billing2.mailpiler.com</code> (t
 default), replace it with <code>https://billing.mailpiler.com</code>, or remove the
 setting. The old names still reach the same server, so nothing breaks
 meanwhile, but a failed report is then sent to the same server twice.</p>
+<h3 id="refresh-sessions-225">Refresh sessions (2.2.5)<a class="headerlink" href="#refresh-sessions-225" title="Permanent link">#</a></h3>
+<p>Before 2.2.5 a token login (<code>POST /auth/login</code>) stored the user's TOTP
+secret and backup codes, IMAP password, access token and CSRF token with
+the refresh session in the <code>refresh_session</code> table. Migration 029 removes
+them from the stored sessions, and deletes the expired ones; piler-ui does
+the same daily in every tenant database. The sessions stay valid, nobody
+is logged out.</p>
+<p>The cleanup doesn't reach the copies of the table in your database backups
+and binary logs. If these may have been exposed, have the users with a
+token login reset their TOTP (2FA), and those logging in with IMAP
+authentication change their mailbox password.</p>
 
 
 

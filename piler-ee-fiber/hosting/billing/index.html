@@ -8,7 +8,7 @@
       
       
       
-        <link rel="canonical" href="https://jsuto.github.io/piler-ee-v2/hosting/billing/">
+        <link rel="canonical" href="https://docs.mailpiler.com/piler-ee-fiber/hosting/billing/">
       
       
       
@@ -361,6 +361,12 @@ deployment the master collects the numbers from the workers.</p>
 (<a href="../../fiber-ui-config-options/#quota_snapshot_interval">QUOTA_SNAPSHOT_INTERVAL</a>),
 and the page shows when. The admin pages show a banner when a tenant is at
 or above the warning threshold of a quota.</p>
+<p>A tenant's own admin sees nothing of this by default. To warn the tenant
+too, turn on <strong>Show the quota banner to the tenant's admin</strong> in the quota
+editor of the tenant (the pencil button): the tenant's admin pages then
+show which of its quotas is at or above the warning threshold, with the
+usage and the limit, and ask to contact the service provider. Leave it off
+if you handle the quotas with your customers yourself.</p>
 <h2 id="the-billing-api">The billing API<a class="headerlink" href="#the-billing-api" title="Permanent link">#</a></h2>
 <p>For a script that feeds your billing system. From 2.2.5 it uses an API
 token, not the admin's password: the script can read the quotas and
