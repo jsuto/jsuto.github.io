@@ -971,6 +971,13 @@ master; with several masters set <code>LEADER_ELECTION_ENABLED=true</code>. A
 </ul>
 <h3 id="added">Added<a class="headerlink" href="#added" title="Permanent link">#</a></h3>
 <ul>
+<li>E-invoices are found in the search: <code>attachment:einvoice</code>, or the
+  "E-invoice" checkbox of the advanced search. Piler recognizes them when
+  it archives an email: XRechnung and other UBL or CII invoices (XML),
+  ZUGFeRD and Factur-X (PDF with an embedded XML invoice). The emails
+  archived before are found after a reindex, see
+  <a href="../upgrade/#e-invoices-in-the-search-225">E-invoices in the search</a> and
+  <a href="../gobd/#e-invoices">GoBD</a>.</li>
 <li>The audit log records every change of the configuration made through the
   web UI or the API, with the new values (never a password): domains,
   groups, LDAP, profiles, import jobs, export deletions, legal hold status,

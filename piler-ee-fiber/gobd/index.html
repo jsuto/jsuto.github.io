@@ -630,7 +630,7 @@
 
 <h1 id="gobd-compliance-for-email-archiving">GoBD Compliance for Email Archiving<a class="headerlink" href="#gobd-compliance-for-email-archiving" title="Permanent link">#</a></h1>
 <p>This documentation applies to Piler enterprise edition 2.1.0+</p>
-<p>Revision #3</p>
+<p>Revision #4</p>
 <p>Publication date: 2026-OCT-30</p>
 <p><a href="../gobd-de/">Deutsche Fassung</a></p>
 <blockquote>
@@ -1022,6 +1022,7 @@
 </tbody>
 </table>
 <p><strong>Piler keeps e-invoices as the GoBD require</strong> because it archives every email as received: XML, PDF and hybrid formats (ZUGFeRD, Factur-X, XRechnung) are all preserved unchanged, and found by full-text search and by attachment type.</p>
+<p><strong>Finding e-invoices</strong> (2.2.5+): Piler recognizes the emails with an e-invoice attachment when it archives them: XRechnung and other UBL or CII invoices (XML), and ZUGFeRD / Factur-X invoices (PDF with an embedded XML invoice). Search for them with <code>attachment:einvoice</code>, or the "E-invoice" checkbox of the advanced search. For a tax audit, combine it with a date range and export the results (Z2 / Z3, see <a href="#data-access-in-a-tax-audit">Data access in a tax audit</a>). The emails archived before 2.2.5 are found after a <a href="../upgrade/#e-invoices-in-the-search-225">reindex</a>.</p>
 <hr />
 <h2 id="procedural-documentation-verfahrensdokumentation">Procedural documentation (Verfahrensdokumentation)<a class="headerlink" href="#procedural-documentation-verfahrensdokumentation" title="Permanent link">#</a></h2>
 <p>For every IT system there must be a clearly structured procedure documentation, from which the content, structure, process and results of the procedure are fully and conclusively apparent, and which a knowledgeable third party can review in a reasonable time (Rz. 151). For electronic documents it describes the process from their creation through indexing, processing and storage, finding them, machine evaluation, protection against loss and falsification, to their reproduction (Rz. 152).</p>
@@ -1203,7 +1204,7 @@
 </tr>
 <tr>
 <td>Order and index</td>
-<td>Unique id, full-text and metadata search, categories, tags</td>
+<td>Unique id, full-text and metadata search, e-invoices (<code>attachment:einvoice</code>), categories, tags</td>
 <td>✓ Built-in</td>
 </tr>
 <tr>

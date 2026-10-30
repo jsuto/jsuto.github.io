@@ -630,7 +630,7 @@
 
 <h1 id="gobd-konforme-e-mail-archivierung">GoBD-konforme E-Mail-Archivierung<a class="headerlink" href="#gobd-konforme-e-mail-archivierung" title="Permanent link">#</a></h1>
 <p>Diese Dokumentation gilt für Piler Enterprise Edition 2.1.0+</p>
-<p>Revision #2</p>
+<p>Revision #3</p>
 <p>Veröffentlicht: 30.10.2026</p>
 <p><a href="../gobd/">English version</a></p>
 <blockquote>
@@ -1022,6 +1022,7 @@
 </tbody>
 </table>
 <p><strong>Piler bewahrt E-Rechnungen so auf, wie es die GoBD verlangen</strong>, weil es jede E-Mail so archiviert, wie sie empfangen wurde: XML, PDF und hybride Formate (ZUGFeRD, Factur-X, XRechnung) bleiben unverändert erhalten und sind per Volltextsuche und nach Typ des Anhangs auffindbar.</p>
+<p><strong>E-Rechnungen finden</strong> (ab 2.2.5): Piler erkennt beim Archivieren die E-Mails mit einer E-Rechnung im Anhang: XRechnung und andere UBL- oder CII-Rechnungen (XML) sowie ZUGFeRD- und Factur-X-Rechnungen (PDF mit eingebetteter XML-Rechnung). Sie finden sie mit <code>attachment:einvoice</code> oder dem Kontrollkästchen „E-invoice" der erweiterten Suche. Für eine Außenprüfung kombinieren Sie es mit einem Zeitraum und exportieren das Ergebnis (Z2 / Z3, siehe <a href="#datenzugriff-bei-der-auenprufung">Datenzugriff bei der Außenprüfung</a>). Die vor 2.2.5 archivierten E-Mails werden nach einem <a href="../upgrade/#e-invoices-in-the-search-225">reindex</a> gefunden.</p>
 <hr />
 <h2 id="verfahrensdokumentation">Verfahrensdokumentation<a class="headerlink" href="#verfahrensdokumentation" title="Permanent link">#</a></h2>
 <p>Für jedes DV-System muss eine übersichtlich gegliederte Verfahrensdokumentation vorhanden sein, aus der Inhalt, Aufbau, Ablauf und Ergebnisse des Verfahrens vollständig und schlüssig ersichtlich sind und die ein sachverständiger Dritter in angemessener Zeit prüfen kann (Rz. 151). Bei elektronischen Dokumenten beschreibt sie den Prozess von der Entstehung über die Indizierung, Verarbeitung und Speicherung, das eindeutige Wiederfinden und die maschinelle Auswertbarkeit, die Absicherung gegen Verlust und Verfälschung bis zur Reproduktion (Rz. 152).</p>
@@ -1203,7 +1204,7 @@
 </tr>
 <tr>
 <td>Ordnung und Index</td>
-<td>Eindeutige ID, Volltext- und Metadatensuche, Kategorien, Tags</td>
+<td>Eindeutige ID, Volltext- und Metadatensuche, E-Rechnungen (<code>attachment:einvoice</code>), Kategorien, Tags</td>
 <td>✓ Integriert</td>
 </tr>
 <tr>

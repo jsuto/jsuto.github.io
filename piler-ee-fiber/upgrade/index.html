@@ -357,6 +357,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#e-invoices-in-the-search-225" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E-invoices in the search (2.2.5)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#audit-log-details-225" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -590,6 +601,19 @@ to <code>https://billing1.mailpiler.com,https://billing2.mailpiler.com</code> (t
 default), replace it with <code>https://billing.mailpiler.com</code>, or remove the
 setting. The old names still reach the same server, so nothing breaks
 meanwhile, but a failed report is then sent to the same server twice.</p>
+<h3 id="e-invoices-in-the-search-225">E-invoices in the search (2.2.5)<a class="headerlink" href="#e-invoices-in-the-search-225" title="Permanent link">#</a></h3>
+<p>From 2.2.5 Piler marks the emails with an e-invoice attachment when it
+archives them, and <code>attachment:einvoice</code> finds them. To find the e-invoices
+archived before, rebuild their index entries with reindex, e.g. for the
+emails of the last 10 years:</p>
+<pre><code>reindex -tenantid piler -start &lt;first metadata id&gt; -stop &lt;max metadata id&gt; -progress
+</code></pre>
+<p>reindex reads the stored emails. Without attachment extraction
+(<code>EXTRACT_ATTACHMENTS</code>, on when <code>TIKA_URL</code> is set) it also reads the
+attachments that may be e-invoices (XML and PDF), one at a time until it
+finds one, from the store or the S3 bucket: plan for the extra reads on a
+large archive. Searches keep working meanwhile; an entry is replaced when
+it's rebuilt.</p>
 <h3 id="audit-log-details-225">Audit log details (2.2.5)<a class="headerlink" href="#audit-log-details-225" title="Permanent link">#</a></h3>
 <p>The string values in the details of the audit entries are quoted from
 2.2.5 (<code>username="anna"</code>, was <code>username=anna</code>), and the legal hold entries
