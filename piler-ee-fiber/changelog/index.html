@@ -1036,6 +1036,15 @@ master; with several masters set <code>LEADER_ELECTION_ENABLED=true</code>. A
   read-only for piler-ui anyway.</li>
 <li>Upgraded frontend dependencies (Vite, follow-redirects).</li>
 <li>pilerimport lists the reason of each failure in its summary.</li>
+<li><code>download-emails-o365.py</code> (download from Microsoft 365): throttling and
+  network errors are retried, an interrupted download continues where it
+  stopped (the emails already downloaded are skipped), <code>--before</code> downloads
+  only the emails received before a day (e.g. the start of journaling),
+  <code>--dir</code> sets the download directory. A summary at the end, and an exit
+  code: 0 complete, 1 run it again, 2 complete except emails Microsoft 365
+  can't export. Mailboxes the app may not read are skipped. Runs on Python
+  3.9+; install <code>requests</code> and <code>msal</code> in a virtual environment, see
+  <a href="../import-emails/#import-from-microsoft-365">Import from Microsoft 365</a>.</li>
 <li>Built with Go 1.27.3; golang.org/x/crypto, net, sync, sys, term, text and
   tools updated.</li>
 <li>The quota <code>user_count</code> is the active users: the addresses of the
@@ -1077,6 +1086,10 @@ master; with several masters set <code>LEADER_ELECTION_ENABLED=true</code>. A
 </ul>
 <h3 id="fixed">Fixed<a class="headerlink" href="#fixed" title="Permanent link">#</a></h3>
 <ul>
+<li><code>download-emails-o365.py</code> lost emails when Microsoft 365 throttled the
+  download: a throttled email was skipped, and a throttled page of a
+  folder's list ended the folder, without an error at the end. A mailbox
+  folder named e.g. <code>../x</code> was written outside the download directory.</li>
 <li>Adding or saving a tenant with an invalid <code>settings_json</code> failed with
   "Failed to update tenant"; now the message says it must be a JSON
   object. A <code>tenant/update</code> API call without <code>settings_json</code> keeps the

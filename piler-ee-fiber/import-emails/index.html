@@ -391,10 +391,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#install-the-msal-python3-package" class="md-nav__link">
+  <a href="#install-the-python-packages" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Install the msal python3 package
+        Install the Python packages
       
     </span>
   </a>
@@ -417,6 +417,28 @@
     <span class="md-ellipsis">
       
         Usage
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#throttling-interruptions-and-the-exit-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Throttling, interruptions and the exit code
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#import-the-emails" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Import the emails
       
     </span>
   </a>
@@ -507,9 +529,9 @@
 
 
 <h1 id="import-emails">Import emails<a class="headerlink" href="#import-emails" title="Permanent link">#</a></h1>
-<p>This documentation applies to Piler enterprise edition 2.1.0 (envelope files and <code>-add-recipients</code>: 2.2.4+, PST files: 2.2.5+)</p>
-<p>Revision #4</p>
-<p>Publication date: 2026-OCT-25</p>
+<p>This documentation applies to Piler enterprise edition 2.1.0 (envelope files and <code>-add-recipients</code>: 2.2.4+, PST files and the Microsoft 365 download options: 2.2.5+)</p>
+<p>Revision #5</p>
+<p>Publication date: 2026-OCT-30</p>
 <h2 id="import-local-emails">Import local emails<a class="headerlink" href="#import-local-emails" title="Permanent link">#</a></h2>
 <pre><code>Usage: pilerimport [options]
 
@@ -669,11 +691,19 @@ pilerimport -dir emails -remove
     &quot;xms_tcdt&quot;: 1669093587
 }
 </code></pre>
-<h3 id="install-the-msal-python3-package">Install the msal python3 package<a class="headerlink" href="#install-the-msal-python3-package" title="Permanent link">#</a></h3>
-<pre><code>pip install msal
+<h3 id="install-the-python-packages">Install the Python packages<a class="headerlink" href="#install-the-python-packages" title="Permanent link">#</a></h3>
+<p>The script needs Python 3.9 or newer, with the <code>requests</code> and <code>msal</code>
+packages. Recent distributions refuse a system-wide <code>pip install</code>, so
+install them in a virtual environment:</p>
+<pre><code>python3 -m venv ~/o365-import
+~/o365-import/bin/pip install requests msal
 </code></pre>
 <h3 id="create-configpy">Create config.py<a class="headerlink" href="#create-configpy" title="Permanent link">#</a></h3>
-<p>Create config.py, and set the values for client_id, client_secret and tenant_id. Feel free to customise the list of SKIP_FOLDERS. These are IMAP folders that won’t be processed.</p>
+<p>Copy the script to a working directory (the packages install it as
+<code>/usr/libexec/piler/download-emails-o365.py</code>), and create <code>config.py</code> next
+to it. Set the values for client_id, client_secret and tenant_id. Feel free
+to customise the list of SKIP_FOLDERS: the mailbox folders that won't be
+downloaded.</p>
 <p>config.py:</p>
 <pre><code>DEBUG = False
 SKIP_FOLDERS = ['Deleted Items', 'Drafts', 'Junk Email']
@@ -682,11 +712,38 @@ client_secret = &quot;......&quot;
 tenant_id = &quot;.......&quot;
 </code></pre>
 <h3 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">#</a></h3>
-<p>You can download emails from a single mailbox</p>
-<p>download-emails-o365.py --email user@example.com</p>
-<p>Or you can download all users’ emails by omitting the –-email argument.</p>
-<p>The tool creates a directory called ‘email’ in the current directory. Each mailbox gets its own directory, eg. 8f7cd945-c816-491b-8c8c-577bd664189a</p>
-<p>The tool preserves the IMAP folder structure, eg.</p>
+<p>Download the emails of a single mailbox:</p>
+<pre><code>~/o365-import/bin/python download-emails-o365.py --email user@example.com
+</code></pre>
+<p>Or every user's emails, by leaving out <code>--email</code>. Mailboxes the app may
+not read (when an application access policy limits it to some mailboxes)
+and users without a mailbox are skipped and listed in the summary.</p>
+<p>Options (2.2.5+):</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--email</code></td>
+<td>Download this mailbox only (default: every mailbox)</td>
+</tr>
+<tr>
+<td><code>--before YYYY-MM-DD</code></td>
+<td>Only emails received before this day (UTC), e.g. when journaling started: the archive has the later ones</td>
+</tr>
+<tr>
+<td><code>--dir</code></td>
+<td>Download the emails here (default: <code>emails</code> in the current directory)</td>
+</tr>
+</tbody>
+</table>
+<p>Each mailbox gets its own directory, named by the user's id, e.g.
+8f7cd945-c816-491b-8c8c-577bd664189a, with the folder structure of the
+mailbox:</p>
 <pre><code>ls -la emails/8f7cd945-c816-491b-8c8c-577bd664189a
 
 total 12
@@ -694,9 +751,50 @@ drwxr-xr-x 2 piler piler 4096 May 30 09:29  Inbox/
 drwxr-xr-x 3 piler piler 4096 May 30 09:29  folder2/
 drwxr-xr-x 2 piler piler 4096 May 30 09:29 'test folder 1'/
 </code></pre>
-<p>When you have downloaded all emails, run pilerimport to import them. The command below processes all emails in the “emails” directory, and removes the processed emails:</p>
-<pre><code>pilerimport -dir emails -remove
+<p>Each email is written to <code>&lt;dir&gt;.tmp</code> first (<code>emails.tmp</code>) and moved into
+place when it's complete, so the download directory never has a half
+written email. <code>&lt;dir&gt;.tmp</code> must be on the same filesystem: if <code>--dir</code> is a
+mount point, use a directory inside it.</p>
+<h3 id="throttling-interruptions-and-the-exit-code">Throttling, interruptions and the exit code<a class="headerlink" href="#throttling-interruptions-and-the-exit-code" title="Permanent link">#</a></h3>
+<p>Microsoft 365 throttles large downloads. The script waits as long as
+Microsoft asks and tries again, also after network errors. A large tenant
+can take hours or days.</p>
+<p>If the run is interrupted, or ends with failures, run the same command
+again: it skips the emails already in the download directory and downloads
+only the missing ones. The summary at the end lists what was downloaded,
+skipped and failed, per mailbox and in total. The exit code:</p>
+<table>
+<thead>
+<tr>
+<th>Exit code</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>Complete</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Some emails couldn't be downloaded: run the script again</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Complete, except emails Microsoft 365 can't export (logged by id): running it again won't get them</td>
+</tr>
+</tbody>
+</table>
+<h3 id="import-the-emails">Import the emails<a class="headerlink" href="#import-the-emails" title="Permanent link">#</a></h3>
+<p>When the download is complete (exit code 0 or 2), run pilerimport to import
+the emails. The command below processes all emails in the “emails”
+directory, and removes the processed emails:</p>
+<pre><code>chown -R piler:piler emails
+pilerimport -dir emails -remove
 </code></pre>
+<p>Import only after the download is complete: the script knows what it
+downloaded by the files in the download directory, so after
+<code>pilerimport -remove</code> a new run would download everything again.</p>
 <h2 id="import-pst-files">Import PST files<a class="headerlink" href="#import-pst-files" title="Permanent link">#</a></h2>
 <p>From 2.2.5 pilerimport imports PST files (Outlook data files) directly, no
 conversion step is needed. This works with PST files exported from classic
