@@ -1,0 +1,1305 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://docs.mailpiler.com/piler-ee-fiber/gobd-de/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>GoBD-konforme E-Mail-Archivierung - piler enterprise 2.x documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.618322db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#gobd-konforme-e-mail-archivierung" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="piler enterprise 2.x documentation" class="md-header__button md-logo" aria-label="piler enterprise 2.x documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            piler enterprise 2.x documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              GoBD-konforme E-Mail-Archivierung
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="piler enterprise 2.x documentation" class="md-nav__button md-logo" aria-label="piler enterprise 2.x documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    piler enterprise 2.x documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://mailpiler.com/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Site
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#was-sind-die-gobd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Was sind die GoBD?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rechtsgrundlagen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rechtsgrundlagen
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rechtsgrundlagen">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#aufbewahrungsfristen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Aufbewahrungsfristen
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#welche-e-mails-mussen-archiviert-werden" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Welche E-Mails müssen archiviert werden?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Welche E-Mails müssen archiviert werden?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#steuerlich-relevante-e-mails" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Steuerlich relevante E-Mails
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#handelsrechtlich-relevante-e-mails" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Handelsrechtlich relevante E-Mails
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e-mails-ohne-aufbewahrungspflicht" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E-Mails ohne Aufbewahrungspflicht
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#die-anforderungen-der-gobd-und-wie-piler-sie-erfullt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Die Anforderungen der GoBD und wie Piler sie erfüllt
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#technische-umsetzung" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Technische Umsetzung
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Technische Umsetzung">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vollstandigkeit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vollständigkeit
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unveranderbarkeit-und-protokollierung" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Unveränderbarkeit und Protokollierung
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aufbewahrung-im-empfangsformat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Aufbewahrung im Empfangsformat
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aufbewahrung-und-loschung" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Aufbewahrung und Löschung
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ordnung-und-index" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ordnung und Index
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#maschinelle-auswertbarkeit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Maschinelle Auswertbarkeit
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verschlusselung-und-schlussel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verschlüsselung und Schlüssel
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#datensicherheit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Datensicherheit
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#e-rechnungen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E-Rechnungen
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verfahrensdokumentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verfahrensdokumentation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Verfahrensdokumentation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bestandteile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bestandteile
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#empfehlungen-fur-den-gobd-konformen-betrieb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Empfehlungen für den GoBD-konformen Betrieb
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Empfehlungen für den GoBD-konformen Betrieb">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mindestanforderungen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mindestanforderungen
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#erweiterte-manahmen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Erweiterte Maßnahmen
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#datenzugriff-bei-der-auenprufung" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Datenzugriff bei der Außenprüfung
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Datenzugriff bei der Außenprüfung">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ein-auditor-konto-fur-den-unmittelbaren-zugriff-z1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ein Auditor-Konto für den unmittelbaren Zugriff (Z1)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zusammenfassung-checkliste" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zusammenfassung: Checkliste
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#weitere-dokumentation-englisch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Weitere Dokumentation (englisch)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quellen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quellen
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="gobd-konforme-e-mail-archivierung">GoBD-konforme E-Mail-Archivierung<a class="headerlink" href="#gobd-konforme-e-mail-archivierung" title="Permanent link">#</a></h1>
+<p>Diese Dokumentation gilt für Piler Enterprise Edition 2.1.0+</p>
+<p>Revision #1</p>
+<p>Veröffentlicht: 30.10.2026</p>
+<p><a href="../gobd/">English version</a></p>
+<blockquote>
+<p><strong>Rechtlicher Hinweis</strong></p>
+<p>Diese Dokumentation beschreibt, wie <strong>piler enterprise</strong> die Einhaltung der GoBD technisch und organisatorisch unterstützt.</p>
+<p>Sie ist <strong>keine Rechtsberatung</strong> und ersetzt nicht die eigene Prüfung der rechtlichen Anforderungen, Risiken und Maßnahmen durch das Unternehmen.</p>
+<p>Allein das Unternehmen ist verantwortlich dafür,</p>
+<ul>
+<li>welche E-Mails steuerlich oder handelsrechtlich relevant sind,</li>
+<li>welche Aufbewahrungsfristen eingestellt werden,</li>
+<li>dass Zugriffsrechte und Protokollierung angemessen sind,</li>
+<li>dass die steuer- und handelsrechtlichen Vorschriften insgesamt eingehalten werden.</li>
+</ul>
+<p>piler enterprise stellt die technischen Mittel bereit, ersetzt aber keine rechtlichen Entscheidungen.</p>
+</blockquote>
+<p>Die Angaben „Rz." sind die Randziffern der GoBD in der Fassung vom
+14. Juli 2025 (siehe <a href="#quellen">Quellen</a>).</p>
+<h2 id="was-sind-die-gobd">Was sind die GoBD?<a class="headerlink" href="#was-sind-die-gobd" title="Permanent link">#</a></h2>
+<p>Die <strong>GoBD</strong> (Grundsätze zur ordnungsmäßigen Führung und Aufbewahrung von Büchern, Aufzeichnungen und Unterlagen in elektronischer Form sowie zum Datenzugriff) sind eine Verwaltungsanweisung des Bundesministeriums der Finanzen (BMF). Maßgeblich ist das BMF-Schreiben vom 28. November 2019, geändert am 11. März 2024 und am 14. Juli 2025 (vor allem wegen der verpflichtenden E-Rechnung).</p>
+<p>Sie regeln</p>
+<ul>
+<li>die elektronische Buchführung und Aufzeichnung,</li>
+<li>die Aufbewahrung steuerlich relevanter Unterlagen in elektronischer Form,</li>
+<li>den Datenzugriff der Finanzverwaltung bei Außenprüfungen.</li>
+</ul>
+<p>Die GoBD gelten für alle Unternehmen, die in Deutschland steuerpflichtig sind, unabhängig von ihrer Größe. Verstöße können zur Folge haben:</p>
+<ul>
+<li>die Verwerfung der Buchführung durch die Finanzverwaltung</li>
+<li>Hinzuschätzungen</li>
+<li>Bußgelder</li>
+<li>intensivere Prüfungen</li>
+</ul>
+<p>Zwei Grundsätze der GoBD bestimmen, was ein Archiv leisten kann:</p>
+<ul>
+<li><strong>Die Verantwortung bleibt beim Unternehmen</strong>, auch wenn das Archiv von einem Dienstleister oder Hosting-Partner betrieben wird (Rz. 21).</li>
+<li><strong>Es gibt kein GoBD-Zertifikat.</strong> Die Finanzverwaltung trifft keine allgemeinen Aussagen zur Konformität von Software, und Zertifikate oder Testate Dritter entfalten ihr gegenüber keine Bindungswirkung (Rz. 179 bis 181). Entscheidend ist, wie das Archiv eingerichtet und betrieben wird, und die Verfahrensdokumentation, die das beschreibt (Rz. 151 bis 155).</li>
+</ul>
+<hr />
+<h2 id="rechtsgrundlagen">Rechtsgrundlagen<a class="headerlink" href="#rechtsgrundlagen" title="Permanent link">#</a></h2>
+<p>Die Anforderungen der GoBD ergeben sich aus mehreren Gesetzen:</p>
+<table>
+<thead>
+<tr>
+<th>Gesetz</th>
+<th>Anforderung</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>§ 147 AO</strong> (Abgabenordnung)</td>
+<td>Aufbewahrung steuerlich relevanter Unterlagen</td>
+</tr>
+<tr>
+<td><strong>§ 257 HGB</strong> (Handelsgesetzbuch)</td>
+<td>Aufbewahrung von Handelsbriefen</td>
+</tr>
+<tr>
+<td><strong>§ 14b UStG</strong></td>
+<td>Aufbewahrung von Rechnungen</td>
+</tr>
+<tr>
+<td><strong>GoBD</strong> (BMF-Schreiben)</td>
+<td>Anforderungen an die technische Umsetzung</td>
+</tr>
+</tbody>
+</table>
+<h3 id="aufbewahrungsfristen">Aufbewahrungsfristen<a class="headerlink" href="#aufbewahrungsfristen" title="Permanent link">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>Unterlagen</th>
+<th>Frist</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Bücher und Aufzeichnungen, Inventare, Jahresabschlüsse, Lageberichte sowie die zu ihrem Verständnis erforderlichen Arbeitsanweisungen und Organisationsunterlagen</td>
+<td><strong>10 Jahre</strong></td>
+</tr>
+<tr>
+<td>Buchungsbelege, einschließlich Rechnungen</td>
+<td><strong>8 Jahre</strong> (bis 2024: 10 Jahre)</td>
+</tr>
+<tr>
+<td>Empfangene und abgesandte Handels- und Geschäftsbriefe (Angebote, Auftragsbestätigungen, allgemeine Geschäftskorrespondenz)</td>
+<td><strong>6 Jahre</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Die Frist beginnt mit dem Schluss des Kalenderjahres, in dem die Unterlage entstanden ist oder empfangen wurde.</p>
+<p>Das Vierte Bürokratieentlastungsgesetz (BEG IV) hat die Frist für Buchungsbelege ab dem 1. Januar 2025 von 10 auf 8 Jahre verkürzt (§ 147 Abs. 3 AO, § 257 Abs. 4 HGB, § 14b UStG). Für Banken, Versicherungen und Wertpapierinstitute gelten für eine Übergangszeit weiter 10 Jahre. Viele Steuerberater empfehlen, Belege weiterhin 10 Jahre aufzubewahren. Welche Frist für eine E-Mail gilt, ist auch nicht immer an ihrem Betreff zu erkennen: Stimmen Sie die Fristen mit Ihrem Steuerberater ab.</p>
+<hr />
+<h2 id="welche-e-mails-mussen-archiviert-werden">Welche E-Mails müssen archiviert werden?<a class="headerlink" href="#welche-e-mails-mussen-archiviert-werden" title="Permanent link">#</a></h2>
+<p>Es kommt auf den Inhalt und die Funktion einer E-Mail an, nicht auf ihre Bezeichnung (Rz. 121). Eine E-Mail, die als Handels- oder Geschäftsbrief oder als Buchungsbeleg dient, ist aufbewahrungspflichtig. Eine E-Mail, die nur „Transportmittel" für eine angehängte Rechnung ist und darüber hinaus keine aufbewahrungspflichtigen Informationen enthält, ist es nicht (wie der Briefumschlag aus Papier).</p>
+<h3 id="steuerlich-relevante-e-mails">Steuerlich relevante E-Mails<a class="headerlink" href="#steuerlich-relevante-e-mails" title="Permanent link">#</a></h3>
+<ul>
+<li>Eingangs- und Ausgangsrechnungen</li>
+<li>Rechnungskorrekturen und Gutschriften</li>
+<li>Verträge mit finanziellen Auswirkungen</li>
+<li>Zahlungsbestätigungen und Mahnungen</li>
+<li>Steuererklärungen und Korrespondenz mit Finanzbehörden</li>
+<li>Abschlüsse und Buchhaltungsunterlagen</li>
+</ul>
+<h3 id="handelsrechtlich-relevante-e-mails">Handelsrechtlich relevante E-Mails<a class="headerlink" href="#handelsrechtlich-relevante-e-mails" title="Permanent link">#</a></h3>
+<ul>
+<li>Angebote</li>
+<li>Auftragsbestätigungen</li>
+<li>Lieferscheine und Versandbestätigungen</li>
+<li>Allgemeine Geschäftskorrespondenz</li>
+<li>Korrespondenz mit Kunden und Lieferanten mit geschäftlicher Bedeutung</li>
+</ul>
+<h3 id="e-mails-ohne-aufbewahrungspflicht">E-Mails ohne Aufbewahrungspflicht<a class="headerlink" href="#e-mails-ohne-aufbewahrungspflicht" title="Permanent link">#</a></h3>
+<ul>
+<li>Private Korrespondenz (soweit sie im Unternehmen erlaubt ist)</li>
+<li>Spam und Werbung</li>
+<li>Newsletter ohne geschäftliche Bedeutung</li>
+<li>Interne, informelle Kommunikation ohne geschäftliche Bedeutung</li>
+<li>Entwürfe, die nie abgesandt wurden (Rz. 5)</li>
+</ul>
+<p>Diese E-Mails von Hand zuverlässig zu trennen, ist kaum praktikabel. Die meisten Unternehmen archivieren mit einer Journalregel jede E-Mail ihrer Domains, legen die Aufbewahrungsfrist nach der längsten geltenden Pflicht fest und regeln Ausnahmen mit <a href="#aufbewahrung-und-loschung">Aufbewahrungsregeln</a>.</p>
+<hr />
+<h2 id="die-anforderungen-der-gobd-und-wie-piler-sie-erfullt">Die Anforderungen der GoBD und wie Piler sie erfüllt<a class="headerlink" href="#die-anforderungen-der-gobd-und-wie-piler-sie-erfullt" title="Permanent link">#</a></h2>
+<p>Die Tabelle ordnet die Anforderungen der GoBD, die ein E-Mail-Archiv betreffen, den Funktionen von Piler zu und zeigt, was Ihre Aufgabe bleibt. Die Abschnitte darunter erläutern sie.</p>
+<table>
+<thead>
+<tr>
+<th>Anforderung</th>
+<th>Rz.</th>
+<th>Piler</th>
+<th>Ihre Aufgabe</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Vollständigkeit</strong></td>
+<td>36 bis 43</td>
+<td>Archiviert jede E-Mail, die der Mailserver übergibt, mit Kopfzeilen und Anhängen</td>
+<td>Journalregel für alle ein- und ausgehenden E-Mails</td>
+</tr>
+<tr>
+<td><strong>Unveränderbarkeit</strong></td>
+<td>58 bis 60, 107 bis 112</td>
+<td>Speichert jede E-Mail unverändert, wie empfangen; keine Funktion zum Ändern archivierter E-Mails; ein Hashwert, der beim Öffnen geprüft wird; optional TSA-Zeitstempel</td>
+<td>Löschen deaktiviert lassen; optional WORM-Speicher</td>
+</tr>
+<tr>
+<td><strong>Protokollierung</strong></td>
+<td>59, 111, 117</td>
+<td>Audit-Log von Anmeldungen, Suchen, Ansichten, Downloads, Exporten, Löschungen, Änderungen an Aufbewahrungsregeln und Benutzern</td>
+<td>Auswerten; optional an ein SIEM weiterleiten</td>
+</tr>
+<tr>
+<td><strong>Aufbewahrung im Empfangsformat</strong></td>
+<td>119, 129, 131</td>
+<td>Die Original-E-Mail (EML) mit allen Kopfzeilen und Anhängen, XML und PDF von E-Rechnungen eingeschlossen</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>Keine Löschung vor Fristablauf</strong></td>
+<td>119</td>
+<td>Löschen ist standardmäßig deaktiviert; Aufbewahrungsregeln; Legal Hold; die Bereinigung entfernt E-Mails erst nach Fristablauf</td>
+<td>Fristen festlegen; Freigabe von Löschungen, falls Sie das Löschen aktivieren</td>
+</tr>
+<tr>
+<td><strong>Ordnung und Index</strong></td>
+<td>53 bis 57, 117, 122</td>
+<td>Eindeutige ID, Message-ID und Hashwert jeder E-Mail; ein Suchindex, der aus den gespeicherten E-Mails neu aufgebaut werden kann</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>Ergänzungen</strong></td>
+<td>123</td>
+<td>Tags und Notizen werden getrennt von der E-Mail gespeichert, die unverändert bleibt</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>Maschinelle Auswertbarkeit</strong></td>
+<td>125 bis 128</td>
+<td>Volltextsuche in E-Mails und Anhängen, Suche nach Metadaten, Exporte</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>Verschlüsselung</strong></td>
+<td>134</td>
+<td>E-Mails werden verschlüsselt gespeichert und berechtigten Benutzern entschlüsselt angezeigt</td>
+<td>Den Schlüssel für die gesamte Aufbewahrungsfrist aufbewahren</td>
+</tr>
+<tr>
+<td><strong>Datensicherheit</strong></td>
+<td>103 bis 106</td>
+<td>Zugriffskontrolle, Rollen, Zwei-Faktor-Authentifizierung</td>
+<td>Datensicherung und ihre Beschreibung in der Verfahrensdokumentation</td>
+</tr>
+<tr>
+<td><strong>Internes Kontrollsystem</strong> (IKS)</td>
+<td>100 bis 102</td>
+<td>Rollen, Zugriffsrechte, Freigabe von Löschungen, Audit-Log</td>
+<td>Berechtigungskonzept und seine Beschreibung in der Verfahrensdokumentation</td>
+</tr>
+<tr>
+<td><strong>Lesbarmachung</strong></td>
+<td>156, 157</td>
+<td>Jede E-Mail ist in der Weboberfläche am Bildschirm lesbar</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>Datenzugriff bei der Außenprüfung</strong></td>
+<td>158 bis 170</td>
+<td>Prüferkonten (Z1), Suchen und Exporte nach den Vorgaben des Prüfers (Z2), Exporte in EML und weiteren Formaten (Z3)</td>
+<td>Festlegen, was der Prüfer sehen darf</td>
+</tr>
+<tr>
+<td><strong>Verfahrensdokumentation</strong></td>
+<td>151 bis 155</td>
+<td>Beschreibt den eigenen Teil: diese Seite und die Dokumentation Ihrer Piler-Version</td>
+<td>Erstellen und aktuell halten</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="technische-umsetzung">Technische Umsetzung<a class="headerlink" href="#technische-umsetzung" title="Permanent link">#</a></h2>
+<h3 id="vollstandigkeit">Vollständigkeit<a class="headerlink" href="#vollstandigkeit" title="Permanent link">#</a></h3>
+<p>Geschäftsvorfälle sind vollständig und lückenlos aufzuzeichnen (Rz. 36). Für ein E-Mail-Archiv bedeutet das: Jede aufbewahrungspflichtige E-Mail muss das Archiv erreichen.</p>
+<p><strong>So stellt Piler die Vollständigkeit sicher:</strong></p>
+<ul>
+<li>Eine <strong>Journalregel</strong> auf dem Mailserver schickt eine Kopie jeder ein- und ausgehenden E-Mail an Piler, unabhängig von Benutzern und E-Mail-Programmen</li>
+<li><strong>Archivierung in Echtzeit</strong>: E-Mails werden archiviert, sobald sie eintreffen</li>
+<li><strong>Kopfzeilen und Anhänge</strong> bleiben bei der E-Mail, die Umschlagsempfänger (z. B. Bcc-Empfänger) mit <a href="../envelope-recipients/">Umschlagsdateien</a></li>
+<li>Beim Archivieren wird an der E-Mail nichts verändert</li>
+</ul>
+<p>Richten Sie Ihren Mailserver so ein, dass er eine Journalkopie aller E-Mails an den SMTP-Dienst von Piler sendet, siehe die Anleitung für Ihren <a href="../smtp-servers/">Mailserver</a> oder <a href="../m365-journaling/">Microsoft 365</a>.</p>
+<hr />
+<h3 id="unveranderbarkeit-und-protokollierung">Unveränderbarkeit und Protokollierung<a class="headerlink" href="#unveranderbarkeit-und-protokollierung" title="Permanent link">#</a></h3>
+<p>Eine Aufzeichnung darf nicht so verändert werden, dass der ursprüngliche Inhalt nicht mehr feststellbar ist, und Änderungen sind zu protokollieren (§ 146 Abs. 4 AO, Rz. 58 bis 60 und 107 bis 112). Die Unveränderbarkeit kann hardwaremäßig (z. B. WORM-Speicher), softwaremäßig (z. B. Sperren, Protokollierung, Versionierung) oder organisatorisch (z. B. Zugriffsberechtigungen) gewährleistet werden. Die Ablage in einem einfachen Dateisystem genügt ohne zusätzliche Maßnahmen regelmäßig nicht (Rz. 110).</p>
+<p><strong>So stellt Piler die Unveränderbarkeit sicher:</strong></p>
+<ul>
+<li>E-Mails werden sofort nach dem Empfang im <strong>Originalformat</strong> (EML) gespeichert, so wie sie empfangen wurden</li>
+<li>Piler hat <strong>keine Funktion, archivierte E-Mails zu ändern</strong>: Benutzer und Administratoren können sie nur lesen, exportieren oder (falls aktiviert) ihre Löschung beantragen</li>
+<li>Alle gespeicherten E-Mails sind mit AES <strong>verschlüsselt</strong></li>
+<li>Beim Archivieren wird ein <strong>SHA-256-Hashwert</strong> jeder E-Mail gespeichert und <strong>beim Öffnen geprüft</strong>: Eine veränderte E-Mail wird als nicht verifiziert angezeigt</li>
+<li>Das <strong>Audit-Log</strong> protokolliert Zugriffe und administrative Vorgänge, siehe unten</li>
+<li>Optional: <strong>TSA-Zeitstempel</strong>. Das Programm <code>sign</code> lässt die Hashwerte der archivierten E-Mails von einem Zeitstempeldienst signieren (RFC 3161, <code>sign --tsa-url https://...</code>), als kryptografischer Nachweis, dass sie zu diesem Zeitpunkt unverändert vorlagen. Führen Sie es regelmäßig aus, z. B. täglich per cron</li>
+<li>Optional: <strong>WORM-Speicher</strong>, z. B. <a href="../s3-storage/">S3-Speicher</a> mit Object Lock, für die Unveränderbarkeit auf Speicherebene</li>
+</ul>
+<p><strong>Was das Audit-Log protokolliert (Rz. 111, 117):</strong></p>
+<ul>
+<li><strong>Anmeldung</strong>: An- und Abmeldungen (erfolgreiche und fehlgeschlagene), Passkeys</li>
+<li><strong>Zugriffe</strong>: welcher Benutzer welche E-Mail wann und von welcher IP-Adresse angesehen, heruntergeladen oder wiederhergestellt hat</li>
+<li><strong>Suchen</strong>: was von wem gesucht wurde</li>
+<li><strong>Exporte</strong>: eDiscovery-Exporte, Downloads</li>
+<li><strong>Löschungen</strong>: Löschanträge, ihre Freigabe oder Ablehnung, DSGVO-Löschanträge</li>
+<li><strong>Administration</strong>: Änderungen an Aufbewahrungsregeln, Benutzern, Mandanten, Kategorien, Legal Holds und API-Tokens</li>
+</ul>
+<p>Noch nicht jede Änderung der Einstellungen wird protokolliert (z. B. Domains und LDAP-Einstellungen). Halten Sie solche Änderungen in der Änderungshistorie Ihrer Verfahrensdokumentation fest (Rz. 154).</p>
+<p><strong>Schutz des Audit-Logs:</strong></p>
+<ul>
+<li>Das Audit-Log wird getrennt von den E-Mails gespeichert und kann in der Weboberfläche und über die API weder geändert noch gelöscht werden</li>
+<li>Es kann an ein externes <strong>SIEM</strong> (Splunk, Sumo Logic, Syslog) weitergeleitet werden, siehe <a href="../siem/">SIEM-Anbindung</a>: eine Kopie außerhalb von Piler, die lokale Administratoren nicht ändern können</li>
+</ul>
+<hr />
+<h3 id="aufbewahrung-im-empfangsformat">Aufbewahrung im Empfangsformat<a class="headerlink" href="#aufbewahrung-im-empfangsformat" title="Permanent link">#</a></h3>
+<p>Eingehende elektronische Handels- und Geschäftsbriefe und Buchungsbelege müssen in dem Format aufbewahrt werden, in dem sie empfangen wurden (Rz. 119, 131). Wird eine E-Mail als PDF gespeichert, gehen ihre Kopfzeilen verloren, und damit der Nachweis, wie die E-Mail zugegangen ist (Rz. 129).</p>
+<p><strong>So erfüllt Piler die Anforderung:</strong></p>
+<ul>
+<li>Piler bewahrt die <strong>Original-E-Mail (EML)</strong> mit allen Kopfzeilen und Anhängen auf, so wie sie empfangen wurde</li>
+<li>Anhänge werden nie umgewandelt: Ein PDF bleibt ein PDF, eine XML-Rechnung bleibt XML, und eine ZUGFeRD-Rechnung behält ihre eingebettete XML-Datei</li>
+<li>Suchindex und Datenbank werden aus der gespeicherten E-Mail abgeleitet, die das Original bleibt</li>
+</ul>
+<hr />
+<h3 id="aufbewahrung-und-loschung">Aufbewahrung und Löschung<a class="headerlink" href="#aufbewahrung-und-loschung" title="Permanent link">#</a></h3>
+<p>Unterlagen dürfen vor Ablauf der Aufbewahrungsfrist nicht gelöscht werden (Rz. 119).</p>
+<p><strong>So unterstützt Piler das:</strong></p>
+<ul>
+<li><strong>Löschen ist standardmäßig deaktiviert</strong> (<code>ENABLE_DELETE=false</code>): Niemand kann eine archivierte E-Mail vor Ablauf ihrer Frist entfernen</li>
+<li><strong>Aufbewahrungsfrist</strong> je Mandant (die Vorgabe für alle E-Mails) und <strong>Aufbewahrungsregeln</strong> für Ausnahmen, nach Domain, Absender, Empfänger, Betreff, Text, Größe, Name oder Typ eines Anhangs</li>
+<li><strong>Legal Hold</strong>: E-Mails der Personen unter einem Legal Hold werden nicht bereinigt, auch nicht nach Fristablauf</li>
+<li><strong>Bereinigung</strong> (purge): entfernt E-Mails nach Ablauf ihrer Frist (falls für den Mandanten aktiviert)</li>
+</ul>
+<p><strong>Wenn Sie das Löschen aktivieren</strong> (<code>ENABLE_DELETE=true</code>), z. B. für Löschanträge nach der DSGVO: Auditoren (und mit <code>ENABLE_DELETE_FOR_USERS=true</code> auch Benutzer) können die Löschung einer E-Mail beantragen. Mit <code>NEED_TO_APPROVE_DELETE=true</code> muss ein Datenschutzbeauftragter jeden Antrag freigeben (Vier-Augen-Prinzip). Jeder Antrag, jede Freigabe und jede Ablehnung steht im Audit-Log. Beachten Sie, dass steuer- und handelsrechtliche Aufbewahrungspflichten einem Löschantrag nach der DSGVO in der Regel vorgehen (Art. 17 Abs. 3 lit. b DSGVO).</p>
+<p><strong>Empfohlene Einstellungen für die GoBD:</strong></p>
+<ul>
+<li><code>ENABLE_DELETE=false</code> beibehalten, oder das Löschen nur mit <code>NEED_TO_APPROVE_DELETE=true</code> aktivieren</li>
+<li>Die Aufbewahrungsfrist des Mandanten nach der längsten Pflicht festlegen, die für Ihre E-Mails gilt (z. B. 10 Jahre, 3650 Tage)</li>
+<li>Aufbewahrungsregeln nur für E-Mails einsetzen, von denen Sie wissen, dass sie kürzer aufzubewahren sind (z. B. Newsletter)</li>
+</ul>
+<hr />
+<h3 id="ordnung-und-index">Ordnung und Index<a class="headerlink" href="#ordnung-und-index" title="Permanent link">#</a></h3>
+<p>Unterlagen sind geordnet aufzubewahren, und jedes elektronische Dokument braucht einen eindeutigen Index, der während der gesamten Aufbewahrungsfrist mit ihm verknüpft bleibt (Rz. 117, 122).</p>
+<p><strong>So unterstützt Piler das:</strong></p>
+<ul>
+<li>Jede E-Mail hat eine eindeutige ID, und Message-ID und Hashwert werden mit ihr gespeichert</li>
+<li><strong>Volltextsuche</strong> in Text, Betreff und Anhängen</li>
+<li><strong>Suche nach Metadaten</strong>: Absender, Empfänger, Zeitraum, Größe, Typ der Anhänge</li>
+<li><strong>Kategorien, Tags und Notizen</strong> zur Einordnung; Tags und Notizen werden getrennt von der E-Mail gespeichert, die unverändert bleibt (Rz. 123)</li>
+<li><strong>Gespeicherte Suchen</strong> für wiederkehrende Abfragen</li>
+<li>Der Suchindex kann aus den gespeicherten E-Mails neu aufgebaut werden (<code>reindex</code>)</li>
+</ul>
+<hr />
+<h3 id="maschinelle-auswertbarkeit">Maschinelle Auswertbarkeit<a class="headerlink" href="#maschinelle-auswertbarkeit" title="Permanent link">#</a></h3>
+<p>Archivierte Unterlagen müssen im Umfang ihrer Informationen maschinell auswertbar sein (Rz. 125 bis 128). Eine Volltextsuche gilt als maschinelle Auswertbarkeit (Rz. 126). Strukturierte Daten, etwa die XML-Datei einer E-Rechnung, müssen als solche erhalten bleiben (Rz. 127, 129).</p>
+<p><strong>Exporte in Piler:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Format</th>
+<th>Verwendung</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>EML</strong></td>
+<td>Die Original-E-Mail; standardisiert und portabel</td>
+</tr>
+<tr>
+<td><strong>MBOX</strong></td>
+<td>Mehrere E-Mails in einer Datei</td>
+</tr>
+<tr>
+<td><strong>PDF</strong></td>
+<td>Eine lesbare Kopie einer E-Mail</td>
+</tr>
+<tr>
+<td><strong>CSV</strong></td>
+<td>Metadaten zur Auswertung in einer Tabellenkalkulation</td>
+</tr>
+<tr>
+<td><strong>eDiscovery-Exporte</strong></td>
+<td>E-Mails mit Ladedateien und Hashwerten für Review-Programme, siehe <a href="../ediscovery/">eDiscovery</a></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="verschlusselung-und-schlussel">Verschlüsselung und Schlüssel<a class="headerlink" href="#verschlusselung-und-schlussel" title="Permanent link">#</a></h3>
+<p>Verschlüsselte Unterlagen müssen entschlüsselt zur Verfügung stehen, und die Schlüssel sind aufzubewahren, solange damit verschlüsselte Unterlagen aufzubewahren sind (Rz. 134).</p>
+<ul>
+<li>Piler zeigt und exportiert E-Mails für berechtigte Benutzer entschlüsselt</li>
+<li><strong>Bewahren Sie den Schlüssel (<code>piler.key</code>) für die gesamte Aufbewahrungsfrist auf</strong>, in Ihren Datensicherungen und getrennt davon an einem sicheren Ort. Ohne ihn können die archivierten E-Mails nicht gelesen werden</li>
+</ul>
+<hr />
+<h3 id="datensicherheit">Datensicherheit<a class="headerlink" href="#datensicherheit" title="Permanent link">#</a></h3>
+<p>Das Archiv ist gegen Verlust und unberechtigte Veränderungen zu schützen, und die Datensicherung ist Teil der Verfahrensdokumentation (Rz. 103 bis 106).</p>
+<ul>
+<li>Zugriffskontrolle mit Rollen, LDAP / Active Directory, SAML oder lokalen Konten, und Zwei-Faktor-Authentifizierung</li>
+<li>Die Datensicherung ist Ihre Aufgabe: Folgen Sie der 3-2-1-Regel und testen Sie die Wiederherstellung regelmäßig, siehe <a href="../large-deployments/backup/">Datensicherung und Notfallwiederherstellung</a></li>
+</ul>
+<hr />
+<h2 id="e-rechnungen">E-Rechnungen<a class="headerlink" href="#e-rechnungen" title="Permanent link">#</a></h2>
+<p>Seit dem 1. Januar 2025 müssen Unternehmen in Deutschland E-Rechnungen für inländische B2B-Umsätze empfangen können; die Pflicht zur Ausstellung wird bis 2028 stufenweise eingeführt. Die Änderung der GoBD vom 14. Juli 2025 regelt ihre Aufbewahrung:</p>
+<table>
+<thead>
+<tr>
+<th>Anforderung</th>
+<th>Rz.</th>
+<th>Piler</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Eingehende E-Rechnungen werden im Empfangsformat aufbewahrt, z. B. XML</td>
+<td>131</td>
+<td>Die E-Mail wird so aufbewahrt, wie sie empfangen wurde, der XML-Anhang unverändert</td>
+</tr>
+<tr>
+<td>Bei einer E-Rechnung genügt die Aufbewahrung des strukturierten Teils (der XML-Datei); bei strukturierten Daten ist eine inhaltliche, keine bildliche Übereinstimmung erforderlich</td>
+<td>118, 119, 131</td>
+<td>Die XML-Datei wird aufbewahrt, und das PDF ebenso</td>
+</tr>
+<tr>
+<td>Der menschenlesbare Teil (z. B. das PDF einer ZUGFeRD-Rechnung) ist auch aufzubewahren, wenn er zusätzliche steuerlich relevante Informationen enthält (z. B. Buchungsvermerke oder qualifizierte elektronische Signaturen)</td>
+<td>119, 125, 131</td>
+<td>Die ganze E-Mail wird aufbewahrt, das PDF eingeschlossen</td>
+</tr>
+<tr>
+<td>Die XML-Datei einer hybriden Rechnung darf nicht durch eine Formatumwandlung verloren gehen (z. B. PDF/A-3 in TIFF)</td>
+<td>125, 129</td>
+<td>Anhänge werden nie umgewandelt</td>
+</tr>
+<tr>
+<td>E-Rechnungen sind strukturierte Daten, die mathematisch-technisch ausgewertet werden können</td>
+<td>127</td>
+<td>Die XML-Datei steht unverändert für Auswertung und Export zur Verfügung</td>
+</tr>
+<tr>
+<td>Eine E-Mail, die nur Transportmittel einer E-Rechnung ist, ist nicht aufbewahrungspflichtig</td>
+<td>121</td>
+<td>Piler bewahrt sie trotzdem auf, mit der Rechnung</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Piler bewahrt E-Rechnungen so auf, wie es die GoBD verlangen</strong>, weil es jede E-Mail so archiviert, wie sie empfangen wurde: XML, PDF und hybride Formate (ZUGFeRD, Factur-X, XRechnung) bleiben unverändert erhalten und sind per Volltextsuche und nach Typ des Anhangs auffindbar.</p>
+<hr />
+<h2 id="verfahrensdokumentation">Verfahrensdokumentation<a class="headerlink" href="#verfahrensdokumentation" title="Permanent link">#</a></h2>
+<p>Für jedes DV-System muss eine übersichtlich gegliederte Verfahrensdokumentation vorhanden sein, aus der Inhalt, Aufbau, Ablauf und Ergebnisse des Verfahrens vollständig und schlüssig ersichtlich sind und die ein sachverständiger Dritter in angemessener Zeit prüfen kann (Rz. 151). Bei elektronischen Dokumenten beschreibt sie den Prozess von der Entstehung über die Indizierung, Verarbeitung und Speicherung, das eindeutige Wiederfinden und die maschinelle Auswertbarkeit, die Absicherung gegen Verlust und Verfälschung bis zur Reproduktion (Rz. 152).</p>
+<h3 id="bestandteile">Bestandteile<a class="headerlink" href="#bestandteile" title="Permanent link">#</a></h3>
+<p>Sie besteht in der Regel aus (Rz. 153):</p>
+<ol>
+<li>
+<p><strong>Allgemeine Beschreibung</strong></p>
+<ul>
+<li>Zweck des Archivs, welche E-Mails archiviert werden</li>
+<li>Zuständigkeiten: wer das Archiv betreibt, verwaltet und prüft</li>
+</ul>
+</li>
+<li>
+<p><strong>Anwenderdokumentation</strong></p>
+<ul>
+<li>Wie Benutzer und Auditoren E-Mails suchen, ansehen und exportieren</li>
+<li>Rollen und Zugriffsrechte</li>
+</ul>
+</li>
+<li>
+<p><strong>Technische Systemdokumentation</strong></p>
+<ul>
+<li>Eingesetzte Software (Piler Enterprise mit Version), Hardware oder Hosting, Speicherorte</li>
+<li>Wie E-Mails erfasst (Journalregel), gespeichert, verschlüsselt und geprüft werden</li>
+<li>Aufbewahrungsfristen und -regeln, Einstellungen zum Löschen</li>
+</ul>
+</li>
+<li>
+<p><strong>Betriebsdokumentation</strong></p>
+<ul>
+<li>Datensicherung und Wiederherstellung, Aufbewahrung des Schlüssels</li>
+<li>Updates und ihre Historie, Überwachung</li>
+<li>Das interne Kontrollsystem: Prüfung der Berechtigungen und des Audit-Logs</li>
+</ul>
+</li>
+</ol>
+<p>Die Dokumentation muss dem tatsächlich eingesetzten Verfahren entsprechen, einschließlich der Programmversionen, und Änderungen müssen versioniert und historisch nachvollziehbar sein (Rz. 154). Sie ist so lange aufzubewahren wie die Unterlagen, zu deren Verständnis sie erforderlich ist (Rz. 154). Eine fehlende oder ungenügende Verfahrensdokumentation ist kein formeller Mangel, der zur Verwerfung der Buchführung führt, soweit sie die Nachvollziehbarkeit und Nachprüfbarkeit nicht beeinträchtigt (Rz. 155).</p>
+<p><strong>Piler unterstützt Ihre Verfahrensdokumentation mit:</strong></p>
+<ul>
+<li>dieser Seite und der Dokumentation Ihrer Piler-Version, für die technischen Teile</li>
+<li>dem Audit-Log, für die Kontrollen (Anmeldungen, Zugriffe, Löschungen, Änderungen an Regeln)</li>
+<li>den Aufbewahrungsregeln und ihrer Änderungshistorie</li>
+</ul>
+<hr />
+<h2 id="empfehlungen-fur-den-gobd-konformen-betrieb">Empfehlungen für den GoBD-konformen Betrieb<a class="headerlink" href="#empfehlungen-fur-den-gobd-konformen-betrieb" title="Permanent link">#</a></h2>
+<h3 id="mindestanforderungen">Mindestanforderungen<a class="headerlink" href="#mindestanforderungen" title="Permanent link">#</a></h3>
+<ol>
+<li>
+<p><strong>Jede E-Mail archivieren</strong></p>
+<ul>
+<li>Eine Journalregel auf dem Mailserver für alle ein- und ausgehenden E-Mails einrichten</li>
+</ul>
+</li>
+<li>
+<p><strong>Aufbewahrung einstellen</strong></p>
+<ul>
+<li>Die Aufbewahrungsfrist des Mandanten nach der längsten geltenden Pflicht festlegen (z. B. 10 Jahre)</li>
+<li>Aufbewahrungsregeln nur für E-Mails, die nachweislich kürzer aufzubewahren sind</li>
+</ul>
+</li>
+<li>
+<p><strong>Löschen deaktiviert lassen</strong></p>
+<ul>
+<li><code>ENABLE_DELETE=false</code> (die Vorgabe), oder Löschen nur mit <code>NEED_TO_APPROVE_DELETE=true</code></li>
+</ul>
+</li>
+<li>
+<p><strong>Schlüssel schützen und Daten sichern</strong></p>
+<ul>
+<li>Datenbanken, gespeicherte E-Mails und den Schlüssel sichern; der 3-2-1-Regel folgen</li>
+<li>Die Wiederherstellung regelmäßig testen</li>
+</ul>
+</li>
+<li>
+<p><strong>Das Audit-Log nutzen und prüfen</strong></p>
+<ul>
+<li>Regelmäßig auswerten, als Teil Ihres internen Kontrollsystems</li>
+</ul>
+</li>
+<li>
+<p><strong>Die Verfahrensdokumentation erstellen</strong></p>
+<ul>
+<li>Siehe <a href="#verfahrensdokumentation">oben</a></li>
+</ul>
+</li>
+</ol>
+<h3 id="erweiterte-manahmen">Erweiterte Maßnahmen<a class="headerlink" href="#erweiterte-manahmen" title="Permanent link">#</a></h3>
+<ol>
+<li><strong>TSA-Zeitstempel</strong>: das Programm <code>sign</code> regelmäßig ausführen, als unabhängigen Nachweis, wann die E-Mails archiviert wurden</li>
+<li><strong>WORM-Speicher</strong>: S3 Object Lock oder Vergleichbares, für die Unveränderbarkeit auf Speicherebene</li>
+<li><strong>Audit-Log extern speichern</strong>: SIEM-Anbindung, damit lokale Administratoren das Log nicht ändern können</li>
+<li><strong>Regelmäßige Überprüfung</strong>: die Einstellungen mit dieser Seite abgleichen und die Verfahrensdokumentation nach jeder Änderung aktualisieren</li>
+</ol>
+<hr />
+<h2 id="datenzugriff-bei-der-auenprufung">Datenzugriff bei der Außenprüfung<a class="headerlink" href="#datenzugriff-bei-der-auenprufung" title="Permanent link">#</a></h2>
+<p>Bei einer Außenprüfung hat die Finanzverwaltung drei gleichberechtigte Möglichkeiten des Datenzugriffs und entscheidet selbst, welche sie nutzt (Rz. 163, 164):</p>
+<table>
+<thead>
+<tr>
+<th>Zugriff</th>
+<th>Rz.</th>
+<th>Bedeutung</th>
+<th>Mit Piler</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Z1</strong>: unmittelbarer Datenzugriff</td>
+<td>165</td>
+<td>Der Prüfer sieht die Daten in Ihrem System ein, mit Nur-Lesezugriff, vor Ort; kein Online-Fernzugriff</td>
+<td>Ein Auditor-Konto für den Prüfer</td>
+</tr>
+<tr>
+<td><strong>Z2</strong>: mittelbarer Datenzugriff</td>
+<td>166</td>
+<td>Sie (oder ein Dienstleister) werten die Daten nach den Vorgaben des Prüfers aus und stellen ihm das Ergebnis zur Verfügung oder ermöglichen einen Nur-Lesezugriff darauf</td>
+<td>Suchen nach den Vorgaben des Prüfers, für ihn exportiert</td>
+</tr>
+<tr>
+<td><strong>Z3</strong>: Datenüberlassung</td>
+<td>167 bis 169</td>
+<td>Sie überlassen die Daten in einem maschinell auswertbaren Format, z. B. auf einem Datenträger</td>
+<td>Export der ausgewählten E-Mails als EML (mit ihren Metadaten)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Der Umfang</strong>: Der Datenzugriff umfasst die aufbewahrungspflichtigen Unterlagen im Rahmen der jeweiligen Außenprüfung (Rz. 158, 159). Welche Daten steuerlich relevant sind, legen Sie fest (Erstqualifikation, Rz. 161).</p>
+<p><strong>Ein Auditor-Konto sieht jede archivierte E-Mail des Mandanten.</strong> Piler hat keine Auditor-Rolle, die auf die steuerlich relevanten E-Mails beschränkt ist. Soll der Prüfer nicht alles sehen, ziehen Sie Z2 oder Z3 vor: Suchen Sie die relevanten E-Mails selbst heraus und exportieren Sie sie. Stimmen Sie das Format mit dem Prüfer ab.</p>
+<h3 id="ein-auditor-konto-fur-den-unmittelbaren-zugriff-z1">Ein Auditor-Konto für den unmittelbaren Zugriff (Z1)<a class="headerlink" href="#ein-auditor-konto-fur-den-unmittelbaren-zugriff-z1" title="Permanent link">#</a></h3>
+<ol>
+<li>Ein Benutzerkonto mit der Auditor-Rolle anlegen, nur für die Dauer der Prüfung</li>
+<li>Das Löschen deaktiviert lassen: Mit <code>ENABLE_DELETE=true</code> können Auditoren Löschungen beantragen</li>
+<li>Die Zugangsdaten dem Prüfer übergeben</li>
+<li>Die Zugriffe im Audit-Log verfolgen</li>
+<li>Das Konto nach der Prüfung deaktivieren</li>
+</ol>
+<p>Jeder Zugriff eines Auditors wird protokolliert.</p>
+<hr />
+<h2 id="zusammenfassung-checkliste">Zusammenfassung: Checkliste<a class="headerlink" href="#zusammenfassung-checkliste" title="Permanent link">#</a></h2>
+<table>
+<thead>
+<tr>
+<th>Anforderung</th>
+<th>Umsetzung</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Vollständigkeit</td>
+<td>Journalregel, SMTP-Archivierung in Echtzeit</td>
+<td>✓ Einrichtung erforderlich</td>
+</tr>
+<tr>
+<td>Unveränderbarkeit</td>
+<td>Original-EML, keine Änderungsfunktion, Verschlüsselung, Prüfung des SHA-256-Hashwerts, optional TSA und WORM</td>
+<td>✓ Integriert</td>
+</tr>
+<tr>
+<td>Protokollierung</td>
+<td>Audit-Log, Weiterleitung an ein SIEM</td>
+<td>✓ Integriert, noch nicht jede Änderung der Einstellungen</td>
+</tr>
+<tr>
+<td>Aufbewahrung im Empfangsformat</td>
+<td>Original-EML mit Kopfzeilen und Anhängen</td>
+<td>✓ Integriert</td>
+</tr>
+<tr>
+<td>Keine Löschung vor Fristablauf</td>
+<td>Löschen standardmäßig deaktiviert, Aufbewahrungsregeln, Legal Hold</td>
+<td>✓ Einrichtung erforderlich</td>
+</tr>
+<tr>
+<td>Ordnung und Index</td>
+<td>Eindeutige ID, Volltext- und Metadatensuche, Kategorien, Tags</td>
+<td>✓ Integriert</td>
+</tr>
+<tr>
+<td>Maschinelle Auswertbarkeit</td>
+<td>Volltextsuche, Exporte als EML, MBOX, PDF, CSV und eDiscovery</td>
+<td>✓ Integriert</td>
+</tr>
+<tr>
+<td>Schlüssel</td>
+<td>Für die gesamte Aufbewahrungsfrist aufbewahren</td>
+<td>○ Aufgabe des Kunden</td>
+</tr>
+<tr>
+<td>Datensicherheit, Datensicherung</td>
+<td>Zugriffskontrolle, 2FA; Datensicherung</td>
+<td>○ Aufgabe des Kunden</td>
+</tr>
+<tr>
+<td>Datenzugriff</td>
+<td>Auditor-Konten, Suchen und Exporte</td>
+<td>✓ Integriert</td>
+</tr>
+<tr>
+<td>Verfahrensdokumentation</td>
+<td>Unterstützt durch diese Seite und das Audit-Log</td>
+<td>○ Aufgabe des Kunden</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Legende:</strong> ✓ = unterstützt, ○ = Verantwortung des Kunden</p>
+<hr />
+<h2 id="weitere-dokumentation-englisch">Weitere Dokumentation (englisch)<a class="headerlink" href="#weitere-dokumentation-englisch" title="Permanent link">#</a></h2>
+<ul>
+<li><a href="../gdpr/">GDPR Compliance</a> - Datenschutz (DSGVO)</li>
+<li><a href="../compliance/">Compliance Overview</a> - Compliance-Funktionen im Überblick</li>
+<li><a href="../siem/">SIEM Integration</a> - Weiterleitung des Audit-Logs</li>
+<li><a href="../fiber-ui-config-options/">Retention Policies</a> - Einstellungen</li>
+<li><a href="../ediscovery/">eDiscovery</a> - Exporte und Legal Hold</li>
+</ul>
+<hr />
+<h2 id="quellen">Quellen<a class="headerlink" href="#quellen" title="Permanent link">#</a></h2>
+<ul>
+<li><a href="https://amtliche-handbuecher.bundesfinanzministerium.de/ao/2026/Anhaenge/BMF-Schreiben-und-gleichlautende-Laendererlasse/Anhang-33/inhalt.html">GoBD, konsolidierte Fassung vom 14. Juli 2025</a> - im amtlichen AO-Handbuch des BMF (Anhang 33)</li>
+<li><a href="https://www.bundesfinanzministerium.de/Content/DE/Downloads/BMF_Schreiben/Weitere_Steuerthemen/Abgabenordnung/2025-07-14-GoBD-2-aenderung.html">GoBD, 2. Änderung vom 14. Juli 2025</a> - BMF-Schreiben, E-Rechnungen</li>
+<li><a href="https://www.gesetze-im-internet.de/ao_1977/__147.html">§ 147 AO</a> - Aufbewahrung von Unterlagen</li>
+<li><a href="https://www.gesetze-im-internet.de/hgb/__257.html">§ 257 HGB</a> - Aufbewahrung von Unterlagen, Handelsrecht</li>
+<li><a href="https://www.gesetze-im-internet.de/ustg_1980/__14b.html">§ 14b UStG</a> - Aufbewahrung von Rechnungen</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": [], "search": "../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+    
+  </body>
+</html>
