@@ -357,6 +357,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#audit-log-details-225" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Audit log details (2.2.5)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#refresh-sessions-225" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -579,6 +590,12 @@ to <code>https://billing1.mailpiler.com,https://billing2.mailpiler.com</code> (t
 default), replace it with <code>https://billing.mailpiler.com</code>, or remove the
 setting. The old names still reach the same server, so nothing breaks
 meanwhile, but a failed report is then sent to the same server twice.</p>
+<h3 id="audit-log-details-225">Audit log details (2.2.5)<a class="headerlink" href="#audit-log-details-225" title="Permanent link">#</a></h3>
+<p>The string values in the details of the audit entries are quoted from
+2.2.5 (<code>username="anna"</code>, was <code>username=anna</code>), and the legal hold entries
+have keys: <code>case_number="…", case_name="…"</code> (was <code>CASE-1 - Name</code>) and
+<code>hold_id="…", reason="…"</code> (was <code>Hold ID: … - Reason: …</code>). If a SIEM rule
+or a report matches the old text of these details, update it.</p>
 <h3 id="refresh-sessions-225">Refresh sessions (2.2.5)<a class="headerlink" href="#refresh-sessions-225" title="Permanent link">#</a></h3>
 <p>Before 2.2.5 a token login (<code>POST /auth/login</code>) stored the user's TOTP
 secret and backup codes, IMAP password, access token and CSRF token with

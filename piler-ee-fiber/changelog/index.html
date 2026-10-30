@@ -925,6 +925,12 @@ master; with several masters set <code>LEADER_ELECTION_ENABLED=true</code>. A
 <a href="../upgrade/#docker-the-error-directory-volume-225">Docker: the error directory volume</a>.</p>
 <h3 id="security">Security<a class="headerlink" href="#security" title="Permanent link">#</a></h3>
 <ul>
+<li>The quota update and the MSP admin's branding refuse an invalid tenant
+  id, and the audit log refuses a table name that isn't a tenant's audit
+  table: a crafted tenant id could add entries to another tenant's audit
+  log. The string values of the audit details are quoted, so a value
+  can't look like another key, see
+  <a href="../upgrade/#audit-log-details-225">Audit log details</a>.</li>
 <li>A regular user's search could count, and list in the top results, the
   messages of an address that looks the same in the search index, e.g.
   <code>john.sales@example.com</code> and <code>john@sales.example.com</code>. Their content was
@@ -965,6 +971,13 @@ master; with several masters set <code>LEADER_ELECTION_ENABLED=true</code>. A
 </ul>
 <h3 id="added">Added<a class="headerlink" href="#added" title="Permanent link">#</a></h3>
 <ul>
+<li>The audit log records every change of the configuration made through the
+  web UI or the API, with the new values (never a password): domains,
+  groups, LDAP, profiles, import jobs, export deletions, legal hold status,
+  DLP and compliance rules, the DLP alerts, branding, quotas, Teams and
+  Slack retention settings and legal holds, in addition to the users,
+  tenants, retention rules, categories, legal holds and API tokens logged
+  before. The GoBD require it (Rz. 111), see <a href="../gobd/">GoBD</a>.</li>
 <li><code>recreate-distributed-tables.sh</code> (multinode master): recreates the
   distributed tables of the tenants after adding a worker, instead of the
   manual procedure. It never drops a table that isn't distributed.</li>

@@ -630,7 +630,7 @@
 
 <h1 id="gobd-compliance-for-email-archiving">GoBD Compliance for Email Archiving<a class="headerlink" href="#gobd-compliance-for-email-archiving" title="Permanent link">#</a></h1>
 <p>This documentation applies to Piler enterprise edition 2.1.0+</p>
-<p>Revision #2</p>
+<p>Revision #3</p>
 <p>Publication date: 2026-OCT-30</p>
 <p><a href="../gobd-de/">Deutsche Fassung</a></p>
 <blockquote>
@@ -779,7 +779,7 @@
 <tr>
 <td><strong>Logging</strong> (Protokollierung)</td>
 <td>59, 111, 117</td>
-<td>Audit log of logins, searches, views, downloads, exports, removals, retention rule and user changes</td>
+<td>Audit log of logins, searches, views, downloads, exports, removals and every configuration change</td>
 <td>Review it; optionally forward it to a SIEM</td>
 </tr>
 <tr>
@@ -882,9 +882,9 @@
 <li><strong>Searches</strong>: what was searched, and by whom</li>
 <li><strong>Exports</strong>: eDiscovery exports, downloads</li>
 <li><strong>Removals</strong>: removal requests, their approval or rejection, GDPR erasure requests</li>
-<li><strong>Administration</strong>: changes of retention rules, users, tenants, categories, legal holds and API tokens</li>
+<li><strong>Configuration</strong> (2.2.5+): every change made through the web UI or the API, with the new values (never a password): users, groups, domains, LDAP, profiles, tenants, quotas, retention rules, categories, legal holds, DLP and compliance rules, import jobs, branding, API tokens, Teams and Slack retention</li>
 </ul>
-<p>Not every configuration change is logged yet (e.g. domains and LDAP settings). Record such changes in the change history of your procedure documentation (Rz. 154).</p>
+<p>Changes outside Piler (e.g. the <code>.env</code> settings or the mail server's journal rule) aren't in the audit log: record them in the change history of your procedure documentation (Rz. 154). Before 2.2.5, changes of domains, groups, LDAP, profiles and some other settings weren't logged.</p>
 <p><strong>Audit log protection:</strong></p>
 <ul>
 <li>Audit logs are stored separately from email content, and can't be changed or deleted in the web UI or the API</li>
@@ -1182,8 +1182,8 @@
 </tr>
 <tr>
 <td>Logging</td>
-<td>Audit log, SIEM forwarding</td>
-<td>✓ Built-in, not yet every configuration change</td>
+<td>Audit log of access and every configuration change (2.2.5+), SIEM forwarding</td>
+<td>✓ Built-in</td>
 </tr>
 <tr>
 <td>Retention in the received format</td>

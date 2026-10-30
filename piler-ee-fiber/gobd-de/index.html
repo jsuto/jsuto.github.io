@@ -630,7 +630,7 @@
 
 <h1 id="gobd-konforme-e-mail-archivierung">GoBD-konforme E-Mail-Archivierung<a class="headerlink" href="#gobd-konforme-e-mail-archivierung" title="Permanent link">#</a></h1>
 <p>Diese Dokumentation gilt für Piler Enterprise Edition 2.1.0+</p>
-<p>Revision #1</p>
+<p>Revision #2</p>
 <p>Veröffentlicht: 30.10.2026</p>
 <p><a href="../gobd/">English version</a></p>
 <blockquote>
@@ -779,7 +779,7 @@
 <tr>
 <td><strong>Protokollierung</strong></td>
 <td>59, 111, 117</td>
-<td>Audit-Log von Anmeldungen, Suchen, Ansichten, Downloads, Exporten, Löschungen, Änderungen an Aufbewahrungsregeln und Benutzern</td>
+<td>Audit-Log von Anmeldungen, Suchen, Ansichten, Downloads, Exporten, Löschungen und jeder Änderung der Einstellungen</td>
 <td>Auswerten; optional an ein SIEM weiterleiten</td>
 </tr>
 <tr>
@@ -882,9 +882,9 @@
 <li><strong>Suchen</strong>: was von wem gesucht wurde</li>
 <li><strong>Exporte</strong>: eDiscovery-Exporte, Downloads</li>
 <li><strong>Löschungen</strong>: Löschanträge, ihre Freigabe oder Ablehnung, DSGVO-Löschanträge</li>
-<li><strong>Administration</strong>: Änderungen an Aufbewahrungsregeln, Benutzern, Mandanten, Kategorien, Legal Holds und API-Tokens</li>
+<li><strong>Einstellungen</strong> (ab 2.2.5): jede Änderung über die Weboberfläche oder die API, mit den neuen Werten (nie ein Passwort): Benutzer, Gruppen, Domains, LDAP, Profile, Mandanten, Kontingente, Aufbewahrungsregeln, Kategorien, Legal Holds, DLP- und Compliance-Regeln, Importaufträge, Branding, API-Tokens, Aufbewahrung von Teams und Slack</li>
 </ul>
-<p>Noch nicht jede Änderung der Einstellungen wird protokolliert (z. B. Domains und LDAP-Einstellungen). Halten Sie solche Änderungen in der Änderungshistorie Ihrer Verfahrensdokumentation fest (Rz. 154).</p>
+<p>Änderungen außerhalb von Piler (z. B. an den Einstellungen in <code>.env</code> oder an der Journalregel des Mailservers) stehen nicht im Audit-Log: Halten Sie sie in der Änderungshistorie Ihrer Verfahrensdokumentation fest (Rz. 154). Vor 2.2.5 wurden Änderungen an Domains, Gruppen, LDAP, Profilen und einigen weiteren Einstellungen nicht protokolliert.</p>
 <p><strong>Schutz des Audit-Logs:</strong></p>
 <ul>
 <li>Das Audit-Log wird getrennt von den E-Mails gespeichert und kann in der Weboberfläche und über die API weder geändert noch gelöscht werden</li>
@@ -1182,8 +1182,8 @@
 </tr>
 <tr>
 <td>Protokollierung</td>
-<td>Audit-Log, Weiterleitung an ein SIEM</td>
-<td>✓ Integriert, noch nicht jede Änderung der Einstellungen</td>
+<td>Audit-Log der Zugriffe und jeder Änderung der Einstellungen (ab 2.2.5), Weiterleitung an ein SIEM</td>
+<td>✓ Integriert</td>
 </tr>
 <tr>
 <td>Aufbewahrung im Empfangsformat</td>
