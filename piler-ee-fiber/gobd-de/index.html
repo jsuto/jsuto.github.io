@@ -563,6 +563,17 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#die-e-rechnungen-eines-zeitraums-z3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Die E-Rechnungen eines Zeitraums (Z3)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#ein-auditor-konto-fur-den-unmittelbaren-zugriff-z1" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1022,7 +1033,7 @@
 </tbody>
 </table>
 <p><strong>Piler bewahrt E-Rechnungen so auf, wie es die GoBD verlangen</strong>, weil es jede E-Mail so archiviert, wie sie empfangen wurde: XML, PDF und hybride Formate (ZUGFeRD, Factur-X, XRechnung) bleiben unverändert erhalten und sind per Volltextsuche und nach Typ des Anhangs auffindbar.</p>
-<p><strong>E-Rechnungen finden</strong> (ab 2.2.5): Piler erkennt beim Archivieren die E-Mails mit einer E-Rechnung im Anhang: XRechnung und andere UBL- oder CII-Rechnungen (XML) sowie ZUGFeRD- und Factur-X-Rechnungen (PDF mit eingebetteter XML-Rechnung). Sie finden sie mit <code>attachment:einvoice</code> oder dem Kontrollkästchen „E-invoice" der erweiterten Suche. Für eine Außenprüfung kombinieren Sie es mit einem Zeitraum und exportieren das Ergebnis (Z2 / Z3, siehe <a href="#datenzugriff-bei-der-auenprufung">Datenzugriff bei der Außenprüfung</a>). Die vor 2.2.5 archivierten E-Mails werden nach einem <a href="../upgrade/#e-invoices-in-the-search-225">reindex</a> gefunden.</p>
+<p><strong>E-Rechnungen finden</strong> (ab 2.2.5): Piler erkennt beim Archivieren die E-Mails mit einer E-Rechnung im Anhang: XRechnung und andere UBL- oder CII-Rechnungen (XML) sowie ZUGFeRD- und Factur-X-Rechnungen (PDF mit eingebetteter XML-Rechnung). Sie finden sie mit <code>attachment:einvoice</code> oder dem Kontrollkästchen „E-invoice" der erweiterten Suche. Für eine Außenprüfung kombinieren Sie es mit einem Zeitraum und exportieren die E-Rechnungen (Z2 / Z3, siehe <a href="#die-e-rechnungen-eines-zeitraums-z3">Die E-Rechnungen eines Zeitraums</a>). Die vor 2.2.5 archivierten E-Mails werden nach einem <a href="../upgrade/#e-invoices-in-the-search-225">reindex</a> gefunden.</p>
 <hr />
 <h2 id="verfahrensdokumentation">Verfahrensdokumentation<a class="headerlink" href="#verfahrensdokumentation" title="Permanent link">#</a></h2>
 <p>Für jedes DV-System muss eine übersichtlich gegliederte Verfahrensdokumentation vorhanden sein, aus der Inhalt, Aufbau, Ablauf und Ergebnisse des Verfahrens vollständig und schlüssig ersichtlich sind und die ein sachverständiger Dritter in angemessener Zeit prüfen kann (Rz. 151). Bei elektronischen Dokumenten beschreibt sie den Prozess von der Entstehung über die Indizierung, Verarbeitung und Speicherung, das eindeutige Wiederfinden und die maschinelle Auswertbarkeit, die Absicherung gegen Verlust und Verfälschung bis zur Reproduktion (Rz. 152).</p>
@@ -1151,12 +1162,47 @@
 <td><strong>Z3</strong>: Datenüberlassung</td>
 <td>167 bis 169</td>
 <td>Sie überlassen die Daten in einem maschinell auswertbaren Format, z. B. auf einem Datenträger</td>
-<td>Export der ausgewählten E-Mails als EML (mit ihren Metadaten)</td>
+<td>Export der ausgewählten E-Mails als EML (mit ihren Metadaten); die E-Rechnungen eines Zeitraums mit einem Verzeichnis (ab 2.2.5)</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Der Umfang</strong>: Der Datenzugriff umfasst die aufbewahrungspflichtigen Unterlagen im Rahmen der jeweiligen Außenprüfung (Rz. 158, 159). Welche Daten steuerlich relevant sind, legen Sie fest (Erstqualifikation, Rz. 161).</p>
 <p><strong>Ein Auditor-Konto sieht jede archivierte E-Mail des Mandanten.</strong> Piler hat keine Auditor-Rolle, die auf die steuerlich relevanten E-Mails beschränkt ist. Soll der Prüfer nicht alles sehen, ziehen Sie Z2 oder Z3 vor: Suchen Sie die relevanten E-Mails selbst heraus und exportieren Sie sie. Stimmen Sie das Format mit dem Prüfer ab.</p>
+<p><strong>Wer es macht</strong>: Für Z2 und Z3 ist kein besonderes Konto nötig. Ein normaler Benutzer, der die Rechnungen empfängt (z. B. mit <code>rechnung@</code> oder <code>buchhaltung@</code> als Alias), findet und exportiert sie und sieht sonst nichts. Ein Auditor-Konto kann es ebenfalls, sieht aber alle E-Mails.</p>
+<h3 id="die-e-rechnungen-eines-zeitraums-z3">Die E-Rechnungen eines Zeitraums (Z3)<a class="headerlink" href="#die-e-rechnungen-eines-zeitraums-z3" title="Permanent link">#</a></h3>
+<p>Ab 2.2.5:</p>
+<ol>
+<li>Nach <code>attachment:einvoice</code> suchen (oder „E-invoice" in der erweiterten Suche ankreuzen), mit den Daten des Prüfungszeitraums</li>
+<li>Auf das Beleg-Symbol neben dem Export-Symbol klicken und das ZIP bei den Exporten herunterladen</li>
+</ol>
+<p>Das ZIP enthält:</p>
+<table>
+<thead>
+<tr>
+<th>Datei</th>
+<th>Inhalt</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>einvoices/&lt;id&gt;-&lt;n&gt;_&lt;name&gt;</code></td>
+<td>Jede E-Rechnung (XRechnung UBL oder CII als XML, ZUGFeRD / Factur-X als PDF) wie empfangen, Byte für Byte</td>
+</tr>
+<tr>
+<td><code>emails/&lt;id&gt;.eml</code></td>
+<td>Die E-Mail, mit der sie kam</td>
+</tr>
+<tr>
+<td><code>index.csv</code></td>
+<td>Eine Zeile je E-Rechnung: Datum, Absender, Empfänger, Betreff, Art (UBL, CII, PDF/A-3), Dateiname, Größe, SHA-256 der E-Rechnung und der E-Mail. UTF-8, durch Semikolons getrennt</td>
+</tr>
+<tr>
+<td><code>README.txt</code></td>
+<td>Die Zahl der gefundenen und geprüften E-Mails und ob der Export vollständig ist</td>
+</tr>
+</tbody>
+</table>
+<p>E-Mails ohne E-Rechnung werden ausgelassen. Eine Suche ist auf <code>MAX_EXPORT_MESSAGES</code> E-Mails begrenzt (standardmäßig 20000), bevor sie ausgelassen werden: Erreicht eine breite Suche die Grenze, steht in <code>README.txt</code> „UNVOLLSTAENDIG". Grenzen Sie die Suche auf <code>attachment:einvoice</code> und den Zeitraum ein und exportieren Sie erneut. Jede exportierte E-Mail steht im Audit-Log (<code>download</code>), ebenso der Export selbst (<code>export</code>) mit seinen Zahlen.</p>
 <h3 id="ein-auditor-konto-fur-den-unmittelbaren-zugriff-z1">Ein Auditor-Konto für den unmittelbaren Zugriff (Z1)<a class="headerlink" href="#ein-auditor-konto-fur-den-unmittelbaren-zugriff-z1" title="Permanent link">#</a></h3>
 <ol>
 <li>Ein Benutzerkonto mit der Auditor-Rolle anlegen, nur für die Dauer der Prüfung</li>

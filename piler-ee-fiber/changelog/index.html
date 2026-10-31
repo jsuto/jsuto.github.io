@@ -925,6 +925,9 @@ master; with several masters set <code>LEADER_ELECTION_ENABLED=true</code>. A
 <a href="../upgrade/#docker-the-error-directory-volume-225">Docker: the error directory volume</a>.</p>
 <h3 id="security">Security<a class="headerlink" href="#security" title="Permanent link">#</a></h3>
 <ul>
+<li>The removal of an export took a file name with <code>../</code>, so a user could
+  delete another user's export file if they knew its random name. The
+  download and the removal of an export take a plain file name only.</li>
 <li>The quota update and the MSP admin's branding refuse an invalid tenant
   id, and the audit log refuses a table name that isn't a tenant's audit
   table: a crafted tenant id could add entries to another tenant's audit
@@ -978,6 +981,13 @@ master; with several masters set <code>LEADER_ELECTION_ENABLED=true</code>. A
   archived before are found after a reindex, see
   <a href="../upgrade/#e-invoices-in-the-search-225">E-invoices in the search</a> and
   <a href="../gobd/#e-invoices">GoBD</a>.</li>
+<li>Export of the e-invoices of the search results, for the data handover in
+  a tax audit (GoBD Z3): the receipt button next to the export button of
+  the search page, or <code>POST /api/v1/export?format=einvoice</code>. The ZIP has
+  each e-invoice as received, the email it came with, <code>index.csv</code> (one row
+  per e-invoice, with the SHA-256 of the file and of the email) and
+  <code>README.txt</code>, which says whether the export is complete. See
+  <a href="../gobd/#the-e-invoices-of-a-period-z3">GoBD</a>.</li>
 <li>The audit log records every change of the configuration made through the
   web UI or the API, with the new values (never a password): domains,
   groups, LDAP, profiles, import jobs, export deletions, legal hold status,

@@ -563,6 +563,17 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#the-e-invoices-of-a-period-z3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The e-invoices of a period (Z3)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#an-auditor-account-for-direct-access-z1" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1022,7 +1033,7 @@
 </tbody>
 </table>
 <p><strong>Piler keeps e-invoices as the GoBD require</strong> because it archives every email as received: XML, PDF and hybrid formats (ZUGFeRD, Factur-X, XRechnung) are all preserved unchanged, and found by full-text search and by attachment type.</p>
-<p><strong>Finding e-invoices</strong> (2.2.5+): Piler recognizes the emails with an e-invoice attachment when it archives them: XRechnung and other UBL or CII invoices (XML), and ZUGFeRD / Factur-X invoices (PDF with an embedded XML invoice). Search for them with <code>attachment:einvoice</code>, or the "E-invoice" checkbox of the advanced search. For a tax audit, combine it with a date range and export the results (Z2 / Z3, see <a href="#data-access-in-a-tax-audit">Data access in a tax audit</a>). The emails archived before 2.2.5 are found after a <a href="../upgrade/#e-invoices-in-the-search-225">reindex</a>.</p>
+<p><strong>Finding e-invoices</strong> (2.2.5+): Piler recognizes the emails with an e-invoice attachment when it archives them: XRechnung and other UBL or CII invoices (XML), and ZUGFeRD / Factur-X invoices (PDF with an embedded XML invoice). Search for them with <code>attachment:einvoice</code>, or the "E-invoice" checkbox of the advanced search. For a tax audit, combine it with a date range and export the e-invoices (Z2 / Z3, see <a href="#the-e-invoices-of-a-period-z3">The e-invoices of a period</a>). The emails archived before 2.2.5 are found after a <a href="../upgrade/#e-invoices-in-the-search-225">reindex</a>.</p>
 <hr />
 <h2 id="procedural-documentation-verfahrensdokumentation">Procedural documentation (Verfahrensdokumentation)<a class="headerlink" href="#procedural-documentation-verfahrensdokumentation" title="Permanent link">#</a></h2>
 <p>For every IT system there must be a clearly structured procedure documentation, from which the content, structure, process and results of the procedure are fully and conclusively apparent, and which a knowledgeable third party can review in a reasonable time (Rz. 151). For electronic documents it describes the process from their creation through indexing, processing and storage, finding them, machine evaluation, protection against loss and falsification, to their reproduction (Rz. 152).</p>
@@ -1151,12 +1162,47 @@
 <td><strong>Z3</strong>: data handover</td>
 <td>167 to 169</td>
 <td>You hand over the data in a machine-readable format, e.g. on a data carrier</td>
-<td>Export of the selected emails in EML (with their metadata)</td>
+<td>Export of the selected emails in EML (with their metadata); the e-invoices of a period with an index (2.2.5+)</td>
 </tr>
 </tbody>
 </table>
 <p><strong>The scope</strong>: data access covers the documents that must be kept, within the scope of the audit (Rz. 158, 159). Deciding which data are tax-relevant is your task (Rz. 161).</p>
 <p><strong>An auditor account sees every archived email of the tenant.</strong> Piler has no auditor role limited to the tax-relevant emails. If the tax auditor shouldn't see everything, prefer Z2 or Z3: search for the relevant emails yourself and export them. Agree on the format with the auditor.</p>
+<p><strong>Who does it</strong>: for Z2 and Z3, no special account is needed. A regular user who receives the invoices (e.g. with <code>rechnung@</code> or <code>buchhaltung@</code> as an alias) finds and exports them, and sees nothing else. An auditor account can do it too, but sees all mail.</p>
+<h3 id="the-e-invoices-of-a-period-z3">The e-invoices of a period (Z3)<a class="headerlink" href="#the-e-invoices-of-a-period-z3" title="Permanent link">#</a></h3>
+<p>From 2.2.5:</p>
+<ol>
+<li>Search for <code>attachment:einvoice</code> (or tick "E-invoice" in the advanced search) with the dates of the audited period</li>
+<li>Click the receipt button next to the export button, then download the ZIP from the exports</li>
+</ol>
+<p>The ZIP has:</p>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Contents</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>einvoices/&lt;id&gt;-&lt;n&gt;_&lt;name&gt;</code></td>
+<td>Each e-invoice (XRechnung UBL or CII XML, ZUGFeRD / Factur-X PDF) as received, byte for byte</td>
+</tr>
+<tr>
+<td><code>emails/&lt;id&gt;.eml</code></td>
+<td>The email it came with</td>
+</tr>
+<tr>
+<td><code>index.csv</code></td>
+<td>One row per e-invoice: date, sender, recipients, subject, kind (UBL, CII, PDF/A-3), file name, size, SHA-256 of the e-invoice and of the email. UTF-8, separated by semicolons</td>
+</tr>
+<tr>
+<td><code>README.txt</code></td>
+<td>The number of emails found and checked, and whether the export is complete</td>
+</tr>
+</tbody>
+</table>
+<p>Emails without an e-invoice are left out. A search is limited to <code>MAX_EXPORT_MESSAGES</code> emails (20000 by default) before they are left out: if a broad search hits the limit, <code>README.txt</code> says "INCOMPLETE". Narrow the search to <code>attachment:einvoice</code> and the period, and export again. Each exported email is in the audit log (<code>download</code>), and the export itself (<code>export</code>), with its counts.</p>
 <h3 id="an-auditor-account-for-direct-access-z1">An auditor account for direct access (Z1)<a class="headerlink" href="#an-auditor-account-for-direct-access-z1" title="Permanent link">#</a></h3>
 <ol>
 <li>Create a user account with the auditor role, only for the time of the audit</li>
