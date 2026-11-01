@@ -1,0 +1,588 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://docs.mailpiler.com/piler-ee-fiber/install-single-host/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>Install on a single host - piler enterprise 2.x documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.618322db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#install-on-a-single-host" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="piler enterprise 2.x documentation" class="md-header__button md-logo" aria-label="piler enterprise 2.x documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            piler enterprise 2.x documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Install on a single host
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="piler enterprise 2.x documentation" class="md-nav__button md-logo" aria-label="piler enterprise 2.x documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    piler enterprise 2.x documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://mailpiler.com/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Site
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-what-you-need" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. What you need
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-get-the-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Get the files
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-run-the-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Run the setup
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-start-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Start it
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-first-login" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. First login
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-test-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Test it
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-send-the-journal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Send the journal
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Settings
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#upgrade" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Upgrade
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="install-on-a-single-host">Install on a single host<a class="headerlink" href="#install-on-a-single-host" title="Permanent link">#</a></h1>
+<p>This documentation applies to Piler enterprise edition 2.2.5+</p>
+<p>Revision #1</p>
+<p>Publication date: 2026-NOV-01</p>
+<p>From an empty Linux host to an archive that receives the journal of your
+mail server, with Docker. Every component runs on the one host: piler,
+piler-smtp, the web UI, MariaDB, Manticore, Tika, Valkey, the scanner, and
+Traefik for HTTPS with Let's Encrypt certificates.</p>
+<p>Your license decides whether it's a single-tenant or a multi-tenant
+archive. For a larger installation (a master and workers) see
+<a href="../large-deployments/">large deployments</a>; for an installation without
+Docker, <a href="../setup/#installing-on-a-single-linux-node">installing piler enterprise edition</a>.</p>
+<h2 id="1-what-you-need">1. What you need<a class="headerlink" href="#1-what-you-need" title="Permanent link">#</a></h2>
+<ul>
+<li><strong>A Linux host</strong>, amd64 or arm64, with
+  <a href="https://docs.docker.com/engine/install/" target="_blank">Docker Engine</a>
+  and its compose plugin. Start with 2 vCPUs, 4 GB of memory and 200 GB of
+  disk: the components take about 0.7 GB of memory idle with an empty
+  archive, Tika, Manticore and piler need more while emails come in. For
+  the disk, see <a href="../large-deployments/sizing/">sizing</a>.</li>
+<li><strong>The hostname in your license</strong>, e.g. <code>archive.example.com</code>, with an <code>A</code>
+  (and <code>AAAA</code>) record pointing to the host. piler-smtp accepts the emails
+  sent to addresses at this hostname only. If your mail server delivers by
+  DNS, an <code>MX</code> record of the hostname pointing to itself.</li>
+<li><strong>Port 443</strong> reachable from the internet: Let's Encrypt checks it before it
+  issues the certificate, and your users reach the archive on it.</li>
+<li><strong>Port 25</strong> reachable by your mail server: it sends the copies of the
+  emails there.</li>
+<li><strong>Your license file</strong>, <code>license.jwt</code>.</li>
+</ul>
+<h2 id="2-get-the-files">2. Get the files<a class="headerlink" href="#2-get-the-files" title="Permanent link">#</a></h2>
+<pre><code>git clone https://github.com/jsuto/piler-examples.git
+cd piler-examples/examples/v2.2/single-node
+</code></pre>
+<p>Keep the directory: the settings and the keys of the installation are
+written into it.</p>
+<h2 id="3-run-the-setup">3. Run the setup<a class="headerlink" href="#3-run-the-setup" title="Permanent link">#</a></h2>
+<pre><code>./setup.sh
+</code></pre>
+<p>It asks for:</p>
+<ul>
+<li>the path of your license file</li>
+<li>the hostname of the archive: the one in the license is offered, it warns
+  about another one</li>
+<li>the hostnames of the tenants (multi-tenant license only; you can add them
+  later)</li>
+<li>the email address Let's Encrypt sends certificate notices to</li>
+<li>the mail relay piler sends emails through: restored emails go back to the
+  mailboxes through it</li>
+</ul>
+<p>Then it writes <code>.env</code> (hostnames, random database passwords, image
+versions), <code>env</code> (the settings of piler and the web UI, with a random
+<code>JWT_SECRET</code> and <code>IMAP_ENCRYPT_KEY</code>) and <code>piler.key</code> (the key the emails are
+encrypted with), and creates the Docker volumes. It overwrites none of
+these: if a step fails, fix the cause and run it again.</p>
+<p><strong>Back up <code>piler.key</code>, <code>.env</code> and <code>env</code> now, outside the host.</strong> Without
+<code>piler.key</code> the archived emails can't be read, not even from a backup.</p>
+<h2 id="4-start-it">4. Start it<a class="headerlink" href="#4-start-it" title="Permanent link">#</a></h2>
+<pre><code>docker compose up -d --wait
+</code></pre>
+<p>It returns when every component is healthy, in about half a minute, or
+says which one isn't. Let's Encrypt issues the certificate within a
+minute, if the hostname points to the host and port 443 is open.</p>
+<h2 id="5-first-login">5. First login<a class="headerlink" href="#5-first-login" title="Permanent link">#</a></h2>
+<p>Open <code>https://archive.example.com/</code> and log in as <code>admin@local</code> with the
+password <code>pilerrocks</code>. <strong>Change the password</strong> right away.</p>
+<p>The administrator manages the archive but can't see emails. Then:</p>
+<ol>
+<li><strong>Domain</strong>: add the email domains of your organization. Piler tells
+   incoming, outgoing and internal emails apart by them, and users see the
+   emails of their own addresses.</li>
+<li><strong>Users &gt; User</strong>: add an auditor (role <em>Auditor</em>) who can search the
+   whole archive, or connect your directory, see
+   <a href="../ldap/">LDAP authentication</a>, <a href="../azure-ad-auth/">Microsoft Entra ID</a>,
+   <a href="../google-workspace-auth/">Google Workspace</a>.</li>
+<li><strong>Compliance &gt; Retention Policy</strong>: how long emails are kept, by default
+   and by rule. Check it against your legal requirements before the first
+   emails arrive: the retention of an email is set when it's archived.</li>
+</ol>
+<h2 id="6-test-it">6. Test it<a class="headerlink" href="#6-test-it" title="Permanent link">#</a></h2>
+<p>Send an email to the archive from any host that can reach port 25, e.g.
+with <a href="https://jetmore.org/john/code/swaks/" target="_blank">swaks</a>:</p>
+<pre><code>swaks --server archive.example.com --from anna@example.com \
+  --to journal@archive.example.com --header &quot;Subject: archive test&quot;
+</code></pre>
+<p>Log in as the auditor and search for <code>archive test</code>. The email shows up
+within a few seconds.</p>
+<h2 id="7-send-the-journal">7. Send the journal<a class="headerlink" href="#7-send-the-journal" title="Permanent link">#</a></h2>
+<p>Have your mail server send a copy of every incoming and outgoing email to
+an address at the hostname in your license, e.g.
+<code>journal@archive.example.com</code>. With a multi-tenant license the address is
+<code>&lt;tenant id&gt;@archive.example.com</code>.</p>
+<ul>
+<li>Microsoft 365: <a href="../m365-journaling/">journaling</a></li>
+<li>Postfix, Axigen: <a href="../smtp-servers/">mail server integration</a></li>
+<li>To archive the Bcc recipients too: <a href="../envelope-recipients/">envelope recipients</a></li>
+</ul>
+<p>Allow port 25 only from your mail servers, with a firewall: anyone who can
+reach it can put emails into the archive. To archive the emails from
+before the journal, see <a href="../import-emails/">import legacy emails</a>.</p>
+<h2 id="settings">Settings<a class="headerlink" href="#settings" title="Permanent link">#</a></h2>
+<p>Don't edit <code>docker-compose.yaml</code> or <code>traefik-dynamic.yaml</code>: a newer version
+of the example would replace your changes.</p>
+<ul>
+<li><code>.env</code>: the hostnames (<code>PILER_HOSTNAME</code>, <code>TENANT_HOSTNAMES</code>), the Let's
+  Encrypt address and the image versions. Run <code>docker compose up -d --wait</code>
+  after a change. A new tenant hostname gets its certificate then.</li>
+<li><code>env</code>: everything else, see the
+  <a href="../fiber-ui-config-options/">configuration options</a>. Run
+  <code>docker compose up -d --force-recreate piler piler-ui scanner</code> after a
+  change.</li>
+</ul>
+<p>The database passwords in <code>.env</code> are used when the database is created,
+changing them later doesn't change the database.</p>
+<h2 id="upgrade">Upgrade<a class="headerlink" href="#upgrade" title="Permanent link">#</a></h2>
+<p>Read the <a href="../upgrade/">upgrade notes</a> of every version since yours. Then set
+<code>PILER_VERSION</code> in <code>.env</code> (and <code>PILER_SMTP_VERSION</code>, <code>SCANNER_VERSION</code> when
+they change) and run:</p>
+<pre><code>docker compose pull
+docker compose up -d --wait
+</code></pre>
+<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">#</a></h2>
+<ul>
+<li><code>docker compose ps</code> shows the health of each component,
+  <code>docker compose logs &lt;component&gt;</code> its log.</li>
+<li>No certificate (the browser warns about a "TRAEFIK DEFAULT CERT"): check
+  that the hostname resolves to the host and port 443 is reachable from the
+  internet, then <code>docker compose logs traefik</code>.</li>
+<li>The test email doesn't arrive: <code>docker compose logs piler-smtp piler</code>.
+  If piler couldn't archive it, it's in the error directory:
+  <code>docker compose exec piler ls /var/piler/error</code>.</li>
+<li>An installation set up before <code>setup.sh</code> (2.2.5): see <em>Existing
+  installation</em> in the
+  <a href="https://github.com/jsuto/piler-examples/tree/master/examples/v2.2/single-node" target="_blank">README of the example</a>.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": [], "search": "../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+    
+  </body>
+</html>
