@@ -1190,6 +1190,13 @@ an example. See
   now, and the response is an error.</li>
 <li>The admin pages didn't show the server's error message when the title of
   the error had a translation.</li>
+<li>The admin health page never showed a backup: the table it reads didn't
+  exist, and its query failed on every page load. Migration 030 creates the
+  <code>backup_status</code> table in the <code>piler</code> database, and
+  <a href="https://github.com/jsuto/piler-examples/tree/master/scripts">piler-backup.sh</a>
+  of the Docker examples writes it after every backup. With no backup
+  recorded the page says unknown, not healthy. See
+  <a href="../upgrade/#run-the-migrations">Run the migrations</a>.</li>
 </ul>
 <h2 id="224-2026-10-17">2.2.4 - 2026-10-17<a class="headerlink" href="#224-2026-10-17" title="Permanent link">#</a></h2>
 <p>2.2.3 was not released; its changes are included here.</p>

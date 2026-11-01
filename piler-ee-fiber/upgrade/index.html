@@ -424,7 +424,7 @@
 
 <h1 id="upgrading">Upgrading<a class="headerlink" href="#upgrading" title="Permanent link">#</a></h1>
 <p>This documentation applies to Piler enterprise edition 2.2.5</p>
-<p>Revision #6</p>
+<p>Revision #7</p>
 <p>Publication date: 2026-NOV-01</p>
 <h2 id="upgrade-steps">Upgrade steps<a class="headerlink" href="#upgrade-steps" title="Permanent link">#</a></h2>
 <h3 id="run-the-migrations">Run the migrations<a class="headerlink" href="#run-the-migrations" title="Permanent link">#</a></h3>
@@ -443,6 +443,16 @@ done
 run the manticore migrations for all tenant ids as well, and replace "piler" in the sed
 command with the tenant id, eg.</p>
 <pre><code>sed 's/TENANTID/example001/g' ....
+</code></pre>
+<p><strong>Migration 030 (2.2.5)</strong> creates the <code>backup_status</code> table the admin health
+page reads the backups from. Only the table in the <code>piler</code> database is used,
+the copies in the tenant databases stay empty. Until it has run, the page
+shows no backups, nothing else depends on it.</p>
+<p>The Docker images and <code>piler-upgrade.sh</code> don't run it: run the migrations in
+the piler container (<code>docker compose exec piler sh</code>), or this one alone, on
+every node:</p>
+<pre><code>docker compose exec -T piler sh -c \
+   &quot;mariadb --defaults-file=/etc/piler/.my.cnf piler &lt; /usr/share/piler/migrations/sql/030_backup_status.sql&quot;
 </code></pre>
 <h3 id="quotas-225">Quotas (2.2.5)<a class="headerlink" href="#quotas-225" title="Permanent link">#</a></h3>
 <p>Multi-tenant deployments only.</p>

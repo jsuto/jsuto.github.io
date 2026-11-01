@@ -356,6 +356,34 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#backup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Backup
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Backup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#restore-on-a-new-host" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Restore on a new host
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#upgrade" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -396,7 +424,7 @@
 
 <h1 id="install-on-a-single-host">Install on a single host<a class="headerlink" href="#install-on-a-single-host" title="Permanent link">#</a></h1>
 <p>This documentation applies to Piler enterprise edition 2.2.5+</p>
-<p>Revision #1</p>
+<p>Revision #2</p>
 <p>Publication date: 2026-NOV-01</p>
 <p>From an empty Linux host to an archive that receives the journal of your
 mail server, with Docker. Every component runs on the one host: piler,
@@ -441,16 +469,19 @@ written into it.</p>
 <li>the hostnames of the tenants (multi-tenant license only; you can add them
   later)</li>
 <li>the email address Let's Encrypt sends certificate notices to</li>
+<li>the repository of the backups (you can leave it empty and set it later,
+  see <a href="#backup">backup</a>)</li>
 <li>the mail relay piler sends emails through: restored emails go back to the
   mailboxes through it</li>
 </ul>
-<p>Then it writes <code>.env</code> (hostnames, random database passwords, image
-versions), <code>env</code> (the settings of piler and the web UI, with a random
+<p>Then it writes <code>.env</code> (hostnames, random database and backup passwords,
+image versions), <code>env</code> (the settings of piler and the web UI, with a random
 <code>JWT_SECRET</code> and <code>IMAP_ENCRYPT_KEY</code>) and <code>piler.key</code> (the key the emails are
 encrypted with), and creates the Docker volumes. It overwrites none of
 these: if a step fails, fix the cause and run it again.</p>
 <p><strong>Back up <code>piler.key</code>, <code>.env</code> and <code>env</code> now, outside the host.</strong> Without
-<code>piler.key</code> the archived emails can't be read, not even from a backup.</p>
+<code>piler.key</code> the archived emails can't be read, not even from a backup, and
+without the <code>BACKUP_PASSWORD</code> in <code>.env</code> the backups can't be restored.</p>
 <h2 id="4-start-it">4. Start it<a class="headerlink" href="#4-start-it" title="Permanent link">#</a></h2>
 <pre><code>docker compose up -d --wait
 </code></pre>
@@ -508,6 +539,57 @@ of the example would replace your changes.</p>
 </ul>
 <p>The database passwords in <code>.env</code> are used when the database is created,
 changing them later doesn't change the database.</p>
+<h2 id="backup">Backup<a class="headerlink" href="#backup" title="Permanent link">#</a></h2>
+<p><code>piler-backup.sh</code> backs up the installation into a
+<a href="https://restic.net/" target="_blank">restic</a> repository: the databases,
+the search index, the stored emails and attachments, and the directory of
+the installation (<code>.env</code>, <code>env</code>, <code>piler.key</code>, the license). It runs in
+containers, there's nothing to install.</p>
+<p><code>BACKUP_REPOSITORY</code> in <code>.env</code> says where the backups go, the setup asked for
+it:</p>
+<ul>
+<li><code>s3:https://host/bucket/path</code>, with <code>AWS_ACCESS_KEY_ID</code> and
+  <code>AWS_SECRET_ACCESS_KEY</code> in <code>.env</code></li>
+<li><code>sftp:user@host:/path</code>, with root's SSH key</li>
+<li><code>rest:https://host/path</code></li>
+<li>a directory: not a backup if it's on this host, it's lost with the host</li>
+</ul>
+<p><code>BACKUP_PASSWORD</code> in <code>.env</code> encrypts the backups, the setup generated it.
+<strong>Keep a copy off the host:</strong> without it there's no restore.</p>
+<p>Then, as root, in the directory of the installation:</p>
+<pre><code>../../../scripts/piler-backup.sh install-timer     # every day at 02:30
+../../../scripts/piler-backup.sh                   # a backup now
+../../../scripts/piler-backup.sh snapshots         # the backups
+</code></pre>
+<p><code>install-timer</code> takes another time too (<code>install-timer 03:15</code>). It sets up a
+systemd timer, the log is in <code>journalctl -u piler-backup.service</code>; without
+systemd it prints a cron line to add.</p>
+<p>Every backup stores only what's new since the last one. 7 daily, 4 weekly
+and 12 monthly backups are kept (<code>BACKUP_KEEP_DAILY</code>, <code>BACKUP_KEEP_WEEKLY</code>,
+<code>BACKUP_KEEP_MONTHLY</code> in <code>.env</code>). On Sundays the space of the removed
+backups is freed, and 5% of the data is read back to check it. A purged or
+erased email stays in the backups until they're removed, so set these with
+your compliance rules in mind.</p>
+<p><strong>Admin &gt; Health</strong> shows the last backup. It's red if the backup failed,
+yellow if it's older than 48 hours or the check failed, and grey until the
+first one.</p>
+<h3 id="restore-on-a-new-host">Restore on a new host<a class="headerlink" href="#restore-on-a-new-host" title="Permanent link">#</a></h3>
+<ol>
+<li>Install Docker and get the files as in <a href="#2-get-the-files">step 2</a>. Don't
+   run the setup.</li>
+<li>In the directory of the example, create <code>.env</code> with <code>BACKUP_REPOSITORY</code>
+   and <code>BACKUP_PASSWORD</code> (and the S3 keys).</li>
+<li>Pick a backup: <code>../../../scripts/piler-backup.sh snapshots</code></li>
+<li><code>../../../scripts/piler-backup.sh restore &lt;id&gt;</code></li>
+</ol>
+<p>It restores the settings, the key, the license and the image versions of
+the backup, then the databases, the emails and the search index, and starts
+piler. It only restores into an installation without piler's volumes, it
+never overwrites an archive. Then point the hostname to the new host.</p>
+<p>The emails archived after the backup are not in it. Those your mail server
+couldn't deliver meanwhile arrive when the host is back.</p>
+<p><code>../../../scripts/piler-backup.sh extract &lt;id&gt; &lt;directory&gt;</code> extracts the
+files of a backup without restoring them.</p>
 <h2 id="upgrade">Upgrade<a class="headerlink" href="#upgrade" title="Permanent link">#</a></h2>
 <p>Update the example (<code>git pull</code> in <code>piler-examples</code>), then in the
 directory of the installation:</p>

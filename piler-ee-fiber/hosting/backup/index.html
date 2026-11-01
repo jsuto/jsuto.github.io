@@ -276,6 +276,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="The deployment">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#with-piler-backupsh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        With piler-backup.sh
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -306,6 +323,17 @@
     <span class="md-ellipsis">
       
         Restore
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#restore-from-a-piler-backupsh-backup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Restore from a piler-backup.sh backup
       
     </span>
   </a>
@@ -347,8 +375,8 @@
 
 <h1 id="hosting-backup-and-restore">Hosting: backup and restore<a class="headerlink" href="#hosting-backup-and-restore" title="Permanent link">#</a></h1>
 <p>This documentation applies to Piler enterprise edition 2.2.5+</p>
-<p>Revision #1</p>
-<p>Publication date: 2026-OCT-25</p>
+<p>Revision #2</p>
+<p>Publication date: 2026-NOV-01</p>
 <h2 id="the-deployment">The deployment<a class="headerlink" href="#the-deployment" title="Permanent link">#</a></h2>
 <p>Back up every node as described in
 <a href="../../large-deployments/backup/">large deployments: backup and recovery</a>:
@@ -358,6 +386,34 @@ emails.</p>
 <p>With S3 storage, enable versioning or replication of the buckets, or back
 them up with your object storage's tools: a bucket holds one tenant's
 emails.</p>
+<h3 id="with-piler-backupsh">With piler-backup.sh<a class="headerlink" href="#with-piler-backupsh" title="Permanent link">#</a></h3>
+<p>With the <a href="https://github.com/jsuto/piler-examples/tree/master/examples/v2.2/multinode-multitenant" target="_blank">Docker example</a>,
+<a href="https://github.com/jsuto/piler-examples/tree/master/scripts" target="_blank">piler-backup.sh</a>
+does this on each node, every day, into a
+<a href="https://restic.net/" target="_blank">restic</a> repository: the databases
+of all the tenants, the search index, the stored emails, and the directory
+of the node (the settings, <code>piler.key</code>, the license). The emails in S3 are
+not in it.</p>
+<p>Set the repository in the node's <code>.env</code>, the example has no setup for it:</p>
+<pre><code>BACKUP_REPOSITORY=s3:https://host/bucket/piler     # or sftp:, rest:, a directory
+BACKUP_PASSWORD=                                   # openssl rand -hex 32
+AWS_ACCESS_KEY_ID=                                 # for an S3 repository
+AWS_SECRET_ACCESS_KEY=
+</code></pre>
+<p><strong>Keep <code>BACKUP_PASSWORD</code> off the nodes:</strong> without it there's no restore. All
+the nodes can share a repository, with the same password: each node is a
+host in it. Then, as root, in the node's directory, on every node, the
+master too, each at another time:</p>
+<pre><code>piler-backup.sh install-timer 03:15
+</code></pre>
+<p>The retention, the commands and the restore of a whole node to a new host
+are in <a href="../../install-single-host/#backup">Install on a single host</a>. On a
+node the restore only runs in an installation without piler's volumes.</p>
+<p><strong>Admin &gt; Health</strong> shows the backups in the node's own database (the
+<code>backup_status</code> table, migration 030): the master shows the master's, not
+those of the workers. Check the workers with the timer's log
+(<code>journalctl -u piler-backup.service</code>), or in their <code>piler.backup_status</code>
+table.</p>
 <h2 id="a-single-tenant">A single tenant<a class="headerlink" href="#a-single-tenant" title="Permanent link">#</a></h2>
 <p>A tenant is a database, a set of Manticore tables and a bucket (or a
 directory in the store), on each node: it can be backed up and restored on
@@ -392,13 +448,40 @@ docker compose exec -T piler sh -c \
 mysql -h0 -P9306 -e &quot;DROP TABLE customer1&quot;
 mysql -h0 -P9306 -e &quot;IMPORT TABLE customer1 FROM '/backup/manticore-customer1/customer1'&quot;
 </code></pre>
-<p>The emails: restore the bucket's objects (or the store directory
-<code>/var/piler/store/&lt;server id&gt;/customer1</code>) to the same point.</p>
+<p>The emails: restore the bucket's objects (or the directories
+<code>/var/piler/store/&lt;server id&gt;/customer1</code> and
+<code>/var/piler/astore/&lt;server id&gt;/customer1</code>) to the same point.</p>
 <p>Instead of restoring the Manticore table, <code>reindex</code> rebuilds it from the
 database and the stored emails; slower for a large tenant, but it needs no
 index backup:</p>
 <pre><code>docker compose exec piler reindex -tenantid customer1 -start &lt;min id&gt; -stop &lt;max id&gt; -progress
 </code></pre>
+<h3 id="restore-from-a-piler-backupsh-backup">Restore from a piler-backup.sh backup<a class="headerlink" href="#restore-from-a-piler-backupsh-backup" title="Permanent link">#</a></h3>
+<p>A backup holds the whole node, and <code>piler-backup.sh restore</code> needs an empty
+installation. For one tenant, extract the backup and restore the tenant's
+parts. The extract needs room for all of the node's backup, and has to be
+outside the node's directory. The database dump in it isn't encrypted:
+remove the directory afterwards.</p>
+<pre><code>T=customer1
+D=/restore/customer1
+
+piler-backup.sh extract &lt;id&gt; $D
+. ./.env
+
+# The database, from the dump of the node's databases. As root: the piler
+# user is refused at the first CREATE DATABASE of the dump.
+docker compose exec -T -e MYSQL_PWD=&quot;$MYSQL_ROOT_PASSWORD&quot; mysql \
+   mariadb -uroot --one-database $T &lt; $D/staging/database/mariadb-all-databases.sql
+
+# The Manticore table, into the Manticore container
+docker compose exec manticore mkdir -p /backup
+docker compose cp $D/var/lib/manticore/piler-backup/backup-*/data/$T manticore:/backup/manticore-$T
+docker compose exec manticore chown -R manticore:manticore /backup
+</code></pre>
+<p>Then run the <code>DROP TABLE</code> and <code>IMPORT TABLE</code> of <a href="#restore">Restore</a> in the
+Manticore container. Copy the emails from <code>$D/var/piler/store/&lt;server id&gt;/$T</code>
+and <code>$D/var/piler/astore/&lt;server id&gt;/$T</code> back to the same directories, or
+restore the bucket.</p>
 <h3 id="erasures-after-the-backup">Erasures after the backup<a class="headerlink" href="#erasures-after-the-backup" title="Permanent link">#</a></h3>
 <p>Restoring an older state brings back what was removed since: emails a user
 or a data officer removed, a GDPR erasure, a retention purge. Keep a record

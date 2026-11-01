@@ -261,6 +261,36 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-backup-script-of-the-docker-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The backup script of the Docker examples
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-admin-health-page" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The admin health page
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -277,9 +307,9 @@
 
 
 <h1 id="large-deployments-backup-and-recovery">Large deployments: backup and recovery<a class="headerlink" href="#large-deployments-backup-and-recovery" title="Permanent link">#</a></h1>
-<p>This documentation applies to Piler enterprise edition 2.2.4+</p>
-<p>Revision #1</p>
-<p>Publication date: 2026-OCT-18</p>
+<p>This documentation applies to Piler enterprise edition 2.2.5+</p>
+<p>Revision #2</p>
+<p>Publication date: 2026-NOV-01</p>
 <p>Backups are implemented with the backup system you already run. What to
 back up:</p>
 <table>
@@ -344,6 +374,31 @@ from it, as it received them as well.</p>
 <p><strong>Restore</strong>: restore a worker's database, search index and stored emails to
 the same point, with the same <code>piler.key</code>, then start its containers. While
 a site is being restored, a DR site can serve the users.</p>
+<h2 id="the-backup-script-of-the-docker-examples">The backup script of the Docker examples<a class="headerlink" href="#the-backup-script-of-the-docker-examples" title="Permanent link">#</a></h2>
+<p>If you have no backup system for it, the Docker examples have
+<a href="https://github.com/jsuto/piler-examples/tree/master/scripts">piler-backup.sh</a>:
+run on every node, it backs up everything in the table above into a
+<a href="https://restic.net/">restic</a> repository every day, the database first,
+except the emails in S3: protect those with your object storage's versioning
+or replication. See
+<a href="../../hosting/backup/#with-piler-backupsh">hosting: backup and restore</a>.</p>
+<p>The database backup is a logical dump, and the recovery point is the last
+daily run. For a database too large to dump every night, or a shorter
+recovery point, use a hot backup or binary log shipping.</p>
+<h2 id="the-admin-health-page">The admin health page<a class="headerlink" href="#the-admin-health-page" title="Permanent link">#</a></h2>
+<p><strong>Admin &gt; Health</strong> shows the backups in the <code>backup_status</code> table of the
+node's <code>piler</code> database (migration 030). <code>piler-backup.sh</code> writes it; another
+backup system can insert the same rows after each backup:</p>
+<pre><code class="language-sql">INSERT INTO piler.backup_status
+  (backup_type, backup_timestamp, backup_size_bytes, status, verification_timestamp, verification_status)
+VALUES
+  ('database', UNIX_TIMESTAMP(), 5368709120, 'success', NULL, NULL);
+</code></pre>
+<p><code>backup_type</code> is <code>database</code>, <code>manticore</code> or <code>email_store</code>, <code>status</code> is
+<code>success</code> or <code>failed</code>, <code>verification_status</code> is <code>pass</code>, <code>fail</code> or NULL (not
+verified).</p>
+<p>The page reads the database of its own node: the master shows the backups of
+the master, not of the workers. Monitor the workers' backups separately.</p>
 
 
 
