@@ -330,8 +330,8 @@
 
 <h1 id="hosting-upgrades">Hosting: upgrades<a class="headerlink" href="#hosting-upgrades" title="Permanent link">#</a></h1>
 <p>This documentation applies to Piler enterprise edition 2.2.5+</p>
-<p>Revision #1</p>
-<p>Publication date: 2026-OCT-25</p>
+<p>Revision #2</p>
+<p>Publication date: 2026-NOV-01</p>
 <p>How to upgrade a multi-tenant deployment. The version specific steps of
 each release are in <a href="../../upgrade/">upgrading</a>; this page is the order and
 the routine around them.</p>
@@ -355,11 +355,17 @@ the routine around them.</p>
    minutes.</li>
 <li><strong>The master</strong> (and the other UI nodes, if any), last.</li>
 </ol>
-<p>On each node, set the new version (<code>PILER_VERSION</code> in the example's <code>.env</code>)
-and:</p>
-<pre><code>docker compose pull
-docker compose up -d
+<p>On each node, in the directory of the example, run
+<a href="https://github.com/jsuto/piler-examples/tree/master/scripts" target="_blank">piler-upgrade.sh</a>
+with the new version:</p>
+<pre><code>piler-upgrade.sh 2.2.6
 </code></pre>
+<p>It shows the upgrade notes since the node's version, asks before it does
+anything (on the master: if the workers are upgraded), pulls the images,
+dumps the node's database and copies <code>.env</code> into <code>backups/</code>, sets
+<code>PILER_VERSION</code>, and starts the new containers and waits until they're
+healthy. By hand: set <code>PILER_VERSION</code> in <code>.env</code>, then <code>docker compose pull</code>
+and <code>docker compose up -d --wait</code>.</p>
 <h2 id="migrations">Migrations<a class="headerlink" href="#migrations" title="Permanent link">#</a></h2>
 <p>Some releases change the database or the index. The upgrade notes say when,
 and the release's migrations go:</p>

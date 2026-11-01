@@ -2896,7 +2896,13 @@ the storage, eg. view, download, attachments (requests per second).</p>
 <hr />
 <h3 id="jwt_secret">JWT_SECRET<a class="headerlink" href="#jwt_secret" title="Permanent link">#</a></h3>
 <p>Default value: <code>""</code></p>
-<p>Description: Secret key used to sign JWT tokens.</p>
+<p>Description: Secret key piler-ui signs its access tokens with: the REST
+API, the Outlook add-in, and the requests of a multi-node master to its
+workers. Set a random value of at least 32 characters (e.g.
+<code>openssl rand -hex 32</code>), the same on every node of a multi-node
+deployment. Without it piler-ui uses a random secret until it restarts
+and logs a warning (2.2.5+); it also warns about a shorter secret or one
+starting with <code>changeme</code>. See <a href="../upgrade/#jwt-secret-225">JWT secret</a>.</p>
 <hr />
 <h3 id="session_duration">SESSION_DURATION<a class="headerlink" href="#session_duration" title="Permanent link">#</a></h3>
 <p>Default value: <code>3h</code></p>

@@ -389,6 +389,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#jwt-secret-225" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JWT secret (2.2.5)
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -413,8 +424,8 @@
 
 <h1 id="upgrading">Upgrading<a class="headerlink" href="#upgrading" title="Permanent link">#</a></h1>
 <p>This documentation applies to Piler enterprise edition 2.2.5</p>
-<p>Revision #5</p>
-<p>Publication date: 2026-OCT-27</p>
+<p>Revision #6</p>
+<p>Publication date: 2026-NOV-01</p>
 <h2 id="upgrade-steps">Upgrade steps<a class="headerlink" href="#upgrade-steps" title="Permanent link">#</a></h2>
 <h3 id="run-the-migrations">Run the migrations<a class="headerlink" href="#run-the-migrations" title="Permanent link">#</a></h3>
 <p>Run mysql migrations on each piler related mysql database:</p>
@@ -631,6 +642,27 @@ is logged out.</p>
 and binary logs. If these may have been exposed, have the users with a
 token login reset their TOTP (2FA), and those logging in with IMAP
 authentication change their mailbox password.</p>
+<h3 id="jwt-secret-225">JWT secret (2.2.5)<a class="headerlink" href="#jwt-secret-225" title="Permanent link">#</a></h3>
+<p><strong>Every deployment, a single node too</strong>, needs a <code>JWT_SECRET</code> of its own:
+before 2.2.5 piler-ui needs it to refuse access tokens it didn't issue. If
+you can't upgrade right away, set it now.</p>
+<p>piler-ui signs its access tokens with <code>JWT_SECRET</code>: the tokens of the
+REST API and the Outlook add-in, and those a multi-node master sends to
+its workers. Set it to a random value of at least 32 characters, e.g.</p>
+<pre><code>openssl rand -hex 32
+</code></pre>
+<p>in <code>/var/piler/.env</code> (the Docker examples: <code>env</code> on a single node, <code>.env</code>
+on each node of the multi-node example). Use the same value on every
+node of a multi-node deployment. Replace a value copied from an example
+or from this documentation, a <code>changeme</code> one too.</p>
+<p>Without it, piler-ui uses a random secret until it restarts, and logs a
+warning. The web UI works, but the REST API tokens and the Outlook add-in
+need a new login after each restart, and a multi-node master can't query
+its workers.</p>
+<p>Restart piler-ui after setting it. REST API clients and the Outlook add-in
+log in again. On a multi-node deployment a user's searches may fail for up
+to 15 minutes, until their token is renewed: logging out and in again
+fixes it at once.</p>
 
 
 

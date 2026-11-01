@@ -509,12 +509,20 @@ of the example would replace your changes.</p>
 <p>The database passwords in <code>.env</code> are used when the database is created,
 changing them later doesn't change the database.</p>
 <h2 id="upgrade">Upgrade<a class="headerlink" href="#upgrade" title="Permanent link">#</a></h2>
-<p>Read the <a href="../upgrade/">upgrade notes</a> of every version since yours. Then set
-<code>PILER_VERSION</code> in <code>.env</code> (and <code>PILER_SMTP_VERSION</code>, <code>SCANNER_VERSION</code> when
-they change) and run:</p>
-<pre><code>docker compose pull
-docker compose up -d --wait
+<p>Update the example (<code>git pull</code> in <code>piler-examples</code>), then in the
+directory of the installation:</p>
+<pre><code>../../../scripts/piler-upgrade.sh           # your versions, and the newer releases
+../../../scripts/piler-upgrade.sh 2.2.6     # upgrade to 2.2.6
 </code></pre>
+<p>It shows the <a href="../upgrade/">upgrade notes</a> of every release since yours, and
+asks before it does anything; a release with an upgrade step needs your
+confirmation that it's done. Then it pulls the new images, dumps the
+database and copies <code>.env</code> and <code>env</code> into <code>backups/</code>, sets the new
+versions in <code>.env</code>, starts the new containers and waits until they're
+healthy. If they don't get healthy, it prints how to go back.</p>
+<p><code>--smtp &lt;version&gt;</code> and <code>--scanner &lt;version&gt;</code> upgrade piler-smtp and the
+scanner too, <code>--yes</code> doesn't ask, <code>--no-backup</code> skips the database dump.
+Remove the old backups from <code>backups/</code> yourself.</p>
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">#</a></h2>
 <ul>
 <li><code>docker compose ps</code> shows the health of each component,

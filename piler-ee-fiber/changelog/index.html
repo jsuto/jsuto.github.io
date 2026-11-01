@@ -919,12 +919,21 @@ the user quotas. On a multi-node deployment upgrade the workers before the
 master; with several masters set <code>LEADER_ELECTION_ENABLED=true</code>. A
 <code>/metrics</code> scrape through a reverse proxy needs the proxy in
 <code>TRUSTED_PROXIES</code>. The Docker examples keep the error directory in a
-<code>piler_error</code> volume, create it before the upgrade. See
+<code>piler_error</code> volume, create it before the upgrade. Set <code>JWT_SECRET</code>
+(the same on every node) if it isn't set, or replace a value copied from
+an example. See
+<a href="../upgrade/#jwt-secret-225">JWT secret</a>,
 <a href="../upgrade/#quotas-225">Quotas</a>,
 <a href="../upgrade/#metrics-through-a-reverse-proxy-225">Metrics through a reverse proxy</a> and
 <a href="../upgrade/#docker-the-error-directory-volume-225">Docker: the error directory volume</a>.</p>
 <h3 id="security">Security<a class="headerlink" href="#security" title="Permanent link">#</a></h3>
 <ul>
+<li>Without <code>JWT_SECRET</code>, piler-ui accepted access tokens it hadn't issued.
+  It uses a random secret now when <code>JWT_SECRET</code> isn't set, and logs a
+  warning, also about a secret shorter than 32 characters or one starting
+  with <code>changeme</code>. The token checks take HS256 tokens only. The installers
+  and the Docker examples set a random <code>JWT_SECRET</code>; set one on an
+  existing installation, see <a href="../upgrade/#jwt-secret-225">JWT secret</a>.</li>
 <li>The removal of an export took a file name with <code>../</code>, so a user could
   delete another user's export file if they knew its random name. The
   download and the removal of an export take a plain file name only.</li>
@@ -1125,6 +1134,8 @@ master; with several masters set <code>LEADER_ELECTION_ENABLED=true</code>. A
 </ul>
 <h3 id="fixed">Fixed<a class="headerlink" href="#fixed" title="Permanent link">#</a></h3>
 <ul>
+<li>A malformed refresh token (<code>POST /auth/refresh</code>) could crash the request
+  instead of being refused.</li>
 <li><code>download-emails-o365.py</code> lost emails when Microsoft 365 throttled the
   download: a throttled email was skipped, and a throttled page of a
   folder's list ended the folder, without an error at the end. A mailbox
