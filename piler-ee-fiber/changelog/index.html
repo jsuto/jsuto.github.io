@@ -912,7 +912,11 @@ after the package upgrade, see
 <a href="../upgrade/#add-the-participants-column-225">Add the participants column</a>.
 With S3 storage, also see
 <a href="../upgrade/#s3-storage-settings-225">S3 storage settings</a>: s3uploader reads
-<code>/var/piler/.env</code> instead of <code>/var/piler/.env-s3</code>.</p>
+<code>/var/piler/.env</code> instead of <code>/var/piler/.env-s3</code>. Run the migrations too:
+neither the Docker images nor piler-upgrade.sh run them. Among others, 029
+removes secrets from the stored sessions and 030 adds the table of the
+health page's backups, see
+<a href="../upgrade/#run-the-migrations">Run the migrations</a>.</p>
 <p><strong>Upgrade notes:</strong> the quota user count is now the active users (email in
 the last 90 days), so it drops for tenants with former employees: check
 the user quotas. On a multi-node deployment upgrade the workers before the
