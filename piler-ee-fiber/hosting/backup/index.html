@@ -375,7 +375,7 @@
 
 <h1 id="hosting-backup-and-restore">Hosting: backup and restore<a class="headerlink" href="#hosting-backup-and-restore" title="Permanent link">#</a></h1>
 <p>This documentation applies to Piler enterprise edition 2.2.5+</p>
-<p>Revision #2</p>
+<p>Revision #3</p>
 <p>Publication date: 2026-NOV-01</p>
 <h2 id="the-deployment">The deployment<a class="headerlink" href="#the-deployment" title="Permanent link">#</a></h2>
 <p>Back up every node as described in
@@ -411,9 +411,8 @@ are in <a href="../../install-single-host/#backup">Install on a single host</a>.
 node the restore only runs in an installation without piler's volumes.</p>
 <p><strong>Admin &gt; Health</strong> shows the backups in the node's own database (the
 <code>backup_status</code> table, migration 030): the master shows the master's, not
-those of the workers. Check the workers with the timer's log
-(<code>journalctl -u piler-backup.service</code>), or in their <code>piler.backup_status</code>
-table.</p>
+those of the workers. The <code>PilerBackup*</code> alerts of the
+<a href="../monitoring/">monitoring</a> cover every node.</p>
 <h2 id="a-single-tenant">A single tenant<a class="headerlink" href="#a-single-tenant" title="Permanent link">#</a></h2>
 <p>A tenant is a database, a set of Manticore tables and a bucket (or a
 directory in the store), on each node: it can be backed up and restored on

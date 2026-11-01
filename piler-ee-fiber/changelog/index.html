@@ -987,6 +987,11 @@ an example. See
 </ul>
 <h3 id="added">Added<a class="headerlink" href="#added" title="Permanent link">#</a></h3>
 <ul>
+<li>Backup metrics on every node: <code>piler_backup_last_timestamp_seconds</code>,
+  <code>piler_backup_failed</code> and <code>piler_backup_verification_failed</code>, from the
+  <code>backup_status</code> table, with
+  <a href="https://github.com/jsuto/piler-examples/tree/master/examples/monitoring">alert rules</a>
+  for a failed, missing or too old backup.</li>
 <li>E-invoices are found in the search: <code>attachment:einvoice</code>, or the
   "E-invoice" checkbox of the advanced search. Piler recognizes them when
   it archives an email: XRechnung and other UBL or CII invoices (XML),

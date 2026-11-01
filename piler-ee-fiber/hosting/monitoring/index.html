@@ -330,8 +330,8 @@
 
 <h1 id="hosting-monitoring">Hosting: monitoring<a class="headerlink" href="#hosting-monitoring" title="Permanent link">#</a></h1>
 <p>This documentation applies to Piler enterprise edition 2.2.5+</p>
-<p>Revision #3</p>
-<p>Publication date: 2026-OCT-27</p>
+<p>Revision #4</p>
+<p>Publication date: 2026-NOV-01</p>
 <p>piler-ui exposes its metrics in the Prometheus text format at <code>/metrics</code>,
 and a health check at <code>/healthz</code> (<code>503</code> when MariaDB, Manticore or Redis is
 down). Any monitoring system that reads Prometheus metrics can use them:
@@ -401,6 +401,11 @@ other address is refused.</p>
 <td>The tenant metrics are fresh</td>
 <td><code>piler_tenant_metrics_last_success_timestamp_seconds</code></td>
 <td>The collector runs every minute; piler-ui logs a failing tenant</td>
+</tr>
+<tr>
+<td>Every node's backup runs and works</td>
+<td><code>piler_backup_failed</code>, <code>piler_backup_verification_failed</code>, <code>piler_backup_last_timestamp_seconds</code></td>
+<td>From the node's <code>backup_status</code> table. The health page of the master doesn't show the workers' backups, see <a href="../backup/">backup</a></td>
 </tr>
 <tr>
 <td>Disk</td>

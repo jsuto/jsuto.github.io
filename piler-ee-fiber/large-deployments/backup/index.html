@@ -308,7 +308,7 @@
 
 <h1 id="large-deployments-backup-and-recovery">Large deployments: backup and recovery<a class="headerlink" href="#large-deployments-backup-and-recovery" title="Permanent link">#</a></h1>
 <p>This documentation applies to Piler enterprise edition 2.2.5+</p>
-<p>Revision #2</p>
+<p>Revision #3</p>
 <p>Publication date: 2026-NOV-01</p>
 <p>Backups are implemented with the backup system you already run. What to
 back up:</p>
@@ -398,7 +398,10 @@ VALUES
 <code>success</code> or <code>failed</code>, <code>verification_status</code> is <code>pass</code>, <code>fail</code> or NULL (not
 verified).</p>
 <p>The page reads the database of its own node: the master shows the backups of
-the master, not of the workers. Monitor the workers' backups separately.</p>
+the master, not of the workers. piler-ui's <code>/metrics</code> has the backups of every
+node (<code>piler_backup_last_timestamp_seconds</code>, <code>piler_backup_failed</code>,
+<code>piler_backup_verification_failed</code>): alert on these, see the
+<a href="https://github.com/jsuto/piler-examples/tree/master/examples/monitoring">monitoring example</a>.</p>
 
 
 
