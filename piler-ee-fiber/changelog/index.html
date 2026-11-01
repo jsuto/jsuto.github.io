@@ -988,6 +988,15 @@ master; with several masters set <code>LEADER_ELECTION_ENABLED=true</code>. A
   per e-invoice, with the SHA-256 of the file and of the email) and
   <code>README.txt</code>, which says whether the export is complete. See
   <a href="../gobd/#the-e-invoices-of-a-period-z3">GoBD</a>.</li>
+<li>Configuration report for the compliance documentation, in the admin UI
+  under Compliance &gt; Configuration report, or
+  <code>GET /api/v1/admin/config-report</code>: the settings, retention and exclusion
+  rules, roles and users, and active legal holds of a tenant, as Markdown
+  or JSON, in English or German, and printable. It has no passwords or
+  keys. What Piler can't read stays a <code>[placeholder]</code>. On a multi-tenant
+  system the admin of a tenant doesn't see the platform's servers and
+  directory groups. See
+  <a href="../gobd/#procedural-documentation-verfahrensdokumentation">GoBD</a>.</li>
 <li>The audit log records every change of the configuration made through the
   web UI or the API, with the new values (never a password): domains,
   groups, LDAP, profiles, import jobs, export deletions, legal hold status,
