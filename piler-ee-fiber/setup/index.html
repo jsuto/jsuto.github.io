@@ -301,6 +301,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#backup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Backup
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -386,8 +397,8 @@
 
 <h1 id="installing-piler-enterprise-edition">Installing piler enterprise edition<a class="headerlink" href="#installing-piler-enterprise-edition" title="Permanent link">#</a></h1>
 <p>This documentation applies to Piler enterprise edition 2.1.0+</p>
-<p>Revision #4</p>
-<p>Publication date: 2026-NOV-01</p>
+<p>Revision #5</p>
+<p>Publication date: 2026-NOV-02</p>
 <h2 id="installing-on-a-single-node-using-docker-compose">Installing on a single node using docker compose<a class="headerlink" href="#installing-on-a-single-node-using-docker-compose" title="Permanent link">#</a></h2>
 <p>The recommended way: see <a href="../install-single-host/">Install on a single host</a>,
 from an empty host to an archive receiving the journal of your mail server.</p>
@@ -408,6 +419,51 @@ sudo ./install.sh
 and verify that all services come up properly.</p>
 <h3 id="centosredhatoracle-linux-specific-notes">Centos/Redhat/Oracle Linux specific notes<a class="headerlink" href="#centosredhatoracle-linux-specific-notes" title="Permanent link">#</a></h3>
 <p>SELinux needs to be disabled.</p>
+<h3 id="backup">Backup<a class="headerlink" href="#backup" title="Permanent link">#</a></h3>
+<p>From 2.2.5 the package has <code>/usr/libexec/piler/piler-backup.sh</code>: a daily
+backup into a <a href="https://restic.net/" target="_blank">restic</a> repository of
+the databases, the search index, the stored emails and attachments,
+<code>/etc/piler</code> (the settings, <code>piler.key</code>, the license) and <code>/var/piler/.env</code>.
+Use it if your backup system doesn't cover piler already, see
+<a href="../large-deployments/backup/">large deployments: backup</a> for what to back up.
+It needs restic (<code>apt install restic</code>; on Oracle Linux and RHEL from EPEL).</p>
+<pre><code>cp /etc/piler/backup.env.dist /etc/piler/backup.env
+chmod 600 /etc/piler/backup.env
+</code></pre>
+<p>Set <code>BACKUP_REPOSITORY</code> (<code>s3:https://host/bucket/path</code>, <code>sftp:user@host:/path</code>,
+<code>rest:https://host/path</code>, or a directory on another disk) and
+<code>BACKUP_PASSWORD</code> in it. <strong>Keep a copy of the password off the host:</strong>
+without it there's no restore. Then, as root:</p>
+<pre><code>/usr/libexec/piler/piler-backup.sh                 # a backup now
+/usr/libexec/piler/piler-backup.sh snapshots       # the backups
+</code></pre>
+<p>With a directory, create the repository first, with
+<code>BACKUP_INIT=1 /usr/libexec/piler/piler-backup.sh</code>: later backups don't create
+one, so a disk that isn't mounted makes the backup fail instead of filling the
+host's disk.</p>
+<p>Nothing runs it by default. To back up every day, e.g. <code>/etc/cron.d/piler-backup</code>:</p>
+<pre><code>30 2 * * * root /usr/libexec/piler/piler-backup.sh &gt;&gt; /var/log/piler-backup.log 2&gt;&amp;1
+</code></pre>
+<p>It logs in to MariaDB as root with <code>/root/.my.cnf</code> (the installer writes it),
+which must be root's. A store outside <code>/var/piler</code> (<code>PILER_STORE_DIR</code>,
+<code>PILER_ASTORE_DIR</code>) goes into <code>BACKUP_STORE_PATHS</code> of <code>backup.env</code>, on the host
+you restore to too. With Manticore on another host, set
+<code>BACKUP_MANTICORE=no</code> and back up the index there.</p>
+<p>A backup doesn't start while another one runs. It stops if MariaDB isn't
+running; without Manticore it backs up the rest, and a restore of it needs a
+reindex. Either way it's recorded as a failed backup: <strong>Admin &gt;
+Health</strong> and the <code>PilerBackup*</code> alerts of the
+<a href="../hosting/monitoring/">monitoring</a> show it. On Sundays it frees the space of
+the removed backups and reads 5% of the data back to check it.</p>
+<p>To restore on a new host: install the package, start MariaDB (root must log
+in, e.g. with <code>/root/.my.cnf</code>), put <code>backup.env</code> in place, then</p>
+<pre><code>/usr/libexec/piler/piler-backup.sh restore &lt;id&gt;
+systemctl start piler-search piler piler-ui
+</code></pre>
+<p>It restores into an installation without <code>piler.key</code> and a <code>piler</code> database
+only. The emails archived after the backup are not in it. Emails in S3 storage
+aren't in the backup, see
+<a href="../large-deployments/backup/#s3-object-storage">S3 object storage</a>.</p>
 <h2 id="installing-on-multiple-linux-nodes">Installing on multiple Linux nodes<a class="headerlink" href="#installing-on-multiple-linux-nodes" title="Permanent link">#</a></h2>
 <p>In this setup you'll have 1 frontend node and 2 worker nodes. It's recommended to
 have an MX server that receives emails to be archived, and distributes them among

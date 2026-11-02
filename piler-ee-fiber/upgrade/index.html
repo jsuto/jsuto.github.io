@@ -424,8 +424,8 @@
 
 <h1 id="upgrading">Upgrading<a class="headerlink" href="#upgrading" title="Permanent link">#</a></h1>
 <p>This documentation applies to Piler enterprise edition 2.2.5</p>
-<p>Revision #7</p>
-<p>Publication date: 2026-NOV-01</p>
+<p>Revision #8</p>
+<p>Publication date: 2026-NOV-02</p>
 <h2 id="upgrade-steps">Upgrade steps<a class="headerlink" href="#upgrade-steps" title="Permanent link">#</a></h2>
 <h3 id="run-the-migrations">Run the migrations<a class="headerlink" href="#run-the-migrations" title="Permanent link">#</a></h3>
 <p>Run mysql migrations on each piler related mysql database:</p>
@@ -439,6 +439,8 @@ In case of a multi-tenant deployment, be sure to use the tenant id</p>
    sed 's/TENANTID/piler/g' &quot;$i&quot; | mariadb -h0 -P9306
 done
 </code></pre>
+<p>The migrations are safe to run again: run all of them at every upgrade,
+those of earlier versions too.</p>
 <p>For a multi-tenant deployment, run the mysql migrations for all piler databases, also
 run the manticore migrations for all tenant ids as well, and replace "piler" in the sed
 command with the tenant id, eg.</p>
@@ -448,9 +450,10 @@ command with the tenant id, eg.</p>
 page reads the backups from. Only the table in the <code>piler</code> database is used,
 the copies in the tenant databases stay empty. Until it has run, the page
 shows no backups, nothing else depends on it.</p>
-<p>The Docker images and <code>piler-upgrade.sh</code> don't run it: run the migrations in
-the piler container (<code>docker compose exec piler sh</code>), or this one alone, on
-every node:</p>
+<p>The Docker images don't run it. <code>piler-upgrade.sh</code> of the Docker examples
+runs the migrations a new version adds (piler-examples of 2026-11-02 or later,
+<code>git pull</code> it first). Otherwise run the migrations in the piler container
+(<code>docker compose exec piler sh</code>), or this one alone, on every node:</p>
 <pre><code>docker compose exec -T piler sh -c \
    &quot;mariadb --defaults-file=/etc/piler/.my.cnf piler &lt; /usr/share/piler/migrations/sql/030_backup_status.sql&quot;
 </code></pre>

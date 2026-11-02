@@ -375,7 +375,7 @@
 
 <h1 id="hosting-backup-and-restore">Hosting: backup and restore<a class="headerlink" href="#hosting-backup-and-restore" title="Permanent link">#</a></h1>
 <p>This documentation applies to Piler enterprise edition 2.2.5+</p>
-<p>Revision #4</p>
+<p>Revision #5</p>
 <p>Publication date: 2026-NOV-02</p>
 <h2 id="the-deployment">The deployment<a class="headerlink" href="#the-deployment" title="Permanent link">#</a></h2>
 <p>Back up every node as described in
@@ -403,9 +403,11 @@ AWS_SECRET_ACCESS_KEY=
 </code></pre>
 <p><strong>Keep <code>BACKUP_PASSWORD</code> off the nodes:</strong> without it there's no restore. All
 the nodes can share a repository, with the same password: each node is a
-host in it. Then, as root, in the node's directory, on every node, the
+host in it. Then set <code>BACKUP_MAINTENANCE=no</code> on every node but one: that one
+frees the space and checks the repository on Sundays, which needs the
+repository alone. Then, as root, in the node's directory, on every node, the
 master too, each at another time:</p>
-<pre><code>piler-backup.sh install-timer 03:15
+<pre><code>piler-backup.sh install-cron 03:15
 </code></pre>
 <p>The retention, the commands and the restore of a whole node to a new host
 are in <a href="../../install-single-host/#backup">Install on a single host</a>. On a

@@ -424,8 +424,8 @@
 
 <h1 id="install-on-a-single-host">Install on a single host<a class="headerlink" href="#install-on-a-single-host" title="Permanent link">#</a></h1>
 <p>This documentation applies to Piler enterprise edition 2.2.5+</p>
-<p>Revision #3</p>
-<p>Publication date: 2026-NOV-01</p>
+<p>Revision #4</p>
+<p>Publication date: 2026-NOV-02</p>
 <p>From an empty Linux host to an archive that receives the journal of your
 mail server, with Docker. Every component runs on the one host: piler,
 piler-smtp, the web UI, MariaDB, Manticore, Tika, Valkey, the scanner, and
@@ -562,7 +562,7 @@ it:</p>
 <p><code>BACKUP_PASSWORD</code> in <code>.env</code> encrypts the backups, the setup generated it.
 <strong>Keep a copy off the host:</strong> without it there's no restore.</p>
 <p>Then, as root, in the directory of the installation:</p>
-<pre><code>../../../scripts/piler-backup.sh install-timer     # every day at 02:30
+<pre><code>../../../scripts/piler-backup.sh install-cron      # every day at 02:30
 ../../../scripts/piler-backup.sh                   # a backup now
 ../../../scripts/piler-backup.sh snapshots         # the backups
 </code></pre>
@@ -570,9 +570,13 @@ it:</p>
 <code>BACKUP_INIT=1 ../../../scripts/piler-backup.sh</code>. Later backups don't create
 one: if the disk isn't mounted, the backup fails instead of filling the
 host's disk.</p>
-<p><code>install-timer</code> takes another time too (<code>install-timer 03:15</code>). It sets up a
-systemd timer, the log is in <code>journalctl -u piler-backup.service</code>; without
-systemd it prints a cron line to add.</p>
+<p><code>install-cron</code> takes another time too (<code>install-cron 03:15</code>). It writes
+<code>/etc/cron.d/piler-backup-&lt;hostname&gt;</code>, the log is <code>backups/backup.log</code>;
+without root or <code>/etc/cron.d</code> it prints a line for your crontab. A backup
+doesn't start while another one runs, and it stops if MariaDB or piler isn't
+running. Without Manticore it backs up the rest, and a restore of it needs a
+reindex. Either way it's recorded as a failed backup, which the health page
+and the alerts show.</p>
 <p>Every backup stores only what's new since the last one. 7 daily, 4 weekly
 and 12 monthly backups are kept (<code>BACKUP_KEEP_DAILY</code>, <code>BACKUP_KEEP_WEEKLY</code>,
 <code>BACKUP_KEEP_MONTHLY</code> in <code>.env</code>). On Sundays the space of the removed
@@ -608,9 +612,10 @@ directory of the installation:</p>
 <p>It shows the <a href="../upgrade/">upgrade notes</a> of every release since yours, and
 asks before it does anything; a release with an upgrade step needs your
 confirmation that it's done. Then it pulls the new images, dumps the
-database and copies <code>.env</code> and <code>env</code> into <code>backups/</code>, sets the new
-versions in <code>.env</code>, starts the new containers and waits until they're
-healthy. If they don't get healthy, it prints how to go back.</p>
+database and copies <code>.env</code> and <code>env</code> into <code>backups/</code>, stops piler (piler-smtp
+keeps taking the email) and runs the migrations of the new version, sets the
+new versions in <code>.env</code>, starts the new
+containers and waits until they're healthy. If they don't get healthy, it prints how to go back.</p>
 <p><code>--smtp &lt;version&gt;</code> and <code>--scanner &lt;version&gt;</code> upgrade piler-smtp and the
 scanner too, <code>--yes</code> doesn't ask, <code>--no-backup</code> skips the database dump.
 Remove the old backups from <code>backups/</code> yourself.</p>

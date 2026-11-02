@@ -330,8 +330,8 @@
 
 <h1 id="hosting-upgrades">Hosting: upgrades<a class="headerlink" href="#hosting-upgrades" title="Permanent link">#</a></h1>
 <p>This documentation applies to Piler enterprise edition 2.2.5+</p>
-<p>Revision #2</p>
-<p>Publication date: 2026-NOV-01</p>
+<p>Revision #3</p>
+<p>Publication date: 2026-NOV-02</p>
 <p>How to upgrade a multi-tenant deployment. The version specific steps of
 each release are in <a href="../../upgrade/">upgrading</a>; this page is the order and
 the routine around them.</p>
@@ -383,6 +383,12 @@ and the release's migrations go:</p>
    done
 done
 </code></pre>
+<p><code>piler-upgrade.sh</code> stops piler, piler-ui, the scanner and s3uploader (piler-smtp
+keeps taking the email), then runs all the migrations of the new version
+before it starts the new containers, on every database of the node, the
+Manticore ones not on the master. The migrations are safe to run again, so one you skipped in
+an earlier upgrade is run too. A failed one stops it, with the old containers
+running.</p>
 <p>The Docker images run some of these steps themselves at start; the upgrade
 notes say which.</p>
 <h2 id="after-the-upgrade">After the upgrade<a class="headerlink" href="#after-the-upgrade" title="Permanent link">#</a></h2>

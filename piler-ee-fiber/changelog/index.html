@@ -912,10 +912,11 @@ after the package upgrade, see
 <a href="../upgrade/#add-the-participants-column-225">Add the participants column</a>.
 With S3 storage, also see
 <a href="../upgrade/#s3-storage-settings-225">S3 storage settings</a>: s3uploader reads
-<code>/var/piler/.env</code> instead of <code>/var/piler/.env-s3</code>. Run the migrations too:
-neither the Docker images nor piler-upgrade.sh run them. Among others, 029
-removes secrets from the stored sessions and 030 adds the table of the
-health page's backups, see
+<code>/var/piler/.env</code> instead of <code>/var/piler/.env-s3</code>. Run the migrations too,
+the Docker images don't: piler-upgrade.sh runs those of the new version
+(piler-examples of 2026-11-02 or later, <code>git pull</code> it first), on a native
+install run them by hand. Among others, 029 removes secrets from the stored
+sessions and 030 adds the table of the health page's backups, see
 <a href="../upgrade/#run-the-migrations">Run the migrations</a>.</p>
 <p><strong>Upgrade notes:</strong> the quota user count is now the active users (email in
 the last 90 days), so it drops for tenants with former employees: check
@@ -987,6 +988,10 @@ an example. See
 </ul>
 <h3 id="added">Added<a class="headerlink" href="#added" title="Permanent link">#</a></h3>
 <ul>
+<li>Native backups for the deb/rpm installs: <code>/usr/libexec/piler/piler-backup.sh</code>
+  backs up the databases, the search index, the stored emails and the
+  settings into a restic repository, and restores them on a new host. Not
+  scheduled by default, see <a href="../setup/#backup">Backup</a>.</li>
 <li>Backup metrics on every node: <code>piler_backup_last_timestamp_seconds</code>,
   <code>piler_backup_failed</code> and <code>piler_backup_verification_failed</code>, from the
   <code>backup_status</code> table, with
@@ -1143,6 +1148,10 @@ an example. See
 </ul>
 <h3 id="fixed">Fixed<a class="headerlink" href="#fixed" title="Permanent link">#</a></h3>
 <ul>
+<li>Running the migrations again added the rows of the <code>options</code> table again,
+  and a new installation lacked a table, an index and a risk factor that the
+  migrations add to an upgraded one. Migration 031 removes the duplicates,
+  and the migrations are now checked to be safe to rerun.</li>
 <li>A malformed refresh token (<code>POST /auth/refresh</code>) could crash the request
   instead of being refused.</li>
 <li><code>download-emails-o365.py</code> lost emails when Microsoft 365 throttled the
