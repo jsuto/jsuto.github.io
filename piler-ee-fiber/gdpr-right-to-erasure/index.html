@@ -812,7 +812,7 @@
 
 <h1 id="gdpr-article-17-right-to-erasure">GDPR Article 17 - Right to Erasure<a class="headerlink" href="#gdpr-article-17-right-to-erasure" title="Permanent link">#</a></h1>
 <p>This documentation applies to Piler enterprise edition 2.1.0+</p>
-<p>Publication date: 2025-DEC-26</p>
+<p>Publication date: 2026-NOV-02</p>
 <hr />
 <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">#</a></h2>
 <p>Piler Enterprise provides a complete workflow for handling GDPR Article 17 "Right to Erasure" (also known as "Right to be Forgotten") requests. This feature enables Data Protection Officers (DPOs) and auditors to:</p>
@@ -1298,6 +1298,9 @@
 <li>Emails in backups are not immediately deleted</li>
 <li>Upon backup restoration, purge rules will apply to restored data</li>
 <li>Consider your backup retention policy in relation to erasure obligations</li>
+<li>With S3 versioning or replication, erased emails stay in the old versions
+  until a lifecycle rule expires them, see
+  <a href="../large-deployments/backup/#s3-object-storage">S3 object storage</a></li>
 </ul>
 <h3 id="search-index-timing">Search Index Timing<a class="headerlink" href="#search-index-timing" title="Permanent link">#</a></h3>
 <ul>

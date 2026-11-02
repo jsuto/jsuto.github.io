@@ -375,17 +375,18 @@
 
 <h1 id="hosting-backup-and-restore">Hosting: backup and restore<a class="headerlink" href="#hosting-backup-and-restore" title="Permanent link">#</a></h1>
 <p>This documentation applies to Piler enterprise edition 2.2.5+</p>
-<p>Revision #3</p>
-<p>Publication date: 2026-NOV-01</p>
+<p>Revision #4</p>
+<p>Publication date: 2026-NOV-02</p>
 <h2 id="the-deployment">The deployment<a class="headerlink" href="#the-deployment" title="Permanent link">#</a></h2>
 <p>Back up every node as described in
 <a href="../../large-deployments/backup/">large deployments: backup and recovery</a>:
 the databases, the stored emails (or the S3 buckets), the Manticore indexes,
 the encryption key, the configuration. The database first, then the
 emails.</p>
-<p>With S3 storage, enable versioning or replication of the buckets, or back
-them up with your object storage's tools: a bucket holds one tenant's
-emails.</p>
+<p>With S3 storage, the node backups don't include the emails: see
+<a href="../../large-deployments/backup/#s3-object-storage">S3 object storage</a> for
+versioning, lifecycle rules and replication. A bucket holds one tenant's
+emails, so these are set up for every new tenant.</p>
 <h3 id="with-piler-backupsh">With piler-backup.sh<a class="headerlink" href="#with-piler-backupsh" title="Permanent link">#</a></h3>
 <p>With the <a href="https://github.com/jsuto/piler-examples/tree/master/examples/v2.2/multinode-multitenant" target="_blank">Docker example</a>,
 <a href="https://github.com/jsuto/piler-examples/tree/master/scripts" target="_blank">piler-backup.sh</a>

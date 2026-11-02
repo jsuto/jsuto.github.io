@@ -268,6 +268,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#s3-object-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        S3 object storage
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#the-backup-script-of-the-docker-examples" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -308,8 +319,8 @@
 
 <h1 id="large-deployments-backup-and-recovery">Large deployments: backup and recovery<a class="headerlink" href="#large-deployments-backup-and-recovery" title="Permanent link">#</a></h1>
 <p>This documentation applies to Piler enterprise edition 2.2.5+</p>
-<p>Revision #3</p>
-<p>Publication date: 2026-NOV-01</p>
+<p>Revision #4</p>
+<p>Publication date: 2026-NOV-02</p>
 <p>Backups are implemented with the backup system you already run. What to
 back up:</p>
 <table>
@@ -374,6 +385,71 @@ from it, as it received them as well.</p>
 <p><strong>Restore</strong>: restore a worker's database, search index and stored emails to
 the same point, with the same <code>piler.key</code>, then start its containers. While
 a site is being restored, a DR site can serve the users.</p>
+<h2 id="s3-object-storage">S3 object storage<a class="headerlink" href="#s3-object-storage" title="Permanent link">#</a></h2>
+<p>With S3 storage the emails are not on the nodes: a file backup or
+<code>piler-backup.sh</code> of a node doesn't include them, only those still waiting
+for the upload (<code>/var/piler/s3</code>). Protect the buckets in the object storage
+itself. A restic or file backup of the buckets would be a second full copy,
+with its transfer costs.</p>
+<table>
+<thead>
+<tr>
+<th>Protection</th>
+<th>Covers</th>
+<th>Doesn't cover</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Versioning</td>
+<td>An accidental delete, a bad purge, damage through piler's S3 key</td>
+<td>Losing the provider, the account or the site</td>
+</tr>
+<tr>
+<td>Replication to another region or provider</td>
+<td>Losing the storage system</td>
+<td>Deletes, unless the target is versioned too</td>
+</tr>
+<tr>
+<td>Object lock</td>
+<td>Tampering, even by an administrator</td>
+<td>It conflicts with the purge and with GDPR erasure</td>
+</tr>
+</tbody>
+</table>
+<p>Use versioning and replication together. For each bucket, the tenant buckets
+and the Teams and Slack ones:</p>
+<ol>
+<li><strong>Enable versioning</strong> before the tenant receives email. The purge then
+   only adds a delete marker, and the email can be recovered by removing it.</li>
+<li><strong>Add a lifecycle rule</strong> that expires the old versions, e.g. after 30 to
+   90 days (<code>NoncurrentVersionExpiration</code>), and removes the delete markers
+   left without a version. Without it purged and erased emails stay in the
+   bucket forever, and it only grows.</li>
+<li><strong>Replicate it</strong> to another region or provider, with the same lifecycle
+   rule on the target, so that erasures reach the copy too.</li>
+<li><strong>Keep the S3 key of piler limited</strong> to the
+   <a href="../../s3-storage/#buckets-and-permissions">permissions it needs</a>. Without
+   <code>s3:DeleteObjectVersion</code> and the lifecycle permissions, a stolen key can't
+   remove the old versions.</li>
+</ol>
+<p>Use object lock only if your rules require WORM storage, and then with a
+short lock, e.g. on the replica: a locked object can't be purged or erased.</p>
+<p>Object stores differ in what they support, and in the names of these
+settings: check versioning, lifecycle rules and replication with yours before
+you rely on them, and try restoring a deleted object.</p>
+<p><strong>Erasure:</strong> an erased email stays in the old versions until the lifecycle
+rule expires them, and in the replica until its rule does. Set the period with
+your compliance rules in mind.</p>
+<p><strong>Restore:</strong> restore the node as usual, and leave the bucket as it is. The
+emails archived after the database backup stay in the bucket, but the restored
+database doesn't refer to them: they're not in the archive until they're
+imported again. An object removed by mistake comes back by removing its delete
+marker.</p>
+<p>If the database backup is older than the lifecycle period, it may refer to
+objects that are gone: emails purged or erased since the backup. These can't
+be opened, and they were past their retention anyway. Repeat the erasures made
+since the backup, see <a href="../../gdpr-right-to-erasure/">GDPR erasure</a>.</p>
 <h2 id="the-backup-script-of-the-docker-examples">The backup script of the Docker examples<a class="headerlink" href="#the-backup-script-of-the-docker-examples" title="Permanent link">#</a></h2>
 <p>If you have no backup system for it, the Docker examples have
 <a href="https://github.com/jsuto/piler-examples/tree/master/scripts">piler-backup.sh</a>:
@@ -397,6 +473,9 @@ VALUES
 <p><code>backup_type</code> is <code>database</code>, <code>manticore</code> or <code>email_store</code>, <code>status</code> is
 <code>success</code> or <code>failed</code>, <code>verification_status</code> is <code>pass</code>, <code>fail</code> or NULL (not
 verified).</p>
+<p>On a node with S3 storage <code>email_store</code> says only that the node's backup
+worked, the size is that of the node's backup: the page says nothing about the
+buckets.</p>
 <p>The page reads the database of its own node: the master shows the backups of
 the master, not of the workers. piler-ui's <code>/metrics</code> has the backups of every
 node (<code>piler_backup_last_timestamp_seconds</code>, <code>piler_backup_failed</code>,

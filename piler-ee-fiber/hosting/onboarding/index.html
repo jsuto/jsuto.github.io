@@ -374,8 +374,8 @@
 
 <h1 id="hosting-onboarding-a-tenant">Hosting: onboarding a tenant<a class="headerlink" href="#hosting-onboarding-a-tenant" title="Permanent link">#</a></h1>
 <p>This documentation applies to Piler enterprise edition 2.2.5+</p>
-<p>Revision #1</p>
-<p>Publication date: 2026-OCT-25</p>
+<p>Revision #2</p>
+<p>Publication date: 2026-NOV-02</p>
 <p>A checklist for a new customer, from DNS to the first archived email. The
 commands follow the
 <a href="https://github.com/jsuto/piler-examples/tree/master/examples/v2.2/multinode-multitenant">multi-node example</a>;
@@ -413,6 +413,8 @@ on a single node, the steps marked <em>multi-node</em> don't apply.</p>
   buckets: the tenant's emails sent before go to the error directory, to
   be moved back by hand (see
   <a href="../../s3-storage/#buckets-and-permissions">buckets and permissions</a>).</li>
+<li>Enable <strong>versioning, the lifecycle rule and replication</strong> of the new
+  bucket, see <a href="../../large-deployments/backup/#s3-object-storage">S3 object storage</a>.</li>
 </ul>
 <h2 id="3-create-the-tenant">3. Create the tenant<a class="headerlink" href="#3-create-the-tenant" title="Permanent link">#</a></h2>
 <p>On the master, add the tenant in <strong>Admin &gt; Tenant &gt; Tenant</strong>: tenant id,

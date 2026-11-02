@@ -362,7 +362,9 @@ s3uploader refuses to start with it.</p>
 <h2 id="buckets-and-permissions">Buckets and permissions<a class="headerlink" href="#buckets-and-permissions" title="Permanent link">#</a></h2>
 <p>Piler doesn't create buckets. Create the bucket of a tenant
 (<code>S3_BUCKET_PREFIX</code> + tenant id) before the tenant receives email, with
-the policy, encryption, versioning or object lock you need.</p>
+the policy, encryption, versioning or object lock you need. Backups of the
+nodes don't include the buckets, see
+<a href="../large-deployments/backup/#s3-object-storage">S3 object storage</a>.</p>
 <p>s3uploader doesn't check the bucket before uploading; the upload of a file
 to a missing bucket fails, and the file goes to the error directory
 (<code>/var/piler/error</code>) at once. The log names the bucket ("the bucket does
