@@ -391,9 +391,9 @@ emails.</p>
 <a href="https://github.com/jsuto/piler-examples/tree/master/scripts" target="_blank">piler-backup.sh</a>
 does this on each node, every day, into a
 <a href="https://restic.net/" target="_blank">restic</a> repository: the databases
-of all the tenants, the search index, the stored emails, and the directory
-of the node (the settings, <code>piler.key</code>, the license). The emails in S3 are
-not in it.</p>
+of all the tenants, the search index, the stored emails, and what the
+containers mount from the node's directory (the settings, <code>piler.key</code>, the
+license). The emails in S3 are not in it.</p>
 <p>Set the repository in the node's <code>.env</code>, the example has no setup for it:</p>
 <pre><code>BACKUP_REPOSITORY=s3:https://host/bucket/piler     # or sftp:, rest:, a directory
 BACKUP_PASSWORD=                                   # openssl rand -hex 32

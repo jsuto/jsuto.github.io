@@ -424,7 +424,7 @@
 
 <h1 id="install-on-a-single-host">Install on a single host<a class="headerlink" href="#install-on-a-single-host" title="Permanent link">#</a></h1>
 <p>This documentation applies to Piler enterprise edition 2.2.5+</p>
-<p>Revision #2</p>
+<p>Revision #3</p>
 <p>Publication date: 2026-NOV-01</p>
 <p>From an empty Linux host to an archive that receives the journal of your
 mail server, with Docker. Every component runs on the one host: piler,
@@ -542,9 +542,13 @@ changing them later doesn't change the database.</p>
 <h2 id="backup">Backup<a class="headerlink" href="#backup" title="Permanent link">#</a></h2>
 <p><code>piler-backup.sh</code> backs up the installation into a
 <a href="https://restic.net/" target="_blank">restic</a> repository: the databases,
-the search index, the stored emails and attachments, and the directory of
-the installation (<code>.env</code>, <code>env</code>, <code>piler.key</code>, the license). It runs in
-containers, there's nothing to install.</p>
+the search index, the stored emails and attachments, and the installation:
+<code>.env</code>, the compose files and what the containers mount from its directory
+(<code>env</code>, <code>piler.key</code>, the license). Other files of the directory are not backed
+up. It runs in containers, there's nothing to install.</p>
+<p><code>WORKDIR</code> in <code>.env</code> (default <code>backups/work</code>) is where the database dump and
+these files are put together. It needs room for the dump, which isn't
+encrypted there until the backup removes it.</p>
 <p><code>BACKUP_REPOSITORY</code> in <code>.env</code> says where the backups go, the setup asked for
 it:</p>
 <ul>
@@ -552,7 +556,8 @@ it:</p>
   <code>AWS_SECRET_ACCESS_KEY</code> in <code>.env</code></li>
 <li><code>sftp:user@host:/path</code>, with root's SSH key</li>
 <li><code>rest:https://host/path</code></li>
-<li>a directory: not a backup if it's on this host, it's lost with the host</li>
+<li>a directory: an absolute path outside the directory of the installation,
+  on another disk. A directory on the host's own disk is lost with the host.</li>
 </ul>
 <p><code>BACKUP_PASSWORD</code> in <code>.env</code> encrypts the backups, the setup generated it.
 <strong>Keep a copy off the host:</strong> without it there's no restore.</p>
@@ -561,6 +566,10 @@ it:</p>
 ../../../scripts/piler-backup.sh                   # a backup now
 ../../../scripts/piler-backup.sh snapshots         # the backups
 </code></pre>
+<p>With a directory, create the repository first, with
+<code>BACKUP_INIT=1 ../../../scripts/piler-backup.sh</code>. Later backups don't create
+one: if the disk isn't mounted, the backup fails instead of filling the
+host's disk.</p>
 <p><code>install-timer</code> takes another time too (<code>install-timer 03:15</code>). It sets up a
 systemd timer, the log is in <code>journalctl -u piler-backup.service</code>; without
 systemd it prints a cron line to add.</p>
