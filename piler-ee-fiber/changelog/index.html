@@ -1081,6 +1081,11 @@ an example. See
 </ul>
 <h3 id="changed">Changed<a class="headerlink" href="#changed" title="Permanent link">#</a></h3>
 <ul>
+<li>Search: the Thread menu of an email is a <strong>View Thread</strong> button. In the
+  thread view it reads <strong>Exit Thread</strong> and goes back to the search results,
+  where you left them, with the email you opened the thread from. Before,
+  only a search with the empty search field left the thread view.
+  <strong>Summarize Thread</strong> (AI features) is a button of its own.</li>
 <li>s3uploader refuses to start with <code>S3_PREFIX</code> set: no reader looks for
   objects under that prefix. The files wait in the staging directory until
   the setting is removed.</li>
@@ -1148,6 +1153,8 @@ an example. See
 </ul>
 <h3 id="fixed">Fixed<a class="headerlink" href="#fixed" title="Permanent link">#</a></h3>
 <ul>
+<li>A data officer or an admin logging in through EAM (a signed token posted
+  to <code>/session</code>) landed on the search page instead of their own pages.</li>
 <li>Running the migrations again added the rows of the <code>options</code> table again,
   and a new installation lacked a table, an index and a risk factor that the
   migrations add to an upgraded one. Migration 031 removes the duplicates,
