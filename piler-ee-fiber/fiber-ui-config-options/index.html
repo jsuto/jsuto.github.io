@@ -1682,6 +1682,28 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#disabled_features_user" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DISABLED_FEATURES_USER
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#disabled_features_auditor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DISABLED_FEATURES_AUDITOR
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#app_trace_name" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3318,6 +3340,94 @@ starting with <code>changeme</code>. See <a href="../upgrade/#jwt-secret-225">JW
 <p>Default value: <code>false</code></p>
 <p>Description: The data officer only reviews the removal requests (from 2.2.5). Every other page (search, Teams, Slack) redirects to the data officer page, and every API but the ones of that page is refused with 403: no search, saved searches, export, download, notes or tags, not even of the data officer's own emails. The data officer can still open a message that has a pending removal request, and manage their own settings, 2FA and passkeys. The attachments of the message are listed without a download link. Other roles are not affected. Can be set per tenant.</p>
 <p>Without it, a data officer can also search the emails of their own addresses, like a regular user. With LDAP or SSO (<code>DATAOFFICER_GROUP</code>) the data officer's login is the person's only login, so with <code>DATAOFFICER_REVIEW_ONLY=true</code> they need another account to search their own emails.</p>
+<hr />
+<h3 id="disabled_features_user">DISABLED_FEATURES_USER<a class="headerlink" href="#disabled_features_user" title="Permanent link">#</a></h3>
+<p>Default value: <code>""</code></p>
+<p>Description: Comma separated list of the features turned off for the regular users (from 2.2.5), see the keys below. A feature turned off is hidden on the search page, and its APIs are refused with 403. Can be set per tenant.</p>
+<hr />
+<h3 id="disabled_features_auditor">DISABLED_FEATURES_AUDITOR<a class="headerlink" href="#disabled_features_auditor" title="Permanent link">#</a></h3>
+<p>Default value: <code>""</code></p>
+<p>Description: Comma separated list of the features turned off for the auditors and the restricted auditors (from 2.2.5), see the keys below. Can be set per tenant.</p>
+<p>The features:</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>What is turned off</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>advanced_search</code></td>
+<td>The advanced search form. It's only hidden: the same filters can be typed into the search field</td>
+</tr>
+<tr>
+<td><code>categories</code></td>
+<td>The category filter of the search (the categories of the Scanner), also the <code>cat:</code> label</td>
+</tr>
+<tr>
+<td><code>search_history</code></td>
+<td>The search history menu</td>
+</tr>
+<tr>
+<td><code>saved_searches</code></td>
+<td>Save and load a search</td>
+</tr>
+<tr>
+<td><code>download</code></td>
+<td>Download emails and attachments. The preview still shows the images of an email, other attachments are only listed by name</td>
+</tr>
+<tr>
+<td><code>headers</code></td>
+<td>Show the headers of an email</td>
+</tr>
+<tr>
+<td><code>restore</code></td>
+<td>Restore emails</td>
+</tr>
+<tr>
+<td><code>tag</code></td>
+<td>Tag emails</td>
+</tr>
+<tr>
+<td><code>notes</code></td>
+<td>The note of an email</td>
+</tr>
+<tr>
+<td><code>delete</code></td>
+<td>Mark emails for removal</td>
+</tr>
+<tr>
+<td><code>export</code></td>
+<td>Export emails (also the e-invoices) and the list of exports</td>
+</tr>
+<tr>
+<td><code>ediscovery</code></td>
+<td>eDiscovery export</td>
+</tr>
+<tr>
+<td><code>my_archive</code></td>
+<td>My Archive, the statistics of the user's archive</td>
+</tr>
+<tr>
+<td><code>smart_insights</code></td>
+<td>Smart Insights of an email, and the Smart Insights dashboard of the audit page</td>
+</tr>
+<tr>
+<td><code>similar_emails</code></td>
+<td>Similar emails</td>
+</tr>
+<tr>
+<td><code>user_settings</code></td>
+<td>The user settings (the gear icon of the search and the audit page), e.g. when the language and the time zone come from another system. <code>SHOW_USER_SETTINGS=false</code> hides them for every role</td>
+</tr>
+</tbody>
+</table>
+<p>For example, to keep the auditors from changing the emails and to turn off the AI features for everyone:</p>
+<pre><code>DISABLED_FEATURES_USER=smart_insights,similar_emails
+DISABLED_FEATURES_AUDITOR=restore,tag,delete,smart_insights,similar_emails
+</code></pre>
+<p>piler-ui logs a warning at startup about an unknown key. The config report lists both settings.</p>
 <hr />
 <h3 id="app_trace_name">APP_TRACE_NAME<a class="headerlink" href="#app_trace_name" title="Permanent link">#</a></h3>
 <p>Default value: <code>""</code></p>
