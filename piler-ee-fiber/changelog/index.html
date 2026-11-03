@@ -1078,6 +1078,10 @@ an example. See
 <li><code>archived_user_count</code> in the quota API, the dashboard, the CSV export and
   the warning email: every address that ever received archived email,
   former employees included.</li>
+<li><code>DATAOFFICER_REVIEW_ONLY</code> (default <code>false</code>, can be set per tenant): the
+  data officer only reviews the removal requests, every other page and API
+  is refused, see
+  <a href="../fiber-ui-config-options/#dataofficer_review_only">Config options</a>.</li>
 </ul>
 <h3 id="changed">Changed<a class="headerlink" href="#changed" title="Permanent link">#</a></h3>
 <ul>
@@ -1155,6 +1159,8 @@ an example. See
 <ul>
 <li>A data officer or an admin logging in through EAM (a signed token posted
   to <code>/session</code>) landed on the search page instead of their own pages.</li>
+<li>The attachment links in the message preview of the audit and the data
+  officer pages pointed to a missing URL.</li>
 <li>Running the migrations again added the rows of the <code>options</code> table again,
   and a new installation lacked a table, an index and a risk factor that the
   migrations add to an upgraded one. Migration 031 removes the duplicates,

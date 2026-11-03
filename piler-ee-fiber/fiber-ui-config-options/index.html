@@ -1671,6 +1671,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#dataofficer_review_only" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DATAOFFICER_REVIEW_ONLY
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#app_trace_name" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3302,6 +3313,11 @@ starting with <code>changeme</code>. See <a href="../upgrade/#jwt-secret-225">JW
 <li>The decision of the data officer (approve or reject) is carried out by the worker of the message, then recorded on the master. If the worker can't be reached, the request stays pending.</li>
 </ul>
 <p>A data officer can only approve or reject a message that has a pending removal request.</p>
+<hr />
+<h3 id="dataofficer_review_only">DATAOFFICER_REVIEW_ONLY<a class="headerlink" href="#dataofficer_review_only" title="Permanent link">#</a></h3>
+<p>Default value: <code>false</code></p>
+<p>Description: The data officer only reviews the removal requests (from 2.2.5). Every other page (search, Teams, Slack) redirects to the data officer page, and every API but the ones of that page is refused with 403: no search, saved searches, export, download, notes or tags, not even of the data officer's own emails. The data officer can still open a message that has a pending removal request, and manage their own settings, 2FA and passkeys. The attachments of the message are listed without a download link. Other roles are not affected. Can be set per tenant.</p>
+<p>Without it, a data officer can also search the emails of their own addresses, like a regular user. With LDAP or SSO (<code>DATAOFFICER_GROUP</code>) the data officer's login is the person's only login, so with <code>DATAOFFICER_REVIEW_ONLY=true</code> they need another account to search their own emails.</p>
 <hr />
 <h3 id="app_trace_name">APP_TRACE_NAME<a class="headerlink" href="#app_trace_name" title="Permanent link">#</a></h3>
 <p>Default value: <code>""</code></p>
