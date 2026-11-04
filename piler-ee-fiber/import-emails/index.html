@@ -529,7 +529,7 @@
 
 
 <h1 id="import-emails">Import emails<a class="headerlink" href="#import-emails" title="Permanent link">#</a></h1>
-<p>This documentation applies to Piler enterprise edition 2.1.0 (envelope files and <code>-add-recipients</code>: 2.2.4+, PST files and the Microsoft 365 download options: 2.2.5+)</p>
+<p>This documentation applies to Piler enterprise edition 2.1.0 (envelope files and <code>-add-recipients</code>: 2.2.4+, PST files and the Microsoft 365 download options: 2.3.0+)</p>
 <p>Revision #5</p>
 <p>Publication date: 2026-OCT-30</p>
 <h2 id="import-local-emails">Import local emails<a class="headerlink" href="#import-local-emails" title="Permanent link">#</a></h2>
@@ -718,7 +718,7 @@ tenant_id = &quot;.......&quot;
 <p>Or every user's emails, by leaving out <code>--email</code>. Mailboxes the app may
 not read (when an application access policy limits it to some mailboxes)
 and users without a mailbox are skipped and listed in the summary.</p>
-<p>Options (2.2.5+):</p>
+<p>Options (2.3.0+):</p>
 <table>
 <thead>
 <tr>
@@ -796,7 +796,7 @@ pilerimport -dir emails -remove
 downloaded by the files in the download directory, so after
 <code>pilerimport -remove</code> a new run would download everything again.</p>
 <h2 id="import-pst-files">Import PST files<a class="headerlink" href="#import-pst-files" title="Permanent link">#</a></h2>
-<p>From 2.2.5 pilerimport imports PST files (Outlook data files) directly, no
+<p>From 2.3.0 pilerimport imports PST files (Outlook data files) directly, no
 conversion step is needed. This works with PST files exported from classic
 Outlook, Exchange or Microsoft 365, and with Enterprise Vault exports, in
 both the current (Unicode) and the old (ANSI, Outlook 97-2002) format.</p>

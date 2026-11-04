@@ -268,15 +268,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#225-unreleased" class="md-nav__link">
+  <a href="#230-2026-11-04" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2.2.5 - unreleased
+        2.3.0 - 2026-11-04
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="2.2.5 - unreleased">
+    <nav class="md-nav" aria-label="2.3.0 - 2026-11-04">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -904,20 +904,29 @@ the <a href="../changelog-scanner/">Scanner changelog</a>.</p>
 release of piler-ee, piler-smtp and the Scanner) or
 <a href="https://docs.mailpiler.com/piler-ee-fiber/security.xml">security.xml</a> (only
 the releases with security fixes, which have a Security section).</p>
-<h2 id="225-unreleased">2.2.5 - unreleased<a class="headerlink" href="#225-unreleased" title="Permanent link">#</a></h2>
+<h2 id="230-2026-11-04">2.3.0 - 2026-11-04<a class="headerlink" href="#230-2026-11-04" title="Permanent link">#</a></h2>
+<p>2.2.5 was not released, its changes are in 2.3.0. The <code>2.2.5</code> git tag and
+the <code>2.2.5</code> Docker images of 25 October 2026 are an earlier build: don't
+use them.</p>
 <p><strong>Upgrade step:</strong> the index needs the new <code>participants</code> column, otherwise
 piler, piler-ui, pilerimport and reindex refuse to start. Docker
 deployments get it automatically; on a native install run the script once
 after the package upgrade, see
-<a href="../upgrade/#add-the-participants-column-225">Add the participants column</a>.
+<a href="../upgrade/#add-the-participants-column-230">Add the participants column</a>.
 With S3 storage, also see
-<a href="../upgrade/#s3-storage-settings-225">S3 storage settings</a>: s3uploader reads
+<a href="../upgrade/#s3-storage-settings-230">S3 storage settings</a>: s3uploader reads
 <code>/var/piler/.env</code> instead of <code>/var/piler/.env-s3</code>. Run the migrations too,
 the Docker images don't: piler-upgrade.sh runs those of the new version
 (piler-examples of 2026-11-02 or later, <code>git pull</code> it first), on a native
 install run them by hand. Among others, 029 removes secrets from the stored
 sessions and 030 adds the table of the health page's backups, see
 <a href="../upgrade/#run-the-migrations">Run the migrations</a>.</p>
+<p><strong>Retention settings:</strong> the <code>options</code> table no longer has retention
+settings. <code>ENABLE_TENANT_RETENTION_POLICIES</code> and <code>MIN_RETENTION_DAYS</code> are in
+the <code>.env</code> of piler-ui; migration 032 lists the values you had changed. A
+retention rule is active when saved, and <code>purge</code> doesn't purge a tenant
+without its row in <code>piler.tenant_settings</code> on that node. See
+<a href="../upgrade/#retention-settings-230">Retention settings</a>.</p>
 <p><strong>Upgrade notes:</strong> the quota user count is now the active users (email in
 the last 90 days), so it drops for tenants with former employees: check
 the user quotas. On a multi-node deployment upgrade the workers before the
@@ -927,10 +936,10 @@ master; with several masters set <code>LEADER_ELECTION_ENABLED=true</code>. A
 <code>piler_error</code> volume, create it before the upgrade. Set <code>JWT_SECRET</code>
 (the same on every node) if it isn't set, or replace a value copied from
 an example. See
-<a href="../upgrade/#jwt-secret-225">JWT secret</a>,
-<a href="../upgrade/#quotas-225">Quotas</a>,
-<a href="../upgrade/#metrics-through-a-reverse-proxy-225">Metrics through a reverse proxy</a> and
-<a href="../upgrade/#docker-the-error-directory-volume-225">Docker: the error directory volume</a>.</p>
+<a href="../upgrade/#jwt-secret-230">JWT secret</a>,
+<a href="../upgrade/#quotas-230">Quotas</a>,
+<a href="../upgrade/#metrics-through-a-reverse-proxy-230">Metrics through a reverse proxy</a> and
+<a href="../upgrade/#docker-the-error-directory-volume-230">Docker: the error directory volume</a>.</p>
 <h3 id="security">Security<a class="headerlink" href="#security" title="Permanent link">#</a></h3>
 <ul>
 <li>Without <code>JWT_SECRET</code>, piler-ui accepted access tokens it hadn't issued.
@@ -938,7 +947,7 @@ an example. See
   warning, also about a secret shorter than 32 characters or one starting
   with <code>changeme</code>. The token checks take HS256 tokens only. The installers
   and the Docker examples set a random <code>JWT_SECRET</code>; set one on an
-  existing installation, see <a href="../upgrade/#jwt-secret-225">JWT secret</a>.</li>
+  existing installation, see <a href="../upgrade/#jwt-secret-230">JWT secret</a>.</li>
 <li>The removal of an export took a file name with <code>../</code>, so a user could
   delete another user's export file if they knew its random name. The
   download and the removal of an export take a plain file name only.</li>
@@ -947,7 +956,7 @@ an example. See
   table: a crafted tenant id could add entries to another tenant's audit
   log. The string values of the audit details are quoted, so a value
   can't look like another key, see
-  <a href="../upgrade/#audit-log-details-225">Audit log details</a>.</li>
+  <a href="../upgrade/#audit-log-details-230">Audit log details</a>.</li>
 <li>A regular user's search could count, and list in the top results, the
   messages of an address that looks the same in the search index, e.g.
   <code>john.sales@example.com</code> and <code>john@sales.example.com</code>. Their content was
@@ -984,7 +993,7 @@ an example. See
   piler-ui (daily, in every tenant database) remove the secrets from the
   sessions stored earlier, and delete the expired sessions, which were
   kept until the user's next login. See
-  <a href="../upgrade/#refresh-sessions-225">Refresh sessions</a>.</li>
+  <a href="../upgrade/#refresh-sessions-230">Refresh sessions</a>.</li>
 </ul>
 <h3 id="added">Added<a class="headerlink" href="#added" title="Permanent link">#</a></h3>
 <ul>
@@ -1002,7 +1011,7 @@ an example. See
   it archives an email: XRechnung and other UBL or CII invoices (XML),
   ZUGFeRD and Factur-X (PDF with an embedded XML invoice). The emails
   archived before are found after a reindex, see
-  <a href="../upgrade/#e-invoices-in-the-search-225">E-invoices in the search</a> and
+  <a href="../upgrade/#e-invoices-in-the-search-230">E-invoices in the search</a> and
   <a href="../gobd/#e-invoices">GoBD</a>.</li>
 <li>Export of the e-invoices of the search results, for the data handover in
   a tax audit (GoBD Z3): the receipt button next to the export button of
@@ -1090,6 +1099,33 @@ an example. See
 </ul>
 <h3 id="changed">Changed<a class="headerlink" href="#changed" title="Permanent link">#</a></h3>
 <ul>
+<li><strong>Retention rules</strong> are active when saved. The grace period and the
+  confirmation of a new rule are gone, with the confirm API
+  (<code>/api/v1/admin/retention/rule/:id/confirm</code>): the piler daemon applied a
+  pending rule anyway. Migration 032 activates the pending rules. Instead,
+  the rule dialog asks you to type the days of a rule shorter than the
+  default retention of the tenant, when it's created or its days change.</li>
+<li><strong>Retention settings in the <code>.env</code></strong>: <code>ENABLE_TENANT_RETENTION_POLICIES</code>
+  and <code>MIN_RETENTION_DAYS</code> of piler-ui (both can be set per tenant in its
+  <code>settings_json</code>), instead of rows of the <code>options</code> table, see
+  <a href="../fiber-ui-config-options/#enable_tenant_retention_policies">Config options</a>.
+  <code>ENABLE_TENANT_RETENTION_POLICIES=false</code> now really locks the rules: the
+  admin of a tenant can view and simulate them, not create, change or
+  delete them. Before, the setting didn't stop the admin of a tenant from
+  changing the rules.</li>
+<li><code>MIN_RETENTION_DAYS</code> (30 days by default) is also the minimum of an
+  update of a rule, and of the default retention of a tenant in the tenant
+  editor.</li>
+<li><code>purge</code> reads <code>enable_purge</code> of the tenant from <code>piler.tenant_settings</code>
+  of the node it runs on, and doesn't purge a tenant without a row there
+  or when it can't read it (it purged then). <code>purge.sh</code> goes on with the
+  other tenants after one fails. On a multi-node deployment, set
+  <code>enable_purge</code> on every worker, see
+  <a href="../hosting/onboarding/#change-a-tenants-settings">Change a tenant's settings</a>.</li>
+<li><strong>The default retention of a new installation is 10 years</strong> (3653 days):
+  the <code>piler</code> tenant was created with 7300 days, and the daemon's
+  <code>DEFAULT_RETENTION_DAYS</code> fallback was 2557. An existing installation keeps
+  its retention.</li>
 <li>Search: the Thread menu of an email is a <strong>View Thread</strong> button. In the
   thread view it reads <strong>Exit Thread</strong> and goes back to the search results,
   where you left them, with the email you opened the thread from. Before,
@@ -1102,7 +1138,7 @@ an example. See
   piler-ui, instead of <code>/var/piler/.env-s3</code>: one copy of the S3 settings,
   so s3uploader and piler-ui can't use different buckets. Move the settings
   only s3uploader uses to <code>.env</code>, see
-  <a href="../upgrade/#s3-storage-settings-225">S3 storage settings</a>.</li>
+  <a href="../upgrade/#s3-storage-settings-230">S3 storage settings</a>.</li>
 <li><code>S3_USE_SUBDIRS</code> is removed. The objects were always stored and read in
   subdirectories; only <code>purge</code> honoured the setting, and with <code>false</code> it
   left the objects of the purged messages in the bucket.</li>
@@ -1162,6 +1198,19 @@ an example. See
 </ul>
 <h3 id="fixed">Fixed<a class="headerlink" href="#fixed" title="Permanent link">#</a></h3>
 <ul>
+<li>A retention rule created in the admin UI was disabled until switched on.</li>
+<li><code>purge -dry-run</code> said 0 files in its summary after listing them.</li>
+<li>An email with a sender domain, a recipient or an attachment type longer
+  than its database column, or a long non-ASCII sender cut in the middle
+  of a character, couldn't be archived and went to the error directory.
+  These values are cut to the column size now, at a character boundary.</li>
+<li>With S3 storage, an email downloaded or viewed before the s3uploader
+  uploaded its attachments had the attachment missing, with a 200 response.
+  Now the download is a 503 with <code>Retry-After</code>, like an email whose own
+  object isn't uploaded yet.</li>
+<li>piler, pilerimport: a tenant without a row in <code>piler.tenant_settings</code> on
+  the node is archived with the default retention (<code>DEFAULT_RETENTION_DAYS</code>),
+  now with a warning in the log.</li>
 <li>A data officer or an admin logging in through EAM (a signed token posted
   to <code>/session</code>) landed on the search page instead of their own pages.</li>
 <li>The attachment links in the message preview of the audit and the data
@@ -1199,7 +1248,7 @@ an example. See
   read from <code>S3_BUCKET_PREFIX</code> + tenant: with a prefix set, the uploaded
   emails couldn't be read or purged. With <code>S3_BUCKET_PREFIX</code> or <code>S3_PREFIX</code>
   set, check the settings before starting piler-s3 after the upgrade, see
-  <a href="../upgrade/#s3-storage-settings-225">S3 storage settings</a>.</li>
+  <a href="../upgrade/#s3-storage-settings-230">S3 storage settings</a>.</li>
 <li><code>purge</code> ignored <code>PILER_STORE_DIR</code> and <code>PILER_ASTORE_DIR</code>: with another
   store directory it marked messages deleted but never removed their files.</li>
 <li>piler-ui couldn't read any message when <code>PILER_STORE_DIR</code> had no trailing

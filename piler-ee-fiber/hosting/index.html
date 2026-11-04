@@ -346,7 +346,7 @@
 
 
 <h1 id="hosting-piler-for-your-customers">Hosting Piler for your customers<a class="headerlink" href="#hosting-piler-for-your-customers" title="Permanent link">#</a></h1>
-<p>This documentation applies to Piler enterprise edition 2.2.5+</p>
+<p>This documentation applies to Piler enterprise edition 2.3.0+</p>
 <p>Revision #2</p>
 <p>Publication date: 2026-OCT-27</p>
 <p>How a hosting provider or MSP runs Piler for many customers: one multi-tenant
@@ -388,7 +388,7 @@ archive and index the emails, stored in S3-compatible object storage:</p>
 <ul>
 <li><a href="../large-deployments/architecture/">Architecture and high availability</a></li>
 <li><a href="https://github.com/jsuto/piler-examples/tree/master/examples/v2.2/multinode-multitenant">The multi-node, multi-tenant example</a>:
-  Docker Compose files for the master and the workers, tested with 2.2.5</li>
+  Docker Compose files for the master and the workers, tested with 2.3.0</li>
 <li>A smaller start: the <a href="https://github.com/jsuto/piler-examples/tree/master/examples/v2.2/single-node">single-node example</a>
   with a multi-tenant license, moving to more nodes as the tenants grow</li>
 </ul>
@@ -400,7 +400,7 @@ election. Set on every master:</p>
 <p>They must use the same Redis (they need it for the sessions anyway) and the
 same <code>LEADER_REDIS_KEY</code> (default <code>piler:leader</code>). One master, the leader,
 runs the background jobs: the billing report, the
-<a href="billing/">quota numbers</a> collected every 15 minutes (from 2.2.5), the quota warning
+<a href="billing/">quota numbers</a> collected every 15 minutes (from 2.3.0), the quota warning
 emails, the Teams retention purge. If it stops, another master takes over
 within about 35 seconds (<code>LEADER_LOCK_TTL</code> 30s, <code>LEADER_RETRY_INTERVAL</code>
 5s).</p>

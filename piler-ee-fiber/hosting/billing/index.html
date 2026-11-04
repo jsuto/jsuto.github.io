@@ -346,7 +346,7 @@
 
 
 <h1 id="hosting-usage-reports-for-billing">Hosting: usage reports for billing<a class="headerlink" href="#hosting-usage-reports-for-billing" title="Permanent link">#</a></h1>
-<p>This documentation applies to Piler enterprise edition 2.2.5+</p>
+<p>This documentation applies to Piler enterprise edition 2.3.0+</p>
 <p>Revision #4</p>
 <p>Publication date: 2026-OCT-28</p>
 <p>Piler's license doesn't depend on your tenants' size, but your prices may:
@@ -357,7 +357,7 @@ ways to get the numbers per tenant.</p>
 with its storage, emails and active users, and <strong>Export CSV</strong> downloads them.
 The same page sets per-tenant quotas with warning emails. On a multi-node
 deployment the master collects the numbers from the workers.</p>
-<p>From 2.2.5 the numbers are collected every 15 minutes
+<p>From 2.3.0 the numbers are collected every 15 minutes
 (<a href="../../fiber-ui-config-options/#quota_snapshot_interval">QUOTA_SNAPSHOT_INTERVAL</a>),
 and the page shows when. The admin pages show a banner when a tenant is at
 or above the warning threshold of a quota.</p>
@@ -368,7 +368,7 @@ show which of its quotas is at or above the warning threshold, with the
 usage and the limit, and ask to contact the service provider. Leave it off
 if you handle the quotas with your customers yourself.</p>
 <h2 id="the-billing-api">The billing API<a class="headerlink" href="#the-billing-api" title="Permanent link">#</a></h2>
-<p>For a script that feeds your billing system. From 2.2.5 it uses an API
+<p>For a script that feeds your billing system. From 2.3.0 it uses an API
 token, not the admin's password: the script can read the quotas and
 nothing else, the admin can use TOTP, and changing the admin's password
 doesn't break billing.</p>
@@ -450,7 +450,7 @@ is a lower bound.</p>
 </tr>
 <tr>
 <td><code>archived_user_count</code></td>
-<td>Every address of the tenant's domains that ever received archived email, former employees included (from 2.2.5)</td>
+<td>Every address of the tenant's domains that ever received archived email, former employees included (from 2.3.0)</td>
 </tr>
 </tbody>
 </table>
@@ -482,9 +482,9 @@ is a lower bound.</p>
 </tbody>
 </table>
 <p>The API tokens need the <code>api_token</code> table: run the SQL migrations on the
-master's <code>piler</code> database when upgrading to 2.2.5, see
+master's <code>piler</code> database when upgrading to 2.3.0, see
 <a href="../../upgrade/#run-the-migrations">Run the migrations</a>.</p>
-<p>Before 2.2.5 the same data was at <code>/api/v1/admin/quota/all</code> and
+<p>Before 2.3.0 the same data was at <code>/api/v1/admin/quota/all</code> and
 <code>/api/v1/admin/quota/monthly/&lt;tenant id&gt;</code>, with the token of the master
 admin's login. These still work for the admin, but a billing script
 should use an API token. See the <a href="../../rest-api/">REST API</a> for the
@@ -494,20 +494,20 @@ details.</p>
 <li>For tenants with a retention period, <code>storage_used_gb</code> grows past what is
   stored now, as purged email is still counted. For the current size, use
   the metrics below.</li>
-<li>From 2.2.5, <code>user_count</code> is the active users, with the user quota
+<li>From 2.3.0, <code>user_count</code> is the active users, with the user quota
   applying to them; before, it was every address that ever received
   email. An archive keeps the mail of the people who left: their mail is
   in the storage, it's not a user. A mailbox counts as active as long as it
   receives email, spam and newsletters included, so have the MTA reject
   email to deleted mailboxes. pilerimport counts the date of each email,
   not the time of the import, so importing a customer's old mail doesn't
-  make its former employees active (before 2.2.5 the import time counted).</li>
-<li>On a multi-node deployment, from 2.2.5 the master counts a mailbox that
+  make its former employees active (before 2.3.0 the import time counted).</li>
+<li>On a multi-node deployment, from 2.3.0 the master counts a mailbox that
   received email on several workers once, and active if it's active on any
   of them. Before, it added up the workers' counts.</li>
 </ul>
 <h2 id="metrics">Metrics<a class="headerlink" href="#metrics" title="Permanent link">#</a></h2>
-<p>From 2.2.5, piler-ui's <code>/metrics</code> has the current numbers per tenant, for
+<p>From 2.3.0, piler-ui's <code>/metrics</code> has the current numbers per tenant, for
 your monitoring system to keep a history of (see <a href="../monitoring/">monitoring</a>):</p>
 <table>
 <thead>

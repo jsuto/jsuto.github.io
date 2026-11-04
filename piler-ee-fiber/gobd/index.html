@@ -893,9 +893,9 @@
 <li><strong>Searches</strong>: what was searched, and by whom</li>
 <li><strong>Exports</strong>: eDiscovery exports, downloads</li>
 <li><strong>Removals</strong>: removal requests, their approval or rejection, GDPR erasure requests</li>
-<li><strong>Configuration</strong> (2.2.5+): every change made through the web UI or the API, with the new values (never a password): users, groups, domains, LDAP, profiles, tenants, quotas, retention rules, categories, legal holds, DLP and compliance rules, import jobs, branding, API tokens, Teams and Slack retention</li>
+<li><strong>Configuration</strong> (2.3.0+): every change made through the web UI or the API, with the new values (never a password): users, groups, domains, LDAP, profiles, tenants, quotas, retention rules, categories, legal holds, DLP and compliance rules, import jobs, branding, API tokens, Teams and Slack retention</li>
 </ul>
-<p>Changes outside Piler (e.g. the <code>.env</code> settings or the mail server's journal rule) aren't in the audit log: record them in the change history of your procedure documentation (Rz. 154). Before 2.2.5, changes of domains, groups, LDAP, profiles and some other settings weren't logged.</p>
+<p>Changes outside Piler (e.g. the <code>.env</code> settings or the mail server's journal rule) aren't in the audit log: record them in the change history of your procedure documentation (Rz. 154). Before 2.3.0, changes of domains, groups, LDAP, profiles and some other settings weren't logged.</p>
 <p><strong>Audit log protection:</strong></p>
 <ul>
 <li>Audit logs are stored separately from email content, and can't be changed or deleted in the web UI or the API</li>
@@ -1033,7 +1033,7 @@
 </tbody>
 </table>
 <p><strong>Piler keeps e-invoices as the GoBD require</strong> because it archives every email as received: XML, PDF and hybrid formats (ZUGFeRD, Factur-X, XRechnung) are all preserved unchanged, and found by full-text search and by attachment type.</p>
-<p><strong>Finding e-invoices</strong> (2.2.5+): Piler recognizes the emails with an e-invoice attachment when it archives them: XRechnung and other UBL or CII invoices (XML), and ZUGFeRD / Factur-X invoices (PDF with an embedded XML invoice). Search for them with <code>attachment:einvoice</code>, or the "E-invoice" checkbox of the advanced search. For a tax audit, combine it with a date range and export the e-invoices (Z2 / Z3, see <a href="#the-e-invoices-of-a-period-z3">The e-invoices of a period</a>). The emails archived before 2.2.5 are found after a <a href="../upgrade/#e-invoices-in-the-search-225">reindex</a>.</p>
+<p><strong>Finding e-invoices</strong> (2.3.0+): Piler recognizes the emails with an e-invoice attachment when it archives them: XRechnung and other UBL or CII invoices (XML), and ZUGFeRD / Factur-X invoices (PDF with an embedded XML invoice). Search for them with <code>attachment:einvoice</code>, or the "E-invoice" checkbox of the advanced search. For a tax audit, combine it with a date range and export the e-invoices (Z2 / Z3, see <a href="#the-e-invoices-of-a-period-z3">The e-invoices of a period</a>). The emails archived before 2.3.0 are found after a <a href="../upgrade/#e-invoices-in-the-search-230">reindex</a>.</p>
 <hr />
 <h2 id="procedural-documentation-verfahrensdokumentation">Procedural documentation (Verfahrensdokumentation)<a class="headerlink" href="#procedural-documentation-verfahrensdokumentation" title="Permanent link">#</a></h2>
 <p>For every IT system there must be a clearly structured procedure documentation, from which the content, structure, process and results of the procedure are fully and conclusively apparent, and which a knowledgeable third party can review in a reasonable time (Rz. 151). For electronic documents it describes the process from their creation through indexing, processing and storage, finding them, machine evaluation, protection against loss and falsification, to their reproduction (Rz. 152).</p>
@@ -1082,7 +1082,7 @@
 </li>
 <li>The audit log, for the controls (logins, access, removals, rule changes)</li>
 <li>The retention rules and their change history</li>
-<li>The configuration report (2.2.5+), under Compliance &gt; Configuration report in the admin UI: the settings, retention and exclusion rules, roles and users, and active legal holds of the tenant, as Markdown or JSON, in English or German, or printed. The reason of a rule is its description. What Piler can't read (e.g. S3 Object Lock, the purge schedule) stays a <code>[placeholder]</code> for you to fill in. The German report says where its sections go in the template. It has no passwords or keys. It shows the configuration on the day you make it, so keep each version with your documentation.</li>
+<li>The configuration report (2.3.0+), under Compliance &gt; Configuration report in the admin UI: the settings, retention and exclusion rules, roles and users, and active legal holds of the tenant, as Markdown or JSON, in English or German, or printed. The reason of a rule is its description. What Piler can't read (e.g. S3 Object Lock, the purge schedule) stays a <code>[placeholder]</code> for you to fill in. The German report says where its sections go in the template. It has no passwords or keys. It shows the configuration on the day you make it, so keep each version with your documentation.</li>
 </ul>
 <hr />
 <h2 id="deployment-recommendations-for-gobd-compliance">Deployment recommendations for GoBD compliance<a class="headerlink" href="#deployment-recommendations-for-gobd-compliance" title="Permanent link">#</a></h2>
@@ -1163,7 +1163,7 @@
 <td><strong>Z3</strong>: data handover</td>
 <td>167 to 169</td>
 <td>You hand over the data in a machine-readable format, e.g. on a data carrier</td>
-<td>Export of the selected emails in EML (with their metadata); the e-invoices of a period with an index (2.2.5+)</td>
+<td>Export of the selected emails in EML (with their metadata); the e-invoices of a period with an index (2.3.0+)</td>
 </tr>
 </tbody>
 </table>
@@ -1171,7 +1171,7 @@
 <p><strong>An auditor account sees every archived email of the tenant.</strong> Piler has no auditor role limited to the tax-relevant emails. If the tax auditor shouldn't see everything, prefer Z2 or Z3: search for the relevant emails yourself and export them. Agree on the format with the auditor.</p>
 <p><strong>Who does it</strong>: for Z2 and Z3, no special account is needed. A regular user who receives the invoices (e.g. with <code>rechnung@</code> or <code>buchhaltung@</code> as an alias) finds and exports them, and sees nothing else. An auditor account can do it too, but sees all mail.</p>
 <h3 id="the-e-invoices-of-a-period-z3">The e-invoices of a period (Z3)<a class="headerlink" href="#the-e-invoices-of-a-period-z3" title="Permanent link">#</a></h3>
-<p>From 2.2.5:</p>
+<p>From 2.3.0:</p>
 <ol>
 <li>Search for <code>attachment:einvoice</code> (or tick "E-invoice" in the advanced search) with the dates of the audited period</li>
 <li>Click the receipt button next to the export button, then download the ZIP from the exports</li>
@@ -1236,7 +1236,7 @@
 </tr>
 <tr>
 <td>Logging</td>
-<td>Audit log of access and every configuration change (2.2.5+), SIEM forwarding</td>
+<td>Audit log of access and every configuration change (2.3.0+), SIEM forwarding</td>
 <td>✓ Built-in</td>
 </tr>
 <tr>

@@ -893,9 +893,9 @@
 <li><strong>Suchen</strong>: was von wem gesucht wurde</li>
 <li><strong>Exporte</strong>: eDiscovery-Exporte, Downloads</li>
 <li><strong>Löschungen</strong>: Löschanträge, ihre Freigabe oder Ablehnung, DSGVO-Löschanträge</li>
-<li><strong>Einstellungen</strong> (ab 2.2.5): jede Änderung über die Weboberfläche oder die API, mit den neuen Werten (nie ein Passwort): Benutzer, Gruppen, Domains, LDAP, Profile, Mandanten, Kontingente, Aufbewahrungsregeln, Kategorien, Legal Holds, DLP- und Compliance-Regeln, Importaufträge, Branding, API-Tokens, Aufbewahrung von Teams und Slack</li>
+<li><strong>Einstellungen</strong> (ab 2.3.0): jede Änderung über die Weboberfläche oder die API, mit den neuen Werten (nie ein Passwort): Benutzer, Gruppen, Domains, LDAP, Profile, Mandanten, Kontingente, Aufbewahrungsregeln, Kategorien, Legal Holds, DLP- und Compliance-Regeln, Importaufträge, Branding, API-Tokens, Aufbewahrung von Teams und Slack</li>
 </ul>
-<p>Änderungen außerhalb von Piler (z. B. an den Einstellungen in <code>.env</code> oder an der Journalregel des Mailservers) stehen nicht im Audit-Log: Halten Sie sie in der Änderungshistorie Ihrer Verfahrensdokumentation fest (Rz. 154). Vor 2.2.5 wurden Änderungen an Domains, Gruppen, LDAP, Profilen und einigen weiteren Einstellungen nicht protokolliert.</p>
+<p>Änderungen außerhalb von Piler (z. B. an den Einstellungen in <code>.env</code> oder an der Journalregel des Mailservers) stehen nicht im Audit-Log: Halten Sie sie in der Änderungshistorie Ihrer Verfahrensdokumentation fest (Rz. 154). Vor 2.3.0 wurden Änderungen an Domains, Gruppen, LDAP, Profilen und einigen weiteren Einstellungen nicht protokolliert.</p>
 <p><strong>Schutz des Audit-Logs:</strong></p>
 <ul>
 <li>Das Audit-Log wird getrennt von den E-Mails gespeichert und kann in der Weboberfläche und über die API weder geändert noch gelöscht werden</li>
@@ -1033,7 +1033,7 @@
 </tbody>
 </table>
 <p><strong>Piler bewahrt E-Rechnungen so auf, wie es die GoBD verlangen</strong>, weil es jede E-Mail so archiviert, wie sie empfangen wurde: XML, PDF und hybride Formate (ZUGFeRD, Factur-X, XRechnung) bleiben unverändert erhalten und sind per Volltextsuche und nach Typ des Anhangs auffindbar.</p>
-<p><strong>E-Rechnungen finden</strong> (ab 2.2.5): Piler erkennt beim Archivieren die E-Mails mit einer E-Rechnung im Anhang: XRechnung und andere UBL- oder CII-Rechnungen (XML) sowie ZUGFeRD- und Factur-X-Rechnungen (PDF mit eingebetteter XML-Rechnung). Sie finden sie mit <code>attachment:einvoice</code> oder dem Kontrollkästchen „E-invoice" der erweiterten Suche. Für eine Außenprüfung kombinieren Sie es mit einem Zeitraum und exportieren die E-Rechnungen (Z2 / Z3, siehe <a href="#die-e-rechnungen-eines-zeitraums-z3">Die E-Rechnungen eines Zeitraums</a>). Die vor 2.2.5 archivierten E-Mails werden nach einem <a href="../upgrade/#e-invoices-in-the-search-225">reindex</a> gefunden.</p>
+<p><strong>E-Rechnungen finden</strong> (ab 2.3.0): Piler erkennt beim Archivieren die E-Mails mit einer E-Rechnung im Anhang: XRechnung und andere UBL- oder CII-Rechnungen (XML) sowie ZUGFeRD- und Factur-X-Rechnungen (PDF mit eingebetteter XML-Rechnung). Sie finden sie mit <code>attachment:einvoice</code> oder dem Kontrollkästchen „E-invoice" der erweiterten Suche. Für eine Außenprüfung kombinieren Sie es mit einem Zeitraum und exportieren die E-Rechnungen (Z2 / Z3, siehe <a href="#die-e-rechnungen-eines-zeitraums-z3">Die E-Rechnungen eines Zeitraums</a>). Die vor 2.3.0 archivierten E-Mails werden nach einem <a href="../upgrade/#e-invoices-in-the-search-230">reindex</a> gefunden.</p>
 <hr />
 <h2 id="verfahrensdokumentation">Verfahrensdokumentation<a class="headerlink" href="#verfahrensdokumentation" title="Permanent link">#</a></h2>
 <p>Für jedes DV-System muss eine übersichtlich gegliederte Verfahrensdokumentation vorhanden sein, aus der Inhalt, Aufbau, Ablauf und Ergebnisse des Verfahrens vollständig und schlüssig ersichtlich sind und die ein sachverständiger Dritter in angemessener Zeit prüfen kann (Rz. 151). Bei elektronischen Dokumenten beschreibt sie den Prozess von der Entstehung über die Indizierung, Verarbeitung und Speicherung, das eindeutige Wiederfinden und die maschinelle Auswertbarkeit, die Absicherung gegen Verlust und Verfälschung bis zur Reproduktion (Rz. 152).</p>
@@ -1082,7 +1082,7 @@
 </li>
 <li>dem Audit-Log, für die Kontrollen (Anmeldungen, Zugriffe, Löschungen, Änderungen an Regeln)</li>
 <li>den Aufbewahrungsregeln und ihrer Änderungshistorie</li>
-<li>dem Konfigurationsbericht (ab 2.2.5), in der Administration unter Compliance &gt; Configuration report: die Einstellungen, Aufbewahrungs- und Ausschlussregeln, Rollen und Benutzer sowie die aktiven Legal Holds des Mandanten, als Markdown oder JSON, auf Deutsch oder Englisch, oder gedruckt. Die Begründung einer Regel ist ihre Beschreibung. Was Piler nicht auslesen kann (z. B. S3 Object Lock, den Zeitplan der Bereinigung), bleibt als <code>[Platzhalter]</code> stehen und ist von Ihnen zu ergänzen. Der deutsche Bericht nennt, wohin seine Abschnitte in der Vorlage gehören. Er enthält keine Passwörter oder Schlüssel. Er zeigt die Konfiguration am Tag der Erstellung: Bewahren Sie jede Fassung mit Ihrer Dokumentation auf.</li>
+<li>dem Konfigurationsbericht (ab 2.3.0), in der Administration unter Compliance &gt; Configuration report: die Einstellungen, Aufbewahrungs- und Ausschlussregeln, Rollen und Benutzer sowie die aktiven Legal Holds des Mandanten, als Markdown oder JSON, auf Deutsch oder Englisch, oder gedruckt. Die Begründung einer Regel ist ihre Beschreibung. Was Piler nicht auslesen kann (z. B. S3 Object Lock, den Zeitplan der Bereinigung), bleibt als <code>[Platzhalter]</code> stehen und ist von Ihnen zu ergänzen. Der deutsche Bericht nennt, wohin seine Abschnitte in der Vorlage gehören. Er enthält keine Passwörter oder Schlüssel. Er zeigt die Konfiguration am Tag der Erstellung: Bewahren Sie jede Fassung mit Ihrer Dokumentation auf.</li>
 </ul>
 <hr />
 <h2 id="empfehlungen-fur-den-gobd-konformen-betrieb">Empfehlungen für den GoBD-konformen Betrieb<a class="headerlink" href="#empfehlungen-fur-den-gobd-konformen-betrieb" title="Permanent link">#</a></h2>
@@ -1163,7 +1163,7 @@
 <td><strong>Z3</strong>: Datenüberlassung</td>
 <td>167 bis 169</td>
 <td>Sie überlassen die Daten in einem maschinell auswertbaren Format, z. B. auf einem Datenträger</td>
-<td>Export der ausgewählten E-Mails als EML (mit ihren Metadaten); die E-Rechnungen eines Zeitraums mit einem Verzeichnis (ab 2.2.5)</td>
+<td>Export der ausgewählten E-Mails als EML (mit ihren Metadaten); die E-Rechnungen eines Zeitraums mit einem Verzeichnis (ab 2.3.0)</td>
 </tr>
 </tbody>
 </table>
@@ -1171,7 +1171,7 @@
 <p><strong>Ein Auditor-Konto sieht jede archivierte E-Mail des Mandanten.</strong> Piler hat keine Auditor-Rolle, die auf die steuerlich relevanten E-Mails beschränkt ist. Soll der Prüfer nicht alles sehen, ziehen Sie Z2 oder Z3 vor: Suchen Sie die relevanten E-Mails selbst heraus und exportieren Sie sie. Stimmen Sie das Format mit dem Prüfer ab.</p>
 <p><strong>Wer es macht</strong>: Für Z2 und Z3 ist kein besonderes Konto nötig. Ein normaler Benutzer, der die Rechnungen empfängt (z. B. mit <code>rechnung@</code> oder <code>buchhaltung@</code> als Alias), findet und exportiert sie und sieht sonst nichts. Ein Auditor-Konto kann es ebenfalls, sieht aber alle E-Mails.</p>
 <h3 id="die-e-rechnungen-eines-zeitraums-z3">Die E-Rechnungen eines Zeitraums (Z3)<a class="headerlink" href="#die-e-rechnungen-eines-zeitraums-z3" title="Permanent link">#</a></h3>
-<p>Ab 2.2.5:</p>
+<p>Ab 2.3.0:</p>
 <ol>
 <li>Nach <code>attachment:einvoice</code> suchen (oder „E-invoice" in der erweiterten Suche ankreuzen), mit den Daten des Prüfungszeitraums</li>
 <li>Auf das Beleg-Symbol neben dem Export-Symbol klicken und das ZIP bei den Exporten herunterladen</li>
@@ -1236,7 +1236,7 @@
 </tr>
 <tr>
 <td>Protokollierung</td>
-<td>Audit-Log der Zugriffe und jeder Änderung der Einstellungen (ab 2.2.5), Weiterleitung an ein SIEM</td>
+<td>Audit-Log der Zugriffe und jeder Änderung der Einstellungen (ab 2.3.0), Weiterleitung an ein SIEM</td>
 <td>✓ Integriert</td>
 </tr>
 <tr>

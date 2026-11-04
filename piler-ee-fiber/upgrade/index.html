@@ -291,10 +291,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#quotas-225" class="md-nav__link">
+  <a href="#quotas-230" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Quotas (2.2.5)
+        Quotas (2.3.0)
       
     </span>
   </a>
@@ -302,10 +302,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#metrics-through-a-reverse-proxy-225" class="md-nav__link">
+  <a href="#metrics-through-a-reverse-proxy-230" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Metrics through a reverse proxy (2.2.5)
+        Metrics through a reverse proxy (2.3.0)
       
     </span>
   </a>
@@ -313,10 +313,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#docker-the-error-directory-volume-225" class="md-nav__link">
+  <a href="#docker-the-error-directory-volume-230" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Docker: the error directory volume (2.2.5)
+        Docker: the error directory volume (2.3.0)
       
     </span>
   </a>
@@ -324,10 +324,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#add-the-participants-column-225" class="md-nav__link">
+  <a href="#add-the-participants-column-230" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Add the participants column (2.2.5)
+        Add the participants column (2.3.0)
       
     </span>
   </a>
@@ -335,10 +335,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#s3-storage-settings-225" class="md-nav__link">
+  <a href="#s3-storage-settings-230" class="md-nav__link">
     <span class="md-ellipsis">
       
-        S3 storage settings (2.2.5)
+        S3 storage settings (2.3.0)
       
     </span>
   </a>
@@ -346,10 +346,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#the-billing-server-url-225" class="md-nav__link">
+  <a href="#the-billing-server-url-230" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The billing server URL (2.2.5)
+        The billing server URL (2.3.0)
       
     </span>
   </a>
@@ -357,10 +357,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#e-invoices-in-the-search-225" class="md-nav__link">
+  <a href="#e-invoices-in-the-search-230" class="md-nav__link">
     <span class="md-ellipsis">
       
-        E-invoices in the search (2.2.5)
+        E-invoices in the search (2.3.0)
       
     </span>
   </a>
@@ -368,10 +368,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#audit-log-details-225" class="md-nav__link">
+  <a href="#audit-log-details-230" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Audit log details (2.2.5)
+        Audit log details (2.3.0)
       
     </span>
   </a>
@@ -379,10 +379,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#refresh-sessions-225" class="md-nav__link">
+  <a href="#refresh-sessions-230" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Refresh sessions (2.2.5)
+        Refresh sessions (2.3.0)
       
     </span>
   </a>
@@ -390,10 +390,21 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#jwt-secret-225" class="md-nav__link">
+  <a href="#jwt-secret-230" class="md-nav__link">
     <span class="md-ellipsis">
       
-        JWT secret (2.2.5)
+        JWT secret (2.3.0)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#retention-settings-230" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Retention settings (2.3.0)
       
     </span>
   </a>
@@ -423,7 +434,7 @@
 
 
 <h1 id="upgrading">Upgrading<a class="headerlink" href="#upgrading" title="Permanent link">#</a></h1>
-<p>This documentation applies to Piler enterprise edition 2.2.5</p>
+<p>This documentation applies to Piler enterprise edition 2.3.0</p>
 <p>Revision #8</p>
 <p>Publication date: 2026-NOV-02</p>
 <h2 id="upgrade-steps">Upgrade steps<a class="headerlink" href="#upgrade-steps" title="Permanent link">#</a></h2>
@@ -446,7 +457,7 @@ run the manticore migrations for all tenant ids as well, and replace "piler" in 
 command with the tenant id, eg.</p>
 <pre><code>sed 's/TENANTID/example001/g' ....
 </code></pre>
-<p><strong>Migration 030 (2.2.5)</strong> creates the <code>backup_status</code> table the admin health
+<p><strong>Migration 030 (2.3.0)</strong> creates the <code>backup_status</code> table the admin health
 page reads the backups from. Only the table in the <code>piler</code> database is used,
 the copies in the tenant databases stay empty. Until it has run, the page
 shows no backups, nothing else depends on it.</p>
@@ -457,7 +468,7 @@ runs the migrations a new version adds (piler-examples of 2026-11-02 or later,
 <pre><code>docker compose exec -T piler sh -c \
    &quot;mariadb --defaults-file=/etc/piler/.my.cnf piler &lt; /usr/share/piler/migrations/sql/030_backup_status.sql&quot;
 </code></pre>
-<h3 id="quotas-225">Quotas (2.2.5)<a class="headerlink" href="#quotas-225" title="Permanent link">#</a></h3>
+<h3 id="quotas-230">Quotas (2.3.0)<a class="headerlink" href="#quotas-230" title="Permanent link">#</a></h3>
 <p>Multi-tenant deployments only.</p>
 <ul>
 <li><strong>The user count is the active users.</strong> <code>user_count</code>, the number the user
@@ -467,7 +478,7 @@ runs the migrations a new version adds (piler-examples of 2026-11-02 or later,
   the user quotas on the quota dashboard after the upgrade. Every address
   is still listed as <code>archived_user_count</code>. See
   <a href="../hosting/billing/">billing</a>.</li>
-<li><strong>Imported mail:</strong> from 2.2.5 pilerimport counts the date of each email.
+<li><strong>Imported mail:</strong> from 2.3.0 pilerimport counts the date of each email.
   The addresses of mail imported before the upgrade count with the time of
   the import, so they stay active up to 90 days after the import.</li>
 <li><strong>Multi-node: upgrade the workers before the master.</strong> The master asks
@@ -490,7 +501,7 @@ runs the migrations a new version adds (piler-examples of 2026-11-02 or later,
   scripts that log in with the admin's password can switch to an API
   token, see <a href="../hosting/billing/#the-billing-api">billing</a>.</li>
 </ul>
-<h3 id="metrics-through-a-reverse-proxy-225">Metrics through a reverse proxy (2.2.5)<a class="headerlink" href="#metrics-through-a-reverse-proxy-225" title="Permanent link">#</a></h3>
+<h3 id="metrics-through-a-reverse-proxy-230">Metrics through a reverse proxy (2.3.0)<a class="headerlink" href="#metrics-through-a-reverse-proxy-230" title="Permanent link">#</a></h3>
 <p><code>/metrics</code> and <code>/healthz</code> answer only the addresses in <code>ALLOWED_CIDRS</code>. A
 request through a reverse proxy now counts only if the proxy is in
 <code>TRUSTED_PROXIES</code>, and then the client is the address in its
@@ -499,7 +510,7 @@ other address is refused. A scraper connecting to piler-ui directly isn't
 affected. If yours goes through a proxy, add the proxy to
 <code>TRUSTED_PROXIES</code>, or better, scrape piler-ui directly. See
 <a href="../hosting/monitoring/">Hosting: monitoring</a>.</p>
-<h3 id="docker-the-error-directory-volume-225">Docker: the error directory volume (2.2.5)<a class="headerlink" href="#docker-the-error-directory-volume-225" title="Permanent link">#</a></h3>
+<h3 id="docker-the-error-directory-volume-230">Docker: the error directory volume (2.3.0)<a class="headerlink" href="#docker-the-error-directory-volume-230" title="Permanent link">#</a></h3>
 <p>The Docker examples mount the error directory (<code>/var/piler/error</code>, the
 emails piler couldn't archive and the files s3uploader couldn't upload) as
 the <code>piler_error</code> volume, in the piler and the s3uploader containers.
@@ -512,8 +523,8 @@ docker compose exec s3uploader ls /var/piler/error
 docker volume create piler_error
 </code></pre>
 <p>On a multi-node deployment do it on every worker.</p>
-<h3 id="add-the-participants-column-225">Add the participants column (2.2.5)<a class="headerlink" href="#add-the-participants-column-225" title="Permanent link">#</a></h3>
-<p>Piler 2.2.5 adds the <code>participants</code> attribute to the index. piler, piler-ui,
+<h3 id="add-the-participants-column-230">Add the participants column (2.3.0)<a class="headerlink" href="#add-the-participants-column-230" title="Permanent link">#</a></h3>
+<p>Piler 2.3.0 adds the <code>participants</code> attribute to the index. piler, piler-ui,
 pilerimport and reindex check it at startup, and refuse to start until the
 column is there. The package upgrade stops the piler services, so back up
 the Manticore data, then run the script before starting them again:</p>
@@ -542,12 +553,12 @@ it refuses to start.</p>
 piler is archiving and users are searching, and can be interrupted and run
 again. Without it the messages archived before the upgrade are searched the
 same way as before.</p>
-<h3 id="s3-storage-settings-225">S3 storage settings (2.2.5)<a class="headerlink" href="#s3-storage-settings-225" title="Permanent link">#</a></h3>
+<h3 id="s3-storage-settings-230">S3 storage settings (2.3.0)<a class="headerlink" href="#s3-storage-settings-230" title="Permanent link">#</a></h3>
 <p>Only for S3 storage (<code>RETRIEVER_METHOD=s3</code>).</p>
-<p><strong>s3uploader reads <code>/var/piler/.env</code>.</strong> Before 2.2.5 the piler-s3 service
+<p><strong>s3uploader reads <code>/var/piler/.env</code>.</strong> Before 2.3.0 the piler-s3 service
 read its settings from <code>/var/piler/.env-s3</code>, a second copy of the S3
 settings that are in <code>/var/piler/.env</code> anyway (piler, piler-ui, purge,
-reindex and pilerexport read them from there). From 2.2.5 it reads
+reindex and pilerexport read them from there). From 2.3.0 it reads
 <code>/var/piler/.env</code> like the others, and <code>.env-s3</code> is not read any more.
 Before starting piler-s3 after the upgrade:</p>
 <ol>
@@ -563,11 +574,11 @@ Before starting piler-s3 after the upgrade:</p>
 <li>Remove <code>/var/piler/.env-s3</code>. s3uploader logs a warning while it exists.</li>
 </ol>
 <p><strong>The bucket.</strong> piler-ui, purge, reindex and pilerexport read the emails of
-a tenant from the bucket <code>S3_BUCKET_PREFIX</code> + tenant id. Before 2.2.5
+a tenant from the bucket <code>S3_BUCKET_PREFIX</code> + tenant id. Before 2.3.0
 s3uploader ignored <code>S3_BUCKET_PREFIX</code> and always uploaded to the bucket
 named after the tenant id (<code>piler</code> on a single-tenant install). With
 <code>S3_PREFIX</code> set it also put the objects under that key prefix, where
-nothing reads them. From 2.2.5 s3uploader uploads to <code>S3_BUCKET_PREFIX</code> +
+nothing reads them. From 2.3.0 s3uploader uploads to <code>S3_BUCKET_PREFIX</code> +
 tenant id too, and refuses to start with <code>S3_PREFIX</code> set.</p>
 <p>With <code>S3_BUCKET_PREFIX</code> empty in <code>/var/piler/.env</code> and no <code>S3_PREFIX</code> in
 either file, the default, there's nothing more to do. Otherwise:</p>
@@ -575,7 +586,7 @@ either file, the default, there's nothing more to do. Otherwise:</p>
 <thead>
 <tr>
 <th>Setting</th>
-<th>Before 2.2.5</th>
+<th>Before 2.3.0</th>
 <th>What to do</th>
 </tr>
 </thead>
@@ -618,15 +629,15 @@ bucket exists already, that's fine.</p>
 <p>Open a few emails archived before the upgrade in piler-ui to check them.
 Delete the old objects only after that, and after your backups have the
 new bucket.</p>
-<h3 id="the-billing-server-url-225">The billing server URL (2.2.5)<a class="headerlink" href="#the-billing-server-url-225" title="Permanent link">#</a></h3>
-<p>From 2.2.5 there is one billing server, and the default <code>BILLING_SERVER_URL</code>
+<h3 id="the-billing-server-url-230">The billing server URL (2.3.0)<a class="headerlink" href="#the-billing-server-url-230" title="Permanent link">#</a></h3>
+<p>From 2.3.0 there is one billing server, and the default <code>BILLING_SERVER_URL</code>
 is <code>https://billing.mailpiler.com</code>. If you set <code>BILLING_SERVER_URL</code> by hand
 to <code>https://billing1.mailpiler.com,https://billing2.mailpiler.com</code> (the old
 default), replace it with <code>https://billing.mailpiler.com</code>, or remove the
 setting. The old names still reach the same server, so nothing breaks
 meanwhile, but a failed report is then sent to the same server twice.</p>
-<h3 id="e-invoices-in-the-search-225">E-invoices in the search (2.2.5)<a class="headerlink" href="#e-invoices-in-the-search-225" title="Permanent link">#</a></h3>
-<p>From 2.2.5 Piler marks the emails with an e-invoice attachment when it
+<h3 id="e-invoices-in-the-search-230">E-invoices in the search (2.3.0)<a class="headerlink" href="#e-invoices-in-the-search-230" title="Permanent link">#</a></h3>
+<p>From 2.3.0 Piler marks the emails with an e-invoice attachment when it
 archives them, and <code>attachment:einvoice</code> finds them. To find the e-invoices
 archived before, rebuild their index entries with reindex, e.g. for the
 emails of the last 10 years:</p>
@@ -638,14 +649,14 @@ attachments that may be e-invoices (XML and PDF), one at a time until it
 finds one, from the store or the S3 bucket: plan for the extra reads on a
 large archive. Searches keep working meanwhile; an entry is replaced when
 it's rebuilt.</p>
-<h3 id="audit-log-details-225">Audit log details (2.2.5)<a class="headerlink" href="#audit-log-details-225" title="Permanent link">#</a></h3>
+<h3 id="audit-log-details-230">Audit log details (2.3.0)<a class="headerlink" href="#audit-log-details-230" title="Permanent link">#</a></h3>
 <p>The string values in the details of the audit entries are quoted from
-2.2.5 (<code>username="anna"</code>, was <code>username=anna</code>), and the legal hold entries
+2.3.0 (<code>username="anna"</code>, was <code>username=anna</code>), and the legal hold entries
 have keys: <code>case_number="…", case_name="…"</code> (was <code>CASE-1 - Name</code>) and
 <code>hold_id="…", reason="…"</code> (was <code>Hold ID: … - Reason: …</code>). If a SIEM rule
 or a report matches the old text of these details, update it.</p>
-<h3 id="refresh-sessions-225">Refresh sessions (2.2.5)<a class="headerlink" href="#refresh-sessions-225" title="Permanent link">#</a></h3>
-<p>Before 2.2.5 a token login (<code>POST /auth/login</code>) stored the user's TOTP
+<h3 id="refresh-sessions-230">Refresh sessions (2.3.0)<a class="headerlink" href="#refresh-sessions-230" title="Permanent link">#</a></h3>
+<p>Before 2.3.0 a token login (<code>POST /auth/login</code>) stored the user's TOTP
 secret and backup codes, IMAP password, access token and CSRF token with
 the refresh session in the <code>refresh_session</code> table. Migration 029 removes
 them from the stored sessions, and deletes the expired ones; piler-ui does
@@ -655,9 +666,9 @@ is logged out.</p>
 and binary logs. If these may have been exposed, have the users with a
 token login reset their TOTP (2FA), and those logging in with IMAP
 authentication change their mailbox password.</p>
-<h3 id="jwt-secret-225">JWT secret (2.2.5)<a class="headerlink" href="#jwt-secret-225" title="Permanent link">#</a></h3>
+<h3 id="jwt-secret-230">JWT secret (2.3.0)<a class="headerlink" href="#jwt-secret-230" title="Permanent link">#</a></h3>
 <p><strong>Every deployment, a single node too</strong>, needs a <code>JWT_SECRET</code> of its own:
-before 2.2.5 piler-ui needs it to refuse access tokens it didn't issue. If
+before 2.3.0 piler-ui needs it to refuse access tokens it didn't issue. If
 you can't upgrade right away, set it now.</p>
 <p>piler-ui signs its access tokens with <code>JWT_SECRET</code>: the tokens of the
 REST API and the Outlook add-in, and those a multi-node master sends to
@@ -676,6 +687,46 @@ its workers.</p>
 log in again. On a multi-node deployment a user's searches may fail for up
 to 15 minutes, until their token is renewed: logging out and in again
 fixes it at once.</p>
+<h3 id="retention-settings-230">Retention settings (2.3.0)<a class="headerlink" href="#retention-settings-230" title="Permanent link">#</a></h3>
+<p><strong>The <code>options</code> table.</strong> Before 2.3.0 it had copies of retention settings,
+in the <code>piler</code> database and in the database of each tenant. Migration 032
+removes them:</p>
+<ul>
+<li><code>enable_purge</code> and <code>retention_days</code>: nothing read them. The settings are
+  the columns of <code>piler.tenant_settings</code>, as before.</li>
+<li><code>enable_tenant_retention_policies</code> and <code>min_retention_days</code>: they're
+  <code>ENABLE_TENANT_RETENTION_POLICIES</code> and <code>MIN_RETENTION_DAYS</code> in the <code>.env</code>
+  of piler-ui now, see
+  <a href="../fiber-ui-config-options/#enable_tenant_retention_policies">Config options</a>.
+  If you had changed one, the migration prints it, e.g.
+  <code>Move to the .env of piler-ui: MIN_RETENTION_DAYS=90</code>: add the line to
+  the <code>.env</code> of piler-ui (on a multi-node deployment, of the master).</li>
+<li><code>retention_grace_period_days</code>, <code>retention_require_confirmation</code> and
+  <code>retention_recovery_days</code>: gone.</li>
+</ul>
+<p><strong>Retention rules.</strong> A rule is active when saved, and the migration
+activates the pending ones (waiting for their grace period or a
+confirmation). This changes nothing for the archiving: the piler daemon
+applied the pending rules already. The confirm API
+(<code>POST /api/v1/admin/retention/rule/:id/confirm</code>) is gone: remove its call
+from your scripts.</p>
+<p><strong>Purge.</strong> <code>purge</code> reads <code>enable_purge</code> of the tenant from
+<code>piler.tenant_settings</code> of the node it runs on, and stops with an error
+for a tenant without a row there, or when it can't read it: before 2.3.0
+it purged then. On a multi-node deployment the purge runs on the workers,
+so the tenant's row on each worker decides, not the master's. Check it on
+every worker:</p>
+<pre><code>docker compose exec mysql mariadb -u piler -p piler \
+   -e &quot;SELECT tenant_id, retention_days, enable_purge FROM tenant_settings&quot;
+</code></pre>
+<p>and set a tenant's settings on each node, see
+<a href="../hosting/onboarding/#change-a-tenants-settings">Change a tenant's settings</a>.</p>
+<p><strong>The default retention.</strong> A new installation keeps the emails for 10 years
+(3653 days) by default, it was 20 years (7300 days). An existing
+installation keeps its retention: on a single node it's <code>retention_days</code> of
+the <code>piler</code> row above, counted from the date of each email when it's
+archived. To change it, <code>UPDATE tenant_settings SET retention_days=3653
+WHERE tenant_id='piler'</code>; the emails archived before keep theirs.</p>
 
 
 

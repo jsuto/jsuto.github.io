@@ -6,6 +6,390 @@
     <description>Releases of piler-ee, piler-smtp and the Scanner with security fixes</description>
     <atom:link href="https://docs.mailpiler.com/piler-ee-fiber/security.xml" rel="self" type="application/rss+xml"/>
     <item>
+      <title>[Security] piler-ee 2.3.0</title>
+      <link>https://docs.mailpiler.com/piler-ee-fiber/changelog/#230-2026-11-04</link>
+      <guid isPermaLink="true">https://docs.mailpiler.com/piler-ee-fiber/changelog/#230-2026-11-04</guid>
+      <pubDate>Wed, 04 Nov 2026 00:00:00 +0000</pubDate>
+      <description>&lt;p&gt;2.2.5 was not released, its changes are in 2.3.0. The &lt;code&gt;2.2.5&lt;/code&gt; git tag and
+the &lt;code&gt;2.2.5&lt;/code&gt; Docker images of 25 October 2026 are an earlier build: don't
+use them.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Upgrade step:&lt;/strong&gt; the index needs the new &lt;code&gt;participants&lt;/code&gt; column, otherwise
+piler, piler-ui, pilerimport and reindex refuse to start. Docker
+deployments get it automatically; on a native install run the script once
+after the package upgrade, see
+&lt;a href="https://docs.mailpiler.com/piler-ee-fiber/upgrade/#add-the-participants-column-230"&gt;Add the participants column&lt;/a&gt;.
+With S3 storage, also see
+&lt;a href="https://docs.mailpiler.com/piler-ee-fiber/upgrade/#s3-storage-settings-230"&gt;S3 storage settings&lt;/a&gt;: s3uploader reads
+&lt;code&gt;/var/piler/.env&lt;/code&gt; instead of &lt;code&gt;/var/piler/.env-s3&lt;/code&gt;. Run the migrations too,
+the Docker images don't: piler-upgrade.sh runs those of the new version
+(piler-examples of 2026-11-02 or later, &lt;code&gt;git pull&lt;/code&gt; it first), on a native
+install run them by hand. Among others, 029 removes secrets from the stored
+sessions and 030 adds the table of the health page's backups, see
+&lt;a href="https://docs.mailpiler.com/piler-ee-fiber/upgrade/#run-the-migrations"&gt;Run the migrations&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Retention settings:&lt;/strong&gt; the &lt;code&gt;options&lt;/code&gt; table no longer has retention
+settings. &lt;code&gt;ENABLE_TENANT_RETENTION_POLICIES&lt;/code&gt; and &lt;code&gt;MIN_RETENTION_DAYS&lt;/code&gt; are in
+the &lt;code&gt;.env&lt;/code&gt; of piler-ui; migration 032 lists the values you had changed. A
+retention rule is active when saved, and &lt;code&gt;purge&lt;/code&gt; doesn't purge a tenant
+without its row in &lt;code&gt;piler.tenant_settings&lt;/code&gt; on that node. See
+&lt;a href="https://docs.mailpiler.com/piler-ee-fiber/upgrade/#retention-settings-230"&gt;Retention settings&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Upgrade notes:&lt;/strong&gt; the quota user count is now the active users (email in
+the last 90 days), so it drops for tenants with former employees: check
+the user quotas. On a multi-node deployment upgrade the workers before the
+master; with several masters set &lt;code&gt;LEADER_ELECTION_ENABLED=true&lt;/code&gt;. A
+&lt;code&gt;/metrics&lt;/code&gt; scrape through a reverse proxy needs the proxy in
+&lt;code&gt;TRUSTED_PROXIES&lt;/code&gt;. The Docker examples keep the error directory in a
+&lt;code&gt;piler_error&lt;/code&gt; volume, create it before the upgrade. Set &lt;code&gt;JWT_SECRET&lt;/code&gt;
+(the same on every node) if it isn't set, or replace a value copied from
+an example. See
+&lt;a href="https://docs.mailpiler.com/piler-ee-fiber/upgrade/#jwt-secret-230"&gt;JWT secret&lt;/a&gt;,
+&lt;a href="https://docs.mailpiler.com/piler-ee-fiber/upgrade/#quotas-230"&gt;Quotas&lt;/a&gt;,
+&lt;a href="https://docs.mailpiler.com/piler-ee-fiber/upgrade/#metrics-through-a-reverse-proxy-230"&gt;Metrics through a reverse proxy&lt;/a&gt; and
+&lt;a href="https://docs.mailpiler.com/piler-ee-fiber/upgrade/#docker-the-error-directory-volume-230"&gt;Docker: the error directory volume&lt;/a&gt;.&lt;/p&gt;
+&lt;h3&gt;Security&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Without &lt;code&gt;JWT_SECRET&lt;/code&gt;, piler-ui accepted access tokens it hadn't issued.
+  It uses a random secret now when &lt;code&gt;JWT_SECRET&lt;/code&gt; isn't set, and logs a
+  warning, also about a secret shorter than 32 characters or one starting
+  with &lt;code&gt;changeme&lt;/code&gt;. The token checks take HS256 tokens only. The installers
+  and the Docker examples set a random &lt;code&gt;JWT_SECRET&lt;/code&gt;; set one on an
+  existing installation, see &lt;a href="https://docs.mailpiler.com/piler-ee-fiber/upgrade/#jwt-secret-230"&gt;JWT secret&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;The removal of an export took a file name with &lt;code&gt;../&lt;/code&gt;, so a user could
+  delete another user's export file if they knew its random name. The
+  download and the removal of an export take a plain file name only.&lt;/li&gt;
+&lt;li&gt;The quota update and the MSP admin's branding refuse an invalid tenant
+  id, and the audit log refuses a table name that isn't a tenant's audit
+  table: a crafted tenant id could add entries to another tenant's audit
+  log. The string values of the audit details are quoted, so a value
+  can't look like another key, see
+  &lt;a href="https://docs.mailpiler.com/piler-ee-fiber/upgrade/#audit-log-details-230"&gt;Audit log details&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;A regular user's search could count, and list in the top results, the
+  messages of an address that looks the same in the search index, e.g.
+  &lt;code&gt;john.sales@example.com&lt;/code&gt; and &lt;code&gt;john@sales.example.com&lt;/code&gt;. Their content was
+  never shown. The index now has a &lt;code&gt;participants&lt;/code&gt; attribute with the sender
+  and the recipients of each message, and a user's search only takes the
+  messages they are on. &lt;code&gt;reindex -participants&lt;/code&gt; fills it for the messages
+  archived before the upgrade; until then those keep the earlier filter.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;purge&lt;/code&gt; (installed setuid) ignores the caller's environment and
+  &lt;code&gt;PILER_ENV_FILE&lt;/code&gt; when run by another user, like pilerimport, and reads
+  its settings from &lt;code&gt;/var/piler/.env&lt;/code&gt; only.&lt;/li&gt;
+&lt;li&gt;pilerimport (installed setuid) creates the temporary files of the &lt;code&gt;-mbox&lt;/code&gt;
+  and &lt;code&gt;-pst&lt;/code&gt; imports with random names that no other user can take over.&lt;/li&gt;
+&lt;li&gt;The admin of any tenant could use the tenant API (&lt;code&gt;/api/v1/admin/tenant/*&lt;/code&gt;):
+  set the admin password of another tenant, enable its purge, or add a
+  tenant. It's only for the admin of the master tenant (&lt;code&gt;piler&lt;/code&gt;) now, and
+  an update applies to the tenant it names in the database.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;/metrics&lt;/code&gt; and &lt;code&gt;/healthz&lt;/code&gt; took the client address from the request's own
+  &lt;code&gt;X-Forwarded-For&lt;/code&gt; or &lt;code&gt;X-Real-IP&lt;/code&gt; header, so anyone reaching piler-ui,
+  through the reverse proxy too, could read them. The header counts only
+  from a proxy in &lt;code&gt;TRUSTED_PROXIES&lt;/code&gt; now (only &lt;code&gt;PROXY_HEADER&lt;/code&gt;), and a
+  forwarded request from any other address is refused.&lt;/li&gt;
+&lt;li&gt;The query and the filters of a category rule went into the Manticore
+  statement unescaped: a quote broke the rule, and an admin could inject a
+  statement. The id of a category update or removal must be a number.&lt;/li&gt;
+&lt;li&gt;The messages of the admin pages are shown as text, not HTML.&lt;/li&gt;
+&lt;li&gt;The quota API used the tenant id of the master admin's requests
+  (&lt;code&gt;/api/v1/admin/quota?tenant_id=&lt;/code&gt;, &lt;code&gt;/quota/monthly/&amp;lt;tenant id&amp;gt;&lt;/code&gt;)
+  unchecked in its database queries and in the requests to the workers.
+  An invalid tenant id is refused now.&lt;/li&gt;
+&lt;li&gt;A token login (&lt;code&gt;POST /auth/login&lt;/code&gt;) stored the user's secrets with the
+  refresh session in the &lt;code&gt;refresh_session&lt;/code&gt; table: the TOTP secret and
+  backup codes, the IMAP password, the access token and the CSRF token.
+  The session has only what a refresh needs now. Migration 029 and
+  piler-ui (daily, in every tenant database) remove the secrets from the
+  sessions stored earlier, and delete the expired sessions, which were
+  kept until the user's next login. See
+  &lt;a href="https://docs.mailpiler.com/piler-ee-fiber/upgrade/#refresh-sessions-230"&gt;Refresh sessions&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Added&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Native backups for the deb/rpm installs: &lt;code&gt;/usr/libexec/piler/piler-backup.sh&lt;/code&gt;
+  backs up the databases, the search index, the stored emails and the
+  settings into a restic repository, and restores them on a new host. Not
+  scheduled by default, see &lt;a href="https://docs.mailpiler.com/piler-ee-fiber/setup/#backup"&gt;Backup&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;Backup metrics on every node: &lt;code&gt;piler_backup_last_timestamp_seconds&lt;/code&gt;,
+  &lt;code&gt;piler_backup_failed&lt;/code&gt; and &lt;code&gt;piler_backup_verification_failed&lt;/code&gt;, from the
+  &lt;code&gt;backup_status&lt;/code&gt; table, with
+  &lt;a href="https://github.com/jsuto/piler-examples/tree/master/examples/monitoring"&gt;alert rules&lt;/a&gt;
+  for a failed, missing or too old backup.&lt;/li&gt;
+&lt;li&gt;E-invoices are found in the search: &lt;code&gt;attachment:einvoice&lt;/code&gt;, or the
+  "E-invoice" checkbox of the advanced search. Piler recognizes them when
+  it archives an email: XRechnung and other UBL or CII invoices (XML),
+  ZUGFeRD and Factur-X (PDF with an embedded XML invoice). The emails
+  archived before are found after a reindex, see
+  &lt;a href="https://docs.mailpiler.com/piler-ee-fiber/upgrade/#e-invoices-in-the-search-230"&gt;E-invoices in the search&lt;/a&gt; and
+  &lt;a href="https://docs.mailpiler.com/piler-ee-fiber/gobd/#e-invoices"&gt;GoBD&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;Export of the e-invoices of the search results, for the data handover in
+  a tax audit (GoBD Z3): the receipt button next to the export button of
+  the search page, or &lt;code&gt;POST /api/v1/export?format=einvoice&lt;/code&gt;. The ZIP has
+  each e-invoice as received, the email it came with, &lt;code&gt;index.csv&lt;/code&gt; (one row
+  per e-invoice, with the SHA-256 of the file and of the email) and
+  &lt;code&gt;README.txt&lt;/code&gt;, which says whether the export is complete. See
+  &lt;a href="https://docs.mailpiler.com/piler-ee-fiber/gobd/#the-e-invoices-of-a-period-z3"&gt;GoBD&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;Configuration report for the compliance documentation, in the admin UI
+  under Compliance &amp;gt; Configuration report, or
+  &lt;code&gt;GET /api/v1/admin/config-report&lt;/code&gt;: the settings, retention and exclusion
+  rules, roles and users, and active legal holds of a tenant, as Markdown
+  or JSON, in English or German, and printable. It has no passwords or
+  keys. What Piler can't read stays a &lt;code&gt;[placeholder]&lt;/code&gt;. On a multi-tenant
+  system the admin of a tenant doesn't see the platform's servers and
+  directory groups. See
+  &lt;a href="https://docs.mailpiler.com/piler-ee-fiber/gobd/#procedural-documentation-verfahrensdokumentation"&gt;GoBD&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;The audit log records every change of the configuration made through the
+  web UI or the API, with the new values (never a password): domains,
+  groups, LDAP, profiles, import jobs, export deletions, legal hold status,
+  DLP and compliance rules, the DLP alerts, branding, quotas, Teams and
+  Slack retention settings and legal holds, in addition to the users,
+  tenants, retention rules, categories, legal holds and API tokens logged
+  before. The GoBD require it (Rz. 111), see &lt;a href="https://docs.mailpiler.com/piler-ee-fiber/gobd/"&gt;GoBD&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;recreate-distributed-tables.sh&lt;/code&gt; (multinode master): recreates the
+  distributed tables of the tenants after adding a worker, instead of the
+  manual procedure. It never drops a table that isn't distributed.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;pilerimport -pst&lt;/code&gt;: imports PST files (Outlook, Exchange and Microsoft
+  365 exports, Enterprise Vault exports) directly, without a conversion
+  step. All mail is archived, sent mail with the SMTP addresses of its
+  sender and recipients (Bcc included), S/MIME emails as they were sent;
+  appointments, contacts and other non-mail items are counted and skipped.
+  &lt;code&gt;-x500-map&lt;/code&gt; replaces the Exchange addresses of internal mail with SMTP
+  addresses from Active Directory, &lt;code&gt;-skip-deleted&lt;/code&gt; skips Deleted Items.
+  See &lt;a href="https://docs.mailpiler.com/piler-ee-fiber/import-emails/#import-pst-files"&gt;Import PST files&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;purge -orphans&lt;/code&gt;: reports the stored &lt;code&gt;.m&lt;/code&gt; files of a tenant that no
+  message refers to, in the local store or the S3 bucket, e.g. the files
+  duplicates left behind before 2.2.4. With &lt;code&gt;-remove&lt;/code&gt; it removes them, only
+  when run as the piler user or root. Files younger than &lt;code&gt;-orphan-min-age&lt;/code&gt;
+  (default 24h, at least 4h) are left alone, and nothing is removed unless
+  some of the stored files are found in the database, so a wrong database
+  or server id can't empty the store.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Tenant metrics&lt;/strong&gt; on &lt;code&gt;/metrics&lt;/code&gt; (single node and the workers): per
+  tenant the received and purged messages, the original and stored size of
+  the archive, and the documents, disk and RAM size of its index. For
+  billing, capacity planning, and an alert when a tenant's email stops
+  arriving.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Archiving pipeline metrics&lt;/strong&gt;: the piler daemon and s3uploader report
+  the archived, duplicate, discarded and failed emails, the queue and the
+  error directory, and the S3 uploads and their backlog, served by
+  piler-ui's &lt;code&gt;/metrics&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Quota metrics&lt;/strong&gt; on the master's &lt;code&gt;/metrics&lt;/code&gt; (a single node's): the usage
+  and the quotas of every tenant, and their age. When a worker doesn't
+  answer, the last usage collected from every worker is kept, so an alert
+  doesn't resolve on usage that is too low.&lt;/li&gt;
+&lt;li&gt;Alert rules with tests, a Prometheus and a Grafana Cloud setup and a
+  dashboard: see &lt;a href="https://docs.mailpiler.com/piler-ee-fiber/hosting/monitoring/"&gt;Hosting: monitoring&lt;/a&gt; and the
+  &lt;a href="https://github.com/jsuto/piler-examples/tree/master/examples/monitoring"&gt;monitoring example&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Quota banner&lt;/strong&gt;: the admin of the master tenant sees the tenants at or
+  above a quota warning threshold on the admin pages, with a link to the
+  quota dashboard.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Tenant quota banner&lt;/strong&gt;: per tenant, the admin of the master tenant can
+  show the tenant's own admin a banner when the tenant is at or above the
+  warning threshold of a quota ("Show the quota banner to the tenant's
+  admin" in the quota editor, off by default).&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Billing API&lt;/strong&gt;: read-only API tokens for billing scripts, created and
+  revoked by the admin of the master tenant (&lt;strong&gt;Admin &amp;gt; Tenant &amp;gt; API
+  tokens&lt;/strong&gt;), optionally limited to some addresses and with an expiry.
+  They're accepted on &lt;code&gt;/api/v1/billing/quota&lt;/code&gt; and
+  &lt;code&gt;/api/v1/billing/quota/monthly/&amp;lt;tenant id&amp;gt;&lt;/code&gt; only, so a script no longer
+  needs the admin's password. See
+  &lt;a href="https://docs.mailpiler.com/piler-ee-fiber/hosting/billing/#the-billing-api"&gt;Hosting: usage reports for billing&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;archived_user_count&lt;/code&gt; in the quota API, the dashboard, the CSV export and
+  the warning email: every address that ever received archived email,
+  former employees included.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DATAOFFICER_REVIEW_ONLY&lt;/code&gt; (default &lt;code&gt;false&lt;/code&gt;, can be set per tenant): the
+  data officer only reviews the removal requests, every other page and API
+  is refused, see
+  &lt;a href="https://docs.mailpiler.com/piler-ee-fiber/fiber-ui-config-options/#dataofficer_review_only"&gt;Config options&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DISABLED_FEATURES_USER&lt;/code&gt; and &lt;code&gt;DISABLED_FEATURES_AUDITOR&lt;/code&gt; (empty by
+  default, can be set per tenant): turn off features for the regular users
+  or the auditors, e.g. restore, tag, export or Smart Insights. They are
+  hidden on the search page and their APIs are refused, see
+  &lt;a href="https://docs.mailpiler.com/piler-ee-fiber/fiber-ui-config-options/#disabled_features_auditor"&gt;Config options&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Changed&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Retention rules&lt;/strong&gt; are active when saved. The grace period and the
+  confirmation of a new rule are gone, with the confirm API
+  (&lt;code&gt;/api/v1/admin/retention/rule/:id/confirm&lt;/code&gt;): the piler daemon applied a
+  pending rule anyway. Migration 032 activates the pending rules. Instead,
+  the rule dialog asks you to type the days of a rule shorter than the
+  default retention of the tenant, when it's created or its days change.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Retention settings in the &lt;code&gt;.env&lt;/code&gt;&lt;/strong&gt;: &lt;code&gt;ENABLE_TENANT_RETENTION_POLICIES&lt;/code&gt;
+  and &lt;code&gt;MIN_RETENTION_DAYS&lt;/code&gt; of piler-ui (both can be set per tenant in its
+  &lt;code&gt;settings_json&lt;/code&gt;), instead of rows of the &lt;code&gt;options&lt;/code&gt; table, see
+  &lt;a href="https://docs.mailpiler.com/piler-ee-fiber/fiber-ui-config-options/#enable_tenant_retention_policies"&gt;Config options&lt;/a&gt;.
+  &lt;code&gt;ENABLE_TENANT_RETENTION_POLICIES=false&lt;/code&gt; now really locks the rules: the
+  admin of a tenant can view and simulate them, not create, change or
+  delete them. Before, the setting didn't stop the admin of a tenant from
+  changing the rules.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;MIN_RETENTION_DAYS&lt;/code&gt; (30 days by default) is also the minimum of an
+  update of a rule, and of the default retention of a tenant in the tenant
+  editor.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;purge&lt;/code&gt; reads &lt;code&gt;enable_purge&lt;/code&gt; of the tenant from &lt;code&gt;piler.tenant_settings&lt;/code&gt;
+  of the node it runs on, and doesn't purge a tenant without a row there
+  or when it can't read it (it purged then). &lt;code&gt;purge.sh&lt;/code&gt; goes on with the
+  other tenants after one fails. On a multi-node deployment, set
+  &lt;code&gt;enable_purge&lt;/code&gt; on every worker, see
+  &lt;a href="https://docs.mailpiler.com/piler-ee-fiber/hosting/onboarding/#change-a-tenants-settings"&gt;Change a tenant's settings&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;The default retention of a new installation is 10 years&lt;/strong&gt; (3653 days):
+  the &lt;code&gt;piler&lt;/code&gt; tenant was created with 7300 days, and the daemon's
+  &lt;code&gt;DEFAULT_RETENTION_DAYS&lt;/code&gt; fallback was 2557. An existing installation keeps
+  its retention.&lt;/li&gt;
+&lt;li&gt;Search: the Thread menu of an email is a &lt;strong&gt;View Thread&lt;/strong&gt; button. In the
+  thread view it reads &lt;strong&gt;Exit Thread&lt;/strong&gt; and goes back to the search results,
+  where you left them, with the email you opened the thread from. Before,
+  only a search with the empty search field left the thread view.
+  &lt;strong&gt;Summarize Thread&lt;/strong&gt; (AI features) is a button of its own.&lt;/li&gt;
+&lt;li&gt;s3uploader refuses to start with &lt;code&gt;S3_PREFIX&lt;/code&gt; set: no reader looks for
+  objects under that prefix. The files wait in the staging directory until
+  the setting is removed.&lt;/li&gt;
+&lt;li&gt;The piler-s3 service (s3uploader) reads &lt;code&gt;/var/piler/.env&lt;/code&gt;, like piler and
+  piler-ui, instead of &lt;code&gt;/var/piler/.env-s3&lt;/code&gt;: one copy of the S3 settings,
+  so s3uploader and piler-ui can't use different buckets. Move the settings
+  only s3uploader uses to &lt;code&gt;.env&lt;/code&gt;, see
+  &lt;a href="https://docs.mailpiler.com/piler-ee-fiber/upgrade/#s3-storage-settings-230"&gt;S3 storage settings&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;S3_USE_SUBDIRS&lt;/code&gt; is removed. The objects were always stored and read in
+  subdirectories; only &lt;code&gt;purge&lt;/code&gt; honoured the setting, and with &lt;code&gt;false&lt;/code&gt; it
+  left the objects of the purged messages in the bucket.&lt;/li&gt;
+&lt;li&gt;Scanner 1.3.1, see the &lt;a href="https://docs.mailpiler.com/piler-ee-fiber/changelog-scanner/"&gt;Scanner changelog&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;retrieverd (&lt;code&gt;RETRIEVER_METHOD=socket&lt;/code&gt;) is not recommended and will be
+  phased out; piler-ui logs a warning when it's used. The store is
+  read-only for piler-ui anyway.&lt;/li&gt;
+&lt;li&gt;Upgraded frontend dependencies (Vite, follow-redirects).&lt;/li&gt;
+&lt;li&gt;pilerimport lists the reason of each failure in its summary.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;download-emails-o365.py&lt;/code&gt; (download from Microsoft 365): throttling and
+  network errors are retried, an interrupted download continues where it
+  stopped (the emails already downloaded are skipped), &lt;code&gt;--before&lt;/code&gt; downloads
+  only the emails received before a day (e.g. the start of journaling),
+  &lt;code&gt;--dir&lt;/code&gt; sets the download directory. A summary at the end, and an exit
+  code: 0 complete, 1 run it again, 2 complete except emails Microsoft 365
+  can't export. Mailboxes the app may not read are skipped. Runs on Python
+  3.9+; install &lt;code&gt;requests&lt;/code&gt; and &lt;code&gt;msal&lt;/code&gt; in a virtual environment, see
+  &lt;a href="https://docs.mailpiler.com/piler-ee-fiber/import-emails/#import-from-microsoft-365"&gt;Import from Microsoft 365&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;Built with Go 1.27.3; golang.org/x/crypto, net, sync, sys, term, text and
+  tools updated.&lt;/li&gt;
+&lt;li&gt;The quota &lt;code&gt;user_count&lt;/code&gt; is the active users: the addresses of the
+  tenant's domains that received email in the last 90 days, the window of
+  the billing report. Before, it was every address that ever received
+  email. pilerimport counts the date of each email, not the time of the
+  import, so importing old mail doesn't make former employees active. See
+  &lt;a href="https://docs.mailpiler.com/piler-ee-fiber/hosting/billing/"&gt;billing&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;The quota dashboard and &lt;code&gt;/api/v1/admin/quota/all&lt;/code&gt; show the usage
+  collected every &lt;code&gt;QUOTA_SNAPSHOT_INTERVAL&lt;/code&gt; (default 15 minutes) by the
+  master, the leader with several masters, with the time it was collected.
+  On a multi-node deployment the dashboard took 20-30 seconds or more with
+  hundreds of tenants: it asked every worker for every tenant on each load.
+  The tenants and their quotas are read at once, a new tenant is "pending"
+  until the next collection.&lt;/li&gt;
+&lt;li&gt;The quota warning emails are sent by the master only, from the collected
+  usage. Each quota has its own level, the subject names the worst one,
+  and the email says when a worker didn't answer and the usage may be
+  higher.&lt;/li&gt;
+&lt;li&gt;A new tenant id must be 3-64 lower-case letters, digits or &lt;code&gt;_&lt;/code&gt; (without
+  &lt;code&gt;_&lt;/code&gt; with S3 storage, as it's part of the bucket names). An id with
+  upper-case letters was accepted, but the tenant was never provisioned.&lt;/li&gt;
+&lt;li&gt;The usage report to the Piler billing server has the full count of
+  active users of each tenant (single-tenant: the installation), the same
+  count as the quota &lt;code&gt;user_count&lt;/code&gt;. Before, it had only the top 20 domains
+  with 10 or more active users. Every tenant sends a report, also with no
+  active users. A tenant without domains (besides &lt;code&gt;local&lt;/code&gt;) is not counted:
+  its report has no user count, and piler-ui logs a warning.&lt;/li&gt;
+&lt;li&gt;One billing server: the default &lt;code&gt;BILLING_SERVER_URL&lt;/code&gt; is
+  &lt;code&gt;https://billing.mailpiler.com&lt;/code&gt; (it was billing1 and billing2). The old
+  names reach the same server, see &lt;a href="https://docs.mailpiler.com/piler-ee-fiber/upgrade/"&gt;upgrade&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;The usage report to the Piler billing server includes the license file,
+  so the billing server can verify where the report comes from. It holds
+  no personal data: the customer name, server id, features and expiry.&lt;/li&gt;
+&lt;li&gt;s3uploader doesn't check the bucket before the upload, so the S3 policy
+  doesn't need &lt;code&gt;s3:ListBucket&lt;/code&gt;. Throttling and S3 server errors are retried
+  (they went to the error directory); the log says what to fix for a
+  missing bucket, a denied access or invalid keys.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Fixed&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;A retention rule created in the admin UI was disabled until switched on.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;purge -dry-run&lt;/code&gt; said 0 files in its summary after listing them.&lt;/li&gt;
+&lt;li&gt;An email with a sender domain, a recipient or an attachment type longer
+  than its database column, or a long non-ASCII sender cut in the middle
+  of a character, couldn't be archived and went to the error directory.
+  These values are cut to the column size now, at a character boundary.&lt;/li&gt;
+&lt;li&gt;With S3 storage, an email downloaded or viewed before the s3uploader
+  uploaded its attachments had the attachment missing, with a 200 response.
+  Now the download is a 503 with &lt;code&gt;Retry-After&lt;/code&gt;, like an email whose own
+  object isn't uploaded yet.&lt;/li&gt;
+&lt;li&gt;piler, pilerimport: a tenant without a row in &lt;code&gt;piler.tenant_settings&lt;/code&gt; on
+  the node is archived with the default retention (&lt;code&gt;DEFAULT_RETENTION_DAYS&lt;/code&gt;),
+  now with a warning in the log.&lt;/li&gt;
+&lt;li&gt;A data officer or an admin logging in through EAM (a signed token posted
+  to &lt;code&gt;/session&lt;/code&gt;) landed on the search page instead of their own pages.&lt;/li&gt;
+&lt;li&gt;The attachment links in the message preview of the audit and the data
+  officer pages pointed to a missing URL.&lt;/li&gt;
+&lt;li&gt;Running the migrations again added the rows of the &lt;code&gt;options&lt;/code&gt; table again,
+  and a new installation lacked a table, an index and a risk factor that the
+  migrations add to an upgraded one. Migration 031 removes the duplicates,
+  and the migrations are now checked to be safe to rerun.&lt;/li&gt;
+&lt;li&gt;A malformed refresh token (&lt;code&gt;POST /auth/refresh&lt;/code&gt;) could crash the request
+  instead of being refused.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;download-emails-o365.py&lt;/code&gt; lost emails when Microsoft 365 throttled the
+  download: a throttled email was skipped, and a throttled page of a
+  folder's list ended the folder, without an error at the end. A mailbox
+  folder named e.g. &lt;code&gt;../x&lt;/code&gt; was written outside the download directory.&lt;/li&gt;
+&lt;li&gt;Adding or saving a tenant with an invalid &lt;code&gt;settings_json&lt;/code&gt; failed with
+  "Failed to update tenant"; now the message says it must be a JSON
+  object. A &lt;code&gt;tenant/update&lt;/code&gt; API call without &lt;code&gt;settings_json&lt;/code&gt; keeps the
+  stored settings (send &lt;code&gt;{}&lt;/code&gt; to clear them).&lt;/li&gt;
+&lt;li&gt;The installer (&lt;code&gt;install.sh&lt;/code&gt;) of a multinode master created the
+  distributed tables of the default tenant under a wrong name.&lt;/li&gt;
+&lt;li&gt;Saving a tenant in the Tenants editor undid the changes made since the
+  editor was opened on another page (another tab): the tenant quota banner,
+  the Teams and Slack retention, and the DLP alerts set by the tenant's
+  own admin. Now these are kept; if the editor changed the same settings,
+  nothing is saved and the editor asks to redo the changes.&lt;/li&gt;
+&lt;li&gt;An email whose Date header was before 1970 or after 2106 couldn't be
+  archived. Such a date is now handled like an unparseable one: the time of
+  the Received header is used, else the time of archiving.&lt;/li&gt;
+&lt;li&gt;With &lt;code&gt;KEEP_PURGED_METADATA&lt;/code&gt;, importing a purged message again replaced
+  its recipients with those of the new copy, so the earlier ones were lost,
+  including the Bcc recipients from envelope files. The recipients are now
+  kept and the new ones added, if the copy is the same byte for byte as
+  the purged message.&lt;/li&gt;
+&lt;li&gt;s3uploader ignored &lt;code&gt;S3_BUCKET_PREFIX&lt;/code&gt;, while piler-ui and the other tools
+  read from &lt;code&gt;S3_BUCKET_PREFIX&lt;/code&gt; + tenant: with a prefix set, the uploaded
+  emails couldn't be read or purged. With &lt;code&gt;S3_BUCKET_PREFIX&lt;/code&gt; or &lt;code&gt;S3_PREFIX&lt;/code&gt;
+  set, check the settings before starting piler-s3 after the upgrade, see
+  &lt;a href="https://docs.mailpiler.com/piler-ee-fiber/upgrade/#s3-storage-settings-230"&gt;S3 storage settings&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;purge&lt;/code&gt; ignored &lt;code&gt;PILER_STORE_DIR&lt;/code&gt; and &lt;code&gt;PILER_ASTORE_DIR&lt;/code&gt;: with another
+  store directory it marked messages deleted but never removed their files.&lt;/li&gt;
+&lt;li&gt;piler-ui couldn't read any message when &lt;code&gt;PILER_STORE_DIR&lt;/code&gt; had no trailing
+  slash (e.g. &lt;code&gt;/srv/piler/store&lt;/code&gt;), and its disk metric always read
+  &lt;code&gt;/var/piler/store&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;The quota storage usage didn't subtract the purged email, so it only
+  grew for tenants with a retention period.&lt;/li&gt;
+&lt;li&gt;Multi-node: the quota user count added up the workers' counts, counting a
+  mailbox that received email on several workers more than once. The
+  master counts each address once now.&lt;/li&gt;
+&lt;li&gt;Multi-node: a worker that failed to answer the quota request counted as
+  zero usage, and a tenant with no worker answering was listed as "ok".
+  The usage now says how many workers didn't answer, and such a tenant is
+  "unknown".&lt;/li&gt;
+&lt;li&gt;The quota warning email said EXCEEDED on the storage line when only the
+  user quota was exceeded, and computed "exceeded by" from the storage (a
+  negative number of GB).&lt;/li&gt;
+&lt;li&gt;Docker multi-node workers: the hourly sync of the master's tables failed
+  on every worker (the master's Manticore host was missing for cron), and
+  without it the retention, exclusion and legal hold rules weren't synced
+  either. A quote in a category stopped the sync for the remaining tenants.&lt;/li&gt;
+&lt;li&gt;A category update with a query Manticore couldn't parse removed the
+  category's rule, while the response said it worked. The old rule stays
+  now, and the response is an error.&lt;/li&gt;
+&lt;li&gt;The admin pages didn't show the server's error message when the title of
+  the error had a translation.&lt;/li&gt;
+&lt;li&gt;The admin health page never showed a backup: the table it reads didn't
+  exist, and its query failed on every page load. Migration 030 creates the
+  &lt;code&gt;backup_status&lt;/code&gt; table in the &lt;code&gt;piler&lt;/code&gt; database, and
+  &lt;a href="https://github.com/jsuto/piler-examples/tree/master/scripts"&gt;piler-backup.sh&lt;/a&gt;
+  of the Docker examples writes it after every backup. With no backup
+  recorded the page says unknown, not healthy. See
+  &lt;a href="https://docs.mailpiler.com/piler-ee-fiber/upgrade/#run-the-migrations"&gt;Run the migrations&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    <item>
       <title>[Security] piler-smtp 1.1.7</title>
       <link>https://docs.mailpiler.com/piler-ee-fiber/changelog-piler-smtp/#117-2026-10-18</link>
       <guid isPermaLink="true">https://docs.mailpiler.com/piler-ee-fiber/changelog-piler-smtp/#117-2026-10-18</guid>

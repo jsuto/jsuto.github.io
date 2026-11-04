@@ -308,7 +308,7 @@
     &quot;https://archive.example.com/auth/login&quot; | jq -r '.access_token' )&quot;
 </code></pre>
 <h2 id="billing-api">Billing API<a class="headerlink" href="#billing-api" title="Permanent link">#</a></h2>
-<p>From 2.2.5, billing scripts use a read-only API token instead of a login:
+<p>From 2.3.0, billing scripts use a read-only API token instead of a login:
 <code>/api/v1/billing/quota</code> and <code>/api/v1/billing/quota/monthly/&lt;tenant id&gt;</code>,
 with <code>Authorization: Bearer plr_...</code>. The token is created on the master
 in <strong>Admin &gt; Tenant &gt; API tokens</strong> and works on these two endpoints only.

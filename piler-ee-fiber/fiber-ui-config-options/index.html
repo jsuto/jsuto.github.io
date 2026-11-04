@@ -1704,6 +1704,28 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#enable_tenant_retention_policies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ENABLE_TENANT_RETENTION_POLICIES
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#min_retention_days" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MIN_RETENTION_DAYS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#app_trace_name" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2934,8 +2956,8 @@ API, the Outlook add-in, and the requests of a multi-node master to its
 workers. Set a random value of at least 32 characters (e.g.
 <code>openssl rand -hex 32</code>), the same on every node of a multi-node
 deployment. Without it piler-ui uses a random secret until it restarts
-and logs a warning (2.2.5+); it also warns about a shorter secret or one
-starting with <code>changeme</code>. See <a href="../upgrade/#jwt-secret-225">JWT secret</a>.</p>
+and logs a warning (2.3.0+); it also warns about a shorter secret or one
+starting with <code>changeme</code>. See <a href="../upgrade/#jwt-secret-230">JWT secret</a>.</p>
 <hr />
 <h3 id="session_duration">SESSION_DURATION<a class="headerlink" href="#session_duration" title="Permanent link">#</a></h3>
 <p>Default value: <code>3h</code></p>
@@ -3338,16 +3360,16 @@ starting with <code>changeme</code>. See <a href="../upgrade/#jwt-secret-225">JW
 <hr />
 <h3 id="dataofficer_review_only">DATAOFFICER_REVIEW_ONLY<a class="headerlink" href="#dataofficer_review_only" title="Permanent link">#</a></h3>
 <p>Default value: <code>false</code></p>
-<p>Description: The data officer only reviews the removal requests (from 2.2.5). Every other page (search, Teams, Slack) redirects to the data officer page, and every API but the ones of that page is refused with 403: no search, saved searches, export, download, notes or tags, not even of the data officer's own emails. The data officer can still open a message that has a pending removal request, and manage their own settings, 2FA and passkeys. The attachments of the message are listed without a download link. Other roles are not affected. Can be set per tenant.</p>
+<p>Description: The data officer only reviews the removal requests (from 2.3.0). Every other page (search, Teams, Slack) redirects to the data officer page, and every API but the ones of that page is refused with 403: no search, saved searches, export, download, notes or tags, not even of the data officer's own emails. The data officer can still open a message that has a pending removal request, and manage their own settings, 2FA and passkeys. The attachments of the message are listed without a download link. Other roles are not affected. Can be set per tenant.</p>
 <p>Without it, a data officer can also search the emails of their own addresses, like a regular user. With LDAP or SSO (<code>DATAOFFICER_GROUP</code>) the data officer's login is the person's only login, so with <code>DATAOFFICER_REVIEW_ONLY=true</code> they need another account to search their own emails.</p>
 <hr />
 <h3 id="disabled_features_user">DISABLED_FEATURES_USER<a class="headerlink" href="#disabled_features_user" title="Permanent link">#</a></h3>
 <p>Default value: <code>""</code></p>
-<p>Description: Comma separated list of the features turned off for the regular users (from 2.2.5), see the keys below. A feature turned off is hidden on the search page, and its APIs are refused with 403. Can be set per tenant.</p>
+<p>Description: Comma separated list of the features turned off for the regular users (from 2.3.0), see the keys below. A feature turned off is hidden on the search page, and its APIs are refused with 403. Can be set per tenant.</p>
 <hr />
 <h3 id="disabled_features_auditor">DISABLED_FEATURES_AUDITOR<a class="headerlink" href="#disabled_features_auditor" title="Permanent link">#</a></h3>
 <p>Default value: <code>""</code></p>
-<p>Description: Comma separated list of the features turned off for the auditors and the restricted auditors (from 2.2.5), see the keys below. Can be set per tenant.</p>
+<p>Description: Comma separated list of the features turned off for the auditors and the restricted auditors (from 2.3.0), see the keys below. Can be set per tenant.</p>
 <p>The features:</p>
 <table>
 <thead>
@@ -3428,6 +3450,14 @@ starting with <code>changeme</code>. See <a href="../upgrade/#jwt-secret-225">JW
 DISABLED_FEATURES_AUDITOR=restore,tag,delete,smart_insights,similar_emails
 </code></pre>
 <p>piler-ui logs a warning at startup about an unknown key. The config report lists both settings.</p>
+<hr />
+<h3 id="enable_tenant_retention_policies">ENABLE_TENANT_RETENTION_POLICIES<a class="headerlink" href="#enable_tenant_retention_policies" title="Permanent link">#</a></h3>
+<p>Default value: <code>true</code></p>
+<p>Description: The admin of a tenant manages its retention and exclusion rules (from 2.3.0, before it was the <code>enable_tenant_retention_policies</code> row of the <code>options</code> table). With <code>false</code> the admin of a tenant other than piler can view and simulate the rules, but not create, change or delete them: the retention page says that the platform operator manages them, and the APIs are refused with 403. Set it per tenant in the tenant's <code>settings_json</code>, e.g. <code>"ENABLE_TENANT_RETENTION_POLICIES": false</code> for one tenant while the others manage their own rules.</p>
+<hr />
+<h3 id="min_retention_days">MIN_RETENTION_DAYS<a class="headerlink" href="#min_retention_days" title="Permanent link">#</a></h3>
+<p>Default value: <code>30</code></p>
+<p>Description: The minimum retention in days (from 2.3.0, before it was the <code>min_retention_days</code> row of the <code>options</code> table): of a retention rule, when it's created or an enabled rule is changed, and of the default retention of a tenant (<code>retention_days</code> in the tenant editor or the tenant API). A shorter value is refused. Set it per tenant in the tenant's <code>settings_json</code> to allow a shorter retention for that tenant. A rule shorter than the tenant's default retention is saved after the admin types its days.</p>
 <hr />
 <h3 id="app_trace_name">APP_TRACE_NAME<a class="headerlink" href="#app_trace_name" title="Permanent link">#</a></h3>
 <p>Default value: <code>""</code></p>
@@ -3511,9 +3541,9 @@ object-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'none';
 <p>Default value: <code>""</code></p>
 <p>Description: Prefix of the bucket names. The bucket of a tenant is
 <code>S3_BUCKET_PREFIX</code> + tenant id, e.g. <code>someprefix.</code> gives <code>someprefix.piler</code>
-on a single-tenant install. s3uploader uploads to that bucket from 2.2.5,
+on a single-tenant install. s3uploader uploads to that bucket from 2.3.0,
 and reads the setting from <code>/var/piler/.env</code> too, see
-<a href="../upgrade/#s3-storage-settings-225">S3 storage settings</a>.</p>
+<a href="../upgrade/#s3-storage-settings-230">S3 storage settings</a>.</p>
 <hr />
 <h3 id="s3_retry_max_attempts">S3_RETRY_MAX_ATTEMPTS<a class="headerlink" href="#s3_retry_max_attempts" title="Permanent link">#</a></h3>
 <p>Default value: <code>3</code></p>
@@ -3533,7 +3563,7 @@ and reads the setting from <code>/var/piler/.env</code> too, see
 <hr />
 <h3 id="billing_server_url">BILLING_SERVER_URL<a class="headerlink" href="#billing_server_url" title="Permanent link">#</a></h3>
 <p>Default value: <code>https://billing.mailpiler.com</code></p>
-<p>Description: Comma-separated list of billing/telemetry server URLs that encrypted usage reports are POSTed to. Before 2.2.5 the default was <code>https://billing1.mailpiler.com,https://billing2.mailpiler.com</code>; both names now reach billing.mailpiler.com.</p>
+<p>Description: Comma-separated list of billing/telemetry server URLs that encrypted usage reports are POSTed to. Before 2.3.0 the default was <code>https://billing1.mailpiler.com,https://billing2.mailpiler.com</code>; both names now reach billing.mailpiler.com.</p>
 <hr />
 <h3 id="aftter_start_report_delay">AFTTER_START_REPORT_DELAY<a class="headerlink" href="#aftter_start_report_delay" title="Permanent link">#</a></h3>
 <p>Default value: <code>600s</code></p>
@@ -3549,11 +3579,11 @@ and reads the setting from <code>/var/piler/.env</code> too, see
 <hr />
 <h3 id="quota_notification_interval">QUOTA_NOTIFICATION_INTERVAL<a class="headerlink" href="#quota_notification_interval" title="Permanent link">#</a></h3>
 <p>Default value: <code>86400s</code></p>
-<p>Description: Interval at which the quota-notification background worker checks and sends storage/usage quota notifications. From 2.2.5 it runs on the master only (the leader with several masters), with the usage of the quota snapshot (see <code>QUOTA_SNAPSHOT_INTERVAL</code>). When a worker didn't answer, the email says the usage is incomplete and may be higher.</p>
+<p>Description: Interval at which the quota-notification background worker checks and sends storage/usage quota notifications. From 2.3.0 it runs on the master only (the leader with several masters), with the usage of the quota snapshot (see <code>QUOTA_SNAPSHOT_INTERVAL</code>). When a worker didn't answer, the email says the usage is incomplete and may be higher.</p>
 <hr />
 <h3 id="quota_snapshot_interval">QUOTA_SNAPSHOT_INTERVAL<a class="headerlink" href="#quota_snapshot_interval" title="Permanent link">#</a></h3>
 <p>Default value: <code>900s</code></p>
-<p>Description: Multi-tenant mode, from 2.2.5: how often piler-ui collects the quota usage of every tenant for the quota dashboard, the quota banner of the admin pages and <code>/api/v1/admin/quota/all</code>. On a multi-node deployment it runs on the master and asks every worker, so they show usage at most this old instead of asking the workers on every page load. Minimum <code>60s</code>.</p>
+<p>Description: Multi-tenant mode, from 2.3.0: how often piler-ui collects the quota usage of every tenant for the quota dashboard, the quota banner of the admin pages and <code>/api/v1/admin/quota/all</code>. On a multi-node deployment it runs on the master and asks every worker, so they show usage at most this old instead of asking the workers on every page load. Minimum <code>60s</code>.</p>
 <hr />
 <h3 id="metrics_aggregator_delay">METRICS_AGGREGATOR_DELAY<a class="headerlink" href="#metrics_aggregator_delay" title="Permanent link">#</a></h3>
 <p>Default value: <code>60s</code></p>

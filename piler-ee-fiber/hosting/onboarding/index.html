@@ -309,6 +309,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="3. Create the tenant">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#change-a-tenants-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Change a tenant's settings
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -373,7 +390,7 @@
 
 
 <h1 id="hosting-onboarding-a-tenant">Hosting: onboarding a tenant<a class="headerlink" href="#hosting-onboarding-a-tenant" title="Permanent link">#</a></h1>
-<p>This documentation applies to Piler enterprise edition 2.2.5+</p>
+<p>This documentation applies to Piler enterprise edition 2.3.0+</p>
 <p>Revision #2</p>
 <p>Publication date: 2026-NOV-02</p>
 <p>A checklist for a new customer, from DNS to the first archived email. The
@@ -437,7 +454,35 @@ admin's password. Or with the REST API:</p>
   <code>docker compose exec piler su piler -c /usr/libexec/piler/create-tenant.sh</code>.</li>
 <li>Add the customer's other domains under <strong>Admin &gt; Domain</strong>, mapped to
   the tenant's domain.</li>
+<li>The retention (<code>retention_days</code>) can't be shorter than
+  <code>MIN_RETENTION_DAYS</code> (30 days by default), see
+  <a href="../../fiber-ui-config-options/#min_retention_days">Config options</a>.</li>
 </ul>
+<h3 id="change-a-tenants-settings">Change a tenant's settings<a class="headerlink" href="#change-a-tenants-settings" title="Permanent link">#</a></h3>
+<p>Each node has its own row of the tenant in <code>piler.tenant_settings</code>, and
+uses that one: the workers archive with their <code>retention_days</code> and purge
+by their <code>enable_purge</code>, the master's piler-ui (the admin pages, the
+tenant's login) by its <code>settings_json</code>. Nothing copies a change from the
+master to the workers. <em>Multi-node</em>: change a tenant's retention, purge or
+settings on the master <strong>and on every worker</strong>, through each node's
+piler-ui with the same call (<code>id</code> is the tenant's row id on that node, from
+<code>GET /api/v1/admin/tenant</code>):</p>
+<pre><code>curl -X POST -H &quot;Authorization: Bearer $TOKEN&quot; \
+   -d id=5 -d tenant_id=customer1 -d domain=customer1.com \
+   -d gui_url=customer1.archive.example.com \
+   -d archive_address=customer1@worker0.example.com \
+   -d retention_days=3653 -d enable_purge=1 \
+   http://worker0.example.internal:3000/api/v1/admin/tenant/update
+</code></pre>
+<p>Without <code>settings_json</code> the stored one is kept. Then check each node:</p>
+<pre><code>curl -H &quot;Authorization: Bearer $TOKEN&quot; \
+   http://worker0.example.internal:3000/api/v1/admin/tenant \
+   | jq '.[] | select(.tenant_id==&quot;customer1&quot;) | {retention_days, enable_purge}'
+</code></pre>
+<p>A change of the retention applies to the emails archived from then on;
+those archived before keep the retention date they got. A worker without
+the tenant's row doesn't purge it (2.3.0+), and archives its emails with
+<code>DEFAULT_RETENTION_DAYS</code> of the piler daemon (10 years by default).</p>
 <h2 id="4-look-and-login">4. Look and login<a class="headerlink" href="#4-look-and-login" title="Permanent link">#</a></h2>
 <ul>
 <li>Optional: the tenant's logo and colors, <strong>Admin &gt; Branding</strong>.</li>
