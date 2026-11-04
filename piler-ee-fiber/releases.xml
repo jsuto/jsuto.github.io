@@ -403,6 +403,28 @@ an example. See
 &lt;/ul&gt;</description>
     </item>
     <item>
+      <title>Scanner 1.3.2</title>
+      <link>https://docs.mailpiler.com/piler-ee-fiber/changelog-scanner/#132-2026-11-04</link>
+      <guid isPermaLink="true">https://docs.mailpiler.com/piler-ee-fiber/changelog-scanner/#132-2026-11-04</guid>
+      <pubDate>Wed, 04 Nov 2026 00:00:00 +0000</pubDate>
+      <description>&lt;h3&gt;Fixed&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;An email whose sender or recipient address has a quote (e.g.
+  &lt;code&gt;o'brien@example.com&lt;/code&gt;, a valid address) was not categorized by the
+  custom categories: the percolate query failed. A backslash in the
+  subject could also make the query fail, or change the text it matched
+  (&lt;code&gt;\t&lt;/code&gt; became a tab).&lt;/li&gt;
+&lt;li&gt;With S3 storage, an email whose attachments were not uploaded yet by
+  s3uploader was scanned without them, or failed. The scanner now treats
+  it like an email that is not uploaded yet, and scans it again later.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Changed&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;The scanner and piler-ui use the same code to read and write the Smart
+  Insights settings and results, instead of two copies of it.&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    <item>
       <title>Scanner 1.3.1</title>
       <link>https://docs.mailpiler.com/piler-ee-fiber/changelog-scanner/#131-2026-10-23</link>
       <guid isPermaLink="true">https://docs.mailpiler.com/piler-ee-fiber/changelog-scanner/#131-2026-10-23</guid>
