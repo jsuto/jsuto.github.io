@@ -2956,8 +2956,9 @@ API, the Outlook add-in, and the requests of a multi-node master to its
 workers. Set a random value of at least 32 characters (e.g.
 <code>openssl rand -hex 32</code>), the same on every node of a multi-node
 deployment. Without it piler-ui uses a random secret until it restarts
-and logs a warning (2.3.0+); it also warns about a shorter secret or one
-starting with <code>changeme</code>. See <a href="../upgrade/#jwt-secret-230">JWT secret</a>.</p>
+and logs a warning (2.3.0+); it also warns about a shorter secret, one
+starting with <code>changeme</code>, or (from 2.3.1) the example value this
+documentation printed for native multi-node installs. See <a href="../upgrade/#jwt-secret-230">JWT secret</a>.</p>
 <hr />
 <h3 id="session_duration">SESSION_DURATION<a class="headerlink" href="#session_duration" title="Permanent link">#</a></h3>
 <p>Default value: <code>3h</code></p>
@@ -3457,7 +3458,7 @@ DISABLED_FEATURES_AUDITOR=restore,tag,delete,smart_insights,similar_emails
 <hr />
 <h3 id="min_retention_days">MIN_RETENTION_DAYS<a class="headerlink" href="#min_retention_days" title="Permanent link">#</a></h3>
 <p>Default value: <code>30</code></p>
-<p>Description: The minimum retention in days (from 2.3.0, before it was the <code>min_retention_days</code> row of the <code>options</code> table): of a retention rule, when it's created or an enabled rule is changed, and of the default retention of a tenant (<code>retention_days</code> in the tenant editor or the tenant API). A shorter value is refused. Set it per tenant in the tenant's <code>settings_json</code> to allow a shorter retention for that tenant. A rule shorter than the tenant's default retention is saved after the admin types its days.</p>
+<p>Description: The minimum retention in days (from 2.3.0, before it was the <code>min_retention_days</code> row of the <code>options</code> table): of a retention rule, when it's created or an enabled rule is changed, and of the default retention of a tenant (<code>retention_days</code> in the tenant editor or the tenant API, and from 2.3.1 the default retention on the retention page of a single-tenant install). A shorter value is refused. Set it per tenant in the tenant's <code>settings_json</code> to allow a shorter retention for that tenant. A rule shorter than the tenant's default retention is saved after the admin types its days.</p>
 <hr />
 <h3 id="app_trace_name">APP_TRACE_NAME<a class="headerlink" href="#app_trace_name" title="Permanent link">#</a></h3>
 <p>Default value: <code>""</code></p>

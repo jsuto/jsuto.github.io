@@ -291,6 +291,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#date-formats-231" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Date formats (2.3.1)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#quotas-230" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -468,6 +479,20 @@ runs the migrations a new version adds (piler-examples of 2026-11-02 or later,
 <pre><code>docker compose exec -T piler sh -c \
    &quot;mariadb --defaults-file=/etc/piler/.my.cnf piler &lt; /usr/share/piler/migrations/sql/030_backup_status.sql&quot;
 </code></pre>
+<p>A native 2.x install is upgraded with the packages and these migrations.
+<code>contrib/installer/upgrade-from-1.8.4.sh</code> (<code>upgrade.sh</code> before 2.3.1) is
+the upgrade of a 1.8.4 install, run once, see
+<a href="../upgrade-from-1.x/">Upgrading from 1.x</a>.</p>
+<h3 id="date-formats-231">Date formats (2.3.1)<a class="headerlink" href="#date-formats-231" title="Permanent link">#</a></h3>
+<p>The date format in the settings of a user is a format of dayjs tokens,
+e.g. <code>YYYY/MM/DD</code> or <code>DD.MM.YYYY HH:mm</code>. Users upgraded from 1.8.x may
+still have a PHP format there (<code>d.m.Y</code>, <code>Y-m-d H:i</code>), and their dates were
+garbled. Migration 033 resets every format without a year (<code>YY</code> or
+<code>YYYY</code>), a month (<code>M</code>) and a day (<code>D</code>) to <code>YYYY/MM/DD</code>, in the <code>piler</code>
+database and in the database of every tenant. The users can set their
+format again in their settings.</p>
+<p>A format with other text than these tokens and separators, e.g.
+<code>YYYY年MM月DD日</code>, is reset too and can't be saved.</p>
 <h3 id="quotas-230">Quotas (2.3.0)<a class="headerlink" href="#quotas-230" title="Permanent link">#</a></h3>
 <p>Multi-tenant deployments only.</p>
 <ul>
@@ -678,7 +703,9 @@ its workers. Set it to a random value of at least 32 characters, e.g.</p>
 <p>in <code>/var/piler/.env</code> (the Docker examples: <code>env</code> on a single node, <code>.env</code>
 on each node of the multi-node example). Use the same value on every
 node of a multi-node deployment. Replace a value copied from an example
-or from this documentation, a <code>changeme</code> one too.</p>
+or from this documentation, a <code>changeme</code> one too. Until 1 November 2026
+this documentation printed a fixed <code>JWT_SECRET</code> for native multi-node
+installs: from 2.3.1 piler-ui warns about that value at startup.</p>
 <p>Without it, piler-ui uses a random secret until it restarts, and logs a
 warning. The web UI works, but the REST API tokens and the Outlook add-in
 need a new login after each restart, and a multi-node master can't query
