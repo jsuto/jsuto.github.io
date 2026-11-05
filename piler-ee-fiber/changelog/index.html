@@ -976,6 +976,10 @@ formats left over from 1.8.x, see
   documentation printed for native multi-node installs until 1 November</li>
 <li>Anyone can read that value and sign access tokens with it: replace
   it, see <a href="../upgrade/#jwt-secret-230">JWT secret</a>.</li>
+<li>The simulation of a retention or exclusion rule put the size operator of
+  the request into its SQL query unchecked: an admin could run SQL through
+  the simulate API. Only the size comparisons of the rules are accepted
+  now.</li>
 </ul>
 <h3 id="added">Added<a class="headerlink" href="#added" title="Permanent link">#</a></h3>
 <ul>
@@ -1006,6 +1010,11 @@ formats left over from 1.8.x, see
   default now, the settings were refused.</li>
 <li>piler-ui logged <code>permission query: sql: no rows in result set</code> for every
   user without a custom profile.</li>
+<li>The simulation of a rule with a domain, sender, recipient or body
+  criterion failed with "Simulation Failed". It matches the criteria like
+  the archiving does now: the domain is the domain of the <code>From</code> address
+  (it was the sender or any recipient). The body isn't counted, the result
+  says so. See <a href="../retention/#simulate-a-rule">Retention and exclusion rules</a>.</li>
 </ul>
 <h2 id="230-2026-11-04">2.3.0 - 2026-11-04<a class="headerlink" href="#230-2026-11-04" title="Permanent link">#</a></h2>
 <p>2.2.5 was not released, its changes are in 2.3.0. The <code>2.2.5</code> git tag and

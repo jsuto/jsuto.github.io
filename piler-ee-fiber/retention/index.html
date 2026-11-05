@@ -1,0 +1,620 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://docs.mailpiler.com/piler-ee-fiber/retention/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>Retention and exclusion rules - piler enterprise 2.x documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.618322db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#retention-and-exclusion-rules" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="piler enterprise 2.x documentation" class="md-header__button md-logo" aria-label="piler enterprise 2.x documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            piler enterprise 2.x documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Retention and exclusion rules
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="piler enterprise 2.x documentation" class="md-nav__button md-logo" aria-label="piler enterprise 2.x documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    piler enterprise 2.x documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://mailpiler.com/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Site
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#how-the-retention-of-an-email-is-set" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How the retention of an email is set
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#default-retention" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Default retention
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#retention-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Retention rules
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exclusion-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exclusion rules
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#when-a-change-applies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When a change applies
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#simulate-a-rule" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Simulate a rule
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#who-can-change-the-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Who can change the rules
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#purge" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Purge
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-pages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Related pages
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="retention-and-exclusion-rules">Retention and exclusion rules<a class="headerlink" href="#retention-and-exclusion-rules" title="Permanent link">#</a></h1>
+<p>How long piler keeps an email, and which emails it doesn't archive at all.
+The admin manages both on <strong>Compliance &gt; Retention Policy</strong>.</p>
+<h2 id="how-the-retention-of-an-email-is-set">How the retention of an email is set<a class="headerlink" href="#how-the-retention-of-an-email-is-set" title="Permanent link">#</a></h2>
+<p>When piler archives an email:</p>
+<ol>
+<li><strong>Exclusion rules.</strong> If an enabled exclusion rule matches, the email is
+   not archived, see <a href="#exclusion-rules">Exclusion rules</a>.</li>
+<li><strong>Retention rules.</strong> The first enabled retention rule that matches
+   gives the number of days. The rules are checked in the order they were
+   created, the oldest first.</li>
+<li><strong>Default retention.</strong> If no rule matches, the default retention of the
+   tenant applies (10 years on a new install).</li>
+</ol>
+<p>The retention date of the email is its <code>Date</code> header plus these days. It's
+stored with the email and doesn't change later: a new or changed rule, or a
+new default retention, applies to the emails archived from then on, not to
+those already in the archive.</p>
+<p>After its retention date the purge removes the email, see
+<a href="#purge">Purge</a>.</p>
+<h2 id="default-retention">Default retention<a class="headerlink" href="#default-retention" title="Permanent link">#</a></h2>
+<p>The days of the emails no retention rule matches: <code>retention_days</code> of the
+tenant in <code>piler.tenant_settings</code>.</p>
+<ul>
+<li><strong>Single tenant:</strong> the retention page shows it, and the admin changes it
+  there (2.3.1+), from <code>MIN_RETENTION_DAYS</code> to 36500 days. Before 2.3.1 it
+  could be changed with SQL only.</li>
+<li><strong>Multi-tenant:</strong> the admin of the master (the <code>piler</code> tenant) sets the
+  retention of each tenant in the tenant editor, <strong>Admin &gt; Tenant &gt; Tenant</strong>. The
+  admin of a tenant sees it on the retention page, but can't change it.</li>
+<li><strong>Multi-node:</strong> each node has its own <code>piler.tenant_settings</code>, and each
+  worker archives with its own <code>retention_days</code>. Nothing copies it from the
+  master: change it on every worker too, see
+  <a href="../hosting/onboarding/#change-a-tenants-settings">Change a tenant's settings</a>.
+  The retention page of a multi-node master shows the master's value and
+  doesn't change it. A worker without the tenant's row archives with
+  <code>DEFAULT_RETENTION_DAYS</code> of the piler daemon (3653 days).</li>
+</ul>
+<p>The default retention can't be shorter than <code>MIN_RETENTION_DAYS</code> (30 days
+by default), see
+<a href="../fiber-ui-config-options/#min_retention_days">Config options</a>.</p>
+<h2 id="retention-rules">Retention rules<a class="headerlink" href="#retention-rules" title="Permanent link">#</a></h2>
+<p>A retention rule keeps the emails it matches for a number of days instead
+of the default retention, e.g. 30 days for newsletters, or 8 years for the
+emails of the accounting department.</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Matches</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Domain</td>
+<td>the domain of the <code>From</code> address</td>
+</tr>
+<tr>
+<td>Sender (From)</td>
+<td>the <code>From</code> address</td>
+</tr>
+<tr>
+<td>Recipient (To)</td>
+<td>any recipient: <code>To</code>, <code>Cc</code>, and the <a href="../envelope-recipients/">envelope recipients</a></td>
+</tr>
+<tr>
+<td>Subject contains</td>
+<td>the subject</td>
+</tr>
+<tr>
+<td>Body contains</td>
+<td>the first 10 KB of the text of the email</td>
+</tr>
+<tr>
+<td>Message size</td>
+<td>the size of the email in bytes, with <code>&gt;</code>, <code>&lt;</code>, <code>&gt;=</code> or <code>&lt;=</code></td>
+</tr>
+<tr>
+<td>Spam status</td>
+<td>spam or not spam, by the <code>SPAM_HEADER_LINE</code> of the piler daemon</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>All the filled fields must match.</strong> An empty field matches every
+  email.</li>
+<li><strong>The text fields match a part of the value, regardless of case.</strong>
+  <code>example.com</code> in Domain also matches <code>sub.example.com</code> and
+  <code>myexample.com</code>; <code>@example.com</code> in Sender matches only the addresses of
+  that domain.</li>
+<li><strong>The first matching rule wins</strong>, in the order the rules were created.
+  If the rules overlap, e.g. a domain and a sender of that domain, create
+  the more specific one first; there is no other priority.</li>
+<li><strong>Days:</strong> at least <code>MIN_RETENTION_DAYS</code>. A rule shorter than the default
+  retention is saved after the admin types its days, to confirm it.</li>
+<li><strong>Disable a rule</strong> with its switch to stop using it and keep it for
+  later; a deleted rule is gone.</li>
+</ul>
+<h2 id="exclusion-rules">Exclusion rules<a class="headerlink" href="#exclusion-rules" title="Permanent link">#</a></h2>
+<p>An exclusion rule has the same fields as a retention rule, without the days.
+<strong>An email it matches is not archived:</strong> the piler daemon removes it, logs
+it with <code>status=discarded</code> and the name of the rule, and counts it among the
+discarded emails. It can't be recovered from piler later, so keep these
+rules narrow, e.g. the notifications of a monitoring system.</p>
+<p>The envelope recipients count for the exclusion rules too: an email with a
+recipient a rule matches is excluded even if that recipient is only in
+the envelope.</p>
+<h2 id="when-a-change-applies">When a change applies<a class="headerlink" href="#when-a-change-applies" title="Permanent link">#</a></h2>
+<ul>
+<li><strong>The piler daemon</strong> reads the rules again every 30 minutes: a new or
+  changed rule applies within 30 minutes. It reads the default retention
+  for each email.</li>
+<li><strong>pilerimport</strong> reads the rules and the default retention when it starts:
+  a change applies to the next import run.</li>
+<li><strong>Multi-node:</strong> the rules are created on the master. Each worker copies
+  them from the master every hour with <code>sync_tables_from_master.sh</code>, a cron
+  job of the piler user on the worker: the Docker worker image turns it on,
+  on a native worker check that the crontab of the piler user has it
+  uncommented (<code>crontab -l -u piler</code>). A change reaches the workers within
+  an hour and a half. The legal holds are copied the same way. The default retention isn't copied,
+  see <a href="#default-retention">Default retention</a>.</li>
+</ul>
+<h2 id="simulate-a-rule">Simulate a rule<a class="headerlink" href="#simulate-a-rule" title="Permanent link">#</a></h2>
+<p><strong>Simulate</strong> counts the archived emails a rule matches, with the date of
+the oldest and the newest. For a retention rule it counts those older than
+the rule's days: the emails that would be past their retention if the rule
+had applied when they were archived. It changes nothing, the rules don't
+apply to the emails already archived.</p>
+<p>The simulation matches the criteria like the archiving does (2.3.1+),
+except the body: the text of the archived emails isn't in the database, so
+a body criterion isn't counted, and the result says so. A rule with a body
+criterion may match fewer emails than the simulation shows. Before 2.3.1
+the simulation of a rule with a domain, sender, recipient or body criterion
+failed.</p>
+<p>On a multi-node master the emails are on the workers, so the simulation
+there finds none.</p>
+<h2 id="who-can-change-the-rules">Who can change the rules<a class="headerlink" href="#who-can-change-the-rules" title="Permanent link">#</a></h2>
+<ul>
+<li><strong>Single tenant:</strong> the admin.</li>
+<li><strong>Multi-tenant:</strong> each tenant has its own rules, in its own database.
+  The admin of a tenant manages them on the tenant's retention page. With
+  <code>ENABLE_TENANT_RETENTION_POLICIES=false</code>, globally or in a tenant's
+  <code>settings_json</code>, the admin of that tenant can view and simulate the rules,
+  but not change them: the page says the platform operator manages them.
+  To change them, the operator turns the setting on for the tenant, changes
+  the rules as the tenant's admin, and turns it off again. The rules of the
+  <code>piler</code> tenant are always managed by its admin. See
+  <a href="../fiber-ui-config-options/#enable_tenant_retention_policies">Config options</a>.</li>
+</ul>
+<p>Every change of a rule is on the <strong>Audit Log</strong> tab of the retention page,
+with the rule before and after the change, and in the audit log of the
+configuration changes (2.3.0+). A change of the default retention on the
+retention page is in the audit log as <code>retention_default_update</code>, with the
+previous value.</p>
+<h2 id="purge">Purge<a class="headerlink" href="#purge" title="Permanent link">#</a></h2>
+<p>The purge removes the emails whose retention date has passed: their
+stored files and their index entries, and marks them deleted in the
+database. It runs every night at 2:02
+(<code>/usr/libexec/piler/purge.sh</code>, a cron job of the piler user; in Docker, of
+the piler container), for each tenant whose <code>enable_purge</code> is on in
+<code>piler.tenant_settings</code>. It's on by default.</p>
+<ul>
+<li><strong>Legal hold:</strong> an email of a custodian under an active legal hold (a
+  user, a domain or a group, as sender or recipient) is not purged, even
+  after its retention date.</li>
+<li><strong>Multi-node:</strong> the purge runs on every worker, by the <code>enable_purge</code> of
+  the tenant on that worker. A worker without the tenant's row doesn't purge
+  it.</li>
+<li><strong>Turned off</strong> (<code>enable_purge</code> is 0): the emails stay in the archive after
+  their retention date, until it's turned on again.</li>
+</ul>
+<h2 id="related-pages">Related pages<a class="headerlink" href="#related-pages" title="Permanent link">#</a></h2>
+<ul>
+<li><a href="../gobd/#retention-periods">GoBD</a>: retention periods in Germany</li>
+<li><a href="../gdpr-right-to-erasure/">GDPR right to erasure</a>: removing the emails of
+  a person before their retention date</li>
+<li><a href="../upgrade/#retention-settings-230">Upgrading: retention settings (2.3.0)</a></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": [], "search": "../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+    
+  </body>
+</html>
