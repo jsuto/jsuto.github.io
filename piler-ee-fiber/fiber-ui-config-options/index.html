@@ -3292,6 +3292,11 @@ documentation printed for native multi-node installs. See <a href="../upgrade/#j
 <h3 id="gotenberg_addr">GOTENBERG_ADDR<a class="headerlink" href="#gotenberg_addr" title="Permanent link">#</a></h3>
 <p>Default value: <code>""</code></p>
 <p>Description: Address of Gotenberg service used for document PDF export.</p>
+<p>Gotenberg's Chromium renders the HTML piler-ui sends. From 2.3.1 piler-ui
+removes everything in it that would load a URL, but as a second line, keep
+Gotenberg from reaching your internal services: start it with
+<code>--chromium-allow-list='^file:///tmp/.*'</code> (only the files of the request),
+or put it on a network of its own with piler-ui.</p>
 <hr />
 <h3 id="enable_export">ENABLE_EXPORT<a class="headerlink" href="#enable_export" title="Permanent link">#</a></h3>
 <p>Default value: <code>true</code></p>
@@ -3425,6 +3430,10 @@ documentation printed for native multi-node installs. See <a href="../upgrade/#j
 <td>Export emails (also the e-invoices) and the list of exports</td>
 </tr>
 <tr>
+<td><code>einvoice_export</code></td>
+<td>Export the e-invoices of the search results (from 2.3.1)</td>
+</tr>
+<tr>
 <td><code>ediscovery</code></td>
 <td>eDiscovery export</td>
 </tr>
@@ -3443,6 +3452,38 @@ documentation printed for native multi-node installs. See <a href="../upgrade/#j
 <tr>
 <td><code>user_settings</code></td>
 <td>The user settings (the gear icon of the search and the audit page), e.g. when the language and the time zone come from another system. <code>SHOW_USER_SETTINGS=false</code> hides them for every role</td>
+</tr>
+<tr>
+<td><code>pdf</code></td>
+<td>The PDF of an email (from 2.3.1)</td>
+</tr>
+<tr>
+<td><code>journal</code></td>
+<td>The journal envelope of an email (from 2.3.1). It's only hidden</td>
+</tr>
+<tr>
+<td><code>thread_view</code></td>
+<td>The thread view of an email (from 2.3.1)</td>
+</tr>
+<tr>
+<td><code>ai_summary</code></td>
+<td>The AI summary of an email and of its thread (from 2.3.1). Shown only with <code>LLM_ENABLED=true</code> anyway</td>
+</tr>
+<tr>
+<td><code>pending_conversations</code></td>
+<td>The pending conversations (from 2.3.1)</td>
+</tr>
+<tr>
+<td><code>related_attachments</code></td>
+<td>The emails with the same attachments (from 2.3.1)</td>
+</tr>
+<tr>
+<td><code>teams</code></td>
+<td>The Teams archive (from 2.3.1). Shown only with <code>TEAMS_ENABLED=true</code> anyway</td>
+</tr>
+<tr>
+<td><code>slack</code></td>
+<td>The Slack archive (from 2.3.1). Shown only with <code>SLACK_ENABLED=true</code> anyway</td>
 </tr>
 </tbody>
 </table>

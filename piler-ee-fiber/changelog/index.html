@@ -980,6 +980,16 @@ formats left over from 1.8.x, see
   the request into its SQL query unchecked: an admin could run SQL through
   the simulate API. Only the size comparisons of the rules are accepted
   now.</li>
+<li>The pending conversations showed every user the unanswered threads of
+  the whole tenant: the sender and the subject of other users' emails. A
+  user gets those of their own addresses now, an auditor those of the
+  tenant, and removed emails are left out.</li>
+<li>The PDF export sent the HTML of the browser to Gotenberg unchecked: any
+  user could make Gotenberg fetch an internal URL and get the answer as a
+  PDF. piler-ui removes everything that loads a URL or navigates, and
+  refuses the export without the PDF permission. Remote images of an email
+  are no longer in its PDF. See <a href="../fiber-ui-config-options/#gotenberg_addr">GOTENBERG_ADDR</a>
+  to restrict Gotenberg's network too.</li>
 </ul>
 <h3 id="added">Added<a class="headerlink" href="#added" title="Permanent link">#</a></h3>
 <ul>
