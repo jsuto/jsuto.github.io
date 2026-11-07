@@ -6,6 +6,99 @@
     <description>Releases of piler-ee, piler-smtp and the Scanner</description>
     <atom:link href="https://docs.mailpiler.com/piler-ee-fiber/releases.xml" rel="self" type="application/rss+xml"/>
     <item>
+      <title>[Security] piler-ee 2.3.1</title>
+      <link>https://docs.mailpiler.com/piler-ee-fiber/changelog/#231-2026-11-07</link>
+      <guid isPermaLink="true">https://docs.mailpiler.com/piler-ee-fiber/changelog/#231-2026-11-07</guid>
+      <pubDate>Sat, 07 Nov 2026 00:00:00 +0000</pubDate>
+      <description>&lt;p&gt;&lt;strong&gt;Upgrade step:&lt;/strong&gt; run the migrations, see
+&lt;a href="https://docs.mailpiler.com/piler-ee-fiber/upgrade/#run-the-migrations"&gt;Run the migrations&lt;/a&gt;. 033 resets the date
+formats left over from 1.8.x, see
+&lt;a href="https://docs.mailpiler.com/piler-ee-fiber/upgrade/#date-formats-231"&gt;Date formats&lt;/a&gt;.&lt;/p&gt;
+&lt;h3&gt;Security&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;piler-ui warns at startup if &lt;code&gt;JWT_SECRET&lt;/code&gt; is the example value this
+  documentation printed for native multi-node installs until 1 November&lt;/li&gt;
+&lt;li&gt;Anyone can read that value and sign access tokens with it: replace
+  it, see &lt;a href="https://docs.mailpiler.com/piler-ee-fiber/upgrade/#jwt-secret-230"&gt;JWT secret&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;The simulation of a retention or exclusion rule put the size operator of
+  the request into its SQL query unchecked: an admin could run SQL through
+  the simulate API. Only the size comparisons of the rules are accepted
+  now.&lt;/li&gt;
+&lt;li&gt;The pending conversations showed every user the unanswered threads of
+  the whole tenant: the sender and the subject of other users' emails. A
+  user gets those of their own addresses now, an auditor those of the
+  tenant, and removed emails are left out.&lt;/li&gt;
+&lt;li&gt;The PDF export sent the HTML of the browser to Gotenberg unchecked: any
+  user could make Gotenberg fetch an internal URL and get the answer as a
+  PDF. piler-ui removes everything that loads a URL or navigates, and
+  refuses the export without the PDF permission. Remote images of an email
+  are no longer in its PDF. See &lt;a href="https://docs.mailpiler.com/piler-ee-fiber/fiber-ui-config-options/#gotenberg_addr"&gt;GOTENBERG_ADDR&lt;/a&gt;
+  to restrict Gotenberg's network too.&lt;/li&gt;
+&lt;li&gt;An email crafted to make an attachment of other emails show its own
+  content: piler split the stored email at the boundary string also in
+  the middle of a line, and stored a part of the crafted email under the
+  digest of a real attachment. The first stored copy of an attachment
+  is kept, so every later email with that attachment was shown and
+  downloaded with the crafted content (the verification of the email
+  failed). piler splits on the boundary lines only now, and stores an
+  attachment only if it's the same as the attachment found in the email.&lt;/li&gt;
+&lt;li&gt;An attachment was stored once, under the digest of its decoded content,
+  with the encoding of the first email that had it. A later email with
+  the same attachment in another encoding (e.g. base64 instead of 8bit),
+  or with other line lengths, was restored with the bytes of the first
+  one: the attachment was broken, or the verification of the email
+  failed. With S3 storage the last copy was kept, which could break an
+  email archived before. Attachments are stored under the digest of their
+  stored bytes now, so they're shared by the emails with the same
+  attachment in the same encoding. The attachments stored before 2.3.1
+  keep their names, and are not checked.&lt;/li&gt;
+&lt;li&gt;MIME bombs: an email with one boundary per nesting level made the piler
+  daemon use memory and time quadratic in its size (a 1 MB email took 6
+  GB), so a single email could get it killed. Many small text parts did
+  the same with time (16 MB took 17 seconds). An email over
+  &lt;a href="https://docs.mailpiler.com/piler-ee-fiber/fiber-ui-config-options/#mime_max_depth"&gt;MIME_MAX_DEPTH&lt;/a&gt; (32 levels)
+  or &lt;a href="https://docs.mailpiler.com/piler-ee-fiber/fiber-ui-config-options/#mime_max_parts"&gt;MIME_MAX_PARTS&lt;/a&gt; (1000
+  parts) goes to the error directory now, and the first 100 attachments of
+  an email are stored apart, the others stay in the stored email. An email
+  within the limits takes about the memory of 6-8 copies of itself.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Added&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;The default retention of a single-tenant install on the retention page
+  (&lt;strong&gt;Compliance &amp;gt; Retention Policy&lt;/strong&gt;): how long the emails no retention rule
+  matches are kept. The admin changes it there, from &lt;code&gt;MIN_RETENTION_DAYS&lt;/code&gt; to
+  36500 days, and the change is in the audit log. It applies to the emails
+  archived from then on. Before, it could be changed with SQL only
+  (&lt;code&gt;retention_days&lt;/code&gt; of the &lt;code&gt;piler&lt;/code&gt; row of &lt;code&gt;piler.tenant_settings&lt;/code&gt;). On a
+  multi-node master it's shown but not editable: each worker uses the value
+  of its own node. The other tenants of a multi-tenant install see their
+  default, it's set in the master's tenant editor as before.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Changed&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;contrib/installer/upgrade.sh&lt;/code&gt; is &lt;code&gt;upgrade-from-1.8.4.sh&lt;/code&gt;: it upgrades a
+  1.8.4 install once, it's not the upgrade of a 2.x install, see
+  &lt;a href="https://docs.mailpiler.com/piler-ee-fiber/upgrade/"&gt;Upgrading&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Fixed&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;After an upgrade from 1.8.x the dates were garbled for users with a 1.8.x
+  date format in their settings (e.g. &lt;code&gt;d.m.Y&lt;/code&gt;). These formats are reset to
+  &lt;code&gt;YYYY/MM/DD&lt;/code&gt;, and the settings accept only a format with a year, a month
+  and a day.&lt;/li&gt;
+&lt;li&gt;A date format longer than 12 characters, e.g. &lt;code&gt;YYYY-MM-DD HH:mm:ss&lt;/code&gt; (the
+  example of the settings form), couldn't be saved. An empty one is the
+  default now, the settings were refused.&lt;/li&gt;
+&lt;li&gt;piler-ui logged &lt;code&gt;permission query: sql: no rows in result set&lt;/code&gt; for every
+  user without a custom profile.&lt;/li&gt;
+&lt;li&gt;The simulation of a rule with a domain, sender, recipient or body
+  criterion failed with "Simulation Failed". It matches the criteria like
+  the archiving does now: the domain is the domain of the &lt;code&gt;From&lt;/code&gt; address
+  (it was the sender or any recipient). The body isn't counted, the result
+  says so. See &lt;a href="https://docs.mailpiler.com/piler-ee-fiber/retention/#simulate-a-rule"&gt;Retention and exclusion rules&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    <item>
       <title>[Security] piler-smtp 1.1.9</title>
       <link>https://docs.mailpiler.com/piler-ee-fiber/changelog-piler-smtp/#119-2026-11-07</link>
       <guid isPermaLink="true">https://docs.mailpiler.com/piler-ee-fiber/changelog-piler-smtp/#119-2026-11-07</guid>
@@ -49,6 +142,18 @@
   config instead of falling back to the defaults.&lt;/li&gt;
 &lt;li&gt;After a crash piler-smtp exits, so systemd or Docker restarts it. It
   used to hang at 100% CPU.&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    <item>
+      <title>[Security] Scanner 1.3.3</title>
+      <link>https://docs.mailpiler.com/piler-ee-fiber/changelog-scanner/#133-2026-11-07</link>
+      <guid isPermaLink="true">https://docs.mailpiler.com/piler-ee-fiber/changelog-scanner/#133-2026-11-07</guid>
+      <pubDate>Sat, 07 Nov 2026 00:00:00 +0000</pubDate>
+      <description>&lt;h3&gt;Security&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;An email with one boundary per nesting level made the scanner use memory
+  and time quadratic in its size. Multipart containers nested deeper than
+  32 levels are skipped now.&lt;/li&gt;
 &lt;/ul&gt;</description>
     </item>
     <item>
