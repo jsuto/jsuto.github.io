@@ -990,6 +990,33 @@ formats left over from 1.8.x, see
   refuses the export without the PDF permission. Remote images of an email
   are no longer in its PDF. See <a href="../fiber-ui-config-options/#gotenberg_addr">GOTENBERG_ADDR</a>
   to restrict Gotenberg's network too.</li>
+<li>An email crafted to make an attachment of other emails show its own
+  content: piler split the stored email at the boundary string also in
+  the middle of a line, and stored a part of the crafted email under the
+  digest of a real attachment. The first stored copy of an attachment
+  is kept, so every later email with that attachment was shown and
+  downloaded with the crafted content (the verification of the email
+  failed). piler splits on the boundary lines only now, and stores an
+  attachment only if it's the same as the attachment found in the email.</li>
+<li>An attachment was stored once, under the digest of its decoded content,
+  with the encoding of the first email that had it. A later email with
+  the same attachment in another encoding (e.g. base64 instead of 8bit),
+  or with other line lengths, was restored with the bytes of the first
+  one: the attachment was broken, or the verification of the email
+  failed. With S3 storage the last copy was kept, which could break an
+  email archived before. Attachments are stored under the digest of their
+  stored bytes now, so they're shared by the emails with the same
+  attachment in the same encoding. The attachments stored before 2.3.1
+  keep their names, and are not checked.</li>
+<li>MIME bombs: an email with one boundary per nesting level made the piler
+  daemon use memory and time quadratic in its size (a 1 MB email took 6
+  GB), so a single email could get it killed. Many small text parts did
+  the same with time (16 MB took 17 seconds). An email over
+  <a href="../fiber-ui-config-options/#mime_max_depth">MIME_MAX_DEPTH</a> (32 levels)
+  or <a href="../fiber-ui-config-options/#mime_max_parts">MIME_MAX_PARTS</a> (1000
+  parts) goes to the error directory now, and the first 100 attachments of
+  an email are stored apart, the others stay in the stored email. An email
+  within the limits takes about the memory of 6-8 copies of itself.</li>
 </ul>
 <h3 id="added">Added<a class="headerlink" href="#added" title="Permanent link">#</a></h3>
 <ul>

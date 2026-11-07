@@ -1815,6 +1815,28 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#mime_max_depth" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MIME_MAX_DEPTH
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mime_max_parts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MIME_MAX_PARTS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#saml_cert_file" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3529,6 +3551,37 @@ DISABLED_FEATURES_AUDITOR=restore,tag,delete,smart_insights,similar_emails
 <h3 id="spam_header_line">SPAM_HEADER_LINE<a class="headerlink" href="#spam_header_line" title="Permanent link">#</a></h3>
 <p>Default value: <code>X-Spam-Flag: YES</code></p>
 <p>Description: Email header line (name and value) used to detect whether a message was flagged as spam.</p>
+<hr />
+<h3 id="mime_max_depth">MIME_MAX_DEPTH<a class="headerlink" href="#mime_max_depth" title="Permanent link">#</a></h3>
+<p>Default value: <code>32</code></p>
+<p>Description: The piler daemon and pilerimport (from 2.3.1): how deep the
+multipart containers of an email may be nested. An email nested deeper is
+not archived: it's likely a MIME bomb, crafted to make archiving it costly.
+The log says <code>the MIME structure is over the limits, likely a MIME bomb</code>,
+and the email goes to the error directory. Real mail has a few levels. At
+most <code>32</code>: a larger value is 32. <code>0</code>: no limit, the containers deeper than
+32 levels are skipped.</p>
+<hr />
+<h3 id="mime_max_parts">MIME_MAX_PARTS<a class="headerlink" href="#mime_max_parts" title="Permanent link">#</a></h3>
+<p>Default value: <code>1000</code></p>
+<p>Description: The piler daemon and pilerimport (from 2.3.1): how many MIME
+parts an email may have, at any depth (text, HTML, attachments, inline
+images, the containers). An email with more is not archived, like one over
+<code>MIME_MAX_DEPTH</code>. Real mail has a few dozen parts. <code>0</code>: no limit.</p>
+<p>An email over a limit is in the error directory, see
+<a href="../hosting/monitoring/">Monitoring</a> for the <code>piler_error_dir_files</code> metric.
+If it's real mail, archive it with a higher limit, e.g.
+<code>MIME_MAX_PARTS=5000 pilerimport -eml /var/piler/error/&lt;file&gt; -remove</code>
+(its envelope file next to it is read too).</p>
+<p>The limits also apply to a copy of an email archived before 2.3.1 (or under
+higher limits) arriving again: it goes to the error directory instead of
+adding its envelope recipients to the archived email as a duplicate. Add
+them with <code>pilerimport -add-recipients</code>, which has no limits, see
+<a href="../envelope-recipients/#migrated-mail-pilerimport">Migrated mail</a>.</p>
+<p>Of the attachments of an email, the first 100 are stored apart from the
+email (deduplicated) and have their text extracted. The others stay in the
+stored email: they are downloaded with it, and the retention and exclusion
+rules and the search see them.</p>
 <hr />
 <h3 id="saml_cert_file">SAML_CERT_FILE<a class="headerlink" href="#saml_cert_file" title="Permanent link">#</a></h3>
 <p>Default value: <code>saml.crt</code></p>

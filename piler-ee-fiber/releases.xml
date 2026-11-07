@@ -6,6 +6,52 @@
     <description>Releases of piler-ee, piler-smtp and the Scanner</description>
     <atom:link href="https://docs.mailpiler.com/piler-ee-fiber/releases.xml" rel="self" type="application/rss+xml"/>
     <item>
+      <title>[Security] piler-smtp 1.1.9</title>
+      <link>https://docs.mailpiler.com/piler-ee-fiber/changelog-piler-smtp/#119-2026-11-07</link>
+      <guid isPermaLink="true">https://docs.mailpiler.com/piler-ee-fiber/changelog-piler-smtp/#119-2026-11-07</guid>
+      <pubDate>Sat, 07 Nov 2026 00:00:00 +0000</pubDate>
+      <description>&lt;h3&gt;Security&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;A client that stops in the middle of the TLS handshake no longer blocks
+  the other connections. &lt;code&gt;smtp_greet_timeout&lt;/code&gt; limits how long the handshake
+  may take.&lt;/li&gt;
+&lt;li&gt;Data sent in plain text after &lt;code&gt;STARTTLS&lt;/code&gt; is discarded, and nothing of the
+  transaction before &lt;code&gt;STARTTLS&lt;/code&gt; carries over into the encrypted session, so
+  an attacker on the network path can't add recipients to an email sent
+  over TLS (CVE-2011-0411).&lt;/li&gt;
+&lt;li&gt;A failed TLS handshake of one client no longer disconnects other TLS
+  sessions.&lt;/li&gt;
+&lt;li&gt;In multi-tenant mode, the recipients of an abandoned transaction no
+  longer get the email of the next transaction on the same connection.&lt;/li&gt;
+&lt;li&gt;The data of a rejected message is never processed as SMTP commands.&lt;/li&gt;
+&lt;li&gt;Large BDAT chunks announced by slow clients can no longer use up
+  &lt;code&gt;max_smtp_memory&lt;/code&gt; and lock out the other clients.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Fixed&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;An email that can't be handed over to the archive gets a temporary
+  error (451), so the sending server retries it. It used to be accepted
+  and lost.&lt;/li&gt;
+&lt;li&gt;Every email is written to the disk before it's accepted, so a power loss
+  right after the acceptance no longer loses it.&lt;/li&gt;
+&lt;li&gt;A message sent in several BDAT chunks (with &lt;code&gt;enable_chunking=1&lt;/code&gt;) is
+  archived in full; only its first chunk was stored.&lt;/li&gt;
+&lt;li&gt;A message rejected as too big with BDAT gets its error reply instead of
+  a connection reset, so the sending server bounces it instead of retrying.&lt;/li&gt;
+&lt;li&gt;Settings written as &lt;code&gt;key = value&lt;/code&gt; (with spaces) in &lt;code&gt;piler.conf&lt;/code&gt; are
+  applied; they were ignored, e.g. &lt;code&gt;smtp_access_list = 1&lt;/code&gt; left the access
+  list off.&lt;/li&gt;
+&lt;li&gt;An invalid setting (e.g. a value that's not a number, or an unknown
+  &lt;code&gt;tls_min_version&lt;/code&gt;) is reported, and piler-smtp doesn't start. On a
+  reload (SIGHUP) the previous config stays.&lt;/li&gt;
+&lt;li&gt;With &lt;code&gt;tls_enable=0&lt;/code&gt; no TLS certificate is needed.&lt;/li&gt;
+&lt;li&gt;A reload (SIGHUP) with a config that can't be read keeps the previous
+  config instead of falling back to the defaults.&lt;/li&gt;
+&lt;li&gt;After a crash piler-smtp exits, so systemd or Docker restarts it. It
+  used to hang at 100% CPU.&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    <item>
       <title>[Security] piler-ee 2.3.0</title>
       <link>https://docs.mailpiler.com/piler-ee-fiber/changelog/#230-2026-11-04</link>
       <guid isPermaLink="true">https://docs.mailpiler.com/piler-ee-fiber/changelog/#230-2026-11-04</guid>
