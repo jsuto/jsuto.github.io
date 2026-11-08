@@ -976,10 +976,8 @@ formats left over from 1.8.x, see
   documentation printed for native multi-node installs until 1 November</li>
 <li>Anyone can read that value and sign access tokens with it: replace
   it, see <a href="../upgrade/#jwt-secret-230">JWT secret</a>.</li>
-<li>The simulation of a retention or exclusion rule put the size operator of
-  the request into its SQL query unchecked: an admin could run SQL through
-  the simulate API. Only the size comparisons of the rules are accepted
-  now.</li>
+<li>An admin could run SQL through the simulation of a retention or
+  exclusion rule. The simulation checks its input now.</li>
 <li>The pending conversations showed every user the unanswered threads of
   the whole tenant: the sender and the subject of other users' emails. A
   user gets those of their own addresses now, an auditor those of the
@@ -990,14 +988,10 @@ formats left over from 1.8.x, see
   refuses the export without the PDF permission. Remote images of an email
   are no longer in its PDF. See <a href="../fiber-ui-config-options/#gotenberg_addr">GOTENBERG_ADDR</a>
   to restrict Gotenberg's network too.</li>
-<li>An email crafted to make an attachment of other emails show its own
-  content: piler split the stored email at the boundary string also in
-  the middle of a line, and stored a part of the crafted email under the
-  digest of a real attachment. The first stored copy of an attachment
-  is kept, so every later email with that attachment was shown and
-  downloaded with the crafted content (the verification of the email
-  failed). piler splits on the boundary lines only now, and stores an
-  attachment only if it's the same as the attachment found in the email.</li>
+<li>A crafted email could replace the content of an attachment that other
+  archived emails share: those emails were shown and downloaded with the
+  crafted content, and their verification failed. piler checks an
+  attachment against the email before storing it now.</li>
 <li>An attachment was stored once, under the digest of its decoded content,
   with the encoding of the first email that had it. A later email with
   the same attachment in another encoding (e.g. base64 instead of 8bit),
@@ -1008,10 +1002,9 @@ formats left over from 1.8.x, see
   stored bytes now, so they're shared by the emails with the same
   attachment in the same encoding. The attachments stored before 2.3.1
   keep their names, and are not checked.</li>
-<li>MIME bombs: an email with one boundary per nesting level made the piler
-  daemon use memory and time quadratic in its size (a 1 MB email took 6
-  GB), so a single email could get it killed. Many small text parts did
-  the same with time (16 MB took 17 seconds). An email over
+<li>MIME bombs: some deeply nested or very fragmented emails made the piler
+  daemon use excessive memory and CPU, so a single email could get it
+  killed. An email over
   <a href="../fiber-ui-config-options/#mime_max_depth">MIME_MAX_DEPTH</a> (32 levels)
   or <a href="../fiber-ui-config-options/#mime_max_parts">MIME_MAX_PARTS</a> (1000
   parts) goes to the error directory now, and the first 100 attachments of
@@ -1091,10 +1084,10 @@ an example. See
 <a href="../upgrade/#docker-the-error-directory-volume-230">Docker: the error directory volume</a>.</p>
 <h3 id="security_1">Security<a class="headerlink" href="#security_1" title="Permanent link">#</a></h3>
 <ul>
-<li>Without <code>JWT_SECRET</code>, piler-ui accepted access tokens it hadn't issued.
-  It uses a random secret now when <code>JWT_SECRET</code> isn't set, and logs a
+<li>Fixed the validation of access tokens when <code>JWT_SECRET</code> isn't set.
+  piler-ui uses a random secret now when <code>JWT_SECRET</code> isn't set, and logs a
   warning, also about a secret shorter than 32 characters or one starting
-  with <code>changeme</code>. The token checks take HS256 tokens only. The installers
+  with <code>changeme</code>. The installers
   and the Docker examples set a random <code>JWT_SECRET</code>; set one on an
   existing installation, see <a href="../upgrade/#jwt-secret-230">JWT secret</a>.</li>
 <li>The removal of an export took a file name with <code>../</code>, so a user could
@@ -1118,10 +1111,9 @@ an example. See
   its settings from <code>/var/piler/.env</code> only.</li>
 <li>pilerimport (installed setuid) creates the temporary files of the <code>-mbox</code>
   and <code>-pst</code> imports with random names that no other user can take over.</li>
-<li>The admin of any tenant could use the tenant API (<code>/api/v1/admin/tenant/*</code>):
-  set the admin password of another tenant, enable its purge, or add a
-  tenant. It's only for the admin of the master tenant (<code>piler</code>) now, and
-  an update applies to the tenant it names in the database.</li>
+<li>The admin of any tenant could change the settings of other tenants or
+  add a tenant. Managing tenants is only for the admin of the master
+  tenant (<code>piler</code>) now.</li>
 <li><code>/metrics</code> and <code>/healthz</code> took the client address from the request's own
   <code>X-Forwarded-For</code> or <code>X-Real-IP</code> header, so anyone reaching piler-ui,
   through the reverse proxy too, could read them. The header counts only
