@@ -302,6 +302,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#slack-tables-deleted_at-232" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Slack tables: deleted_at (2.3.2)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#date-formats-231" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -526,6 +537,21 @@ newer:</p>
   15.1.0.</li>
 </ul>
 <p>Upgrade Manticore first, then piler.</p>
+<h3 id="slack-tables-deleted_at-232">Slack tables: deleted_at (2.3.2)<a class="headerlink" href="#slack-tables-deleted_at-232" title="Permanent link">#</a></h3>
+<p>A Slack table created by the Manticore migrations, e.g. at an upgrade from
+1.x, had no <code>deleted_at</code> column, and the Slack purge failed for every
+message of it. After the migrations run:</p>
+<pre><code>/usr/libexec/piler/add-missing-columns.sh 0 --all
+</code></pre>
+<p>It's the script of <a href="#add-the-participants-column-230">the participants column</a>,
+renamed from <code>add-participants-column.sh</code>: it adds both columns where they
+are missing, and skips a tenant without a Slack table, so it's safe to run
+again. On a multinode master run it with <code>--no-index</code>, which leaves the
+distributed index alone and adds the column to the Slack tables only:</p>
+<pre><code>/usr/libexec/piler/add-missing-columns.sh --no-index 0 --all
+</code></pre>
+<p>With Docker there's nothing to do: the piler-ee container runs the script at
+every start, with <code>--no-index</code> on a master.</p>
 <h3 id="date-formats-231">Date formats (2.3.1)<a class="headerlink" href="#date-formats-231" title="Permanent link">#</a></h3>
 <p>The date format in the settings of a user is a format of dayjs tokens,
 e.g. <code>YYYY/MM/DD</code> or <code>DD.MM.YYYY HH:mm</code>. Users upgraded from 1.8.x may
@@ -596,8 +622,9 @@ docker volume create piler_error
 pilerimport and reindex check it at startup, and refuse to start until the
 column is there. The package upgrade stops the piler services, so back up
 the Manticore data, then run the script before starting them again:</p>
-<pre><code>/usr/libexec/piler/add-participants-column.sh 0 --all
+<pre><code>/usr/libexec/piler/add-missing-columns.sh 0 --all
 </code></pre>
+<p>Before 2.3.2 the script was <code>add-participants-column.sh</code>.</p>
 <p>The first argument is the Manticore host (<code>0</code> is the local host). <code>--all</code>
 means the <code>piler</code> index and the index of every tenant in the
 <code>tenant_settings</code> table, so the same command works for single-tenant and
@@ -611,7 +638,8 @@ Only the attribute files are changed, not the full-text index.</p>
 <p>With Docker there's nothing to do: the piler-ee container runs the script at
 every start.</p>
 <p>In a multinode setup upgrade the workers first, and run the script on every
-worker, not on the master: the tables of the master are distributed. Start
+worker; on the master only with <code>--no-index</code> (2.3.2): its index tables are
+distributed. Start
 piler-ui on the master only when all the workers have the column, otherwise
 it refuses to start.</p>
 <p>If piler-ui on the master still refuses to start, and names a tenant the

@@ -526,12 +526,13 @@ done
 </code></pre>
 <p>Both loops stop at the first failing migration. Fix the reported error, then
 run the loop again, the migrations are safe to run more than once.</p>
-<p>Add the participants column to the index. Piler 2.x refuses to start without
-it:</p>
-<pre><code>/usr/libexec/piler/add-participants-column.sh 0 --all
+<p>Add the participants column to the index, and the <code>deleted_at</code> column to
+the Slack table. Piler 2.x refuses to start without the first, the Slack
+purge fails without the second:</p>
+<pre><code>/usr/libexec/piler/add-missing-columns.sh 0 --all
 </code></pre>
 <p>It's enough to run it once, but it's safe to run it again: it does nothing if
-the index has the column already. See <a href="../upgrade/#add-the-participants-column-230">Upgrading</a>
+the tables have the columns already. See <a href="../upgrade/#add-the-participants-column-230">Upgrading</a>
 for the details.</p>
 <h3 id="update-the-passwords">Update the passwords<a class="headerlink" href="#update-the-passwords" title="Permanent link">#</a></h3>
 <p>Piler uses the bcrypt password hashing algorithm, so the passwords in the local database must be fixed.</p>

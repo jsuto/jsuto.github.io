@@ -1044,6 +1044,14 @@ piler-ui doesn't start with an older Manticore.</p>
   headers 200 with an empty body. A user whose role doesn't allow it gets
   403 for viewing, downloading, the attachments, the headers, the bulk
   download and the restore of emails, not 500, 401 or 200.</li>
+<li><code>add-participants-column.sh</code> is renamed to <code>add-missing-columns.sh</code>: it
+  adds the <code>participants</code> column of 2.3.0 and the <code>deleted_at</code> column of
+  the Slack table, see
+  <a href="../upgrade/#slack-tables-deleted_at-232">Slack tables: deleted_at</a>. The
+  old name is gone, run the new one where you ran the old one.</li>
+<li>The Teams and Slack tables of a new tenant are columnar as intended
+  (only one column was), which keeps them smaller. Existing tables stay as
+  they are.</li>
 </ul>
 <h3 id="fixed">Fixed<a class="headerlink" href="#fixed" title="Permanent link">#</a></h3>
 <ul>
@@ -1058,8 +1066,15 @@ piler-ui doesn't start with an older Manticore.</p>
   <code>/api/v1/ediscovery/exports/{job_id}</code> (plural, also for <code>cancel</code> and
   <code>download</code>). The categories, the similar emails and the related
   attachments of an email are documented now.</li>
-<li><code>add-participants-column.sh</code> skips a distributed table (of a multinode
+<li><code>add-missing-columns.sh</code> skips a distributed table (of a multinode
   master) instead of failing on it.</li>
+<li>The Slack purge failed for every message of a Slack table created by the
+  Manticore migrations, e.g. at an upgrade from 1.x: the table had no
+  <code>deleted_at</code> column. <code>add-missing-columns.sh</code> adds it.</li>
+<li>The attachment statistics stopped updating when an attachment name had a
+  long text after its last dot, e.g. <code>Re. the minutes of the meeting</code>.
+  Such a name, like one without a dot, counts as without an extension now,
+  and <code>PDF</code> and <code>pdf</code> are one extension.</li>
 </ul>
 <h2 id="231-2026-11-07">2.3.1 - 2026-11-07<a class="headerlink" href="#231-2026-11-07" title="Permanent link">#</a></h2>
 <p><strong>Upgrade step:</strong> run the migrations, see
