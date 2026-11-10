@@ -614,6 +614,19 @@ every start.</p>
 worker, not on the master: the tables of the master are distributed. Start
 piler-ui on the master only when all the workers have the column, otherwise
 it refuses to start.</p>
+<p>If piler-ui on the master still refuses to start, and names a tenant the
+workers have the column of, that tenant has local tables on the master.
+Check with <code>SHOW TABLES</code> on the Manticore of the master: <code>&lt;tenant&gt;</code>,
+<code>&lt;tenant&gt;_tag1</code>, <code>&lt;tenant&gt;_note1</code> and <code>&lt;tenant&gt;_embeddings</code> must be of type
+<code>distributed</code> (<code>_audit</code> and <code>_cat1</code> are local). The searches of a tenant with
+local tables there don't reach the workers. Check that the local ones are
+empty (<code>SELECT COUNT(*) FROM &lt;table&gt;</code>), drop them, and create the
+distributed tables:</p>
+<pre><code>mariadb -h &lt;manticore host&gt; -P9306 -e &quot;DROP TABLE &lt;tenant&gt;&quot;   # and each local _tag1, _note1, _embeddings
+/usr/libexec/piler/recreate-distributed-tables.sh &lt;manticore host&gt; &lt;tenant&gt;
+</code></pre>
+<p>Adding the column to the local tables lets piler-ui start, but leaves the
+searches of the tenant broken.</p>
 <p>Optionally fill the attribute of the messages archived before the upgrade:</p>
 <pre><code>reindex -tenantid piler -start 1 -stop &lt;max metadata id&gt; -participants -progress
 </code></pre>
