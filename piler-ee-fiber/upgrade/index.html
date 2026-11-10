@@ -291,6 +291,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#manticore-2500-or-newer-232" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Manticore 25.0.0 or newer (2.3.2)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#date-formats-231" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -483,6 +494,38 @@ runs the migrations a new version adds (piler-examples of 2026-11-02 or later,
 <code>contrib/installer/upgrade-from-1.8.4.sh</code> (<code>upgrade.sh</code> before 2.3.1) is
 the upgrade of a 1.8.4 install, run once, see
 <a href="../upgrade-from-1.x/">Upgrading from 1.x</a>.</p>
+<h3 id="manticore-2500-or-newer-232">Manticore 25.0.0 or newer (2.3.2)<a class="headerlink" href="#manticore-2500-or-newer-232" title="Permanent link">#</a></h3>
+<p>From 2.3.2 piler needs <strong>Manticore 25.0.0 or newer</strong>, on every node that
+runs piler-ui; 29.9.0, the version piler is tested with, is recommended.
+With 25.0.0 or newer nothing has to be done now, an upgrade to 29.9.0 can
+wait for a convenient time. The queries of piler-ui pass their values to
+Manticore separately from the query, which the older versions don't
+support: with one, piler-ui doesn't start, and logs <code>Manticore X is too old, piler needs
+25.0.0 or newer</code>. The scanner and the Slack collector log the same error,
+then save no semantic search data and purge no Slack messages until
+Manticore is upgraded.</p>
+<p>Check the version before the upgrade:</p>
+<pre><code># native install
+mariadb -h0 -P9306 -e &quot;SHOW STATUS LIKE 'version'&quot;
+
+# Docker
+docker compose exec manticore mysql -h0 -P9306 -e &quot;SHOW STATUS LIKE 'version'&quot;
+</code></pre>
+<p>If it's older than 25.0.0, back up the index first (see
+<a href="../setup/#backup">Backup</a>), check the Manticore release notes of the
+versions in between, then upgrade Manticore, preferably to 29.9.0 or
+newer:</p>
+<ul>
+<li>Native install: <code>apt-get update &amp;&amp; apt-get install manticore</code> (Debian,
+  Ubuntu) or <code>yum update manticore</code> (RHEL, Oracle Linux), from the
+  Manticore repository the installer set up.</li>
+<li>Docker: set the image of the <code>manticore</code> service in <code>docker-compose.yaml</code>
+  to <code>manticoresearch/manticore:29.9.0</code>, the version of the current Docker
+  examples (at least <code>25.0.0</code>), and run <code>docker compose up -d manticore</code>.
+  The examples before 25 October 2026 had older versions, e.g. 13.11.0 or
+  15.1.0.</li>
+</ul>
+<p>Upgrade Manticore first, then piler.</p>
 <h3 id="date-formats-231">Date formats (2.3.1)<a class="headerlink" href="#date-formats-231" title="Permanent link">#</a></h3>
 <p>The date format in the settings of a user is a format of dayjs tokens,
 e.g. <code>YYYY/MM/DD</code> or <code>DD.MM.YYYY HH:mm</code>. Users upgraded from 1.8.x may
