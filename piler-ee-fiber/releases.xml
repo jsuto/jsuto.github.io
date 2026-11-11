@@ -6,6 +6,92 @@
     <description>Releases of piler-ee, piler-smtp and the Scanner</description>
     <atom:link href="https://docs.mailpiler.com/piler-ee-fiber/releases.xml" rel="self" type="application/rss+xml"/>
     <item>
+      <title>[Security] piler-ee 2.3.2</title>
+      <link>https://docs.mailpiler.com/piler-ee-fiber/changelog/#232-2026-11-11</link>
+      <guid isPermaLink="true">https://docs.mailpiler.com/piler-ee-fiber/changelog/#232-2026-11-11</guid>
+      <pubDate>Wed, 11 Nov 2026 00:00:00 +0000</pubDate>
+      <description>&lt;p&gt;&lt;strong&gt;Upgrade step:&lt;/strong&gt; piler needs Manticore 25.0.0 or newer, 29.9.0 is
+recommended: check the version and upgrade Manticore before piler, see
+&lt;a href="https://docs.mailpiler.com/piler-ee-fiber/upgrade/#manticore-2500-or-newer-232"&gt;Manticore 25.0.0 or newer&lt;/a&gt;.
+piler-ui doesn't start with an older Manticore.&lt;/p&gt;
+&lt;h3&gt;Security&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Some Manticore queries didn't escape their values properly: values
+  taken from the headers of archived emails (with semantic search), from
+  the Teams and Slack APIs, and from the addresses of the user. A crafted
+  email could change the semantic search data of the scanner. Every
+  Manticore query of the search, the audit log, the tags and notes, the
+  similar emails, the semantic search and the retention of Teams and Slack
+  messages passes its values separately from the query now, so a value
+  can't change it. This needs Manticore 25.0.0 or newer.&lt;/li&gt;
+&lt;li&gt;A failed search showed the error of Manticore to the user, with
+  internal details of the query. It's in the log now, the user sees a
+  generic error.&lt;/li&gt;
+&lt;li&gt;A user could tag emails they have no access to. The emails stayed
+  hidden from them, the tags are only written for their own emails now.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Changed&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;The REST API answers a request for an email the user may not see, e.g.
+  of another tenant, with 404, like an email that doesn't exist, on a
+  single node and through a multinode master. It was 500, or for the
+  headers 200 with an empty body. A user whose role doesn't allow it gets
+  403 for viewing, downloading, the attachments, the headers, the bulk
+  download and the restore of emails, not 500, 401 or 200.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;add-participants-column.sh&lt;/code&gt; is renamed to &lt;code&gt;add-missing-columns.sh&lt;/code&gt;: it
+  adds the &lt;code&gt;participants&lt;/code&gt; column of 2.3.0 and the &lt;code&gt;deleted_at&lt;/code&gt; column of
+  the Slack table, see
+  &lt;a href="https://docs.mailpiler.com/piler-ee-fiber/upgrade/#slack-tables-deleted_at-232"&gt;Slack tables: deleted_at&lt;/a&gt;. The
+  old name is gone, run the new one where you ran the old one.&lt;/li&gt;
+&lt;li&gt;The Teams and Slack tables of a new tenant are columnar as intended
+  (only one column was), which keeps them smaller. Existing tables stay as
+  they are.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Fixed&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;A search with &lt;code&gt;%&lt;/code&gt; or &lt;code&gt;;&lt;/code&gt; in it failed.&lt;/li&gt;
+&lt;li&gt;A tag or note search found the emails of the rest of the search when no
+  email had that tag or note. The advanced search ignored the tag and note
+  fields, and with both, only the note was used.&lt;/li&gt;
+&lt;li&gt;The API documentation (&lt;code&gt;/api/docs&lt;/code&gt;) had wrong paths: the thread of an
+  email is &lt;code&gt;GET /api/v1/message/{id}/thread&lt;/code&gt;, the bulk download
+  &lt;code&gt;POST /api/v1/message/download&lt;/code&gt;, the bulk removal
+  &lt;code&gt;POST /api/v1/message/bulkremove&lt;/code&gt;, and an eDiscovery export
+  &lt;code&gt;/api/v1/ediscovery/exports/{job_id}&lt;/code&gt; (plural, also for &lt;code&gt;cancel&lt;/code&gt; and
+  &lt;code&gt;download&lt;/code&gt;). The categories, the similar emails and the related
+  attachments of an email are documented now.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;add-missing-columns.sh&lt;/code&gt; skips a distributed table (of a multinode
+  master) instead of failing on it.&lt;/li&gt;
+&lt;li&gt;The Slack purge failed for every message of a Slack table created by the
+  Manticore migrations, e.g. at an upgrade from 1.x: the table had no
+  &lt;code&gt;deleted_at&lt;/code&gt; column. &lt;code&gt;add-missing-columns.sh&lt;/code&gt; adds it.&lt;/li&gt;
+&lt;li&gt;The attachment statistics stopped updating when an attachment name had a
+  long text after its last dot, e.g. &lt;code&gt;Re. the minutes of the meeting&lt;/code&gt;.
+  Such a name, like one without a dot, counts as without an extension now,
+  and &lt;code&gt;PDF&lt;/code&gt; and &lt;code&gt;pdf&lt;/code&gt; are one extension.&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    <item>
+      <title>[Security] Scanner 1.3.4</title>
+      <link>https://docs.mailpiler.com/piler-ee-fiber/changelog-scanner/#134-2026-11-11</link>
+      <guid isPermaLink="true">https://docs.mailpiler.com/piler-ee-fiber/changelog-scanner/#134-2026-11-11</guid>
+      <pubDate>Wed, 11 Nov 2026 00:00:00 +0000</pubDate>
+      <description>&lt;p&gt;&lt;strong&gt;Upgrade step:&lt;/strong&gt; the scanner needs Manticore 25.0.0 or newer, like piler
+2.3.2, see
+&lt;a href="https://docs.mailpiler.com/piler-ee-fiber/upgrade/#manticore-2500-or-newer-232"&gt;Manticore 25.0.0 or newer&lt;/a&gt;.&lt;/p&gt;
+&lt;h3&gt;Security&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;The participants of an email were escaped by hand in the query that
+  saves its semantic search data: a crafted address could change the
+  query. The values are passed separately from the query now.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Changed&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;The scanner logs an error at startup when Manticore is older than
+  25.0.0.&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    <item>
       <title>[Security] piler-ee 2.3.1</title>
       <link>https://docs.mailpiler.com/piler-ee-fiber/changelog/#231-2026-11-07</link>
       <guid isPermaLink="true">https://docs.mailpiler.com/piler-ee-fiber/changelog/#231-2026-11-07</guid>

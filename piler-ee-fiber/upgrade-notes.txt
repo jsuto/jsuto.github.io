@@ -1,6 +1,9 @@
 # The upgrade notes of the piler-ee releases, the newest first.
 # From https://docs.mailpiler.com/piler-ee-fiber/changelog/, read by piler-upgrade.sh.
 
+## 2.3.2 - 2026-11-11
+Upgrade step: piler needs Manticore 25.0.0 or newer, 29.9.0 is recommended: check the version and upgrade Manticore before piler, see Manticore 25.0.0 or newer (https://docs.mailpiler.com/piler-ee-fiber/upgrade/#manticore-2500-or-newer-232). piler-ui doesn't start with an older Manticore.
+
 ## 2.3.1 - 2026-11-07
 Upgrade step: run the migrations, see Run the migrations (https://docs.mailpiler.com/piler-ee-fiber/upgrade/#run-the-migrations). 033 resets the date formats left over from 1.8.x, see Date formats (https://docs.mailpiler.com/piler-ee-fiber/upgrade/#date-formats-231).
 
