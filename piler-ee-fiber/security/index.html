@@ -447,9 +447,18 @@ so treat it like a password:</p>
   leaked token: revoke it. Behind a reverse proxy, set
   <a href="../reverse-proxy/">TRUSTED_PROXIES</a> or every request comes from the
   proxy's address.</li>
-<li><strong>A leaked admin token is a leaked admin password</strong>: revoke it at once in
-  <strong>Users &gt; API tokens</strong> and check the audit log; every admin API change
-  made with it is there.</li>
+<li><strong>A leaked admin token is a leaked admin password, and more</strong>: a
+  full-scope admin token may add a user with a password and any email
+  addresses, or set the password and role of a local user, then sign in to
+  the web UI as that user. No TOTP stops that: the new password is the
+  attacker's, and a new user has no TOTP. That's what lets scripts
+  provision users; a token can't create tokens, add a passkey or reset a
+  TOTP, though. Give admin tokens the <code>read</code> scope unless a script must
+  change something, and the narrowest allowed addresses (the script's host,
+  not a /16). If one leaks, revoke it at once in <strong>Users &gt; API tokens</strong> and
+  check the audit log: every admin API change made with it is there,
+  <code>user_add</code> and <code>user_update</code> with the token in the details. Remove the
+  users it added and reset the passwords it set.</li>
 <li><strong>Revoke the tokens of a leaving user</strong>, as part of the offboarding.
   Removing a local user, or setting their new password, revokes their
   tokens. A user who logs in through LDAP, IMAP, POP3 or SSO (Entra ID,
