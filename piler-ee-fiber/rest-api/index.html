@@ -268,6 +268,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#personal-api-tokens" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Personal API tokens
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#billing-api" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -297,8 +308,8 @@
 
 <h1 id="rest-api">REST API<a class="headerlink" href="#rest-api" title="Permanent link">#</a></h1>
 <p>This documentation applies to Piler enterprise edition 2.1.0+</p>
-<p>Revision #2</p>
-<p>Publication date: 2026-OCT-28</p>
+<p>Revision #3</p>
+<p>Publication date: 2026-NOV-12</p>
 <p>Piler enterprise support a comprehensive OpenAPI 3.0 with interactive Swagger UI.</p>
 <p>The full OpenAPI 3.0 spec, and the interactive docs is available at <code>/api/docs</code>, see the <a href="https://demo.mailpiler.com/api/docs/index.html">demo site</a> as an example.</p>
 <p>You may use curl to get an access token:</p>
@@ -310,6 +321,41 @@
 <p>From 2.3.3 a user with TOTP adds the current code (or a backup code) as
 <code>"totp_code":"123456"</code>; without it the answer is <code>401 {"error": "totp
 required"}</code>. See <a href="../security/#two-factor-authentication-totp">Two-factor authentication</a>.</p>
+<h2 id="personal-api-tokens">Personal API tokens<a class="headerlink" href="#personal-api-tokens" title="Permanent link">#</a></h2>
+<p>From 2.3.3 a script uses a personal API token instead of a password and TOTP
+code: <code>Authorization: Bearer plp_...</code> on <code>/api/v1</code>. Each user creates their
+own in <strong>Settings &gt; API tokens</strong> (the gear icon), with a name, a scope and
+an expiry. The token is shown once.</p>
+<ul>
+<li><strong>Read only</strong>: searches, downloads, exports and the audit log, nothing
+  that changes the archive, and no admin API.</li>
+<li><strong>Full</strong>: everything the user's role allows.</li>
+</ul>
+<p>A token has no more rights than its user: the role and the groups of a
+local user are read again on every request, and a role change refuses the
+token. No token can create tokens, change the TOTP or passkeys, or change
+the user's settings. The admin, auditor and data officer tokens need the
+addresses they're allowed from (at most a /16, IPv6 /48 each); for a
+regular user they're optional. Behind a reverse proxy see
+<a href="../reverse-proxy/">Reverse proxy and the client's address</a>.</p>
+<p>Removing a local user or setting their new password revokes their tokens.
+The admin sees and revokes every user's tokens in <strong>Users &gt; API tokens</strong>.</p>
+<p><strong>When a directory user leaves:</strong> the token of a user who logs in through
+LDAP, IMAP, POP3 or SSO (Entra ID, Google, SAML, ...) keeps the addresses,
+groups and role of the login that created it until it expires: piler
+doesn't ask the directory between logins, so disabling the account there
+doesn't stop the token. Revoke the tokens of a leaving user in <strong>Users &gt; API
+tokens</strong>, as part of the offboarding. <code>PERSONAL_API_TOKEN_MAX_DAYS</code> limits
+how long a forgotten token works.</p>
+<p>The settings, per tenant: <code>PERSONAL_API_TOKENS</code>, <code>PERSONAL_API_TOKEN_DAYS</code>,
+<code>PERSONAL_API_TOKEN_MAX_DAYS</code> (see <a href="../fiber-ui-config-options/">UI config options</a>).</p>
+<p>The audit log records the creation, the use (once a minute a token), every
+change made with a token, the requests refused because of the address, and
+the revocation. Every write request to the admin API is audited, however
+it's authenticated.</p>
+<pre><code>curl -s -H &quot;Authorization: Bearer plp_...&quot; \
+    &quot;https://archive.example.com/api/v1/search/history&quot;
+</code></pre>
 <h2 id="billing-api">Billing API<a class="headerlink" href="#billing-api" title="Permanent link">#</a></h2>
 <p>From 2.3.0, billing scripts use a read-only API token instead of a login:
 <code>/api/v1/billing/quota</code> and <code>/api/v1/billing/quota/monthly/&lt;tenant id&gt;</code>,

@@ -323,6 +323,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#personal-api-tokens" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Personal API tokens
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#antivirus-and-antispam-support" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -409,8 +420,35 @@ wrong codes as failed logins.</p>
   known, so change it.</li>
 <li>The attempts are counted in Redis. If Redis is down, no TOTP code is
   accepted (the login fails closed).</li>
-<li>Scripts can't type a TOTP code: run them as a user without TOTP, with a
-  strong password and the least role they need.</li>
+<li>Scripts can't type a TOTP code: from 2.3.3 they use a personal API token
+  (below); up to 2.3.2, run them as a user without TOTP, with a strong
+  password and the least role they need.</li>
+</ul>
+<h3 id="personal-api-tokens">Personal API tokens<a class="headerlink" href="#personal-api-tokens" title="Permanent link">#</a></h3>
+<p>From 2.3.3 scripts use personal API tokens instead of a password, see
+<a href="../rest-api/#personal-api-tokens">REST API</a>. A token stands for its user,
+so treat it like a password:</p>
+<ul>
+<li><strong>Give the least scope and the shortest expiry that work</strong>: a read only
+  token can't change anything or reach the admin API.</li>
+<li><strong>Restrict where it's used from</strong>: the tokens of the admin, auditor and
+  data officer roles must have allowed addresses (at most a /16, IPv6 /48
+  each), and a regular user may add them too. A request from elsewhere is
+  refused and logged as <code>api token refused</code> in the audit log, the sign of a
+  leaked token: revoke it. Behind a reverse proxy, set
+  <a href="../reverse-proxy/">TRUSTED_PROXIES</a> or every request comes from the
+  proxy's address.</li>
+<li><strong>A leaked admin token is a leaked admin password</strong>: revoke it at once in
+  <strong>Users &gt; API tokens</strong> and check the audit log; every admin API change
+  made with it is there.</li>
+<li><strong>Revoke the tokens of a leaving user</strong>, as part of the offboarding.
+  Removing a local user, or setting their new password, revokes their
+  tokens. A user who logs in through LDAP, IMAP, POP3 or SSO (Entra ID,
+  Google, SAML, ...) keeps working tokens after the account is disabled in
+  the directory, until they expire: piler doesn't ask the directory between
+  logins. Revoke them in <strong>Users &gt; API tokens</strong>.</li>
+<li><strong>Turn them off</strong> where no scripts are needed: <code>PERSONAL_API_TOKENS=false</code>
+  for the tenant.</li>
 </ul>
 <h3 id="antivirus-and-antispam-support">Antivirus and antispam support<a class="headerlink" href="#antivirus-and-antispam-support" title="Permanent link">#</a></h3>
 <p>Piler expects clean emails only. Spam and other malware occupy valuable disk space and other resources on the piler host, not to mention that it might pose other problems. So you should do the heavy lifting of scanning and filtering of any spam and malware on your MX servers.</p>

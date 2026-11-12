@@ -345,6 +345,39 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#personal_api_tokens" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PERSONAL_API_TOKENS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#personal_api_token_days" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PERSONAL_API_TOKEN_DAYS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#personal_api_token_max_days" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PERSONAL_API_TOKEN_MAX_DAYS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#trusted_proxies" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2881,13 +2914,25 @@
 <p>Default value: <code>:3000</code></p>
 <p>Description: Address and port where the Fiber web application will listen for HTTP requests.</p>
 <hr />
+<h3 id="personal_api_tokens">PERSONAL_API_TOKENS<a class="headerlink" href="#personal_api_tokens" title="Permanent link">#</a></h3>
+<p>Default value: <code>true</code></p>
+<p>Description: The users may create personal API tokens for their scripts (from 2.3.3), see <a href="../rest-api/#personal-api-tokens">REST API</a>. Per tenant.</p>
+<hr />
+<h3 id="personal_api_token_days">PERSONAL_API_TOKEN_DAYS<a class="headerlink" href="#personal_api_token_days" title="Permanent link">#</a></h3>
+<p>Default value: <code>90</code></p>
+<p>Description: The expiry of a new personal API token in days, when the user doesn't choose one. Per tenant.</p>
+<hr />
+<h3 id="personal_api_token_max_days">PERSONAL_API_TOKEN_MAX_DAYS<a class="headerlink" href="#personal_api_token_max_days" title="Permanent link">#</a></h3>
+<p>Default value: <code>365</code></p>
+<p>Description: The longest expiry of a personal API token in days; 0: no limit, a token may never expire. Per tenant. A directory (LDAP, SSO) user's token works until it expires even after the account is disabled in the directory, so keep it short and revoke the tokens of a leaving user.</p>
+<hr />
 <h3 id="trusted_proxies">TRUSTED_PROXIES<a class="headerlink" href="#trusted_proxies" title="Permanent link">#</a></h3>
 <p>Default value: <code>127.0.0.1</code></p>
-<p>Description: Comma-separated list of trusted proxy IP addresses for handling forwarded headers.</p>
+<p>Description: Comma-separated list of the reverse proxies' addresses or networks. Only their forwarding headers count: the client's address (audit log, logs, failed login lockout, rate limiter, the allowed addresses of the API tokens and of /metrics) and the original scheme and host. List the proxy itself, not a whole private range. See <a href="../reverse-proxy/">Reverse proxy and the client's address</a>.</p>
 <hr />
 <h3 id="proxy_header">PROXY_HEADER<a class="headerlink" href="#proxy_header" title="Permanent link">#</a></h3>
 <p>Default value: <code>X-Forwarded-For</code></p>
-<p>Description: HTTP header used to extract the real client IP address when behind a proxy.</p>
+<p>Description: The header with the client's address, set by a proxy in TRUSTED_PROXIES: <code>X-Forwarded-For</code> (the right-most address that isn't a trusted proxy counts) or <code>X-Real-IP</code> (a single address). See <a href="../reverse-proxy/">Reverse proxy and the client's address</a>.</p>
 <hr />
 <h3 id="retriever_socket">RETRIEVER_SOCKET<a class="headerlink" href="#retriever_socket" title="Permanent link">#</a></h3>
 <p>Default value: <code>/var/piler/sockets/retriever.sock</code></p>

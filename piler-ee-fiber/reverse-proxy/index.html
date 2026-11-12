@@ -1,0 +1,539 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://docs.mailpiler.com/piler-ee-fiber/reverse-proxy/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>Reverse proxy and the client's address - piler enterprise 2.x documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.618322db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#reverse-proxy-and-the-clients-address" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="piler enterprise 2.x documentation" class="md-header__button md-logo" aria-label="piler enterprise 2.x documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            piler enterprise 2.x documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Reverse proxy and the client's address
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="piler enterprise 2.x documentation" class="md-nav__button md-logo" aria-label="piler enterprise 2.x documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    piler enterprise 2.x documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://mailpiler.com/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Site
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Settings
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-piler-ui-finds-the-client" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How piler-ui finds the client
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Examples
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nginx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        nginx
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#traefik" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Traefik
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#caddy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Caddy
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#proxy-on-the-host-piler-ui-in-docker" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Proxy on the host, piler-ui in Docker
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#checking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checking
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="reverse-proxy-and-the-clients-address">Reverse proxy and the client's address<a class="headerlink" href="#reverse-proxy-and-the-clients-address" title="Permanent link">#</a></h1>
+<p>piler-ui has no TLS: it runs behind a reverse proxy (nginx, Traefik,
+Caddy, ...) that terminates TLS and forwards the requests over plain HTTP.
+piler-ui then needs two things from the proxy:</p>
+<ul>
+<li>the original scheme and host (<code>X-Forwarded-Proto</code>, <code>X-Forwarded-Host</code>):
+  the CSRF checks, the cookies and the passkeys</li>
+<li>the client's address (<code>X-Forwarded-For</code>, or <code>X-Real-IP</code>): the audit log,
+  the logs, the failed login lockout, the rate limiter, the allowed
+  addresses of the API tokens and of <code>/metrics</code></li>
+</ul>
+<h2 id="settings">Settings<a class="headerlink" href="#settings" title="Permanent link">#</a></h2>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Default</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>TRUSTED_PROXIES</code></td>
+<td><code>127.0.0.1</code></td>
+<td>The proxies' addresses or networks, comma separated. Only their forwarding headers count</td>
+</tr>
+<tr>
+<td><code>PROXY_HEADER</code></td>
+<td><code>X-Forwarded-For</code></td>
+<td>The header with the client's address: <code>X-Forwarded-For</code> or <code>X-Real-IP</code></td>
+</tr>
+</tbody>
+</table>
+<p>List the proxy itself, not a whole private range: any host in
+<code>TRUSTED_PROXIES</code> can pose as the proxy and set the client's address. In
+Docker, give the proxy and piler-ui a network of their own and list that
+network (e.g. <code>172.30.0.0/24</code>), or the proxy's fixed address.</p>
+<p><code>TRUSTED_PROXIES</code> is needed even if the proxy cleans the headers: a request
+that bypasses the proxy (piler-ui's port reachable directly, e.g. published
+on <code>0.0.0.0</code> in Docker) may send any <code>X-Forwarded-For</code>.</p>
+<h2 id="how-piler-ui-finds-the-client">How piler-ui finds the client<a class="headerlink" href="#how-piler-ui-finds-the-client" title="Permanent link">#</a></h2>
+<ul>
+<li>A request without forwarding headers is a direct connection: the client
+  is the connection's address.</li>
+<li>From an address in <code>TRUSTED_PROXIES</code>, the client is the right-most
+  <code>X-Forwarded-For</code> address that isn't a trusted proxy. The left-most is the
+  client's to write: a proxy that appends to the header puts the real
+  address at the end. With <code>PROXY_HEADER=X-Real-IP</code> the header must have a
+  single address.</li>
+<li>Forwarding headers from an address not in <code>TRUSTED_PROXIES</code>, or from a
+  trusted proxy without a usable <code>PROXY_HEADER</code>, are ignored: the audit and
+  the logs get the connection's address, and the API tokens with allowed
+  addresses and <code>/metrics</code> refuse the request. The health page warns about
+  such requests (the counts are per piler-ui process since its start), and
+  about the ranges in <code>TRUSTED_PROXIES</code> wider than /16 (IPv4) or /48 (IPv6).</li>
+</ul>
+<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">#</a></h2>
+<h3 id="nginx">nginx<a class="headerlink" href="#nginx" title="Permanent link">#</a></h3>
+<p>nginx passes the client's <code>X-Forwarded-For</code> through unless it's set.
+Replace it with the connection's address:</p>
+<pre><code class="language-nginx">location / {
+    proxy_pass http://piler-ui:3000;
+    proxy_set_header Host $host;
+    proxy_set_header X-Forwarded-For $remote_addr;
+    proxy_set_header X-Forwarded-Proto $scheme;
+}
+</code></pre>
+<p>The common <code>$proxy_add_x_forwarded_for</code> appends to the client's value; it
+works too, since piler-ui reads the header from the right. Or use
+<code>proxy_set_header X-Real-IP $remote_addr;</code> with <code>PROXY_HEADER=X-Real-IP</code>.</p>
+<h3 id="traefik">Traefik<a class="headerlink" href="#traefik" title="Permanent link">#</a></h3>
+<p>Traefik drops the <code>X-Forwarded-*</code> headers of the clients not in the
+entrypoint's <code>forwardedHeaders.trustedIPs</code> and sets them itself: no extra
+configuration. Don't set <code>forwardedHeaders.insecure</code>.</p>
+<h3 id="caddy">Caddy<a class="headerlink" href="#caddy" title="Permanent link">#</a></h3>
+<p>Caddy 2.5+ ignores the forwarded headers of the clients outside its
+<code>trusted_proxies</code> and sets the real address:</p>
+<pre><code>archive.example.com {
+    reverse_proxy piler-ui:3000
+}
+</code></pre>
+<h2 id="proxy-on-the-host-piler-ui-in-docker">Proxy on the host, piler-ui in Docker<a class="headerlink" href="#proxy-on-the-host-piler-ui-in-docker" title="Permanent link">#</a></h2>
+<p>With the proxy on the host (e.g. Traefik as a service) and piler-ui in a
+container, piler-ui sees the proxy's connections from the gateway of its
+Docker network, through a published port or straight to the container's
+address. That is docker0 (<code>172.17.0.1</code>) only on the default bridge: Docker
+Compose makes a network of its own (<code>172.18.0.1</code>, <code>172.19.0.1</code>, ...). The
+gateway of piler-ui's networks:</p>
+<pre><code class="language-bash">docker inspect piler-ui --format '{{range $n, $c := .NetworkSettings.Networks}}{{$n}} {{$c.Gateway}}{{&quot;\n&quot;}}{{end}}'
+</code></pre>
+<p>List that single address, not the network:</p>
+<pre><code class="language-bash">TRUSTED_PROXIES=127.0.0.1,172.18.0.1
+</code></pre>
+<p>Publish piler-ui's port on the loopback only (<code>127.0.0.1:3000:3000</code>), or
+firewall it: a client connecting to the host's port directly comes from the
+same gateway address, and could set any <code>X-Forwarded-For</code>.</p>
+<h2 id="checking">Checking<a class="headerlink" href="#checking" title="Permanent link">#</a></h2>
+<p>Send a fake header through the proxy:</p>
+<pre><code class="language-bash">curl -H 'X-Forwarded-For: 1.2.3.4' https://archive.example.com/login
+</code></pre>
+<p>The <code>client_ip</code> of the request in the piler-ui log must be your own address,
+not 1.2.3.4 and not the proxy's.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": [], "search": "../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+    
+  </body>
+</html>
