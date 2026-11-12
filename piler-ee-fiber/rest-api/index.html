@@ -307,6 +307,9 @@
     -d &quot;{\&quot;username\&quot;:\&quot;&lt;your username&gt;\&quot;, \&quot;password\&quot;:\&quot;&lt;your password&gt;\&quot;}&quot; \
     &quot;https://archive.example.com/auth/login&quot; | jq -r '.access_token' )&quot;
 </code></pre>
+<p>From 2.3.3 a user with TOTP adds the current code (or a backup code) as
+<code>"totp_code":"123456"</code>; without it the answer is <code>401 {"error": "totp
+required"}</code>. See <a href="../security/#two-factor-authentication-totp">Two-factor authentication</a>.</p>
 <h2 id="billing-api">Billing API<a class="headerlink" href="#billing-api" title="Permanent link">#</a></h2>
 <p>From 2.3.0, billing scripts use a read-only API token instead of a login:
 <code>/api/v1/billing/quota</code> and <code>/api/v1/billing/quota/monthly/&lt;tenant id&gt;</code>,

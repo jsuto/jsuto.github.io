@@ -312,6 +312,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#two-factor-authentication-totp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Two-factor authentication (TOTP)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#antivirus-and-antispam-support" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -341,8 +352,8 @@
 
 <h1 id="securing-the-archive">Securing the archive<a class="headerlink" href="#securing-the-archive" title="Permanent link">#</a></h1>
 <p>This documentation applies to Piler enterprise edition 2.0.0</p>
-<p>Revision #1</p>
-<p>Publication date: 2025-SEP-23</p>
+<p>Revision #2</p>
+<p>Publication date: 2026-NOV-12</p>
 <h3 id="single-node-layout">Single node layout<a class="headerlink" href="#single-node-layout" title="Permanent link">#</a></h3>
 <p>The piler node should be accessed on port 443 from the Internet. Port 25 should be limited to your mail servers, also see the SMTP ACL feature below.</p>
 <h3 id="multiple-nodes-layout">Multiple nodes layout<a class="headerlink" href="#multiple-nodes-layout" title="Permanent link">#</a></h3>
@@ -366,6 +377,41 @@
 <p>By default the installer creates a key and a self-signed certificate (/etc/piler/piler.pem) to support STARTTLS providing encrypted message transfer between the smtp client and the Piler smtp server. You are free to fix piler.pem to use your signed CA.</p>
 <h3 id="smtp-acl-lists">SMTP ACL lists<a class="headerlink" href="#smtp-acl-lists" title="Permanent link">#</a></h3>
 <p>Piler supports an smtp acl list similar to postscreen. See <a href="https://mailpiler.com/blog/smtp-acl-list/index.html">https://mailpiler.com/blog/smtp-acl-list</a> for more.</p>
+<h3 id="two-factor-authentication-totp">Two-factor authentication (TOTP)<a class="headerlink" href="#two-factor-authentication-totp" title="Permanent link">#</a></h3>
+<p>A user may protect the local login with a TOTP code of an authenticator app
+(<strong>Settings &gt; Authenticator settings</strong>: <strong>Refresh QR code</strong>, scan it in the app, then <strong>Enabled</strong>; <code>ENABLE_AUTHENTICATOR</code>, on by default). The
+login also accepts one of the user's backup codes, each of them once.</p>
+<p>The TOTP setting belongs to the account, not to an address: a user with
+more addresses (e.g. <code>alice@</code> and <code>a.smith@</code>) is asked for the same code
+whichever of them is typed at the login. The same goes for the profile
+assigned to the user and the other personal settings. Up to 2.3.2 they
+were stored per address, so a login with another address skipped the
+TOTP; the 2.3.3 migration (035) merges them into one row per account,
+keeping the one with TOTP, and deletes the backup codes of the others.</p>
+<p>From 2.3.3 the REST login (<code>POST /auth/login</code>) asks a TOTP user for the
+code too: it answers <code>401 {"error": "totp required"}</code> to the password
+alone (only after a correct password), and issues the tokens when the
+request has the code as <code>totp_code</code>. See <a href="../rest-api/">REST API</a>.</p>
+<p><strong>Brute force protection</strong>: a code is accepted once, and 5 codes without a
+success lock the TOTP of the user, on the web login and the REST login
+alike. While it's locked every code is refused, a valid one too, with the
+same answer as a wrong code. The lock ends when 15 minutes pass without
+an attempt. The first refusal is in the audit log as <code>totp_locked</code>, the
+wrong codes as failed logins.</p>
+<p>The trade-offs:</p>
+<ul>
+<li>The lock is per user (all of their addresses), not per IP: more IPs or
+  addresses don't help an attacker, but the attempts of anyone count for
+  the user.</li>
+<li>Each attempt restarts the 15 minutes, so somebody who keeps trying keeps
+  the user locked out. Only somebody who has the password gets to the TOTP
+  step: a <code>totp_locked</code> event in the audit log means the password is
+  known, so change it.</li>
+<li>The attempts are counted in Redis. If Redis is down, no TOTP code is
+  accepted (the login fails closed).</li>
+<li>Scripts can't type a TOTP code: run them as a user without TOTP, with a
+  strong password and the least role they need.</li>
+</ul>
 <h3 id="antivirus-and-antispam-support">Antivirus and antispam support<a class="headerlink" href="#antivirus-and-antispam-support" title="Permanent link">#</a></h3>
 <p>Piler expects clean emails only. Spam and other malware occupy valuable disk space and other resources on the piler host, not to mention that it might pose other problems. So you should do the heavy lifting of scanning and filtering of any spam and malware on your MX servers.</p>
 <p>However, Piler is able to use the result of any antispam application, provided that it sets a specific email header to mark spam emails. If you used SpamAssassin, then you may use the following setting in /var/piler/.env, then piler can recognize when it receives a spam:</p>
