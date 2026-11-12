@@ -456,9 +456,10 @@ so treat it like a password:</p>
   TOTP, though. Give admin tokens the <code>read</code> scope unless a script must
   change something, and the narrowest allowed addresses (the script's host,
   not a /16). If one leaks, revoke it at once in <strong>Users &gt; API tokens</strong> and
-  check the audit log: every admin API change made with it is there,
-  <code>user_add</code> and <code>user_update</code> with the token in the details. Remove the
-  users it added and reset the passwords it set.</li>
+  check the audit log: every admin API change made with it is an <code>admin
+  api</code> entry with the token in the details, next to the <code>user_create</code> or
+  <code>user_update</code> entry of the change. Remove the users it added and reset
+  the passwords it set.</li>
 <li><strong>Revoke the tokens of a leaving user</strong>, as part of the offboarding.
   Removing a local user, or setting their new password, revokes their
   tokens. A user who logs in through LDAP, IMAP, POP3 or SSO (Entra ID,
