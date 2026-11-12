@@ -418,12 +418,21 @@ wrong codes as failed logins.</p>
   the user locked out. Only somebody who has the password gets to the TOTP
   step: a <code>totp_locked</code> event in the audit log means the password is
   known, so change it.</li>
-<li>The attempts are counted in Redis. If Redis is down, no TOTP code is
-  accepted (the login fails closed).</li>
-<li>Scripts can't type a TOTP code: from 2.3.3 they use a personal API token
-  (below); up to 2.3.2, run them as a user without TOTP, with a strong
-  password and the least role they need.</li>
 </ul>
+<p><strong>Lost authenticator</strong>: a user who lost the phone and the backup codes
+asks an admin. From 2.3.3 <strong>Users</strong> has a <strong>Reset TOTP</strong>
+button for the users with TOTP (or <code>POST /api/v1/admin/user/totp-reset</code>
+with the <code>uid</code>; not with a personal API token). It turns TOTP off, removes the secret and the backup
+codes, and lifts the lock: the user signs in with the password, then
+turns TOTP on again with a new QR code. The reset is in the audit log as
+<code>totp_reset</code>. Before resetting, make sure the request comes from the user
+(e.g. a call back on a known number): whoever has the password and gets
+the TOTP reset can sign in.
+- The attempts are counted in Redis. If Redis is down, no TOTP code is
+  accepted (the login fails closed).
+- Scripts can't type a TOTP code: from 2.3.3 they use a personal API token
+  (below); up to 2.3.2, run them as a user without TOTP, with a strong
+  password and the least role they need.</p>
 <h3 id="personal-api-tokens">Personal API tokens<a class="headerlink" href="#personal-api-tokens" title="Permanent link">#</a></h3>
 <p>From 2.3.3 scripts use personal API tokens instead of a password, see
 <a href="../rest-api/#personal-api-tokens">REST API</a>. A token stands for its user,
