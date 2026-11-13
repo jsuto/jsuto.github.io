@@ -1144,6 +1144,10 @@ in the index: reindex them again after the upgrade.</p>
   the date as it is in the email is its tooltip.</li>
 <li><code>advanced_audit_search</code> in <code>DISABLED_FEATURES_AUDITOR</code> hides the
   advanced search form of the audit log.</li>
+<li><code>LOG_ENVELOPE_ADDRESSES=true</code> (piler daemon): the envelope sender and
+  recipients of every email are logged at info level, without debug
+  logging, see
+  <a href="../envelope-recipients/#logging-the-envelope-addresses">Logging the envelope addresses</a>.</li>
 </ul>
 <h3 id="changed">Changed<a class="headerlink" href="#changed" title="Permanent link">#</a></h3>
 <ul>
@@ -1155,6 +1159,11 @@ in the index: reindex them again after the upgrade.</p>
   or in <code>TIMEZONE</code> for a user without one, like the message preview. The
   search results and the audit dashboard used the timezone of the
   browser, the removal requests UTC.</li>
+<li>The warnings about a duplicate whose envelope recipients are not added
+  have the envelope sender and the recipients that were not added. With
+  <code>LOG_LEVEL=debug</code> the envelope addresses of every email are logged.</li>
+<li>The piler daemon no longer logs "No files found, sleeping for 5
+  seconds..." for each idle worker at debug level.</li>
 </ul>
 <h3 id="fixed">Fixed<a class="headerlink" href="#fixed" title="Permanent link">#</a></h3>
 <ul>

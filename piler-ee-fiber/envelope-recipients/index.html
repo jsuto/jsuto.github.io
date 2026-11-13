@@ -373,6 +373,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#logging-the-envelope-addresses" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Logging the envelope addresses
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -731,6 +742,33 @@ sender_bcc_maps = pcre:/etc/postfix/bcc_sender_map
 <pre><code>/var/piler/tmp/0/customer1-4F2A91C2 has 2 envelope recipients
 </code></pre>
 <p>The Bcc recipient should now find the email in the archive when logged in.</p>
+<h3 id="logging-the-envelope-addresses">Logging the envelope addresses<a class="headerlink" href="#logging-the-envelope-addresses" title="Permanent link">#</a></h3>
+<p>The piler daemon removes the envelope file once the email is processed. From 2.3.3 it can log the envelope sender and recipients (the first 100) of every email, next to its file name:</p>
+<pre><code>worker=0, /var/piler/tmp/0/customer1-4F2A91C2, envelope from=&quot;boss@customer1.com&quot;, envelope recipients=&quot;anna@customer1.com&quot;, &quot;ben@customer1.com&quot;
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Setting of the piler daemon</th>
+<th>The line is logged</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>neither (default)</td>
+<td>no</td>
+</tr>
+<tr>
+<td><code>LOG_LEVEL=debug</code></td>
+<td>at debug level, with many other debug lines for each email</td>
+</tr>
+<tr>
+<td><code>LOG_ENVELOPE_ADDRESSES=true</code></td>
+<td>at info level, without the other debug lines</td>
+</tr>
+</tbody>
+</table>
+<p>The log then has the email addresses of every archived email: keep it accordingly. The warnings about recipients that are not added (see <a href="#what-happens-in-each-case">below</a>) have the addresses whatever these settings are.</p>
 <h2 id="what-to-expect">What to expect<a class="headerlink" href="#what-to-expect" title="Permanent link">#</a></h2>
 <ul>
 <li><strong>Envelope recipients are recipients.</strong> They can find the email in the archive, and they count for the exclusion rules, the retention rules and the direction (internal, inbound, outbound) of the email, like <code>To</code> and <code>Cc</code> recipients do.</li>
@@ -840,9 +878,9 @@ sender_bcc_maps = pcre:/etc/postfix/bcc_sender_map
 </tr>
 </tbody>
 </table>
-<p>When recipients are not added, the piler daemon logs a warning with the <code>Message-ID</code>:</p>
-<pre><code>the duplicate arrived 25h0m0s after the archived message, its envelope recipients are not added
-the duplicate differs from the archived message, its envelope recipients are not added
+<p>When recipients are not added, the piler daemon logs a warning with the <code>Message-ID</code>. From 2.3.3 the warning also has the envelope sender of the copy and its recipients that were not added, i.e. those who can't find the email (the first 1000). The recipients the archived email already has are not listed:</p>
+<pre><code>the duplicate arrived 25h0m0s after the archived message, its envelope recipients are not added: envelope from=&quot;boss@customer1.com&quot;, not added=&quot;anna@customer1.com&quot;
+the duplicate differs from the archived message, its envelope recipients are not added: envelope from=&quot;boss@customer1.com&quot;, not added=&quot;carl@customer1.com&quot;, &quot;dora@customer1.com&quot;
 </code></pre>
 <p>The later copy itself is never stored. The archive keeps the first copy of an email.</p>
 <h2 id="emails-with-the-same-message-id-but-different-content">Emails with the same Message-ID but different content<a class="headerlink" href="#emails-with-the-same-message-id-but-different-content" title="Permanent link">#</a></h2>
@@ -995,7 +1033,7 @@ rcpt ben@customer1.com
 <p>The rules above are deliberately strict. An archive that adds a recipient to an email too easily gives access to the wrong person, or records a recipient the email never had. The price is that in some cases a real recipient is not added.</p>
 <p><strong>A copy that was modified on the way is not recognized.</strong> If something changes the body or the headers listed above between two copies (a mailing list footer, a disclaimer added by a gateway, a <code>[SPAM]</code> tag in the subject, a re-encoded body), the later copy is a different email as far as piler can tell. Its envelope recipients are not added. Make sure such modifications happen either before the email is copied to the archive for every recipient, or not at all. With <code>ARCHIVE_MESSAGE_VARIANTS=true</code> such a copy is archived as an email of its own instead, see <a href="#emails-with-the-same-message-id-but-different-content">above</a>.</p>
 <p><strong>A copy that arrives after the merge window is not merged.</strong> If your mail server may hold a copy for longer than a day, raise <code>ENVELOPE_MERGE_WINDOW_HOURS</code>. A longer window is more forgiving for late deliveries and gives more room for the replay described below.</p>
-<p><strong>Rejected copies are not kept.</strong> A copy whose recipients are not added is removed like any other duplicate. The warning in the log is the only trace, so watch for it after enabling the feature.</p>
+<p><strong>Rejected copies are not kept.</strong> A copy whose recipients are not added is removed like any other duplicate. The warning in the log is the only trace (it names the recipients that were not added), so watch for it after enabling the feature.</p>
 <p><strong>An email can be sent again within the merge window.</strong> Someone who has an email can send it again unchanged, to an address of their choice, while the merge window is open. That address is then recorded as a recipient of the original email. The sender of such a copy learns nothing new, they already had the email, and they could have forwarded it. But the archive then lists a recipient the original sender did not address. The merge window limits this to the first day, it does not prevent it.</p>
 <p><strong>Emails with an invalid or missing <code>Date</code> header.</strong> Piler then takes the date from the first <code>Received</code> header, which differs between copies. For these emails only a byte for byte identical copy adds its recipients.</p>
 <p><strong>Emails archived before the upgrade.</strong> For an email archived before migration <code>027_message_identity.sql</code> was run, only a byte for byte identical copy adds its recipients. Copies arrive shortly after each other, so this only matters for the first hours after the upgrade.</p>
@@ -1006,8 +1044,8 @@ rcpt ben@customer1.com
 <p><strong>A Bcc recipient can't find an email.</strong> Check in this order:</p>
 <ol>
 <li>The mail server sent the copy to the encoded address: look for <code>customer1+anna=customer1.com@archive.example.com</code> in its log.</li>
-<li>The piler daemon saw the envelope file: <code>... has N envelope recipients</code> in its log.</li>
-<li>There is no warning for the email: search the log for <code>envelope recipients are not added</code> and for the <code>Message-ID</code> of the email.</li>
+<li>The piler daemon saw the envelope file: <code>... has N envelope recipients</code> in its log. With <code>LOG_ENVELOPE_ADDRESSES=true</code> the next line lists the addresses, see <a href="#logging-the-envelope-addresses">Logging the envelope addresses</a>.</li>
+<li>There is no warning for the email: search the log for <code>envelope recipients are not added</code> and for the <code>Message-ID</code> of the email, or for the address of the recipient.</li>
 <li>The email arrived more than once, and the copy of this recipient came after the merge window or was modified on the way, see above.</li>
 </ol>
 <p><strong><code>Skipped N invalid recipients</code>.</strong> The envelope file had recipients that are not valid addresses. Check the maps of the mail server, most likely the encoding of an address went wrong.</p>
