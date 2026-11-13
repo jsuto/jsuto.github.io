@@ -1,6 +1,10 @@
 # The upgrade notes of the piler-ee releases, the newest first.
 # From https://docs.mailpiler.com/piler-ee-fiber/changelog/, read by piler-upgrade.sh.
 
+## 2.3.3 - 2026-11-13
+Upgrade step: run the migrations before starting piler-ui, see Run the migrations (https://docs.mailpiler.com/piler-ee-fiber/upgrade/#run-the-migrations). 034 to 037 are new: 034 the user's pending days, 035 the settings per account, 036 the personal API tokens, 037 the saved searches per account. The login reads the columns of 034 and 035: until they have run, every login fails.
+Upgrade notes: behind a reverse proxy, set `TRUSTED_PROXIES` to the proxy's address: piler-ui takes the client's address from the forwarding headers of a trusted proxy only, and without it the audit log, the login lockout and the rate limiter see the proxy, see Reverse proxy and the client's address (https://docs.mailpiler.com/piler-ee-fiber/reverse-proxy/). The Docker examples of piler-examples set it. A script logging in to the REST API as a TOTP user needs the TOTP code now: use a personal API token instead. Messages reindexed with 2.3.2 or earlier may have lost their first header in the index: reindex them again after the upgrade.
+
 ## 2.3.2 - 2026-11-11
 Upgrade step: piler needs Manticore 25.0.0 or newer, 29.9.0 is recommended: check the version and upgrade Manticore before piler, see Manticore 25.0.0 or newer (https://docs.mailpiler.com/piler-ee-fiber/upgrade/#manticore-2500-or-newer-232). piler-ui doesn't start with an older Manticore.
 

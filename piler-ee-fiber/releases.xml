@@ -6,6 +6,128 @@
     <description>Releases of piler-ee, piler-smtp and the Scanner</description>
     <atom:link href="https://docs.mailpiler.com/piler-ee-fiber/releases.xml" rel="self" type="application/rss+xml"/>
     <item>
+      <title>[Security] piler-ee 2.3.3</title>
+      <link>https://docs.mailpiler.com/piler-ee-fiber/changelog/#233-2026-11-13</link>
+      <guid isPermaLink="true">https://docs.mailpiler.com/piler-ee-fiber/changelog/#233-2026-11-13</guid>
+      <pubDate>Fri, 13 Nov 2026 00:00:00 +0000</pubDate>
+      <description>&lt;p&gt;&lt;strong&gt;Upgrade step:&lt;/strong&gt; run the migrations before starting piler-ui, see
+&lt;a href="https://docs.mailpiler.com/piler-ee-fiber/upgrade/#run-the-migrations"&gt;Run the migrations&lt;/a&gt;. 034 to 037 are new:
+034 the user's pending days, 035 the settings per account, 036 the
+personal API tokens, 037 the saved searches per account. The login reads
+the columns of 034 and 035: until they have run, every login fails.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Upgrade notes:&lt;/strong&gt; behind a reverse proxy, set &lt;code&gt;TRUSTED_PROXIES&lt;/code&gt; to the
+proxy's address: piler-ui takes the client's address from the forwarding
+headers of a trusted proxy only, and without it the audit log, the login
+lockout and the rate limiter see the proxy, see
+&lt;a href="https://docs.mailpiler.com/piler-ee-fiber/reverse-proxy/"&gt;Reverse proxy and the client's address&lt;/a&gt;. The Docker
+examples of piler-examples set it. A script logging in to the REST API as
+a TOTP user needs the TOTP code now: use a personal API token instead.
+Messages reindexed with 2.3.2 or earlier may have lost their first header
+in the index: reindex them again after the upgrade.&lt;/p&gt;
+&lt;h3&gt;Security&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;A user with TOTP could log in with the password only when piler couldn't
+  read their settings, e.g. after a database error or with a migration not
+  run. The login fails then.&lt;/li&gt;
+&lt;li&gt;TOTP could be turned on before the QR code was created. The code asked
+  at the login could then be computed by anyone with the password. TOTP
+  needs the QR code now, and such a code is refused; the admin can reset
+  the TOTP of an affected user (see Added).&lt;/li&gt;
+&lt;li&gt;The REST API login gave tokens to a TOTP user for the password only. It
+  asks for the TOTP code too now.&lt;/li&gt;
+&lt;li&gt;Nothing limited the guesses of a TOTP code. After 5 wrong codes every
+  code of the user is refused for 15 minutes, and the audit log records it.&lt;/li&gt;
+&lt;li&gt;A user with more addresses set up TOTP for the address they logged in
+  with: another address of theirs logged in without it. The settings, the
+  TOTP and the backup codes belong to the account now, whichever address
+  it logs in with (migration 035).&lt;/li&gt;
+&lt;li&gt;The settings of the user returned the TOTP secret, and the backup codes
+  to a token too: with the password, enough to get past the TOTP. The
+  secret is never sent now, the backup codes only to the user's session.&lt;/li&gt;
+&lt;li&gt;Behind a reverse proxy, the client could set the address piler
+  recorded, in the audit log, the login lockout and the rate limiter.
+  piler-ui uses the address the trusted proxy saw now, see
+  &lt;code&gt;TRUSTED_PROXIES&lt;/code&gt; in the upgrade notes.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Added&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Personal API tokens for scripts, instead of a password and a TOTP code:
+  each user creates their own in the settings (the gear icon), read only
+  or full, with an expiry; the admin, auditor and data officer tokens need
+  the addresses they're allowed from. The admin sees and revokes every
+  user's tokens in &lt;strong&gt;Users &amp;gt; API tokens&lt;/strong&gt;. See
+  &lt;a href="https://docs.mailpiler.com/piler-ee-fiber/rest-api/#personal-api-tokens"&gt;Personal API tokens&lt;/a&gt;. Migration 036.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Reset TOTP&lt;/strong&gt; in &lt;strong&gt;Users&lt;/strong&gt;, for a user who lost the authenticator and
+  the backup codes, see
+  &lt;a href="https://docs.mailpiler.com/piler-ee-fiber/security/#two-factor-authentication-totp"&gt;Two-factor authentication&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;Every write request to the admin API is audited, however it's
+  authenticated, refused ones too.&lt;/li&gt;
+&lt;li&gt;The health page warns about forwarded requests from an address not in
+  &lt;code&gt;TRUSTED_PROXIES&lt;/code&gt; and about a trusted proxy without usable forwarding
+  headers.&lt;/li&gt;
+&lt;li&gt;The days without a reply before a conversation is pending can be set per
+  tenant and by each user in their settings, besides &lt;code&gt;PENDING_DAYS&lt;/code&gt;
+  (migration 034).&lt;/li&gt;
+&lt;li&gt;The message preview shows the date of the email in the user's timezone;
+  the date as it is in the email is its tooltip.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;advanced_audit_search&lt;/code&gt; in &lt;code&gt;DISABLED_FEATURES_AUDITOR&lt;/code&gt; hides the
+  advanced search form of the audit log.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;LOG_ENVELOPE_ADDRESSES=true&lt;/code&gt; (piler daemon): the envelope sender and
+  recipients of every email are logged at info level, without debug
+  logging, see
+  &lt;a href="https://docs.mailpiler.com/piler-ee-fiber/envelope-recipients/#logging-the-envelope-addresses"&gt;Logging the envelope addresses&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Changed&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;The saved searches belong to the account, not to the address of the
+  login (migration 037).&lt;/li&gt;
+&lt;li&gt;The backup codes are made when TOTP is turned on, not at the next login.&lt;/li&gt;
+&lt;li&gt;The dates of the search results, of the removal requests (data officer)
+  and of the audit dashboard are in the timezone of the user's settings,
+  or in &lt;code&gt;TIMEZONE&lt;/code&gt; for a user without one, like the message preview. The
+  search results and the audit dashboard used the timezone of the
+  browser, the removal requests UTC.&lt;/li&gt;
+&lt;li&gt;The warnings about a duplicate whose envelope recipients are not added
+  have the envelope sender and the recipients that were not added. With
+  &lt;code&gt;LOG_LEVEL=debug&lt;/code&gt; the envelope addresses of every email are logged.&lt;/li&gt;
+&lt;li&gt;The piler daemon no longer logs "No files found, sleeping for 5
+  seconds..." for each idle worker at debug level.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Fixed&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;The pending icon of the search results disappeared when a reply came
+  from an email the user can't see, and showed with the pending
+  conversations turned off for the user.&lt;/li&gt;
+&lt;li&gt;Saving the settings failed silently: the settings stay open and show
+  the reason now.&lt;/li&gt;
+&lt;li&gt;The reindex failed on, or lost the first header of, messages with some
+  numbers of attachments, as did the headers, the body tip, the journal
+  and the AI views of the UI (and the scanner, see Scanner 1.3.5).&lt;/li&gt;
+&lt;li&gt;Piler embedded in OX (Open-Xchange): a language or timezone change in OX
+  reached only the page. The settings (the gear icon) and the date of the
+  message preview kept the previous ones, until the next login. Piler
+  saves them to the user's settings now, and the open results and preview
+  follow the new timezone.&lt;/li&gt;
+&lt;li&gt;Piler embedded in OX: the data officer and the audit pages didn't follow
+  a language or timezone change in OX, only the search page did.&lt;/li&gt;
+&lt;li&gt;EAM 0.1.9 (&lt;code&gt;sutoj/piler-eam:0.1.9&lt;/code&gt;): every timezone but UTC was refused,
+  so the archive didn't open from OX with another timezone. The language
+  and timezone of a user without them in the token are &lt;code&gt;EAM_LANGUAGE&lt;/code&gt;
+  (default &lt;code&gt;en&lt;/code&gt;) and &lt;code&gt;EAM_TIMEZONE&lt;/code&gt; (default &lt;code&gt;UTC&lt;/code&gt;).&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    <item>
+      <title>Scanner 1.3.5</title>
+      <link>https://docs.mailpiler.com/piler-ee-fiber/changelog-scanner/#135-2026-11-13</link>
+      <guid isPermaLink="true">https://docs.mailpiler.com/piler-ee-fiber/changelog-scanner/#135-2026-11-13</guid>
+      <pubDate>Fri, 13 Nov 2026 00:00:00 +0000</pubDate>
+      <description>&lt;h3&gt;Fixed&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;The scanner read messages with some numbers of attachments with a
+  missing or broken first header.&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    <item>
       <title>[Security] piler-ee 2.3.2</title>
       <link>https://docs.mailpiler.com/piler-ee-fiber/changelog/#232-2026-11-11</link>
       <guid isPermaLink="true">https://docs.mailpiler.com/piler-ee-fiber/changelog/#232-2026-11-11</guid>
