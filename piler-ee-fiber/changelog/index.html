@@ -1100,6 +1100,15 @@ upgrade of piler-ui, the scanner and the other tools.</p>
   scanner, export, reindex and the other tools stop at startup with an
   error for <code>socket</code> and for any other unknown <code>RETRIEVER_METHOD</code>.</li>
 <li>The systemd and Docker examples no longer mention the socket.</li>
+<li>AI assistants over MCP: <code>/mcp</code> on the UI serves the archive read only to
+  clients such as Claude Code, Claude Desktop and VS Code, with a personal API
+  token of the user. Off by default (<code>MCP_ENABLED</code>), see
+  <a href="../mcp/">AI assistants over MCP</a>.</li>
+<li><code>AUDITOR_MCP_ACCESS</code> (default <code>false</code>): the auditors and the restricted
+  auditors use <code>/mcp</code> only when it's on. Their tokens get 403 there until then.</li>
+<li>The auditors' <code>longest_threads</code> tool and <code>GET /api/v1/stats/threads</code>: the
+  conversations with the most emails. On a multi-node master the counts are
+  approximate.</li>
 </ul>
 <h2 id="233-2026-11-13">2.3.3 - 2026-11-13<a class="headerlink" href="#233-2026-11-13" title="Permanent link">#</a></h2>
 <p><strong>Upgrade step:</strong> run the migrations before starting piler-ui, see

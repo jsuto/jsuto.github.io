@@ -378,6 +378,61 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#mcp_enabled" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MCP_ENABLED
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#auditor_mcp_access" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        AUDITOR_MCP_ACCESS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mcp_max_results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MCP_MAX_RESULTS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mcp_max_body_chars" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MCP_MAX_BODY_CHARS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mcp_max_attachment_chars" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MCP_MAX_ATTACHMENT_CHARS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#trusted_proxies" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2913,6 +2968,26 @@
 <h3 id="personal_api_token_max_days">PERSONAL_API_TOKEN_MAX_DAYS<a class="headerlink" href="#personal_api_token_max_days" title="Permanent link">#</a></h3>
 <p>Default value: <code>365</code></p>
 <p>Description: The longest expiry of a personal API token in days; 0: no limit, a token may never expire. Per tenant. A directory (LDAP, SSO) user's token works until it expires even after the account is disabled in the directory, so keep it short and revoke the tokens of a leaving user.</p>
+<hr />
+<h3 id="mcp_enabled">MCP_ENABLED<a class="headerlink" href="#mcp_enabled" title="Permanent link">#</a></h3>
+<p>Default value: <code>false</code></p>
+<p>Description: Serves the archive to AI assistants at <code>/mcp</code>, read only, with the personal API token of the user (from 2.4.0), see <a href="../mcp/">AI assistants over MCP</a>. Requires <code>PERSONAL_API_TOKENS</code>. Per tenant.</p>
+<hr />
+<h3 id="auditor_mcp_access">AUDITOR_MCP_ACCESS<a class="headerlink" href="#auditor_mcp_access" title="Permanent link">#</a></h3>
+<p>Default value: <code>false</code></p>
+<p>Description: Lets the auditors and the restricted auditors use <code>/mcp</code>. Off, their tokens get 403 there. The auditors see every email, and the assistant sends what it reads to its provider, so turn it on only knowingly, see <a href="../mcp/">AI assistants over MCP</a>. Changing it is audited. Per tenant.</p>
+<hr />
+<h3 id="mcp_max_results">MCP_MAX_RESULTS<a class="headerlink" href="#mcp_max_results" title="Permanent link">#</a></h3>
+<p>Default value: <code>50</code></p>
+<p>Description: The most emails a search of an AI assistant returns in one call. Per tenant.</p>
+<hr />
+<h3 id="mcp_max_body_chars">MCP_MAX_BODY_CHARS<a class="headerlink" href="#mcp_max_body_chars" title="Permanent link">#</a></h3>
+<p>Default value: <code>20000</code></p>
+<p>Description: The most characters of an email body an AI assistant gets in one call; the rest comes with the next call. Per tenant.</p>
+<hr />
+<h3 id="mcp_max_attachment_chars">MCP_MAX_ATTACHMENT_CHARS<a class="headerlink" href="#mcp_max_attachment_chars" title="Permanent link">#</a></h3>
+<p>Default value: <code>50000</code></p>
+<p>Description: The most characters of the text of an attachment an AI assistant gets in one call. Per tenant.</p>
 <hr />
 <h3 id="trusted_proxies">TRUSTED_PROXIES<a class="headerlink" href="#trusted_proxies" title="Permanent link">#</a></h3>
 <p>Default value: <code>127.0.0.1</code></p>
