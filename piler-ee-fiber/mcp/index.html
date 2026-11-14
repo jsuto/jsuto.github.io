@@ -391,6 +391,12 @@ assistant.</p>
 <li>To keep MCP from a role, add <code>mcp</code> to <code>DISABLED_FEATURES_USER</code> or
    <code>DISABLED_FEATURES_AUDITOR</code>.</li>
 </ol>
+<p>With the defaults, <code>MCP_ENABLED</code> and <code>AUDITOR_MCP_ACCESS</code> are the only
+switches: <code>MCP_ENABLED=true</code> allows every regular user, and admins are
+covered by it too, while <code>AUDITOR_MCP_ACCESS=true</code> allows the auditors (it
+has no effect unless <code>MCP_ENABLED</code> is true). The disabled-feature keys in
+step 3 are an extra override per role, for example MCP for the auditors
+only, with <code>mcp</code> in <code>DISABLED_FEATURES_USER</code>.</p>
 <p>See <a href="../fiber-ui-config-options/">Configuration options</a> for the limits
 (<code>MCP_MAX_RESULTS</code>, <code>MCP_MAX_BODY_CHARS</code>, <code>MCP_MAX_ATTACHMENT_CHARS</code>).</p>
 <h2 id="connecting-a-client">Connecting a client<a class="headerlink" href="#connecting-a-client" title="Permanent link">#</a></h2>
