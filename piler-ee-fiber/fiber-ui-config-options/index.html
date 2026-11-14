@@ -400,17 +400,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#retriever_socket" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        RETRIEVER_SOCKET
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#mysql_user" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2888,10 +2877,9 @@
 </ul>
 </li>
 <li><code>s3</code>: Retrieve from Amazon S3 or compatible storage</li>
-<li><code>socket</code>: Use the retrieverd daemon through a UNIX domain socket.
-  <strong>Not recommended for new installations, and it will be phased out in a
-  future release.</strong> Existing installations should move to <code>direct</code> with a
-  read-only store, or to <code>s3</code>.</li>
+<li>Any other value, <code>socket</code> included, stops piler-ui and the other tools at
+  startup. The <code>socket</code> option (retrieverd) was removed in 2.4.0, see
+  <a href="../upgrade/#retrieverd-removed-240">Retrieverd removed</a>.</li>
 </ul>
 <hr />
 <h3 id="log_level">LOG_LEVEL<a class="headerlink" href="#log_level" title="Permanent link">#</a></h3>
@@ -2933,11 +2921,6 @@
 <h3 id="proxy_header">PROXY_HEADER<a class="headerlink" href="#proxy_header" title="Permanent link">#</a></h3>
 <p>Default value: <code>X-Forwarded-For</code></p>
 <p>Description: The header with the client's address, set by a proxy in TRUSTED_PROXIES: <code>X-Forwarded-For</code> (the right-most address that isn't a trusted proxy counts) or <code>X-Real-IP</code> (a single address). See <a href="../reverse-proxy/">Reverse proxy and the client's address</a>.</p>
-<hr />
-<h3 id="retriever_socket">RETRIEVER_SOCKET<a class="headerlink" href="#retriever_socket" title="Permanent link">#</a></h3>
-<p>Default value: <code>/var/piler/sockets/retriever.sock</code></p>
-<p>Description: Path to the UNIX domain socket used when <code>RETRIEVER_METHOD=socket</code>
-(retrieverd, not recommended and to be phased out, see <code>RETRIEVER_METHOD</code>).</p>
 <hr />
 <h3 id="mysql_user">MYSQL_USER<a class="headerlink" href="#mysql_user" title="Permanent link">#</a></h3>
 <p>Default value: <code>piler</code></p>

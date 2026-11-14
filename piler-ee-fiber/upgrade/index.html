@@ -291,6 +291,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#retrieverd-removed-240" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Retrieverd removed (2.4.0)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#manticore-2500-or-newer-232" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -505,6 +516,22 @@ runs the migrations a new version adds (piler-examples of 2026-11-02 or later,
 <code>contrib/installer/upgrade-from-1.8.4.sh</code> (<code>upgrade.sh</code> before 2.3.1) is
 the upgrade of a 1.8.4 install, run once, see
 <a href="../upgrade-from-1.x/">Upgrading from 1.x</a>.</p>
+<h3 id="retrieverd-removed-240">Retrieverd removed (2.4.0)<a class="headerlink" href="#retrieverd-removed-240" title="Permanent link">#</a></h3>
+<p>Only for installations with <code>RETRIEVER_METHOD=socket</code>, which read the emails
+through the retrieverd daemon. The daemon and <code>RETRIEVER_SOCKET</code> are
+removed. Until <code>RETRIEVER_METHOD</code> is <code>direct</code> or <code>s3</code>, piler-ui, the scanner
+and the other tools stop at startup with an error. Before the upgrade:</p>
+<ul>
+<li>Set <code>RETRIEVER_METHOD=direct</code> with the store mounted read-only: in Docker,
+  mount the store volumes with <code>:ro</code> into piler-ui and the scanner. On a
+  host, the <code>piler-ui.service</code> unit has <code>ReadOnlyPaths=</code> for the store, see
+  <a href="../fiber-ui-config-options/#retriever_method">RETRIEVER_METHOD</a>.</li>
+<li>Or set <code>RETRIEVER_METHOD=s3</code> if the emails are in S3-compatible storage,
+  see <a href="../s3-storage/">S3 storage</a>.</li>
+<li>Remove <code>RETRIEVER_SOCKET</code> from the configuration. Stop and disable any
+  retrieverd service you installed yourself: piler-ui and the scanner no
+  longer use its socket.</li>
+</ul>
 <h3 id="manticore-2500-or-newer-232">Manticore 25.0.0 or newer (2.3.2)<a class="headerlink" href="#manticore-2500-or-newer-232" title="Permanent link">#</a></h3>
 <p>From 2.3.2 piler needs <strong>Manticore 25.0.0 or newer</strong>, on every node that
 runs piler-ui; 29.9.0, the version piler is tested with, is recommended.
