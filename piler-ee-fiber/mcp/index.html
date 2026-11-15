@@ -469,10 +469,15 @@ header in their MCP server settings.</p>
   An assistant should call it first when it matters what the user may see.</p>
 </li>
 <li>
-<p><strong>Search</strong> the emails: free text, the labels (<code>from:</code>, <code>to:</code>, <code>subject:</code>,
-  <code>a:</code> for an attachment type, <code>tag:</code>, <code>cat:</code>, <code>d:</code>, <code>date1:</code>, <code>date2:</code>), and
-  the date range. <code>search_attachments</code> lists the emails with their
-  attachments.</p>
+<p><strong>Search</strong> the emails: free text or labels, never both (<code>from:</code>, <code>to:</code>,
+  <code>subject:</code>, <code>a:</code> for an attachment type, <code>tag:</code>, <code>cat:</code>, <code>d:</code>, <code>size:</code>,
+  <code>date1:</code>, <code>date2:</code>), and the date range. Each result has the date, the sender,
+  the subject and its attachments (the first 20 names; the count is always
+  given). An auditor also gets the recipients of each (the first 10, with the
+  count); the other users don't, as the recipients include the Bcc ones. A label
+  such as <code>a:</code> takes one word: write <code>subject: rechnung a: pdf</code>, not
+  <code>a:pdf rechnung</code>, which is refused. <code>search_attachments</code> lists the emails with
+  their attachments.</p>
 </li>
 <li><strong>Read</strong> an email: the headers, the body (long bodies come in parts, see
   <code>body_offset</code>), the attachments. <code>get_attachment_text</code> reads the text of a
