@@ -1107,16 +1107,17 @@ upgrade of piler-ui, the scanner and the other tools.</p>
 <li><code>AUDITOR_MCP_ACCESS</code> (default <code>false</code>): the auditors and the restricted
   auditors use <code>/mcp</code> only when it's on. Their tokens get 403 there until then.</li>
 <li>The auditors' MCP safeguards: a read budget of <code>MCP_AUDITOR_READ_BUDGET</code>
-  (200) reads per <code>MCP_AUDITOR_READ_WINDOW</code> (1h) for each auditor token, where
-  a read is an email or an attachment text. Over it, the tool refuses until
+  (200) reads per <code>MCP_AUDITOR_READ_WINDOW</code> (1h, at least 1m) for each auditor,
+  shared by their tokens, where a read is an email, its headers, a thread or an
+  attachment text. Over it, the tool refuses until
   the window ends. The audit has a <code>mcp bulk read</code> entry at 80% and when the
   budget runs out. A new auditor token lasts at most
   <code>PERSONAL_API_TOKEN_AUDITOR_MAX_DAYS</code> (7) days, and an auditor's token that
   wasn't used for <code>PERSONAL_API_TOKEN_AUDITOR_IDLE_DAYS</code> (14) days stops
   working. See <a href="../mcp/">AI assistants over MCP</a>.</li>
-<li>The text of an email and of an attachment in an MCP answer is wrapped in
-  <code>[BEGIN UNTRUSTED ARCHIVED TEXT n]</code> and <code>[END UNTRUSTED ARCHIVED TEXT n]</code>
-  lines, and the assistant is told that the text between them is data.</li>
+<li>The server instructions tell the assistant that archived email is untrusted
+  data and may contain instructions meant to manipulate it, and that it must
+  report such instructions and continue the user's task.</li>
 <li>Search results show a thread badge when the user may see another email of
   the thread, without a count: the search no longer counts every email of a
   long thread, which was slow. On a multi-node setup the master asks every

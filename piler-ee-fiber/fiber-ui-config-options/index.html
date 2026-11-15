@@ -3023,11 +3023,11 @@
 <hr />
 <h3 id="mcp_auditor_read_budget">MCP_AUDITOR_READ_BUDGET<a class="headerlink" href="#mcp_auditor_read_budget" title="Permanent link">#</a></h3>
 <p>Default value: <code>200</code></p>
-<p>Description: How many emails an auditor's token may read through <code>/mcp</code> in one window (see <code>MCP_AUDITOR_READ_WINDOW</code>): each <code>get_message</code> and each <code>get_attachment_text</code> call is one read. Over it, the tool refuses until the window ends. The audit has a <code>mcp bulk read</code> entry at 80% and when the budget is used up. 0: no budget. Per tenant. Regular users have no budget.</p>
+<p>Description: How many reads an auditor may make through <code>/mcp</code> in one window (see <code>MCP_AUDITOR_READ_WINDOW</code>). A read is one call of <code>get_message</code>, <code>get_headers</code>, <code>get_thread</code> or <code>get_attachment_text</code> that succeeds; a failed call doesn't count. The budget is per user: all the tokens of an auditor share it. Over it, the tool refuses until the window ends. The audit has a <code>mcp bulk read</code> entry at 80% and when the budget is used up. 0: no budget. Per tenant. Regular users have no budget.</p>
 <hr />
 <h3 id="mcp_auditor_read_window">MCP_AUDITOR_READ_WINDOW<a class="headerlink" href="#mcp_auditor_read_window" title="Permanent link">#</a></h3>
 <p>Default value: <code>1h</code></p>
-<p>Description: The length of the window of <code>MCP_AUDITOR_READ_BUDGET</code>, a Go duration (<code>30m</code>, <code>2h</code>). The count starts again at the start of each window. Per tenant.</p>
+<p>Description: The length of the window of <code>MCP_AUDITOR_READ_BUDGET</code>, a Go duration (<code>1h</code>, <code>2h</code>). The window is fixed: the count starts again at the start of each one, so an auditor can read the budget at the end of one window and again at the start of the next. The shortest window is one minute: a shorter value is raised to one minute, and piler-ui logs a warning once. Per tenant.</p>
 <hr />
 <h3 id="personal_api_token_auditor_max_days">PERSONAL_API_TOKEN_AUDITOR_MAX_DAYS<a class="headerlink" href="#personal_api_token_auditor_max_days" title="Permanent link">#</a></h3>
 <p>Default value: <code>7</code></p>

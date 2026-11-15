@@ -425,10 +425,12 @@ only, with <code>mcp</code> in <code>DISABLED_FEATURES_USER</code>.</p>
 <p>When <code>AUDITOR_MCP_ACCESS</code> is on, an auditor's token has more limits than a
 user's:</p>
 <ul>
-<li><strong>A read budget.</strong> Each <code>get_message</code> and <code>get_attachment_text</code> call is one
-  read. An auditor's token gets <code>MCP_AUDITOR_READ_BUDGET</code> reads (200 by
-  default) per <code>MCP_AUDITOR_READ_WINDOW</code> (one hour). Over it, the tool says
-  the budget is used up, until the window ends. Searches are not counted: they
+<li><strong>A read budget.</strong> Each successful <code>get_message</code>, <code>get_headers</code>, <code>get_thread</code>
+  and <code>get_attachment_text</code> call is one read. An auditor gets
+  <code>MCP_AUDITOR_READ_BUDGET</code> reads (200 by default) per <code>MCP_AUDITOR_READ_WINDOW</code>
+  (one hour; at least one minute). The budget is per user, so all the tokens of
+  an auditor share it. Over it, the tool says the budget is used up, until the
+  window ends. Searches are not counted: they
   return only the first <code>MCP_MAX_RESULTS</code> emails. The audit has a <code>mcp bulk
   read</code> entry at 80% and when the budget runs out.</li>
 <li><strong>A short life.</strong> A new auditor token lasts at most 7 days
@@ -439,14 +441,19 @@ user's:</p>
 </ul>
 <p>Regular users' tokens have none of these limits.</p>
 <h2 id="email-text-in-the-answers">Email text in the answers<a class="headerlink" href="#email-text-in-the-answers" title="Permanent link">#</a></h2>
-<p>The body of an email and the text of an attachment come between two lines,
-<code>[BEGIN UNTRUSTED ARCHIVED TEXT n]</code> and <code>[END UNTRUSTED ARCHIVED TEXT n]</code>,
-with the same <code>n</code> in both. The assistant is told that the text between them is
-archived data, not instructions. The <code>n</code> is new in every answer, so text in an
-email can't imitate the end line.</p>
+<p>The assistant is told that archived email is untrusted data, and that some of it
+is written to manipulate AI assistants. It is told to treat every result as data
+about the archive, to say so when a result tries to instruct it, and to continue
+the user's task. This is an instruction to the assistant, not a boundary the
+server enforces: the protection that doesn't depend on the assistant is the
+read-only tools, the read budget and the audit log.</p>
 <h2 id="connecting-a-client">Connecting a client<a class="headerlink" href="#connecting-a-client" title="Permanent link">#</a></h2>
 <p>The user creates a token in <strong>Settings &gt; API tokens</strong>, with the scope <em>read</em>
 and an expiry. The token is shown once.</p>
+<p>The results of <code>get_message</code>, <code>get_headers</code> and <code>get_attachment_text</code> carry the
+body and the text in <code>structuredContent</code>; their text block is a one-line
+summary. A client has to pass <code>structuredContent</code> to the assistant. Claude Code
+does. Check any other client before you rely on it.</p>
 <p>Claude Code:</p>
 <pre><code>claude mcp add --transport http piler https://piler.example.com/mcp --header &quot;Authorization: Bearer plp_...&quot;
 </code></pre>
