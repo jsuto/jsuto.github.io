@@ -417,6 +417,11 @@ other address is refused.</p>
 <td><code>db_connections_utilization_percent</code>, <code>http_requests_by_status_class</code>, <code>http_request_duration_seconds</code></td>
 <td></td>
 </tr>
+<tr>
+<td>AI assistant calls fail or slow down (only with <code>MCP_ENABLED</code>)</td>
+<td><code>piler_mcp_tool_calls_total{tool,result="error"}</code>, <code>piler_mcp_tool_duration_seconds</code></td>
+<td>The calls of <a href="mcp.md">AI assistants over MCP</a> per tool. A burst of errors from one tool is a failing search or a client looping on a bad argument</td>
+</tr>
 </tbody>
 </table>
 <p>The piler daemon and s3uploader write their metrics to the Redis of

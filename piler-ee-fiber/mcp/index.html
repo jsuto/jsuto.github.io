@@ -290,6 +290,28 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#auditors-safeguards" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Auditors' safeguards
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#email-text-in-the-answers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Email text in the answers
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#connecting-a-client" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -399,6 +421,29 @@ step 3 are an extra override per role, for example MCP for the auditors
 only, with <code>mcp</code> in <code>DISABLED_FEATURES_USER</code>.</p>
 <p>See <a href="../fiber-ui-config-options/">Configuration options</a> for the limits
 (<code>MCP_MAX_RESULTS</code>, <code>MCP_MAX_BODY_CHARS</code>, <code>MCP_MAX_ATTACHMENT_CHARS</code>).</p>
+<h2 id="auditors-safeguards">Auditors' safeguards<a class="headerlink" href="#auditors-safeguards" title="Permanent link">#</a></h2>
+<p>When <code>AUDITOR_MCP_ACCESS</code> is on, an auditor's token has more limits than a
+user's:</p>
+<ul>
+<li><strong>A read budget.</strong> Each <code>get_message</code> and <code>get_attachment_text</code> call is one
+  read. An auditor's token gets <code>MCP_AUDITOR_READ_BUDGET</code> reads (200 by
+  default) per <code>MCP_AUDITOR_READ_WINDOW</code> (one hour). Over it, the tool says
+  the budget is used up, until the window ends. Searches are not counted: they
+  return only the first <code>MCP_MAX_RESULTS</code> emails. The audit has a <code>mcp bulk
+  read</code> entry at 80% and when the budget runs out.</li>
+<li><strong>A short life.</strong> A new auditor token lasts at most 7 days
+  (<code>PERSONAL_API_TOKEN_AUDITOR_MAX_DAYS</code>), whatever the tenant's maximum.</li>
+<li><strong>An idle limit.</strong> An auditor's token that wasn't used for 14 days
+  (<code>PERSONAL_API_TOKEN_AUDITOR_IDLE_DAYS</code>) stops working. The user creates a
+  new one.</li>
+</ul>
+<p>Regular users' tokens have none of these limits.</p>
+<h2 id="email-text-in-the-answers">Email text in the answers<a class="headerlink" href="#email-text-in-the-answers" title="Permanent link">#</a></h2>
+<p>The body of an email and the text of an attachment come between two lines,
+<code>[BEGIN UNTRUSTED ARCHIVED TEXT n]</code> and <code>[END UNTRUSTED ARCHIVED TEXT n]</code>,
+with the same <code>n</code> in both. The assistant is told that the text between them is
+archived data, not instructions. The <code>n</code> is new in every answer, so text in an
+email can't imitate the end line.</p>
 <h2 id="connecting-a-client">Connecting a client<a class="headerlink" href="#connecting-a-client" title="Permanent link">#</a></h2>
 <p>The user creates a token in <strong>Settings &gt; API tokens</strong>, with the scope <em>read</em>
 and an expiry. The token is shown once.</p>
@@ -431,21 +476,21 @@ header in their MCP server settings.</p>
 <li><strong>Count</strong> the emails the user may see with <code>list_categories</code> and
   <code>list_tags</code> (the user's own tags).</li>
 <li><strong>Statistics for the auditors:</strong> <code>archive_stats</code> (the number of emails, the
-  date range, the top senders and recipients and their domains) and
-  <code>longest_threads</code> (the conversations with the most emails, with the newest
-  email of each).</li>
+  date range, the top senders and recipients and their domains).</li>
 </ul>
 <p>The archive has no folders. An assistant answers a question about folders
 with that, not with a search.</p>
 <p>On a multi-node setup the master asks the workers for everything the tools
 need, with the user's token; the answers are the same as on a single node.
-The top lists of <code>archive_stats</code> and the counts of <code>longest_threads</code> are
-approximate there: a thread split between workers can count short.</p>
+The top lists of <code>archive_stats</code> are approximate there.</p>
 <h2 id="what-is-logged">What is logged<a class="headerlink" href="#what-is-logged" title="Permanent link">#</a></h2>
 <p>Each tool call is an <code>mcp tool</code> entry in the audit log, with the tool, its
 arguments, the token and the client address. The REST calls behind it are
 logged too (<code>api token read</code>, <code>search</code>, <code>view</code>). The log shows what was read,
 not whether a person or the assistant chose it.</p>
+<p>For the monitoring, each node counts the tool calls in <code>piler_mcp_tool_calls_total</code>
+by <code>tool</code> and <code>result</code> (<code>ok</code> or <code>error</code>), and their time in
+<code>piler_mcp_tool_duration_seconds</code>. See <a href="../hosting/monitoring/">monitoring</a>.</p>
 <h2 id="limits">Limits<a class="headerlink" href="#limits" title="Permanent link">#</a></h2>
 <ul>
 <li>A search returns at most <code>MCP_MAX_RESULTS</code> emails a page (50 by default).</li>

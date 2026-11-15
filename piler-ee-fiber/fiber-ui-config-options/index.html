@@ -400,6 +400,50 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#mcp_auditor_read_budget" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MCP_AUDITOR_READ_BUDGET
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mcp_auditor_read_window" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MCP_AUDITOR_READ_WINDOW
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#personal_api_token_auditor_max_days" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PERSONAL_API_TOKEN_AUDITOR_MAX_DAYS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#personal_api_token_auditor_idle_days" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PERSONAL_API_TOKEN_AUDITOR_IDLE_DAYS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#mcp_max_results" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2976,6 +3020,22 @@
 <h3 id="auditor_mcp_access">AUDITOR_MCP_ACCESS<a class="headerlink" href="#auditor_mcp_access" title="Permanent link">#</a></h3>
 <p>Default value: <code>false</code></p>
 <p>Description: Lets the auditors and the restricted auditors use <code>/mcp</code>. Off, their tokens get 403 there. The auditors see every email, and the assistant sends what it reads to its provider, so turn it on only knowingly, see <a href="../mcp/">AI assistants over MCP</a>. Changing it is audited. Per tenant.</p>
+<hr />
+<h3 id="mcp_auditor_read_budget">MCP_AUDITOR_READ_BUDGET<a class="headerlink" href="#mcp_auditor_read_budget" title="Permanent link">#</a></h3>
+<p>Default value: <code>200</code></p>
+<p>Description: How many emails an auditor's token may read through <code>/mcp</code> in one window (see <code>MCP_AUDITOR_READ_WINDOW</code>): each <code>get_message</code> and each <code>get_attachment_text</code> call is one read. Over it, the tool refuses until the window ends. The audit has a <code>mcp bulk read</code> entry at 80% and when the budget is used up. 0: no budget. Per tenant. Regular users have no budget.</p>
+<hr />
+<h3 id="mcp_auditor_read_window">MCP_AUDITOR_READ_WINDOW<a class="headerlink" href="#mcp_auditor_read_window" title="Permanent link">#</a></h3>
+<p>Default value: <code>1h</code></p>
+<p>Description: The length of the window of <code>MCP_AUDITOR_READ_BUDGET</code>, a Go duration (<code>30m</code>, <code>2h</code>). The count starts again at the start of each window. Per tenant.</p>
+<hr />
+<h3 id="personal_api_token_auditor_max_days">PERSONAL_API_TOKEN_AUDITOR_MAX_DAYS<a class="headerlink" href="#personal_api_token_auditor_max_days" title="Permanent link">#</a></h3>
+<p>Default value: <code>7</code></p>
+<p>Description: The longest expiry in days of a new personal API token of an auditor or a restricted auditor, when the tenant's maximum is longer. 0: the tenant's maximum only. Tokens created before the change keep their expiry. Per tenant.</p>
+<hr />
+<h3 id="personal_api_token_auditor_idle_days">PERSONAL_API_TOKEN_AUDITOR_IDLE_DAYS<a class="headerlink" href="#personal_api_token_auditor_idle_days" title="Permanent link">#</a></h3>
+<p>Default value: <code>14</code></p>
+<p>Description: An auditor's token that wasn't used for this many days (since its last use, or its creation) stops working; the user creates a new one. 0: no idle limit. Regular users' tokens have none. Per tenant.</p>
 <hr />
 <h3 id="mcp_max_results">MCP_MAX_RESULTS<a class="headerlink" href="#mcp_max_results" title="Permanent link">#</a></h3>
 <p>Default value: <code>50</code></p>
