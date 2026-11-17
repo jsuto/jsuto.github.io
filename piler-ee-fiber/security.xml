@@ -6,6 +6,81 @@
     <description>Releases of piler-ee, piler-smtp and the Scanner with security fixes</description>
     <atom:link href="https://docs.mailpiler.com/piler-ee-fiber/security.xml" rel="self" type="application/rss+xml"/>
     <item>
+      <title>[Security] piler-smtp 1.1.10</title>
+      <link>https://docs.mailpiler.com/piler-ee-fiber/changelog-piler-smtp/#1110-2026-11-17</link>
+      <guid isPermaLink="true">https://docs.mailpiler.com/piler-ee-fiber/changelog-piler-smtp/#1110-2026-11-17</guid>
+      <pubDate>Tue, 17 Nov 2026 00:00:00 +0000</pubDate>
+      <description>&lt;h3&gt;Changed&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;smtp_access_list&lt;/code&gt; is on by default.&lt;/strong&gt; The default &lt;code&gt;piler.conf&lt;/code&gt; and the
+  Docker image set &lt;code&gt;smtp_access_list=1&lt;/code&gt;: only the clients listed in
+  &lt;code&gt;/etc/piler/smtp.acl&lt;/code&gt; may connect, and until that file has a &lt;code&gt;permit&lt;/code&gt;
+  rule every connection is refused. New installs need an &lt;code&gt;smtp.acl&lt;/code&gt;: copy
+  &lt;code&gt;smtp.acl.dist&lt;/code&gt; to &lt;code&gt;smtp.acl&lt;/code&gt; and list your mail servers. With the Docker
+  image, mount it at &lt;code&gt;/etc/piler/smtp.acl&lt;/code&gt;. Existing &lt;code&gt;piler.conf&lt;/code&gt; files are
+  not changed, but a &lt;code&gt;piler.conf&lt;/code&gt; without the &lt;code&gt;smtp_access_list&lt;/code&gt; key now means 1 too.
+  Such a server refuses every connection until &lt;code&gt;smtp.acl&lt;/code&gt; exists.
+  The ACL checks IPv4 addresses only: a client connecting over native IPv6 is
+  refused, and no rule can permit it. IPv4 clients are checked as usual, also
+  when the server listens on &lt;code&gt;::&lt;/code&gt;. If IPv6 clients have to connect, set
+  &lt;code&gt;smtp_access_list=0&lt;/code&gt; and protect the port another way.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;smtp_max_connections_per_ip&lt;/code&gt; defaults to 100, also when the key is
+  missing from &lt;code&gt;piler.conf&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;max_connections&lt;/code&gt; is enforced, it was ignored before. The total number of
+  connections is limited to it (1 to 1024, default 1024); beyond it a client
+  gets 451. A value outside that range is refused at startup.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;BDAT&lt;/code&gt; gets &lt;code&gt;502&lt;/code&gt; unless &lt;code&gt;enable_chunking=1&lt;/code&gt;, also when a client sends it
+  without the CHUNKING extension. The connection is closed after the &lt;code&gt;502&lt;/code&gt;,
+  because the chunk data that follows is not processed as commands.&lt;/li&gt;
+&lt;li&gt;An empty message (DATA with just the dot, or &lt;code&gt;BDAT 0 LAST&lt;/code&gt;) gets &lt;code&gt;554&lt;/code&gt; and
+  is not archived. It used to be stored as a zero-byte file.&lt;/li&gt;
+&lt;li&gt;A DATA message is limited to &lt;code&gt;max_message_size&lt;/code&gt; exactly. It used to be
+  accepted up to about 2 MB more.&lt;/li&gt;
+&lt;li&gt;A startup error exits with status 1 (it used to exit with 0), so systemd
+  (&lt;code&gt;Restart=on-failure&lt;/code&gt;) restarts the service.&lt;/li&gt;
+&lt;li&gt;A negative &lt;code&gt;epoll_timeout_ms&lt;/code&gt; is refused at startup.&lt;/li&gt;
+&lt;li&gt;Log lines escape every byte that is not printable ASCII, so client data
+  (e.g. an escape sequence in &lt;code&gt;MAIL FROM&lt;/code&gt;) can't break the JSON. Non-ASCII
+  addresses appear as &lt;code&gt;\u00XX&lt;/code&gt; escapes in the logs.&lt;/li&gt;
+&lt;li&gt;A reload (SIGHUP) with an unreadable &lt;code&gt;smtp.acl&lt;/code&gt; keeps the rules in use.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Added&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;smtp_max_session_time&lt;/code&gt; (seconds, default 0 = no limit): a connection that
+  lasts longer than this, however busy the client is, gets &lt;code&gt;421&lt;/code&gt; and is
+  closed. A client that didn't get &lt;code&gt;250&lt;/code&gt; for its last email retries it.&lt;/li&gt;
+&lt;li&gt;The tenant probes (&lt;code&gt;Invalid tenant&lt;/code&gt;) are logged with the client address.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Security&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;The memory limit &lt;code&gt;max_smtp_memory&lt;/code&gt; also covers the DATA buffer and the
+  session's read buffer, not only BDAT. A client can't use up the memory of
+  the process by sending a large message.&lt;/li&gt;
+&lt;li&gt;The idle timeout (&lt;code&gt;smtp_timeout&lt;/code&gt;) counts from the last complete line, not
+  from the last byte. A client trickling an unfinished line is disconnected.&lt;/li&gt;
+&lt;li&gt;piler-smtp refuses to run as &lt;code&gt;root&lt;/code&gt; (&lt;code&gt;username=root&lt;/code&gt; or a user in group
+  &lt;code&gt;root&lt;/code&gt;), and clears the supplementary groups when it drops privileges.&lt;/li&gt;
+&lt;li&gt;Client-initiated TLS renegotiation is disabled.&lt;/li&gt;
+&lt;li&gt;The licence file decoder checks the size of every decoded value.&lt;/li&gt;
+&lt;li&gt;Linux binaries are built as PIE with RELRO and BIND_NOW.&lt;/li&gt;
+&lt;li&gt;The systemd unit sets &lt;code&gt;LimitNOFILE=4096&lt;/code&gt;, and piler-smtp raises its own
+  descriptor limit. When it runs out of descriptors, new connections are
+  paused for a moment instead of spinning the event loop.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Fixed&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;A reply the socket doesn't take at once is queued and sent later, instead
+  of being dropped. A dropped &lt;code&gt;250&lt;/code&gt; made the sending server resend the
+  email, which was then archived twice. A client that doesn't read its
+  replies is disconnected once 64 KB of them are waiting.&lt;/li&gt;
+&lt;li&gt;The staging file of an email is never truncated, and the stored email
+  is never replaced by a new one of the same name (&lt;code&gt;link()&lt;/code&gt; instead of
+  &lt;code&gt;rename()&lt;/code&gt;, random names from the kernel).&lt;/li&gt;
+&lt;li&gt;A recipient refused with &lt;code&gt;452&lt;/code&gt; (too many envelope recipients) no longer
+  leaves its tenant on the transaction.&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    <item>
       <title>[Security] piler-ee 2.3.3</title>
       <link>https://docs.mailpiler.com/piler-ee-fiber/changelog/#233-2026-11-13</link>
       <guid isPermaLink="true">https://docs.mailpiler.com/piler-ee-fiber/changelog/#233-2026-11-13</guid>
