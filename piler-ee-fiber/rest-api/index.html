@@ -333,20 +333,23 @@ an expiry. The token is shown once.</p>
 </ul>
 <p>A token has no more rights than its user: the role and the groups of a
 local user are read again on every request, and a role change refuses the
-token. No token can create tokens, change the TOTP or passkeys, or change
-the user's settings. The admin, auditor and data officer tokens need the
+token. No token can create tokens, change the TOTP or passkeys, change
+the user's settings, or add a user or set a user's password or role through
+the admin API (from 2.4.0). The admin, auditor and data officer tokens need the
 addresses they're allowed from (at most a /16, IPv6 /48 each); for a
 regular user they're optional. Behind a reverse proxy see
 <a href="../reverse-proxy/">Reverse proxy and the client's address</a>.</p>
 <p>Removing a local user or setting their new password revokes their tokens.
 The admin sees and revokes every user's tokens in <strong>Users &gt; API tokens</strong>.</p>
-<p><strong>When a directory user leaves:</strong> the token of a user who logs in through
-LDAP, IMAP, POP3 or SSO (Entra ID, Google, SAML, ...) keeps the addresses,
-groups and role of the login that created it until it expires: piler
-doesn't ask the directory between logins, so disabling the account there
-doesn't stop the token. Revoke the tokens of a leaving user in <strong>Users &gt; API
-tokens</strong>, as part of the offboarding. <code>PERSONAL_API_TOKEN_MAX_DAYS</code> limits
-how long a forgotten token works.</p>
+<p><strong>When a directory user leaves or changes role:</strong> the token of a user who
+logs in through LDAP, IMAP, POP3 or SSO (Entra ID, Google, SAML, ...) keeps
+the addresses, groups and role of the login that created it until it
+expires. Piler doesn't ask the directory between logins, so disabling the
+account there, or moving it to another group, doesn't stop the token, and
+a new login doesn't revoke it. Revoke the tokens of a leaving user, or of a
+user whose role or groups change, in <strong>Users &gt; API tokens</strong>, as part of the
+offboarding. <code>PERSONAL_API_TOKEN_MAX_DAYS</code> limits how long a forgotten token
+works.</p>
 <p>The settings, per tenant: <code>PERSONAL_API_TOKENS</code>, <code>PERSONAL_API_TOKEN_DAYS</code>,
 <code>PERSONAL_API_TOKEN_MAX_DAYS</code> (see <a href="../fiber-ui-config-options/">UI config options</a>).</p>
 <p>The audit log records the creation, the use (once a minute a token), every

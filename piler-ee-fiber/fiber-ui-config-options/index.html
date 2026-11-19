@@ -3011,7 +3011,7 @@
 <hr />
 <h3 id="personal_api_token_max_days">PERSONAL_API_TOKEN_MAX_DAYS<a class="headerlink" href="#personal_api_token_max_days" title="Permanent link">#</a></h3>
 <p>Default value: <code>365</code></p>
-<p>Description: The longest expiry of a personal API token in days; 0: no limit, a token may never expire. Per tenant. A directory (LDAP, SSO) user's token works until it expires even after the account is disabled in the directory, so keep it short and revoke the tokens of a leaving user.</p>
+<p>Description: The longest expiry of a personal API token in days; 0: no limit, a token may never expire. Per tenant. A directory (LDAP, SSO) user's token works until it expires even after the account is disabled in the directory, or moved to other groups there, so keep it short and revoke the tokens of a leaving user or of a user whose role or groups change. See <a href="../security/#personal-api-tokens">Security</a>.</p>
 <hr />
 <h3 id="mcp_enabled">MCP_ENABLED<a class="headerlink" href="#mcp_enabled" title="Permanent link">#</a></h3>
 <p>Default value: <code>false</code></p>
