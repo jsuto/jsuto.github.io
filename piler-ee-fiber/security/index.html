@@ -334,6 +334,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#managing-users" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Managing users
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#antivirus-and-antispam-support" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -403,6 +414,12 @@ keeping the one with TOTP, and deletes the backup codes of the others.</p>
 code too: it answers <code>401 {"error": "totp required"}</code> to the password
 alone (only after a correct password), and issues the tokens when the
 request has the code as <code>totp_code</code>. See <a href="../rest-api/">REST API</a>.</p>
+<p><strong>The password is a session too</strong>: a <code>POST /auth/login</code> with the password of
+an admin without TOTP returns an access token, and the admin API takes it
+like any admin's: it can add and change users and set their passwords. The
+rules of the personal API tokens don't apply to it. So for an admin account,
+TOTP is what keeps a leaked password from managing users: turn it on for
+every admin account.</p>
 <p><strong>Brute force protection</strong>: a code is accepted once, and 5 codes without a
 success lock the TOTP of the user, on the web login and the REST login
 alike. While it's locked every code is refused, a valid one too, with the
@@ -474,6 +491,20 @@ so treat it like a password:</p>
 <li><strong>Turn them off</strong> where no scripts are needed: <code>PERSONAL_API_TOKENS=false</code>
   for the tenant.</li>
 </ul>
+<h3 id="managing-users">Managing users<a class="headerlink" href="#managing-users" title="Permanent link">#</a></h3>
+<p>With a directory (LDAP, AD, Entra ID, Google, SAML or OAuth), create, change
+and remove the users in the directory. piler takes a user from the directory
+at their login, and the local user table has no row for them. Scripts that
+manage users belong in the directory's own tooling.</p>
+<p>Local accounts are created and changed in the UI. A personal API token can't
+add a user, set a password or set the admin role from 2.4.0. A script can
+still do it with an access token from <code>POST /auth/login</code>: for an admin
+without TOTP, with the password alone; for an admin with TOTP, only if the
+script sends the <code>totp_code</code>, which means the script holds the
+authenticator secret or the backup codes. Either way the script holds a
+credential that can manage users, so store it as carefully as a token and
+accept that risk knowingly. Keep the installer's admin account
+(<code>admin@local</code>) for emergencies, with a strong password and TOTP.</p>
 <h3 id="antivirus-and-antispam-support">Antivirus and antispam support<a class="headerlink" href="#antivirus-and-antispam-support" title="Permanent link">#</a></h3>
 <p>Piler expects clean emails only. Spam and other malware occupy valuable disk space and other resources on the piler host, not to mention that it might pose other problems. So you should do the heavy lifting of scanning and filtering of any spam and malware on your MX servers.</p>
 <p>However, Piler is able to use the result of any antispam application, provided that it sets a specific email header to mark spam emails. If you used SpamAssassin, then you may use the following setting in /var/piler/.env, then piler can recognize when it receives a spam:</p>
