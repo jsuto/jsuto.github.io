@@ -3716,7 +3716,7 @@ DISABLED_FEATURES_AUDITOR=restore,tag,delete,smart_insights,similar_emails
 <hr />
 <h3 id="header_line_to_hide">HEADER_LINE_TO_HIDE<a class="headerlink" href="#header_line_to_hide" title="Permanent link">#</a></h3>
 <p>Default value: <code>""</code></p>
-<p>Description: Comma separated Email header lines (without the colon!) to hide in the UI.</p>
+<p>Description: Comma separated Email header lines (without the colon!) to hide in the UI. Auditors see every header. The restore and the user export hide them too, for the users other than auditors. The export command (cmd/export) and eDiscovery get the message as archived.</p>
 <h2 id="example-header_line_to_hidereceiveddelivered-to">Example: HEADER_LINE_TO_HIDE=Received,Delivered-To<a class="headerlink" href="#example-header_line_to_hidereceiveddelivered-to" title="Permanent link">#</a></h2>
 <h3 id="spam_header_line">SPAM_HEADER_LINE<a class="headerlink" href="#spam_header_line" title="Permanent link">#</a></h3>
 <p>Default value: <code>X-Spam-Flag: YES</code></p>

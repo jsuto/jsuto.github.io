@@ -552,8 +552,23 @@ the piler container), for each tenant whose <code>enable_purge</code> is on in
   the tenant on that worker. A worker without the tenant's row doesn't purge
   it.</li>
 <li><strong>Turned off</strong> (<code>enable_purge</code> is 0): the emails stay in the archive after
-  their retention date, until it's turned on again.</li>
+  their retention date, until it's turned on again. Until then:</li>
+<li>an email that was indexed before its retention date ended stays
+    searchable and viewable;</li>
+<li>an email whose retention had already ended when it was archived is
+    stored, but not indexed, so it isn't searchable;</li>
+<li>an export and a reindex leave out the emails past their retention, and
+    a removed email stays out of them as before.</li>
 </ul>
+<p>So if you keep the mail of a tenant without purging it, set the retention
+  long enough for it to be kept: e.g. 36500 days (100 years) for the default
+  retention, or in a retention rule. The default retention is 10 years on a
+  new install.</p>
+<p>To see what a purge would remove, run it with <code>-dry-run</code>. The dry run lists
+only the stored skeleton files (<code>.m</code>) of the emails it would purge. A purge
+without <code>-dry-run</code> also removes the stored attachment files of those emails,
+unless another email that is kept still has the same attachment. The dry
+run marks nothing in the database, so it doesn't list the attachments.</p>
 <h2 id="related-pages">Related pages<a class="headerlink" href="#related-pages" title="Permanent link">#</a></h2>
 <ul>
 <li><a href="../gobd/#retention-periods">GoBD</a>: retention periods in Germany</li>

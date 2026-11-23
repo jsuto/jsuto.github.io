@@ -1143,6 +1143,21 @@ upgrade of piler-ui, the scanner and the other tools.</p>
   long thread, which was slow. On a multi-node setup the master asks every
   worker. The messages of a thread (<code>get_thread</code>) are the whole thread on a
   multi-node setup, not only the part on the worker that holds the email.</li>
+<li><code>HEADER_LINE_TO_HIDE</code> hides the headers from the users other than auditors:
+  in the view, the downloads, the ZIP, the restore and the user export. Before,
+  the command-line export and eDiscovery lacked them too, so they weren't the
+  archived message. Those two get the archived message now. The Smart Insights
+  scanner also sees the archived headers.</li>
+<li>Sender and recipient search finds the words of an address: <code>marco</code> or
+  <code>righetti</code> finds <code>marco.righetti@mobilbyte.it</code>, as it did in piler 1.x. The
+  full address matches as before. Messages archived before 2.4.0 match only
+  the full address until they are reindexed with <code>reindex</code>. The Smart
+  Insights rules use the same words.</li>
+<li>The export skips a message whose attachment can't be retrieved, rather than
+  writing it without the attachment. The other messages are exported, the
+  skipped ones are listed with their reason in <code>skipped-messages.tsv</code> (next to
+  the ZIP file for <code>-zip</code>), and the run exits with an error. Run the export
+  again for them once their attachments are back.</li>
 </ul>
 <h3 id="security">Security<a class="headerlink" href="#security" title="Permanent link">#</a></h3>
 <ul>
