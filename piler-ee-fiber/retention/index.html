@@ -569,6 +569,12 @@ only the stored skeleton files (<code>.m</code>) of the emails it would purge. A
 without <code>-dry-run</code> also removes the stored attachment files of those emails,
 unless another email that is kept still has the same attachment. The dry
 run marks nothing in the database, so it doesn't list the attachments.</p>
+<p>An attachment that two emails share is kept while one of them is stored.
+Purging the first of them keeps the attachment for the other. When the other
+is purged later, the attachment is removed, and the first email can no longer
+be restored: the restore finds the attachment file missing and refuses,
+listing the file. So an email purged earlier can only be restored while all
+its attachment files are still stored.</p>
 <h2 id="related-pages">Related pages<a class="headerlink" href="#related-pages" title="Permanent link">#</a></h2>
 <ul>
 <li><a href="../gobd/#retention-periods">GoBD</a>: retention periods in Germany</li>
