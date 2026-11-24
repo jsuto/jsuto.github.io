@@ -1158,6 +1158,16 @@ upgrade of piler-ui, the scanner and the other tools.</p>
   skipped ones are listed with their reason in <code>skipped-messages.tsv</code> (next to
   the ZIP file for <code>-zip</code>), and the run exits with an error. Run the export
   again for them once their attachments are back.</li>
+<li>Piler 1.x archives: the web UI, <code>reindex</code>, <code>pilerexport</code> and the restore read
+  the emails and attachments that piler 1.x encrypted with Blowfish, in place.
+  No conversion is needed. The purge removes them as it removes the other
+  emails, see <a href="../retention/#purge">Purge</a>.</li>
+<li>The purge counts the attachment files it removes from a local store, as it
+  does on S3, so the <code>purged</code> counter and the metrics that read it rise from
+  the first purge on this version. The totals of earlier purges are not
+  changed.</li>
+<li>The purge keeps an email whose S3 object can't be deleted, and tries again
+  on the next run, so the email is not left half-deleted.</li>
 </ul>
 <h3 id="security">Security<a class="headerlink" href="#security" title="Permanent link">#</a></h3>
 <ul>

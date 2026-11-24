@@ -411,6 +411,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#your-archived-email" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Your archived email
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -544,6 +555,14 @@ After that let the admin reset other local users' passwords.</p>
 <p>Copy your license file to /etc/piler/license.jwt</p>
 <h3 id="start-piler-2x">Start piler 2.x<a class="headerlink" href="#start-piler-2x" title="Permanent link">#</a></h3>
 <p>Reboot the host, and verify that all services come up properly.</p>
+<h2 id="your-archived-email">Your archived email<a class="headerlink" href="#your-archived-email" title="Permanent link">#</a></h2>
+<p>The emails and attachments stay where piler 1.x stored them. Piler 2.x reads
+the ones that piler 1.x encrypted with Blowfish as they are, so the upgrade
+doesn't convert or re-encrypt them. The web UI, <code>reindex</code> and <code>pilerexport</code>
+read them.</p>
+<p>The purge treats them like the other emails: their files are removed when the
+email's retention ends, see <a href="../retention/#purge">Purge</a>. An attachment that
+two emails share is kept while one of them is still stored.</p>
 
 
 
