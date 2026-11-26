@@ -467,16 +467,24 @@ so treat it like a password:</p>
 <li><strong>A leaked admin token is a leaked admin account, less the users it can
   add</strong>: a full-scope admin token can still use the admin API, but it can't
   add a user, set a user's password or role, reset a TOTP or create tokens,
-  and it can't add a passkey. From 2.4.0, the admin UI makes those changes;
+  and it can't add a passkey. It can't set a tenant admin's password
+  (<code>admin_password</code> of <code>/api/v1/admin/tenant/update</code>), change a tenant's
+  login, role or server settings in <code>settings_json</code> (see
+  <a href="../rest-api/#personal-api-tokens">REST API</a> for the keys a token may
+  change), or add or change an LDAP server either: a login server of the
+  token's holder would let them sign in as any user of the tenant. From
+  2.3.4, the admin UI makes those changes;
   a token can't, so a leaked one can't provision a user who signs in
   without TOTP. Give admin tokens the <code>read</code> scope unless a script must
   change something, and the narrowest allowed addresses (the script's host,
   not a /16). If one leaks, revoke it at once in <strong>Users &gt; API tokens</strong> and
   check the audit log: every admin API change made with it is an <code>admin
   api</code> entry with the token in the details, next to the <code>user_create</code> or
-  <code>user_update</code> entry of the change. Before 2.4.0 a full-scope admin token
-  could add users and set their passwords: for a token that was used on an
-  older version, remove the users it added and reset the passwords it set.</li>
+  <code>user_update</code> entry of the change. Before 2.3.4 a full-scope admin token
+  could add users, set their passwords, a tenant admin's password, a
+  tenant's login settings and the LDAP servers: for a token that was used
+  on an older version, remove the users it added, reset the passwords it
+  set, and check the LDAP servers and the tenants' settings.</li>
 <li><strong>Revoke the tokens of a leaving user, and of a user whose role or groups
   change.</strong> Removing a local user, or setting their new password, revokes
   their tokens, and a local user's token stops at once when their role
@@ -497,7 +505,7 @@ and remove the users in the directory. piler takes a user from the directory
 at their login, and the local user table has no row for them. Scripts that
 manage users belong in the directory's own tooling.</p>
 <p>Local accounts are created and changed in the UI. A personal API token can't
-add a user, set a password or set the admin role from 2.4.0. A script can
+add a user, set a password or set the admin role from 2.3.4. A script can
 still do it with an access token from <code>POST /auth/login</code>: for an admin
 without TOTP, with the password alone; for an admin with TOTP, only if the
 script sends the <code>totp_code</code>, which means the script holds the

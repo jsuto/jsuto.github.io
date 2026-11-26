@@ -335,7 +335,22 @@ an expiry. The token is shown once.</p>
 local user are read again on every request, and a role change refuses the
 token. No token can create tokens, change the TOTP or passkeys, change
 the user's settings, or add a user or set a user's password or role through
-the admin API (from 2.4.0). The admin, auditor and data officer tokens need the
+the admin API, set a tenant admin's password or add or change an LDAP server
+(from 2.3.4). A token may still add and update tenants: a new tenant's
+initial <code>admin_password</code> is allowed, so hand it over and have the tenant's
+admin change it and turn on TOTP at the first login. In
+<code>/api/v1/admin/tenant/add</code> and <code>/api/v1/admin/tenant/update</code> a token sets
+only these <code>settings_json</code> keys: <code>LOCALE</code>, <code>LANGUAGES</code>, <code>DATE_FORMAT</code>,
+<code>TIMEZONE</code>, <code>PENDING_DAYS</code>,
+<code>MIN_RETENTION_DAYS</code>, <code>ENABLE_TENANT_RETENTION_POLICIES</code>,
+<code>MAX_CONTENT_LENGTH_TO_DISPLAY</code>, <code>MAX_DOWNLOAD_MESSAGES</code>,
+<code>MAX_EXPORT_MESSAGES</code>, <code>MAX_EXPORT_SIZE_BYTES</code>, <code>MIN_SIZE_TO_ENABLE_EXPORT</code>,
+<code>EXPORT_TIMEOUT</code>, <code>EDISCOVERY_MAX_TENANT_EXPORTS</code>, <code>DISABLED_FEATURES_USER</code>,
+<code>DISABLED_FEATURES_AUDITOR</code>, <code>SHOW_USER_SETTINGS</code>, <code>SHOW_LOGOUT_BUTTON</code> and
+<code>SHOW_IMPORT_MENU</code>. A change of any other key (the login, the roles, the
+tokens, a server or a secret of the tenant) is refused with 403, and the
+answer lists the refused keys in <code>keys</code>; change those in the admin UI.</p>
+<p>The admin, auditor and data officer tokens need the
 addresses they're allowed from (at most a /16, IPv6 /48 each); for a
 regular user they're optional. Behind a reverse proxy see
 <a href="../reverse-proxy/">Reverse proxy and the client's address</a>.</p>
