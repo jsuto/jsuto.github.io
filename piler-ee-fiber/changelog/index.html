@@ -1213,6 +1213,9 @@ upgrade of piler-ui, the scanner and the other tools.</p>
   provisioned: <code>tenant/add</code> didn't check the license, and <code>create-tenant.sh</code>
   never read it. <code>tenant/add</code> is 403 now, and the script leaves the tenant
   waiting.</li>
+<li>With redaction on, a redacted word or phrase that the view's length limit
+  cut in two showed its first part at the end of a long message. The view
+  now redacts before it cuts.</li>
 </ul>
 <h3 id="security">Security<a class="headerlink" href="#security" title="Permanent link">#</a></h3>
 <ul>
