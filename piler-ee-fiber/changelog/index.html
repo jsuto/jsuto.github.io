@@ -1189,9 +1189,23 @@ upgrade of piler-ui, the scanner and the other tools.</p>
   database it couldn't finish so the next run starts over, and a killed
   run no longer blocks the next ones. A tenant id with <code>_</code> is no longer
   taken for an existing database with a similar name.</li>
-<li>Migration 038 makes <code>tenant_id</code> unique in <code>tenant_settings</code>. If it prints
+<li>
+<p>Migration 038 makes <code>tenant_id</code> unique in <code>tenant_settings</code>. If it prints
   the tenant ids that have more than one row, remove the extra rows and run
-  it again, see <a href="../upgrade/#run-the-migrations">Run the migrations</a>.</li>
+  it again, see <a href="../upgrade/#run-the-migrations">Run the migrations</a>.</p>
+</li>
+<li>
+<p>The message view shows a long message's first part with a neutral note
+  instead of the red "Truncated message!" box, a link to show the whole
+  message (up to 2,000,000 characters), and an explanation behind the info
+  icon. The download link is offered when it's too long for that. The
+  note is in the audit and data officer views too.
+  <code>MAX_CONTENT_LENGTH_TO_DISPLAY</code> defaults to 250000 instead of 30000: it
+  counts the HTML markup, so most HTML newsletters were shortened.</p>
+</li>
+<li>A remote image the message view doesn't load shows as a light grey box of
+  the image's size, not a red icon, and a note says that images from
+  external websites are blocked, only on the messages that have one.</li>
 </ul>
 <h3 id="fixed">Fixed<a class="headerlink" href="#fixed" title="Permanent link">#</a></h3>
 <ul>

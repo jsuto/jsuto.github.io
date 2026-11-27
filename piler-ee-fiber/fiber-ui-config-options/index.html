@@ -3186,8 +3186,8 @@ documentation printed for native multi-node installs. See <a href="../upgrade/#j
 <p>Description: Title text for the header link.</p>
 <hr />
 <h3 id="max_content_length_to_display">MAX_CONTENT_LENGTH_TO_DISPLAY<a class="headerlink" href="#max_content_length_to_display" title="Permanent link">#</a></h3>
-<p>Default value: <code>30000</code></p>
-<p>Description: Maximum content size (in bytes) to render in the UI. Longer messages are truncated in the message preview, but other than that the message is still intact.</p>
+<p>Default value: <code>250000</code> (<code>30000</code> in earlier versions)</p>
+<p>Description: The longest message body, in characters of its HTML or text, that the message view shows. A longer one is shown shortened, with a note and a link to show the full message (up to 2,000,000 characters) or to download it. The archived message is complete. It can be set per tenant in <code>settings_json</code>.</p>
 <hr />
 <h3 id="rt_index">RT_INDEX<a class="headerlink" href="#rt_index" title="Permanent link">#</a></h3>
 <p>Default value: <code>true</code></p>
