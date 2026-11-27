@@ -1216,6 +1216,11 @@ upgrade of piler-ui, the scanner and the other tools.</p>
 <li>With redaction on, a redacted word or phrase that the view's length limit
   cut in two showed its first part at the end of a long message. The view
   now redacts before it cuts.</li>
+<li>The API token form showed the proxy's address as the user's when the
+  request came through a proxy piler doesn't trust, or one that doesn't pass
+  the address. A token allowed from that address was refused. The form now
+  says piler can't tell the address and names <code>TRUSTED_PROXIES</code> and
+  <code>PROXY_HEADER</code>.</li>
 </ul>
 <h3 id="security">Security<a class="headerlink" href="#security" title="Permanent link">#</a></h3>
 <ul>
