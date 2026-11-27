@@ -479,8 +479,8 @@
 
 <h1 id="upgrading">Upgrading<a class="headerlink" href="#upgrading" title="Permanent link">#</a></h1>
 <p>This documentation applies to Piler enterprise edition 2.3.0</p>
-<p>Revision #8</p>
-<p>Publication date: 2026-NOV-02</p>
+<p>Revision #9</p>
+<p>Publication date: 2026-NOV-27</p>
 <h2 id="upgrade-steps">Upgrade steps<a class="headerlink" href="#upgrade-steps" title="Permanent link">#</a></h2>
 <h3 id="run-the-migrations">Run the migrations<a class="headerlink" href="#run-the-migrations" title="Permanent link">#</a></h3>
 <p>Run mysql migrations on each piler related mysql database:</p>
@@ -496,6 +496,11 @@ done
 </code></pre>
 <p>The migrations are safe to run again: run all of them at every upgrade,
 those of earlier versions too.</p>
+<p>From 2.3.4, <code>038_tenant_id_unique.sql</code> makes <code>tenant_id</code> unique in
+<code>tenant_settings</code>. If the table has more than one row of a tenant, it
+changes nothing and prints <code>✗ Migration 038: tenant_settings has more rows
+of ...</code>. Then keep the right row of each tenant listed, delete the others,
+and run 038 again.</p>
 <p>For a multi-tenant deployment, run the mysql migrations for all piler databases, also
 run the manticore migrations for all tenant ids as well, and replace "piler" in the sed
 command with the tenant id, eg.</p>

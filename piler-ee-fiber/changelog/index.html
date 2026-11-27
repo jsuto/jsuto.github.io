@@ -280,6 +280,17 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#fixed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fixed
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#security" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -341,7 +352,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#fixed" class="md-nav__link">
+  <a href="#fixed_1" class="md-nav__link">
     <span class="md-ellipsis">
       
         Fixed
@@ -391,7 +402,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#fixed_1" class="md-nav__link">
+  <a href="#fixed_2" class="md-nav__link">
     <span class="md-ellipsis">
       
         Fixed
@@ -452,7 +463,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#fixed_2" class="md-nav__link">
+  <a href="#fixed_3" class="md-nav__link">
     <span class="md-ellipsis">
       
         Fixed
@@ -513,7 +524,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#fixed_3" class="md-nav__link">
+  <a href="#fixed_4" class="md-nav__link">
     <span class="md-ellipsis">
       
         Fixed
@@ -574,7 +585,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#fixed_4" class="md-nav__link">
+  <a href="#fixed_5" class="md-nav__link">
     <span class="md-ellipsis">
       
         Fixed
@@ -635,7 +646,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#fixed_5" class="md-nav__link">
+  <a href="#fixed_6" class="md-nav__link">
     <span class="md-ellipsis">
       
         Fixed
@@ -696,7 +707,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#fixed_6" class="md-nav__link">
+  <a href="#fixed_7" class="md-nav__link">
     <span class="md-ellipsis">
       
         Fixed
@@ -746,7 +757,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#fixed_7" class="md-nav__link">
+  <a href="#fixed_8" class="md-nav__link">
     <span class="md-ellipsis">
       
         Fixed
@@ -807,7 +818,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#fixed_8" class="md-nav__link">
+  <a href="#fixed_9" class="md-nav__link">
     <span class="md-ellipsis">
       
         Fixed
@@ -868,7 +879,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#fixed_9" class="md-nav__link">
+  <a href="#fixed_10" class="md-nav__link">
     <span class="md-ellipsis">
       
         Fixed
@@ -929,7 +940,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#fixed_10" class="md-nav__link">
+  <a href="#fixed_11" class="md-nav__link">
     <span class="md-ellipsis">
       
         Fixed
@@ -1001,7 +1012,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#fixed_11" class="md-nav__link">
+  <a href="#fixed_12" class="md-nav__link">
     <span class="md-ellipsis">
       
         Fixed
@@ -1168,6 +1179,26 @@ upgrade of piler-ui, the scanner and the other tools.</p>
   changed.</li>
 <li>The purge keeps an email whose S3 object can't be deleted, and tries again
   on the next run, so the email is not left half-deleted.</li>
+<li><code>tenant/add</code> can be called again for an existing tenant: the same tenant
+  with the same settings is <code>200</code> with <code>"exists": true</code> and changes nothing,
+  a tenant with other settings or a clash with another tenant's domain,
+  GUI URL or archive address is 409 instead of 500. See
+  <a href="../rest-api/#adding-tenants-from-a-script">Adding tenants from a script</a>.</li>
+<li><code>create-tenant.sh</code> can be run again for any tenant: it keeps an existing
+  database and index, creates only the missing Manticore tables, drops a
+  database it couldn't finish so the next run starts over, and a killed
+  run no longer blocks the next ones. A tenant id with <code>_</code> is no longer
+  taken for an existing database with a similar name.</li>
+<li>Migration 038 makes <code>tenant_id</code> unique in <code>tenant_settings</code>. If it prints
+  the tenant ids that have more than one row, remove the extra rows and run
+  it again, see <a href="../upgrade/#run-the-migrations">Run the migrations</a>.</li>
+</ul>
+<h3 id="fixed">Fixed<a class="headerlink" href="#fixed" title="Permanent link">#</a></h3>
+<ul>
+<li>On a single tenant license, a tenant added through the API was still
+  provisioned: <code>tenant/add</code> didn't check the license, and <code>create-tenant.sh</code>
+  never read it. <code>tenant/add</code> is 403 now, and the script leaves the tenant
+  waiting.</li>
 </ul>
 <h3 id="security">Security<a class="headerlink" href="#security" title="Permanent link">#</a></h3>
 <ul>
@@ -1262,7 +1293,7 @@ in the index: reindex them again after the upgrade.</p>
 <li>The piler daemon no longer logs "No files found, sleeping for 5
   seconds..." for each idle worker at debug level.</li>
 </ul>
-<h3 id="fixed">Fixed<a class="headerlink" href="#fixed" title="Permanent link">#</a></h3>
+<h3 id="fixed_1">Fixed<a class="headerlink" href="#fixed_1" title="Permanent link">#</a></h3>
 <ul>
 <li>The pending icon of the search results disappeared when a reply came
   from an email the user can't see, and showed with the pending
@@ -1322,7 +1353,7 @@ piler-ui doesn't start with an older Manticore.</p>
   (only one column was), which keeps them smaller. Existing tables stay as
   they are.</li>
 </ul>
-<h3 id="fixed_1">Fixed<a class="headerlink" href="#fixed_1" title="Permanent link">#</a></h3>
+<h3 id="fixed_2">Fixed<a class="headerlink" href="#fixed_2" title="Permanent link">#</a></h3>
 <ul>
 <li>A search with <code>%</code> or <code>;</code> in it failed.</li>
 <li>A tag or note search found the emails of the rest of the search when no
@@ -1409,7 +1440,7 @@ formats left over from 1.8.x, see
   1.8.4 install once, it's not the upgrade of a 2.x install, see
   <a href="../upgrade/">Upgrading</a>.</li>
 </ul>
-<h3 id="fixed_2">Fixed<a class="headerlink" href="#fixed_2" title="Permanent link">#</a></h3>
+<h3 id="fixed_3">Fixed<a class="headerlink" href="#fixed_3" title="Permanent link">#</a></h3>
 <ul>
 <li>After an upgrade from 1.8.x the dates were garbled for users with a 1.8.x
   date format in their settings (e.g. <code>d.m.Y</code>). These formats are reset to
@@ -1717,7 +1748,7 @@ an example. See
   (they went to the error directory); the log says what to fix for a
   missing bucket, a denied access or invalid keys.</li>
 </ul>
-<h3 id="fixed_3">Fixed<a class="headerlink" href="#fixed_3" title="Permanent link">#</a></h3>
+<h3 id="fixed_4">Fixed<a class="headerlink" href="#fixed_4" title="Permanent link">#</a></h3>
 <ul>
 <li>A retention rule created in the admin UI was disabled until switched on.</li>
 <li><code>purge -dry-run</code> said 0 files in its summary after listing them.</li>
@@ -1865,7 +1896,7 @@ an example. See
   accessibility and HTML markup fixes.</li>
 <li>Upgraded frontend dependencies (Vue, axios, DOMPurify).</li>
 </ul>
-<h3 id="fixed_4">Fixed<a class="headerlink" href="#fixed_4" title="Permanent link">#</a></h3>
+<h3 id="fixed_5">Fixed<a class="headerlink" href="#fixed_5" title="Permanent link">#</a></h3>
 <ul>
 <li>Duplicates left an orphaned encrypted message file in the store (and in
   the S3 bucket); new duplicates no longer do.</li>
@@ -1911,7 +1942,7 @@ an example. See
 <li>Message selection: Ctrl/Cmd+click for single-message selection,
   Shift+click for range selection</li>
 </ul>
-<h3 id="fixed_5">Fixed<a class="headerlink" href="#fixed_5" title="Permanent link">#</a></h3>
+<h3 id="fixed_6">Fixed<a class="headerlink" href="#fixed_6" title="Permanent link">#</a></h3>
 <ul>
 <li>Table content clipping in dashboard cards</li>
 <li>Bogus sort order in multinode search results</li>
@@ -1945,7 +1976,7 @@ an example. See
 <li><code>RPM_RELEASE</code> override for RPM packaging; fixed <code>dpkg-sig</code> removal on
   package updates</li>
 </ul>
-<h3 id="fixed_6">Fixed<a class="headerlink" href="#fixed_6" title="Permanent link">#</a></h3>
+<h3 id="fixed_7">Fixed<a class="headerlink" href="#fixed_7" title="Permanent link">#</a></h3>
 <ul>
 <li>Fixed a tenant-configuration bug that could cause scheduled purges to
   be skipped</li>
@@ -1970,7 +2001,7 @@ an example. See
 <li>OX (Open-Xchange) webmail integration: theme, language, timezone, and
   iframe CSS synchronization</li>
 </ul>
-<h3 id="fixed_7">Fixed<a class="headerlink" href="#fixed_7" title="Permanent link">#</a></h3>
+<h3 id="fixed_8">Fixed<a class="headerlink" href="#fixed_8" title="Permanent link">#</a></h3>
 <ul>
 <li>Session cookie expiry handled incorrectly in some flows; <code>dompurify</code>
   upgraded alongside the fix</li>
@@ -2004,7 +2035,7 @@ an example. See
   for a <code>postMessage</code> theme-change event from a parent iframe</li>
 <li>Import job handling simplified</li>
 </ul>
-<h3 id="fixed_8">Fixed<a class="headerlink" href="#fixed_8" title="Permanent link">#</a></h3>
+<h3 id="fixed_9">Fixed<a class="headerlink" href="#fixed_9" title="Permanent link">#</a></h3>
 <ul>
 <li>Email direction now computed per-message from the local domain table,
   rather than a possibly-stale cached value</li>
@@ -2038,7 +2069,7 @@ an example. See
   default is empty, so they can still be overridden via environment
   variables</li>
 </ul>
-<h3 id="fixed_9">Fixed<a class="headerlink" href="#fixed_9" title="Permanent link">#</a></h3>
+<h3 id="fixed_10">Fixed<a class="headerlink" href="#fixed_10" title="Permanent link">#</a></h3>
 <ul>
 <li>Microsoft 365 journal processing</li>
 <li>LDAP authentication edge case</li>
@@ -2065,7 +2096,7 @@ an example. See
 <ul>
 <li>Manticore upgraded to 25.0.0 in tests and the installer</li>
 </ul>
-<h3 id="fixed_10">Fixed<a class="headerlink" href="#fixed_10" title="Permanent link">#</a></h3>
+<h3 id="fixed_11">Fixed<a class="headerlink" href="#fixed_11" title="Permanent link">#</a></h3>
 <ul>
 <li>Swagger/OpenAPI docs generation</li>
 </ul>
@@ -2109,7 +2140,7 @@ round of <code>gosec</code>-driven security hardening.</p>
 <li>ediscovery exports now emit an audit log entry</li>
 <li>Purge performance improvements</li>
 </ul>
-<h3 id="fixed_11">Fixed<a class="headerlink" href="#fixed_11" title="Permanent link">#</a></h3>
+<h3 id="fixed_12">Fixed<a class="headerlink" href="#fixed_12" title="Permanent link">#</a></h3>
 <ul>
 <li>Deb packaging issue; API auth edge case; cron entry handling; various
   migration/import fixes</li>

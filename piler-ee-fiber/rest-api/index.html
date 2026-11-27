@@ -279,6 +279,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#adding-tenants-from-a-script" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Adding tenants from a script
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#billing-api" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -308,8 +319,8 @@
 
 <h1 id="rest-api">REST API<a class="headerlink" href="#rest-api" title="Permanent link">#</a></h1>
 <p>This documentation applies to Piler enterprise edition 2.1.0+</p>
-<p>Revision #3</p>
-<p>Publication date: 2026-NOV-12</p>
+<p>Revision #4</p>
+<p>Publication date: 2026-NOV-27</p>
 <p>Piler enterprise support a comprehensive OpenAPI 3.0 with interactive Swagger UI.</p>
 <p>The full OpenAPI 3.0 spec, and the interactive docs is available at <code>/api/docs</code>, see the <a href="https://demo.mailpiler.com/api/docs/index.html">demo site</a> as an example.</p>
 <p>You may use curl to get an access token:</p>
@@ -374,6 +385,23 @@ it's authenticated.</p>
 <pre><code>curl -s -H &quot;Authorization: Bearer plp_...&quot; \
     &quot;https://archive.example.com/api/v1/search/history&quot;
 </code></pre>
+<h2 id="adding-tenants-from-a-script">Adding tenants from a script<a class="headerlink" href="#adding-tenants-from-a-script" title="Permanent link">#</a></h2>
+<p>From 2.3.4 <code>/api/v1/admin/tenant/add</code> can be called again for a tenant
+that already exists, so a provisioning script can run it every time:</p>
+<ul>
+<li><strong>The same tenant with the same settings</strong> (domain, <code>gui_url</code>,
+  <code>archive_address</code>, retention, purge, worker and <code>settings_json</code>): <code>200
+  {"message": "OK", "exists": true}</code>. Nothing is changed, the tenant admin's
+  password neither. A tenant that isn't provisioned yet is queued again.</li>
+<li><strong>The tenant with other settings:</strong> 409. Change them with
+  <code>/api/v1/admin/tenant/update</code>.</li>
+<li><strong>Another tenant with the same domain, <code>gui_url</code> or <code>archive_address</code>:</strong>
+  409, and the answer names that tenant and the fields.</li>
+<li><strong>A single tenant license:</strong> 403, no tenant can be added.</li>
+</ul>
+<p><code>create-tenant.sh</code> creates the tenant's database and index within 15
+minutes (it runs from cron). Running it again for an existing tenant keeps
+its database, its users and its admin password.</p>
 <h2 id="billing-api">Billing API<a class="headerlink" href="#billing-api" title="Permanent link">#</a></h2>
 <p>From 2.3.0, billing scripts use a read-only API token instead of a login:
 <code>/api/v1/billing/quota</code> and <code>/api/v1/billing/quota/monthly/&lt;tenant id&gt;</code>,
