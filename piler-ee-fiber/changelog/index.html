@@ -1293,9 +1293,10 @@ than one row, remove the extra rows and run it again.</p>
   they are the only deleted messages of the folder.</li>
 <li>IMAP import: the messages pilerimport couldn't import were deleted with
   the job directory, or overwritten by a later run. They are kept in the
-  failed directory (<code>/var/piler/imap/failed/</code> with <code>import.sh</code>), retried on
-  the next run of the job, and their folder stays partial until they are
-  imported. A failed batch logs pilerimport's reason, not only <code>exit status
+  failed directory (<code>/var/piler/imap/failed/</code> with <code>import.sh</code>), retried
+  when the job is run again, and their folder stays partial until they are
+  imported, see
+  <a href="../import-emails/#running-a-job-again">Running a job again</a>. A failed batch logs pilerimport's reason, not only <code>exit status
   1</code>.</li>
 <li>IMAP import: the import marked every imported message read on the
   server. It fetches them without changing their flags now.</li>

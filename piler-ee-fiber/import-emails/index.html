@@ -304,6 +304,56 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Import from an IMAP server">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#import-jobs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Import jobs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#running-a-job-again" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Running a job again
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#logs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Logs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#command-line-run" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Command-line run
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -529,9 +579,9 @@
 
 
 <h1 id="import-emails">Import emails<a class="headerlink" href="#import-emails" title="Permanent link">#</a></h1>
-<p>This documentation applies to Piler enterprise edition 2.1.0 (envelope files and <code>-add-recipients</code>: 2.2.4+, PST files and the Microsoft 365 download options: 2.3.0+)</p>
-<p>Revision #5</p>
-<p>Publication date: 2026-OCT-30</p>
+<p>This documentation applies to Piler enterprise edition 2.1.0 (envelope files and <code>-add-recipients</code>: 2.2.4+, PST files and the Microsoft 365 download options: 2.3.0+, the IMAP failed messages and logs: 2.3.4+)</p>
+<p>Revision #6</p>
+<p>Publication date: 2026-NOV-28</p>
 <h2 id="import-local-emails">Import local emails<a class="headerlink" href="#import-local-emails" title="Permanent link">#</a></h2>
 <pre><code>Usage: pilerimport [options]
 
@@ -577,24 +627,77 @@ rcpt ben@customer1.com
 </code></pre>
 <p>pilerimport archives these recipients like the <code>To</code> and <code>Cc</code> ones. For emails that are already imported, <code>-add-recipients</code> adds them without importing the emails again. See <a href="../envelope-recipients/#migrated-mail-pilerimport">Migrated mail</a> for the details, and the audit log entries it writes.</p>
 <h2 id="import-from-an-imap-server">Import from an IMAP server<a class="headerlink" href="#import-from-an-imap-server" title="Permanent link">#</a></h2>
+<p>imapfetch downloads the emails of an IMAP mailbox and archives them with
+pilerimport, a batch at a time. There are two ways to run it: an import
+job, which is the usual way, or a one-off run from the command line.</p>
+<h3 id="import-jobs">Import jobs<a class="headerlink" href="#import-jobs" title="Permanent link">#</a></h3>
+<p>Add the mailbox on the <strong>Import</strong> page of the admin UI. <code>import.sh</code> runs the
+jobs: the worker container's crontab (<code>/usr/libexec/piler/import.sh</code> every 15
+minutes, see <code>etc/cron.jobs-2.x</code> for a package install) starts each job that
+hasn't started yet. It runs, for each job:</p>
+<pre><code>imapfetch -i -tenantid &lt;tenant&gt; -j &lt;job id&gt; -dir /var/piler/imap/import-&lt;tenant&gt;-&lt;job id&gt;-&lt;random&gt;
+</code></pre>
+<p>A job:</p>
+<ul>
+<li><strong>Checkpoints its progress:</strong> the folders and the last UID of each are in
+  the database, so an interrupted job resumes where it stopped. A message
+  counts as fetched only when pilerimport archived it.</li>
+<li><strong>Never removes messages from the IMAP server</strong>, and doesn't mark them
+  read: <code>-remove</code> is refused for a job (<code>-j</code>, <code>-i</code>). Remove them on the
+  server yourself once the job has completed.</li>
+<li><strong>Keeps the messages pilerimport couldn't import (from 2.3.4):</strong>
+  <code>import.sh</code> sets <code>IMAP_FAILED_DIR</code> to
+  <code>/var/piler/imap/failed/&lt;tenant&gt;-&lt;job id&gt;-&lt;time&gt;</code>, and imapfetch moves
+  them there. They are recorded as failed, their folder stays partial, and
+  the job ends partial and exits 1. See
+  <a href="#running-a-job-again">Running a job again</a> to retry them once the reason
+  is fixed (e.g. a full disk).</li>
+<li><strong>Is queued again when it was killed (from 2.3.4):</strong> at its start,
+  <code>import.sh</code> looks for the directories of killed runs. A job still marked
+  running is queued again and fetches its messages from its last UID. When
+  the job can't be queued again, or has failed messages, the files are kept
+  in <code>/var/piler/imap/failed/import-&lt;tenant&gt;-&lt;job id&gt;-&lt;random&gt;</code>.</li>
+</ul>
+<p>A failed job doesn't stop the other jobs; <code>import.sh</code> exits 1 when one
+failed.</p>
+<h3 id="running-a-job-again">Running a job again<a class="headerlink" href="#running-a-job-again" title="Permanent link">#</a></h3>
+<p><code>import.sh</code> runs a job once. To resume an interrupted job or to retry its
+failed messages, queue it again:</p>
+<pre><code>UPDATE piler.import SET started_at = NULL WHERE id = &lt;job id&gt;;
+</code></pre>
+<p>The next <code>import.sh</code> run resumes it from its checkpoint: it fetches the
+messages above the last UID of each folder and the failed ones again, and
+pilerimport skips the ones already archived. A retried message that is
+archived is no longer listed as failed. The files in the failed directory
+are copies, the messages are still on the server: delete the directory once
+the job has completed.</p>
+<h3 id="logs">Logs<a class="headerlink" href="#logs" title="Permanent link">#</a></h3>
+<p>imapfetch logs with the <code>LOG_LEVEL</code> and <code>LOG_FORMAT</code> of the other daemons
+(JSON by default), with the component <code>imapfetch</code>. The output of pilerimport
+is in the same log, so the line of each message and the reason of a failed
+batch are there too. <code>import.sh</code> logs with the component <code>import</code>: to the
+container log in Docker, and to syslog (<code>mail.info</code>, errors at <code>mail.err</code>)
+on a package install.</p>
+<p>The status of a job, with its folders and its failed messages:</p>
+<pre><code>imapfetch -tenantid &lt;tenant&gt; -j &lt;job id&gt; -status
+</code></pre>
+<h3 id="command-line-run">Command-line run<a class="headerlink" href="#command-line-run" title="Permanent link">#</a></h3>
 <pre><code>Usage of imapfetch:
-  -batchsize int
-        batch size to download before processing
+  -chunk-size int
+        Number of messages to fetch per IMAP request (default 100)
   -dir string
         directory to chdir
   -folders string
         Comma separated list of IMAP folders to download
   -i    Read IMAP conn data from import table
   -j int
-        job ID
+        job ID (enables checkpoint/resume)
   -no-ssl
         Do not use SSL/TLS
   -oauth2-token string
         OAuth2 access token file
   -password string
         IMAP password
-  -port int
-        port number (default 993)
   -print-folders
         only print IMAP folders, then exit
   -readonly
@@ -604,7 +707,9 @@ rcpt ben@customer1.com
   -search string
         Search expression
   -server string
-        IMAP server
+        IMAP server (hostname:port, e.g., imap.example.com:993)
+  -status
+        Show status for job ID (requires -j)
   -tenantid string
         tenant ID (required)
   -user string
@@ -613,13 +718,25 @@ rcpt ben@customer1.com
         verbose mode
   -x string
         IMAP folders to skip (default &quot;junk,trash,spam,draft&quot;)
-
-Examples:
-  imapfetch -server imap.aaa.fu -user bela@aaa.fu -password abcde123 -tenantid piler
 </code></pre>
-<p>The imapfetch utility can download emails from an IMAP server to the current directory, then you can use pilerimport to process them.</p>
-<pre><code>pilerimport -dir . -remove
+<p>Run it in an empty directory: imapfetch saves the emails there and runs
+pilerimport on them itself, so there's no separate pilerimport step.</p>
+<pre><code>mkdir /var/piler/imap/bela &amp;&amp; cd /var/piler/imap/bela
+imapfetch -server imap.aaa.fu:993 -user bela@aaa.fu -password abcde123 -tenantid piler
 </code></pre>
+<p><code>-search</code> takes <code>ALL</code>, <code>SINCE 01-Jan-2024</code> or <code>BEFORE 01-Jan-2024</code>.</p>
+<p>With <code>-remove</code>, imapfetch removes the archived messages from the IMAP
+server. From 2.3.4 it needs <code>IMAP_FAILED_DIR</code>, where the messages
+pilerimport couldn't import go; they stay on the server. A message is
+flagged for deletion only after pilerimport took it, and only the flagged
+messages are expunged (<code>UID EXPUNGE</code>), not the ones the user deleted
+earlier. A server without the UIDPLUS extension gets a plain <code>EXPUNGE</code> only
+when the flagged messages are the only deleted ones of the folder;
+otherwise nothing is expunged and imapfetch logs it.</p>
+<pre><code>IMAP_FAILED_DIR=/var/piler/imap/failed/bela imapfetch -server imap.aaa.fu:993 -user bela@aaa.fu -password abcde123 -tenantid piler -remove
+</code></pre>
+<p>A relative <code>IMAP_FAILED_DIR</code> is relative to the directory imapfetch was
+started in, not to <code>-dir</code>.</p>
 <h2 id="import-from-google-workspace">Import from Google Workspace<a class="headerlink" href="#import-from-google-workspace" title="Permanent link">#</a></h2>
 <h3 id="enable-gmail-api-and-admin-sdk-api">Enable Gmail API and Admin SDK API<a class="headerlink" href="#enable-gmail-api-and-admin-sdk-api" title="Permanent link">#</a></h3>
 <p>Go to Google Cloud Console</p>
