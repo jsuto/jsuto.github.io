@@ -1282,6 +1282,11 @@ than one row, remove the extra rows and run it again.</p>
 <li>IMAP import jobs never remove messages from the IMAP server: <code>-remove</code> is
   refused for a job (<code>-j</code>, <code>-i</code>). A job needs <code>IMAP_FAILED_DIR</code>, which
   <code>import.sh</code> sets, and so does a plain run with <code>-remove</code>.</li>
+<li><code>import.sh -requeue &lt;job id&gt;</code> queues a partial, failed or needs review
+  IMAP import job again, <code>-now</code> starts a run at once. Once a day
+  <code>import.sh</code> logs a warning with that command for each job that needs
+  attention. See
+  <a href="../import-emails/#running-a-job-again">Running a job again</a>.</li>
 </ul>
 <h3 id="fixed_1">Fixed<a class="headerlink" href="#fixed_1" title="Permanent link">#</a></h3>
 <ul>
@@ -1306,6 +1311,11 @@ than one row, remove the extra rows and run it again.</p>
 <li>IMAP import: a job counted a message as fetched before pilerimport took
   it, counted a failed one twice, and a resumed job could skip messages or
   fetch the whole folder again. A message is counted when it's archived.</li>
+<li>IMAP import: with more than one import node, two nodes could start the
+  same job at once. Each run claims a job before it starts it now.</li>
+<li>IMAP import: a job whose imapfetch died during the run (e.g. the OOM
+  killer) stayed running with nothing reporting it. It's marked failed now,
+  with the <code>-requeue</code> command in the log.</li>
 <li>A slash or a bracket in the free text of a search (<code>user/pass</code>,
   <code>(invoice)</code>, <code>~draft</code>) made the search fail with an error. They separate
   words now, as in the index.</li>

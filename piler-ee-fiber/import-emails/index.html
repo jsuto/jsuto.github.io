@@ -579,8 +579,8 @@
 
 
 <h1 id="import-emails">Import emails<a class="headerlink" href="#import-emails" title="Permanent link">#</a></h1>
-<p>This documentation applies to Piler enterprise edition 2.1.0 (envelope files and <code>-add-recipients</code>: 2.2.4+, PST files and the Microsoft 365 download options: 2.3.0+, the IMAP failed messages and logs: 2.3.4+)</p>
-<p>Revision #6</p>
+<p>This documentation applies to Piler enterprise edition 2.1.0 (envelope files and <code>-add-recipients</code>: 2.2.4+, PST files and the Microsoft 365 download options: 2.3.0+, the IMAP failed messages, logs and <code>import.sh -requeue</code>: 2.3.4+)</p>
+<p>Revision #7</p>
 <p>Publication date: 2026-NOV-28</p>
 <h2 id="import-local-emails">Import local emails<a class="headerlink" href="#import-local-emails" title="Permanent link">#</a></h2>
 <pre><code>Usage: pilerimport [options]
@@ -660,23 +660,46 @@ hasn't started yet. It runs, for each job:</p>
 </ul>
 <p>A failed job doesn't stop the other jobs; <code>import.sh</code> exits 1 when one
 failed.</p>
+<p>On a multi-node setup with more than one import node, each run claims a
+job before it starts it, so two nodes never run the same job (from 2.3.4).</p>
+<p>A job whose imapfetch dies during the run (e.g. the OOM killer) is marked
+failed, with "imapfetch stopped during the job" as its last error, and is
+not run again until you queue it again (from 2.3.4).</p>
 <h3 id="running-a-job-again">Running a job again<a class="headerlink" href="#running-a-job-again" title="Permanent link">#</a></h3>
-<p><code>import.sh</code> runs a job once. To resume an interrupted job or to retry its
-failed messages, queue it again:</p>
+<p><code>import.sh</code> runs a job once. To resume an interrupted job, or to retry its
+failed messages once the reason is fixed, queue it again (from 2.3.4):</p>
+<pre><code>import.sh -requeue &lt;job id&gt;                                        # package install
+docker exec &lt;worker container&gt; /usr/libexec/piler/import.sh -requeue &lt;job id&gt;
+</code></pre>
+<p>The next <code>import.sh</code> run, within 15 minutes, resumes it from its
+checkpoint: it fetches the messages above the last UID of each folder and
+the failed ones again, and pilerimport skips the ones already archived. A
+retried message that is archived is no longer listed as failed. Add <code>-now</code>
+to start a run at once; when a run is in progress, the job is left to the
+next one. The run belongs to the piler user, also when you start it as root.</p>
+<p><code>-requeue</code> takes a partial, failed or needs review job, and a job whose
+run stopped between its claim and imapfetch. A job whose imapfetch stopped
+before it marked the job running (e.g. the database was unreachable) needs
+nothing: the next run tries it again. It refuses a running and a completed
+job. It runs on any node of a multi-node setup: the job still runs on its
+import node.</p>
+<p>Once a day <code>import.sh</code> logs a warning for each job that needs attention
+(partial, failed, needs review, or never started) and finished in the last
+30 days, with the command that queues it again:</p>
+<pre><code>{&quot;level&quot;:&quot;warn&quot;,&quot;component&quot;:&quot;import&quot;,&quot;message&quot;:&quot;import.sh: job acme-12 is partial: 3 failed message(s), at most 2 attempt(s); queue it again with import.sh -requeue 12&quot;}
+</code></pre>
+<p>The files in the failed directory are copies, the messages are still on the
+server: delete the directory once the job has completed.</p>
+<p>Before 2.3.4, queue a job again in the database:</p>
 <pre><code>UPDATE piler.import SET started_at = NULL WHERE id = &lt;job id&gt;;
 </code></pre>
-<p>The next <code>import.sh</code> run resumes it from its checkpoint: it fetches the
-messages above the last UID of each folder and the failed ones again, and
-pilerimport skips the ones already archived. A retried message that is
-archived is no longer listed as failed. The files in the failed directory
-are copies, the messages are still on the server: delete the directory once
-the job has completed.</p>
 <h3 id="logs">Logs<a class="headerlink" href="#logs" title="Permanent link">#</a></h3>
 <p>imapfetch logs with the <code>LOG_LEVEL</code> and <code>LOG_FORMAT</code> of the other daemons
 (JSON by default), with the component <code>imapfetch</code>. The output of pilerimport
 is in the same log, so the line of each message and the reason of a failed
 batch are there too. <code>import.sh</code> logs with the component <code>import</code>: to the
-container log in Docker, and to syslog (<code>mail.info</code>, errors at <code>mail.err</code>)
+container log in Docker, and to syslog (<code>mail.info</code>, warnings at
+<code>mail.warning</code>, errors at <code>mail.err</code>)
 on a package install.</p>
 <p>The status of a job, with its folders and its failed messages:</p>
 <pre><code>imapfetch -tenantid &lt;tenant&gt; -j &lt;job id&gt; -status
